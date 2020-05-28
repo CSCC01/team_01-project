@@ -16,7 +16,7 @@
 1. For emergency contact, we use mobile phone in case of network problems.
     * Jiawei: 437-982-0103
     * Anson:  000-000-0000
-    * Jesse:  000-000-0000
+    * Jesse:  647-231-8777
     * Vanessa:000-000-0000
     * Yolanda:000-000-0000  
     **Please delete this line if everyone has done.**
@@ -49,3 +49,4 @@
 Forgive my poor English, who can change a formal one for me :(
 
 <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">
+<br><img src="res/signature/jesse_sig.png" width="140" height="50" alt="Jesse Zhang">
