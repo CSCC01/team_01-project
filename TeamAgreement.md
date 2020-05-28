@@ -48,4 +48,4 @@
 
 Forgive my poor English, who can change a formal one for me :(
 
-<img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">
+<img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">
