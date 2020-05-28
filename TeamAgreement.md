@@ -18,11 +18,11 @@
     * Anson:  000-000-0000
     * Jesse:  000-000-0000
     * Vanessa:000-000-0000
-    * Yolanda:000-000-0000
+    * Yolanda:000-000-0000  
     **Please delete this line if everyone has done.**
 
 ## Meeting arrangement
-1. The mandatory weekly video meeting with [Jaya](https://github.com/jthara) is scheduled at Thursday 6p.m-7p.m
+1. The mandatory weekly video meeting with TA [Jaya](https://github.com/jthara) is scheduled at Thursday 6p.m-7p.m
 1. Group meeting times: TBA
 1. I think we should have a mandatory weekly meeting to ensure we have completed some work as expected. We can discuss when and what to discuss.
 1. Meeting tools: Teams/Zoom
