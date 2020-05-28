@@ -10,7 +10,7 @@
 
 ## Methods of communication
 1. Each member is expected and has the responsibility to participate in the discussion. 
-1. **Slack** is the main tool we use for basic communication, with responding time less than 2 hours.(9a.m-12p.m) If the response time is always long, we may use peer adjustment.
+1. **Slack** is the main tool we use for basic communication, with responding time less than 2 hours (9a.m-12p.m). If the response time is always long, we may use peer adjustment.
 1. **Zoom** (or maybe Teams) is the main tool we use for video communication.
     * Each member has 2 chances to be absent for some reasons. From the third time, peer adjustment may be used.
 1. For emergency contact, we use mobile phone in case of network problems.
@@ -19,6 +19,7 @@
     * Jesse:  000-000-0000
     * Vanessa:000-000-0000
     * Yolanda:000-000-0000
+    **Please delete this line if everyone has done.**
 
 ## Meeting arrangement
 1. The mandatory weekly video meeting with [Jaya](https://github.com/jthara) is scheduled at Thursday 6p.m-7p.m
@@ -39,11 +40,12 @@
 1. If a team member is academically dishonest, we will report him and use huge **peer adjustment**.
 1. 
 
-### Markdown
+## Markdown
 [Markdown](https://www.markdownguide.org/basic-syntax/) is the current standard for documentation in this repo.
 
 
 **The signature below certifies that I participated in making this agreement and fully agree this agreement.**
+
 Forgive my poor English, who can change a formal one for me :(
 
 <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">
