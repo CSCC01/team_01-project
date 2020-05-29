@@ -3,15 +3,15 @@
 *P.S. My English is not that professional, can someone use professional language?*
 ## Welcome!
 1. Members of **Team Enterprise**  are expected to:
-    * Familiarize themselves with this documentation
-    * TBM
+    * Familiarize themselves with this documentation  
+    * 
 1. You are a respected member of this team, if you'd like to participate.  Let's make this the best team we possibly can.
 1. Peer adjustment is a good way to encourage everyone to contribute. Every time from now on in this file, **peer adjustment** means you give up some weight to others.
 
 ## Methods of communication
 1. Each member is expected and has the responsibility to participate in the discussion. 
-1. **Slack** is the main tool we use for basic communication, with responding time less than 2 hours (9a.m-12p.m). If the response time is always long, we may use peer adjustment.
-1. **Zoom** (or maybe Teams) is the main tool we use for video communication.
+1. **Slack** is the main tool we use for basic communication, with responding time less than 4 hours (9a.m-8p.m). If the response time is always long, we may use peer adjustment.
+1. **Zoom** is the main tool we use for video communication.
     * Each member has 2 chances to be absent for some reasons. From the third time, peer adjustment may be used.
 1. For emergency contact, we use mobile phone in case of network problems.
     * Jiawei: 437-982-0103
@@ -23,9 +23,9 @@
 
 ## Meeting arrangement
 1. The mandatory weekly video meeting with TA [Jaya](https://github.com/jthara) is scheduled at Thursday 6p.m-7p.m
-1. Group meeting times: TBA
+1. Group meeting times: Wednesday 6p.m-7p.m
 1. I think we should have a mandatory weekly meeting to ensure we have completed some work as expected. We can discuss when and what to discuss.
-1. Meeting tools: Teams/Zoom
+1. Meeting tools: Teams(TA)/Zoom(Group)
 
 ## Cooperation
 1. Main part we are going to discuss today.
@@ -37,7 +37,7 @@
 ## Contingency planning
 1. If a team member drop the course, report this problem to Anya immediately and ...
 1. If a team member is sick for a significantly long time and is unbale to work, ...
-1. If a team member is academically dishonest, we will report him and use huge **peer adjustment**.
+1. If a team member is academically dishonest, we will report him.
 1. 
 
 ## Markdown
@@ -49,4 +49,3 @@
 Forgive my poor English, who can change a formal one for me :(
 
 <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">  <img src="https://raw.githubusercontent.com/CSCC01/team_01-project/master/res/signature/Jiawei_sig.jpg?token=AOY5G3WTHQPLDIRL6RARTNK63CAOK" width="140" height="50" alt="Jiawei Qiao">
-<br><img src="res/signature/jesse_sig.png" width="140" height="50" alt="Jesse Zhang">
