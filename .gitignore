@@ -1,0 +1,13 @@
+# Default ignored files
+/.idea/workspace.xml
+#macOS files
+.DS_Store
+#idea
+.idea/
+*.iml
+out/
+# class files
+*.class
+*.jar
+
+
