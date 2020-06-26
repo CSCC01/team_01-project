@@ -2,7 +2,9 @@ package com.enterprise.restaurant.repository;
 
 import static org.junit.Assert.*;
 
-import com.enterprise.restaurant.dataobject.Coupon;
+import com.enterprise.Restaurant.dataobject.Coupon;
+import com.enterprise.Restaurant.repository.CouponRepository;
+
 import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.runner.RunWith;

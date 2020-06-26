@@ -1,8 +1,9 @@
-package com.enterprise.restaurant.dataobject;
+package com.enterprise.Restaurant.dataobject;
 
-import com.enterprise.restaurant.repository.CouponRepository;
 import java.math.BigDecimal;
 import java.util.List;
+import com.enterprise.Restaurant.repository.CouponRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

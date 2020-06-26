@@ -1,4 +1,4 @@
-package com.enterprise.restaurant;
+package com.enterprise.Restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

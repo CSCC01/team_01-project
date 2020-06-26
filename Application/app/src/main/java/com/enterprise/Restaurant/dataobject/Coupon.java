@@ -1,4 +1,4 @@
-package com.enterprise.restaurant.dataobject;
+package com.enterprise.Restaurant.dataobject;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
