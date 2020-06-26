@@ -1,0 +1,8 @@
+package com.enterprise.restaurant.repository;
+
+import com.enterprise.restaurant.dataobject.Coupon;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CouponRepository extends JpaRepository <Coupon,Integer> {
+
+}
