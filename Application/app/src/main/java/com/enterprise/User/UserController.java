@@ -3,8 +3,8 @@ package com.enterprise.User;
 import java.util.List;
 
 import com.enterprise.User.repository.UserRepository;
-import com.enterprise.Restaurant.restaurantObj.Restaurant;
-import com.enterprise.Restaurant.restaurantObj.RestaurantController;
+// import com.enterprise.Restaurant.restaurantObj.Restaurant;
+// import com.enterprise.Restaurant.restaurantObj.RestaurantController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,8 +57,6 @@ public class UserController {
     newEmployee.setUserType(2);
     return user_repo.save(newEmployee);
   }
-
-  
 
   @GetMapping("/User")
   public List<User> listUser() {
