@@ -1,10 +1,19 @@
 package com.enterprise.restaurant.dataobject;
 
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
   @Id
   @GeneratedValue
@@ -21,6 +30,13 @@ public class User {
   private int res_id;
 
   private int experience;
+
+  private String password;
+
+  @OneToMany(targetEntity = Coupon.class, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_coupons", referencedColumnName = "id")
+  private Collection<Coupon> coupons;
+
 
   public User() {
   }
@@ -79,5 +95,21 @@ public class User {
 
   public void setExperience(int experience) {
     this.experience = experience;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Collection<Coupon> getCoupons() {
+    return coupons;
+  }
+
+  public void setCoupons(Collection<Coupon> coupons) {
+    this.coupons = coupons;
   }
 }
