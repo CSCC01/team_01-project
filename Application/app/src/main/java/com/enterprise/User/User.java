@@ -51,7 +51,18 @@ public abstract class User {
   public Integer getUserType() {
     return this.userType;
   }
+
   public void setUserType(Integer userType) {
     this.userType = userType;
   }
+
+  @Override
+  public String toString() {
+    return "User: \n"  + 
+           "  UserId      = " + this.userId + ",\n" + 
+           "  UserName    = " + this.name + ",\n" + 
+           "  UserEmail   = " + this.email + ",\n" +
+           "  UserAddress = " + this.address + ",\n" +
+           "  UserType    = " + this.userType + ".\n\n";
+  }         
 }

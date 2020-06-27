@@ -1,4 +1,4 @@
-package com.enterprise.restaurant.repository;
+package com.enterprise.Restaurant.repository;
 
 import static org.junit.Assert.*;
 
