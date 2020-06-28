@@ -5,6 +5,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,8 +17,8 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
   @Id
-  @GeneratedValue
-  private int id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int uid;
 
   private String address;
 
@@ -33,20 +34,16 @@ public class User {
 
   private String password;
 
-  @OneToMany(targetEntity = Coupon.class, cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_coupons", referencedColumnName = "id")
-  private Collection<Coupon> coupons;
+//  @OneToMany(targetEntity = Coupon.class, cascade = CascadeType.ALL)
+//  @JoinColumn(name = "user_coupons", referencedColumnName = "id")
+//  private Collection<Coupon> coupons;
 
 
   public User() {
   }
 
   public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
+    return uid;
   }
 
   public String getAddress() {
@@ -105,11 +102,11 @@ public class User {
     this.password = password;
   }
 
-  public Collection<Coupon> getCoupons() {
-    return coupons;
-  }
-
-  public void setCoupons(Collection<Coupon> coupons) {
-    this.coupons = coupons;
-  }
+//  public Collection<Coupon> getCoupons() {
+//    return coupons;
+//  }
+//
+//  public void setCoupons(Collection<Coupon> coupons) {
+//    this.coupons = coupons;
+//  }
 }

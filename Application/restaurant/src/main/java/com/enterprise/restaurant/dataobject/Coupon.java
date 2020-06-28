@@ -11,6 +11,8 @@ public class Coupon {
   @GeneratedValue
   private Integer id;
 
+  private String name;
+
   private BigDecimal amount;
   // amount which will be reduced when using the coupon
   // can have another field using %(percent)
@@ -55,10 +57,19 @@ public class Coupon {
     this.description = description;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
   @Override
   public String toString() {
     return "Coupon{" +
         "id=" + id +
+        ", name='" + name + '\'' +
         ", amount=" + amount +
         ", date='" + date + '\'' +
         ", description='" + description + '\'' +

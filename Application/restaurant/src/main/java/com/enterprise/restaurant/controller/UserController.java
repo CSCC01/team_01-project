@@ -3,6 +3,8 @@ package com.enterprise.restaurant.controller;
 import com.enterprise.restaurant.dataobject.User;
 import com.enterprise.restaurant.repository.UserRepository;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/*")
 public class UserController {
   @Autowired
   UserRepository repository;
@@ -60,7 +62,7 @@ public class UserController {
     return repository.save(user);
   }
 
-//  //login
+  //login
 //  @GetMapping("/login")
 //  public String login(@RequestParam("email") String email,
 //    @RequestParam("password") String password){
