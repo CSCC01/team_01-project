@@ -13,3 +13,7 @@ spring:
     show-sql: true
   resources:
     static-locations: classpath:/templates
+  security:
+    user:
+      name: admin
+      password: 123456
