@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../templates/user/static/common.css">
+    <link rel="stylesheet" type="text/css" href="static/submissionfields.css">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <div class = logo>
+          Pickeasy
+        </div>
+        <div class = icons>
+          <div class = other_icon>
+            <img src="../../templates/user/static/Resources/home.png" alt="User">
+          </div>
+          <div class = "current">
+              <a href="ownersCoupon.html"><img src="../../templates/user/static/Resources/coupon_pressed.png" alt="Coupon"></a>
+          </div>
+          <div class = other_icon>
+            <img src="../../templates/user/static/Resources/user.png" alt="User">
+          </div>
+        </div>
+      </header>
+
+
+        <div class = parent>
+          <div class = title>
+            <div class = text>
+                Login
+            </div>
+          </div>
+        </div>
+    <form action="/login" method="POST">
+        <div class = parent>
+        
+          <div class = textfields>
+            <div class = field>
+                <label>Email</label>
+                <input type="text" name="email">
+            </div>
+
+            <div class = field>
+                <label>Password</label>
+                <input type="text" name="password">
+            </div>
+            <div class = submit_button>
+            <input type="submit" value="Login">
+          </div>
+        </div>
+        
+      </div>
+    </form>
+    </body>
+
+    <!-- Footer -->
+    <footer>
+        <div class = "creators">
+            <p>© 2020 Designed by Enterprise </p>
+        </div>
+    </footer>
+</html>
