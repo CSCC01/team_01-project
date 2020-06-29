@@ -13,9 +13,11 @@
 `Deliverable_2.pdf` is our final draft of our personas and user_stories.  
 
 ## Deliverable3
-`Deliverable_3.pdf` includes our productive environment, product backlog, release plan and sprint plan. In this deliverable, you can see we made a lot of changes in our user stories and sorted them with priority and gave them a story point.  
+`Deliverable_3.pdf` includes our productive environment, product backlog, release plan and sprint plan. We also add our retrospection and high-level architecture. In this deliverable, you can see we made a lot of changes in our user stories and sorted them with priority and gave them a story point.  
 
 ## Other folder description
 The folder `product_backlog` contains all versions of our team personas and user stories.  
 The folder `sprint_backlog` records our weekly sprint showing what we are currently doing. 
+The folder `software_process` records our process developing the software.  
+The folder `demo3` is our current tested web application. You can always see the latest version in certain branch.  
 
