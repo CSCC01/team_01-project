@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="static/common.css">
+    <link rel="stylesheet" type="text/css" href="static/submissionfields.css">
+    <title>Registration Info</title>
+</head>
+<body>
+    <header>
+        <div class = logo>
+          Pickeasy
+        </div>
+        <div class = icons>
+          <div class = other_icon>
+            <img src="static/Resources/home.png" alt="User">
+          </div>
+          <div class = "current">
+              <a href="ownersCoupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+          </div>
+          <div class = other_icon>
+            <img src="static/Resources/user.png" alt="User">
+          </div>
+        </div>
+      </header>
+
+    <div class="container" ng-app="registApp" ng-controller="registCtrl">
+      <div class = parent>
+        <div class = title>
+          <div class = text>
+            Register - Restaurant Owner
+          </div>
+        </div>
+      </div>
+    <form action="/owner/register" method="POST">
+      <div class = parent>
+        <div class = textfields>
+          <div class = field>
+              <label>Email</label>
+                <input type="text" name="email" ng-model="email">
+          </div>
+          <div class = field>
+              <label>Name</label>
+                <input type="text" name="name" ng-model="name">
+          </div>
+          <div class = field>
+              <label>Password</label>
+              <input type="text" name="password" ng-model="password">
+          </div>
+{#          <div class = field>#}
+{#            <label>Restaurant Name</label>#}
+{#            <input type="text" name="restaurantName" ng-model="restaurantName">#}
+{#          </div>#}
+          <div class = field>
+            <label>Restaurant Address</label>
+            <input type="text" name="restaurantAddress" ng-model="restaurantAddress">
+          </div>
+          <div class = submit_button>
+            <input type="submit" value="Create Account">
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+</body>
+    <!-- Footer -->
+    <footer>
+        <div class = "creators">
+            <p>© 2020 Designed by Enterprise </p>
+        </div>
+    </footer>
+</html>

@@ -1,0 +1,151 @@
+/*                                                  *
+*                                                   *
+*           Styling all .HTML files used            *
+*                                                   *
+*                                                   */
+
+/* Defining constants used in all .CSS files */
+
+/* imports the google font used within the pickeasy app */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* All constants used thoughout HTML files */
+:root {
+    /* Colours */
+    --background: #f8f8f9;
+    --forground: #ffffff;
+    --black: #000000;
+    --pink: #e21f70;
+    --orange: #ff4d2c;
+    --red: #f9433b;
+    --darkGrey: #6b6b6b;
+
+
+    /* font sizes */
+    --logo: 30px;
+    --body: 15px;
+    --title: 25px;
+    --mini: 12px;
+    --subtitle: 18px;
+
+    /* line height */
+    --lh: 1.5;
+
+    /* page sizes */
+    --maxWidth: 700px;
+}
+
+/* The header box that holds the logo and icons */
+header {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--forground);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+}
+
+/* floats the icons to the left */
+.parent:first-of-type > div:last-child { order: -1; }
+
+/* The box that holds the icons */
+.icons {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Style for the gradient logo */
+.logo {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight:700;
+  font-size: var(--logo);
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Styling for the header icons to the left */
+.icons img {
+    width: 30px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Styles for the coupon icon, rotates it*/
+.current img {
+  transform: rotate(-20deg);
+}
+
+/* Sets the background */
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight:300;
+    background-color: var(--background);
+}
+
+/* Removed styles on pressed links */
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: var(--white);
+}
+
+/* This is used when the tab size is bigger then 1000px */
+@media only screen and (max-width: 1000px) {
+    .parent {
+        max-width: 70%;
+    }
+}
+
+/* This is used when the tab size is smaller then 1000px */
+@media only screen and (min-width: 1000px) {
+    .parent {
+        max-width: 700px;
+    }
+}
+
+/* Styles for the white boxes */
+.parent {
+  background-color: var(--forground);
+  margin: 20px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  flex-direction: row;
+  font-weight:600;
+}
+
+/* Styles the page title */
+.text {
+  font-size: var(--title);
+}
+
+/* Sytling of the box that holds the footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+/* Sytling of individual elements in footer */
+footer div {
+    font-family: 'Poppins', sans-serif;
+    font-weight:200;
+    color: var(--black);
+    align-self: center;
+    font-size: var(--mini);
+}
