@@ -1,0 +1,72 @@
+<!--                                          ----
+----  createCoupon.html contains all frontend ----
+----         html For the coupon page         ----
+----                                          --->
+
+<!--                                          ----
+---- ownersCoupon.html contains all frontend  ----
+----     html for the owners view of the      ----
+----               coupon page                ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">{% endblock style %}
+{% block title %}
+<title>Create a Coupon</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+  </div>
+  <div class = other_icon>
+    <img src="static/Resources/user.png" alt="User">
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Create a Coupon
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+      <div class = parent>
+        <form method = "post">
+          <div class = textfeilds>
+            <div class = feild>
+                <label>Coupon Name</label>
+                  <input type="text" name="name">
+            </div>
+
+            <div class = feild>
+                <label>Discount</label>
+
+                <input type="text" name="discount">
+            </div>
+
+            <div class = feild>
+              <label>Description</label>
+              <textarea name = "description"></textarea>
+            </div>
+
+            <div class = feild>
+                <label>Expiration Date</label>
+                  <input type="text" name="date">
+            </div>
+          </div>
+          <div class = submit_button>
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+{% endblock content %}

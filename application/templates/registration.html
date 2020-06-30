@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+{% endblock style %}
+
+{% block title %}
+<title>Registration</title>
+{% endblock title %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Registration
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+  <div class = parent>
+    <div class = option>
+        I want to register as a...
+    </div>
+    <div class = submit_button>
+    <form action="registration0.html">
+      <input type="submit" value="Customer">
+    </form>
+    </div>
+    <div class = submit_button>
+    <form action="registration1.html">
+      <input type="submit" value="Restaurant Owner">
+    </form>
+    </div>
+  </div>
+{% endblock content %}

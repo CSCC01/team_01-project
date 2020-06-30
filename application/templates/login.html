@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+{% endblock style %}
+
+{% block title %}
+<title>Login</title>
+{% endblock title %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Login
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+        <div class = "parent">
+          <form method = "post">
+            <div class = textfeilds>
+              <div class = feild>
+                  <label>Email</label>
+                    <input type="text" name="email">
+              </div>
+              <div class = feild>
+                  <label>password</label>
+                  <input type="password" name="password">
+              </div>
+            </div>
+            <div class = submit_button>
+              <input type="submit" value="Login">
+            </div>
+          </form>
+          <div class = submit_button>
+          <form action="registration.html">
+            <input type="submit" value="Signup">
+          </form>
+          </div>
+        </div>
+{% endblock content %}
