@@ -17,7 +17,10 @@
 
 ## Other folder description
 The folder `product_backlog` contains all versions of our team personas and user stories.  
+
 The folder `sprint_backlog` records our weekly sprint showing what we are currently doing.  
+
 The folder `software_process` records our process when developing the software.  
+
 The folder `demo3` is our current tested web application. You can always see the latest version in certain branch (named by released date).  
 
