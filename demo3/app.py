@@ -8,17 +8,16 @@ import os
 import hashlib
 
 app = Flask(__name__)
+app.secret_key = 'shhhh'
 
 app.config.from_object(config)
 
 db.init_app(app)
 
-# If this is uncommented then add input as a perameter
-# If a user goes to /<input> where input is any string, it will redirect them to this page
-#@app.route('/<input>', methods=['GET', 'POST'])
-@app.route('/', methods = ['GET', 'POST'])
+
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login.html', methods=['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])
 def login():
     # This runs when the user presses the login button
     if request.method == 'POST':
@@ -56,7 +55,7 @@ def home():
     if 'account' in session:
         return render_template('home.html')
     else:
-        return render_template('login.html')
+        return redirect(url_for('login'))
 
 
 # The registration options page
