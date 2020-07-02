@@ -15,7 +15,7 @@
 ## Deliverable3
 `Deliverable_3.pdf` includes our productive environment, product backlog, release plan and sprint plan. We also add our retrospection and high-level architecture. In this deliverable, you can see we made a lot of changes in our user stories and sorted them with priority and gave them a story point.  
 
-<p><a href="https://pickeasy-1-2.herokuapp.com">There is our first release.</a></p>
+<p><a href="https://pickeasy-1-2.herokuapp.com">irst release</a></p>
 
 ## Other folder description
 The folder `product_backlog` contains all versions of our team personas and user stories.  
