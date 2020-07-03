@@ -129,6 +129,13 @@ def owner_register():
     return render_template("registration1.html", errmsg=errmsg)
 
 
+# Employee registration
+@app.route('/registration2', methods=['GET', 'POST'])
+@app.route('/registration2.html', methods=['GET', 'POST'])
+def employee_register():
+    return render_template("registration2.html")
+
+
 # Coupon page
 @app.route('/coupon.html')
 @app.route('/coupon')
@@ -167,7 +174,7 @@ def create_coupon():
 @app.route('/profile.html')
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 
 
 # To end session you must logout
