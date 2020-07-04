@@ -52,15 +52,27 @@ def login():
 @app.route('/home')
 @app.route('/home.html')
 def home():
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     if 'account' in session:
-        return render_template('home.html')
+        if (owner):
+            rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+            return render_template("home.html",
+                                    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+        else:
+            return render_template('home.html', )
     else:
         return redirect(url_for('login'))
 
 # The access forbidden page
 @app.route('/accessForbidden.html')
 def accessForbidden():
-    return render_template('accessForbidden.html')
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if (owner):
+            rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+            return render_template("accessForbidden.html",
+                                    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+    else:
+        return render_template('accessForbidden.html')
 
 # The registration options page
 @app.route('/registration.html')
@@ -150,6 +162,9 @@ def coupon():
 @app.route('/createCoupon.html', methods=['GET', 'POST'])
 @app.route('/createCoupon', methods=['GET', 'POST'])
 def create_coupon():
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if (not owner):
+        return redirect(url_for('accessForbidden'))
     if request.method == 'POST':
         # Grabs information from coupon fields
         name = request.form['name']
@@ -172,6 +187,9 @@ def create_coupon():
 @app.route('/deleteCoupon', methods=['GET', 'POST'])
 def delete_coupon():
     errmsg = []
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if (not owner):
+        return redirect(url_for('accessForbidden'))
     if request.method == 'POST':
         name = request.form['name']
         coupon = Coupon.query.filter(Coupon.name == name).first()
@@ -187,6 +205,9 @@ def delete_coupon():
 @app.route('/addEmployee.html', methods=['GET', 'POST'])
 @app.route('/addEmployee', methods=['GET', 'POST'])
 def add_employee():
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if (not owner):
+        return redirect(url_for('accessForbidden'))
     if request.method == 'POST':
         email = request.form['email']
         password = (hashlib.md5(request.form['password'].encode())).hexdigest()
@@ -218,7 +239,13 @@ def employee():
 @app.route('/profile.html')
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if (owner):
+            rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+            return render_template("profile.html",
+                                    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+    else:
+        return render_template('profile.html')
 
 
 # To end session you must logout
