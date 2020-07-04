@@ -57,6 +57,10 @@ def home():
     else:
         return redirect(url_for('login'))
 
+# The access forbidden page
+@app.route('/accessForbidden.html')
+def accessForbidden():
+    return render_template('accessForbidden.html')
 
 # The registration options page
 @app.route('/registration.html')
@@ -204,11 +208,11 @@ def employee():
     owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     if owner:
         rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-        return render_template("coupon.html",
+        return render_template("employee.html",
                                owner=Restaurant.query.filter(Restaurant.uid == session['account']).first(),
                                employee=Restaurant.query.filter(Restaurant.rid == rid, Restaurant.type == 0))
     else:
-        return render_template("employee.html")
+        return redirect(url_for('accessForbidden'))
 
 
 @app.route('/profile.html')
