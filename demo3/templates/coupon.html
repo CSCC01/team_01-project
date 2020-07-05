@@ -1,0 +1,60 @@
+<!--                                          ----
+---- ownersCoupon.html contains all frontend  ----
+----     html for the owners view of the      ----
+----               coupon page                ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}<link rel="stylesheet" type="text/css" href="static/coupon.css">{% endblock style %}
+{% block title %}
+<title>My Coupons</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+  </div>
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          My Coupons
+        </div>
+        {% if owner %}
+        <div class = plus>
+          <a href="createCoupon.html">+</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+{% endblock page_name %}
+
+  {% block content %}
+    {% for c in coupons %}
+      <div class = parent>
+        <div class = name>
+          {{ c.name }}
+        </div>
+        <div class = amount>
+           {{ c.discount }}
+        </div>
+        <div class = description>
+          {{ c.description }}
+        </div>
+        <div class = expiration>
+          Valid from: {{ c.begin }} to {{ c.expiration }}
+        </div>
+      </div>
+      </div>
+    {% endfor %}
+  {% endblock content %}

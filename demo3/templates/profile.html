@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/profile.css">
+{% endblock style %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock title %}
+
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user_pressed.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          My Profile
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+  <!-- Adds a button for employee login -->
+  <!-- Only visable to owners -->
+  {% if owner %}
+  <div class = parent>
+    <div class = subheading>
+      Employee Management
+    </div>
+    <div class = col>
+      <div class = submit_button>
+        <a href="registration2.html"><input type="submit" value="Add Employee"></a>
+      </div>
+      <div class = submit_button>
+        <a href="logout.html"><input type="submit" value="Manage Employees"></a>
+      </div>
+    </div>
+    <div class = fine_print>
+      Adding an employee account to your restaurant will give the account the ability to scan customer coupons.</div>
+  </div>
+  {% endif %}
+
+  <div class = parent>
+    <div class = submit_button>
+      <a href="logout.html"><input type="submit" value="Logout"></a>
+    </div>
+  </div>
+{% endblock content %}

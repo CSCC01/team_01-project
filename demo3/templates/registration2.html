@@ -5,15 +5,28 @@
 {% endblock style %}
 
 {% block title %}
-<title>Create an Account </title>
+<title>Create an Account</title>
 {% endblock title %}
 
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user_pressed.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
         <div class = text>
-          Owner - Create an Account
+          Employee - Create an Account
         </div>
       </div>
     </div>
@@ -29,7 +42,6 @@
     {% endfor %}
   </div>
 {% endif %}
-
       <div class = "parent">
         <form method = "post">
           <div class = textfeilds>
@@ -40,10 +52,6 @@
             <div class = feild>
               <label>Email</label>
               <input type="text" name="email">
-            </div>
-            <div class = feild>
-              <label>Restaurant Name</label>
-              <input type="text" name="rname">
             </div>
             <div class = col>
               <div class = feild>
