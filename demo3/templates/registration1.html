@@ -1,67 +1,68 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="static/common.css">
-    <link rel="stylesheet" type="text/css" href="static/submissionfields.css">
-    <title>Registration Info</title>
-</head>
-<body>
-    <header>
-        <div class = logo>
-          Pickeasy
-        </div>
-        <div class = icons>
-          <div class = other_icon>
-            <img src="static/Resources/home.png" alt="User">
-          </div>
-          <div class = "current">
-              <a href="ownersCoupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
-          </div>
-          <div class = other_icon>
-            <img src="static/Resources/user.png" alt="User">
-          </div>
-        </div>
-    </header>
-    <div class="container" ng-controller="controller here">
-      <div class = parent>
-        <div class = title>
-          <div class = text>
-            Register - Customer
-          </div>
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+{% endblock style %}
+
+{% block title %}
+<title>Create an Account </title>
+{% endblock title %}
+
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Owner - Create an Account
         </div>
       </div>
-        <form action="/user/register" method="POST">
-      <div class = parent>
-        <div class = textfields>
-          <div class = field>
-              <label>Email</label>
-              <input type="text" name="email">
-          </div>
-            <div class = field>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+
+{% if errmsg %}
+  <div class = parent>
+    Could not register an account because of the following: <br>
+    {% for msg in errmsg %}
+      <li>{{msg}} </li>
+    {% endfor %}
+  </div>
+{% endif %}
+
+      <div class = "parent">
+        <form method = "post">
+          <div class = textfeilds>
+            <div class = feild>
               <label>Name</label>
               <input type="text" name="name">
+            </div>
+            <div class = feild>
+              <label>Email</label>
+              <input type="text" name="email">
+            </div>
+            <div class = feild>
+              <label>Restaurant Name</label>
+              <input type="text" name="rname">
+            </div>
+            <div class = col>
+              <div class = feild>
+                  <label>Password</label>
+                    <input type="password" name="password">
+              </div>
+              <div class = feild>
+                  <label>Confirm Password</label>
+                    <input type="password" name="password2">
+              </div>
+            </div>
+            <div class = feild>
+              <label>Address</label>
+              <input type="text" name="address">
+            </div>
           </div>
-          <div class = field>
-              <label>Password</label>
-              <input type="text" name="password">
-          </div>
-          <div class = field>
-            <label>Address</label>
-            <input type="text" name="address">
-          </div>
-          <div class = submit_button >
+          <div class = submit_button>
             <input type="submit" value="Create Account">
           </div>
-        </div>
-      </div>
         </form>
-    </div>
-</body>
-    <!-- Footer -->
-    <footer>
-        <div class = "creators">
-            <p>© 2020 Designed by Enterprise </p>
-        </div>
-    </footer>
-</html>
+      </div>
+{% endblock content %}
