@@ -28,6 +28,7 @@
 
 .textfeilds input[type="text"],
 .textfeilds input[type="password"],
+.textfeilds input[type="date"],
 textarea,
 select {
   font-family: 'Poppins', sans-serif;
@@ -72,4 +73,24 @@ input[type = submit] {
 
 .submit_button {
   text-align: center;
+}
+
+
+/* Styling to  make the password boxes side by side */
+.col {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.col .feild {
+  flex: 1 1 0px;
+}
+
+.col .feild:nth-child(1) {
+  margin-right: 10px;
+}
+
+.col .feild:nth-child(2) {
+  margin-left: 10px;
 }
