@@ -1,0 +1,46 @@
+/*                                                  *
+*                                                   *
+*              Styling for coupon.HTML              *
+*                                                   *
+*                                                   */
+
+
+.search_button {
+  margin-top: -19px;
+  margin-bottom: -19px;
+  text-align: right;
+}
+
+.name {
+  font-weight:700;
+  font-size: var(--subtitle);
+}
+
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.goto {
+  text-align: right;
+}
+
+input[type = redirect] {
+  font-family: 'Poppins', sans-serif;
+  width: 50px;
+  height: 25px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+
+  text-align: center;
+
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red)); /* For Chrome and Safari */
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red)); /* Standard syntax; must be last */
+  color:transparent;
+  color: var(--forground);
+  font-size: var(--body);
+}

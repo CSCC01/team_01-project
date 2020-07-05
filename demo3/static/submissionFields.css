@@ -75,7 +75,6 @@ input[type = submit] {
   text-align: center;
 }
 
-
 /* Styling to  make the password boxes side by side */
 .col {
   display: flex;

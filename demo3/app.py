@@ -163,6 +163,14 @@ def create_coupon():
     else:
         return render_template('createCoupon.html')
 
+@app.route('/search.html', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        query = request.form['query']
+        return render_template('search.html', restaurants = Restaurant.query.filter(Restaurant.name.contains(query)), query = request.form['query'])
+    else:
+        return render_template('search.html')
 
 @app.route('/profile.html')
 @app.route('/profile')
