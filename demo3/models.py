@@ -47,3 +47,8 @@ class Restaurant(db.Model):
     rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), nullable=False)
     uid = db.Column(db.Integer)
+
+class Employee(db.Model):
+    __tablename__ = "employee"
+    uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rid = db.Column(db.Integer)

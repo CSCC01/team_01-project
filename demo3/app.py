@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 from exts import db
-from models import User, Coupon, Restaurant
+from models import User, Coupon, Restaurant, Employee
 import config
 import os
 import hashlib
@@ -133,7 +133,37 @@ def owner_register():
 @app.route('/registration2', methods=['GET', 'POST'])
 @app.route('/registration2.html', methods=['GET', 'POST'])
 def employee_register():
-    return render_template("registration2.html")
+    # An list of all the errors that will be displayed to the user if login fails
+    errmsg = []
+    if request.method == 'POST':
+        # Grabs information from signup fields
+        name = request.form['name']
+        email = request.form['email']
+        password = (hashlib.md5(request.form['password'].encode())).hexdigest()
+        password2 = (hashlib.md5(request.form['password2'].encode())).hexdigest()
+        address = request.form['address']
+
+        # Checks if email already exist and passwords match
+        user = User.query.filter(User.email == email).first()
+        if user:
+            errmsg.append("Email has already been used.")
+        if password != password2:
+            errmsg.append("Passwords do not match.")
+
+        if user == None and password == password2:
+            user = User(name = name, email = email, password = password, address = address, type = 0)
+            db.session.add(user)
+            db.session.commit()
+
+            # Get the rid of the restaurant owner creating the account
+            rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+
+            employee = Employee(uid = user.uid, rid = rid)
+            db.session.add(employee)
+            db.session.commit()
+            return redirect(url_for('profile'))
+
+    return render_template("registration2.html", errmsg=errmsg)
 
 
 # Coupon page
