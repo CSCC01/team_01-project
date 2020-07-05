@@ -165,7 +165,22 @@ def employee_register():
 
     return render_template("registration2.html", errmsg=errmsg)
 
-
+# Employee page
+@app.route('/employee.html', methods=['GET', 'POST'])
+@app.route('/employee', methods=['GET', 'POST'])
+def employee():
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if owner:
+        rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+        employeeID = []
+        for employee in Employee.query.filter(Restaurant.rid == rid):
+            employeeID.append(employee.uid)
+        return render_template("employee.html",
+                               owner=Restaurant.query.filter(Restaurant.uid == session['account']).first(),
+                               employee=User.query.filter(User.uid.in_((employeeID))))
+    else:
+        return redirect(url_for('accessForbidden'))
+    
 # Coupon page
 @app.route('/coupon.html')
 @app.route('/coupon')
