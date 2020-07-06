@@ -12,9 +12,11 @@
 
 {% block icons %}
 <div class = icons>
+  {% if session['type'] == -1 %}
   <div class = other_icon>
     <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
   </div>
+  {% endif %}
   <div class = other_icon>
     <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
   </div>

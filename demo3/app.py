@@ -31,6 +31,7 @@ def login():
         user = User.query.filter(User.email == email, User.password == password).first()
         if user:
             session['account'] = user.uid
+            session['type'] = user.type
             session.permanent = True
             return redirect(url_for('home'))
         else:
