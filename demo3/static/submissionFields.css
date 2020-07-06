@@ -33,7 +33,6 @@ textarea,
 select {
   font-family: 'Poppins', sans-serif;
   width: 100%;
-  padding: 10px;
   background: var(--forground);
   color: var(--black);
 	box-sizing: border-box;
