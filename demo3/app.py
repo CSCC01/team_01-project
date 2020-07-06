@@ -77,7 +77,6 @@ def user_register():
         email = request.form['email']
         password = (hashlib.md5(request.form['password'].encode())).hexdigest()
         password2 = (hashlib.md5(request.form['password2'].encode())).hexdigest()
-        address = request.form['address']
 
         # Checks if email already exist and passwords are the same
         user = User.query.filter(User.email == email).first()
@@ -88,7 +87,7 @@ def user_register():
 
         # Adds user to db if no resistration errors occured
         if user == None and password == password2:
-            user = User(name=name, email=email, password=password, address=address, type = -1)
+            user = User(name=name, email=email, password=password, type = -1)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('login'))
@@ -118,11 +117,11 @@ def owner_register():
             errmsg.append("Passwords do not match.")
 
         if user == None and password == password2:
-            user = User(name = name, email = email, password = password, address = address, type = 1)
+            user = User(name = name, email = email, password = password, type = 1)
             db.session.add(user)
             db.session.commit()
 
-            restaurant = Restaurant(name = rname, uid = user.uid)
+            restaurant = Restaurant(name = rname, address=address, uid = user.uid)
             db.session.add(restaurant)
             db.session.commit()
             return redirect(url_for('login'))
@@ -142,7 +141,6 @@ def employee_register():
         email = request.form['email']
         password = (hashlib.md5(request.form['password'].encode())).hexdigest()
         password2 = (hashlib.md5(request.form['password2'].encode())).hexdigest()
-        address = request.form['address']
 
         # Checks if email already exist and passwords match
         user = User.query.filter(User.email == email).first()
@@ -152,7 +150,7 @@ def employee_register():
             errmsg.append("Passwords do not match.")
 
         if user == None and password == password2:
-            user = User(name = name, email = email, password = password, address = address, type = 0)
+            user = User(name = name, email = email, password = password, type = 0)
             db.session.add(user)
             db.session.commit()
 

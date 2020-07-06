@@ -16,6 +16,10 @@
   font-size: var(--subtitle);
 }
 
+.address {
+  margin-top: -10px;
+}
+
 .inline {
   display: flex;
   flex-direction: row;

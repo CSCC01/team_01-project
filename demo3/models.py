@@ -16,7 +16,6 @@ class User(db.Model):
     name = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), nullable=False)
-    address = db.Column(db.String(64), nullable=True)
     type = db.Column(db.Integer)
     # coupons = db.relationship("Coupon", secondary=user_coupon)
 
@@ -46,6 +45,7 @@ class Restaurant(db.Model):
     __tablename__ = "restaurant"
     rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), nullable=False)
+    address = db.Column(db.String(64), nullable=True)
     uid = db.Column(db.Integer)
 
 class Employee(db.Model):
