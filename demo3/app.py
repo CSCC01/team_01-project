@@ -200,6 +200,22 @@ def create_coupon():
         return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 
 
+@app.route('/deleteCoupon.html', methods=['GET', 'POST'])
+@app.route('/deleteCoupon', methods=['GET', 'POST'])
+def delete_coupon():
+    errmsg = []
+    if request.method == 'POST':
+        name = request.form['name']
+        coupon = Coupon.query.filter(Coupon.name == name).first()
+        if coupon:
+            db.session.delete(coupon)
+            db.session.commit()
+            return redirect(url_for('coupon'))
+        else:
+            errmsg.append("no such coupon found")
+            return render_template('deleteCoupon.html', errmsg=errmsg)
+
+
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
 def employee():
@@ -234,6 +250,7 @@ def search():
         return render_template('search.html', restaurants = Restaurant.query.filter(Restaurant.name.contains(query)), query = request.form['query'])
     else:
         return render_template('search.html')
+
 
 @app.route('/profile.html')
 @app.route('/profile')
