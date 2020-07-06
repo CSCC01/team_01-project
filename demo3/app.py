@@ -53,7 +53,7 @@ def login():
 @app.route('/home.html')
 def home():
     if 'account' in session:
-        return render_template('home.html')
+        return render_template('home.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
     else:
         return redirect(url_for('login'))
 
@@ -161,9 +161,9 @@ def employee_register():
             employee = Employee(uid = user.uid, rid = rid)
             db.session.add(employee)
             db.session.commit()
-            return redirect(url_for('profile'))
+            return redirect(url_for('employee'))
 
-    return render_template("registration2.html", errmsg=errmsg)
+    return render_template("registration2.html", errmsg=errmsg, owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 
 
 # Coupon page
@@ -177,7 +177,7 @@ def coupon():
             owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
             coupons = Coupon.query.filter(Coupon.rid == rid).all())
     else:
-        return render_template("coupon.html")
+        return render_template("coupon.html", owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 
 
 @app.route('/createCoupon.html', methods=['GET', 'POST'])
@@ -198,7 +198,34 @@ def create_coupon():
         db.session.commit()
         return redirect(url_for('coupon'))
     else:
-        return render_template('createCoupon.html')
+        return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+
+
+@app.route('/employee.html', methods=['GET', 'POST'])
+@app.route('/employee', methods=['GET', 'POST'])
+def employee():
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    if owner:
+        if request.method == 'POST':
+            # Deletes employee from employee table
+            Employee.query.filter(Employee.uid == request.form['user']).delete()
+            db.session.commit()
+            # Deletes employee from user table
+            User.query.filter(User.uid == request.form['user']).delete()
+            db.session.commit()
+
+        rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+        employees = Employee.query.filter(Employee.rid == rid).all()
+        employee_list = []
+        for employee in employees:
+            e = User.query.filter(User.uid == employee.uid).first()
+            employee_list.append(e)
+
+        return render_template("employee.html",
+                               owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
+                               employees = employee_list)
+    else:
+        return redirect(url_for('accessForbidden'))
 
 
 @app.route('/profile.html')
