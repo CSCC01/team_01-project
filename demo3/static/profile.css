@@ -1,0 +1,17 @@
+/*                                                  *
+*                                                   *
+*              Styling for prfile.HTML              *
+*                                                   *
+*                                                   */
+
+
+.subheading {
+  font-weight:700;
+  font-size: var(--subtitle);
+  padding-bottom: 10px;
+}
+
+.fine_print {
+  font-size: var(--mini);
+  color: var(--darkGrey);
+}

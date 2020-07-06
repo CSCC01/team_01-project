@@ -22,4 +22,9 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `begin`        date              NOT NULL,
   `expiration`   date              NOT NULL,
   PRIMARY KEY (`cid`)
-)
+);
+CREATE TABLE IF NOT EXISTS `employee` (
+  `uid`          int               NOT NULL,
+  `rid`          int               NOT NULL,
+  PRIMARY KEY (`uid`)
+);

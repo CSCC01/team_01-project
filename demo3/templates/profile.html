@@ -2,6 +2,7 @@
 
 {% block style %}
   <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/profile.css">
 {% endblock style %}
 
 {% block title %}
@@ -20,6 +21,11 @@
   <div class = "current">
       <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
   </div>
+  {% if owner %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
   <div class = other_icon>
     <a href="profile.html"><img src="static/Resources/user_pressed.png" alt="User"></a>
   </div>
@@ -37,6 +43,26 @@
 {% endblock page_name %}
 
 {% block content %}
+  <!-- Adds a button for employee login -->
+  <!-- Only visable to owners -->
+  {% if owner %}
+  <div class = parent>
+    <div class = subheading>
+      Employee Management
+    </div>
+    <div class = col>
+      <div class = submit_button>
+        <a href="registration2.html"><input type="submit" value="Add Employee"></a>
+      </div>
+      <div class = submit_button>
+        <a href="logout.html"><input type="submit" value="Manage Employees"></a>
+      </div>
+    </div>
+    <div class = fine_print>
+      Adding an employee account to your restaurant will give the account the ability to scan customer coupons.</div>
+  </div>
+  {% endif %}
+
   <div class = parent>
     <div class = submit_button>
       <a href="logout.html"><input type="submit" value="Logout"></a>

@@ -1,0 +1,73 @@
+<!--                                          ----
+---- employee.html contains all frontend      ----
+----     html for the owners view of the      ----
+----               employee page              ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}<link rel="stylesheet" type="text/css" href="static/employee.css">{% endblock style %}
+{% block title %}
+<title>My Coupons</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  {% if owner %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee_pressed.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Employees
+        </div>
+        <div class = plus>
+          <a href="registration2.html">+</a>
+        </div>
+      </div>
+      <div class = fine_print>
+        Adding an employee account to your restaurant will give the account the ability to scan customer coupons.</div>
+    </div>
+    </div>
+{% endblock page_name %}
+
+
+  {% block content %}
+    {% for e in employees %}
+      <div class = parent>
+        <div class = title>
+          <div class = name>
+            {{ e.name }}
+          </div>
+          <div class = settings_dropdown>
+            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+            <div class = options>
+              <form method = "post">
+                <input type="submit" value = "Delete" name = {{e.name}}>
+                <input type="hidden" value = {{e.uid}} name = user>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class = email>
+          Email: {{ e.email }}
+        </div>
+      </div>
+    {% endfor %}
+  {% endblock content %}
+
+  {% block script %} <script type="text/javascript" src = "static/employeeDeletion.js"></script>{% endblock script %}
