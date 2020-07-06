@@ -31,6 +31,7 @@ def login():
         user = User.query.filter(User.email == email, User.password == password).first()
         if user:
             session['account'] = user.uid
+            session['type'] = user.type
             session.permanent = True
             return redirect(url_for('home'))
         else:
@@ -227,6 +228,14 @@ def employee():
     else:
         return redirect(url_for('home'))
 
+@app.route('/search.html', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        query = request.form['query']
+        return render_template('search.html', restaurants = Restaurant.query.filter(Restaurant.name.contains(query)), query = request.form['query'])
+    else:
+        return render_template('search.html')
 
 @app.route('/profile.html')
 @app.route('/profile')
