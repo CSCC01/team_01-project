@@ -225,7 +225,7 @@ def employee():
                                owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
                                employees = employee_list)
     else:
-        return redirect(url_for('accessForbidden'))
+        return redirect(url_for('home'))
 
 
 @app.route('/profile.html')
