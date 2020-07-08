@@ -61,14 +61,23 @@ def home():
 
 # The registration options page
 @app.route('/registration.html')
+@app.route('/registration')
 def registration():
-    return render_template('registration.html')
+    # If someone is already logged in they get redirected to the home page
+    if 'account' in session:
+        return redirect(url_for('home'))
+    else:
+        return render_template('registration.html')
 
 
 # Customer register
 @app.route('/registration0', methods=['GET', 'POST'])
 @app.route('/registration0.html', methods=['GET', 'POST'])
 def user_register():
+    # If someone is already logged in they get redirected to the home page
+    if 'account' in session:
+        return redirect(url_for('home'))
+
     # An list of all the errors that will be displayed to the user if login fails
     errmsg = []
     if request.method == 'POST':
@@ -98,6 +107,10 @@ def user_register():
 @app.route('/registration1', methods=['GET', 'POST'])
 @app.route('/registration1.html', methods=['GET', 'POST'])
 def owner_register():
+    # If someone is already logged in they get redirected to the home page
+    if 'account' in session:
+        return redirect(url_for('home'))
+
     # An list of all the errors that will be displayed to the user if login fails
     errmsg = []
     if request.method == 'POST':
@@ -133,6 +146,16 @@ def owner_register():
 @app.route('/registration2', methods=['GET', 'POST'])
 @app.route('/registration2.html', methods=['GET', 'POST'])
 def employee_register():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # If an owner is logged in, get it
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    if not owner:
+        return redirect(url_for('home'))
+
     # An list of all the errors that will be displayed to the user if login fails
     errmsg = []
     if request.method == 'POST':
@@ -162,13 +185,17 @@ def employee_register():
             db.session.commit()
             return redirect(url_for('employee'))
 
-    return render_template("registration2.html", errmsg=errmsg, owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+    return render_template("registration2.html", errmsg=errmsg, owner = owner)
 
 
 # Coupon page
 @app.route('/coupon.html', methods=['GET', 'POST'])
 @app.route('/coupon', methods=['GET', 'POST'])
 def coupon():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
     owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     if (owner):
         if request.method == 'POST':
@@ -186,6 +213,16 @@ def coupon():
 @app.route('/createCoupon.html', methods=['GET', 'POST'])
 @app.route('/createCoupon', methods=['GET', 'POST'])
 def create_coupon():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # If an owner is logged in, get it
+    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    if not owner:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         # Grabs information from coupon fields
         name = request.form['name']
@@ -207,6 +244,10 @@ def create_coupon():
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
 def employee():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
     owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     if owner:
         if request.method == 'POST':
@@ -233,24 +274,41 @@ def employee():
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+    customer = User.query.filter(User.uid == session['account']).first().type
+
+    if customer != -1:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         query = request.form['query']
         return render_template('search.html', restaurants = Restaurant.query.filter(Restaurant.name.contains(query)), query = request.form['query'])
     else:
         return render_template('search.html')
 
+
 @app.route('/profile.html')
 @app.route('/profile')
 def profile():
-    return render_template('profile.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+    else :
+        return render_template('profile.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 
 
 # To end session you must logout
 @app.route('/logout')
 @app.route('/logout.html')
 def logout():
-    session.pop('account', None)
-    return redirect(url_for('login'))
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+    else:
+        session.pop('account', None)
+        return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
