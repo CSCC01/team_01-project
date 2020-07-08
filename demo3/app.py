@@ -166,11 +166,15 @@ def employee_register():
 
 
 # Coupon page
-@app.route('/coupon.html')
-@app.route('/coupon')
+@app.route('/coupon.html', methods=['GET', 'POST'])
+@app.route('/coupon', methods=['GET', 'POST'])
 def coupon():
     owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     if (owner):
+        if request.method == 'POST':
+            # Deletes coupon from coupon table
+            Coupon.query.filter(Coupon.cid == request.form['coupon']).delete()
+            db.session.commit()
         rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
         return render_template("coupon.html",
             owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
