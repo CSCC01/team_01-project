@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `name`         varchar(128)      NOT NULL DEFAULT '',
   `points`       int unsigned      NOT NULL,
   `description`  varchar(1028)     NOT NULL DEFAULT '',
-  `begin`        date              NOT NULL,
-  `expiration`   date              NOT NULL,
+  `begin`        date,
+  `expiration`   date,
   PRIMARY KEY (`cid`)
 );
 CREATE TABLE IF NOT EXISTS `employee` (

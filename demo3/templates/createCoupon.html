@@ -91,8 +91,12 @@
                 <textarea name = "description"></textarea>
               {% endif %}
             </div>
+            <div class = container>
+              <input type="checkbox" name="indefinite" value="Indefinite" id = "indefinite" onclick="checkbox('dates')">
+              <label for="indefinite"> Valid Indefinitely</label><br>
+            </div>
 
-            <div class = col>
+            <div class = col id = "dates">
               <div class = feild>
                   <label>Begin Data</label>
                   {% if 'begin' in info %}
@@ -117,3 +121,5 @@
         </form>
       </div>
 {% endblock content %}
+
+  {% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}

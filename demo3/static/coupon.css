@@ -33,3 +33,9 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.container {
+  display: block;
+	margin-top: -15px;
+  margin-bottom: 19px;
+}

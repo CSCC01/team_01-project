@@ -229,13 +229,20 @@ def create_coupon():
         description = request.form['description']
         expiration = request.form['end']
         begin = request.form['begin']
+        # true -> no expiration date, false -> expiration date required
+        indefinite = "indefinite" in request.form
 
-        if int(points) < 0:
+        if points == "" or int(points) < 0:
             errmsg.append("Invalid amount for points.")
         if name == "":
             errmsg.append("Invalid coupon name, please give your coupon a name.")
-        if int(points) >= 0 and name != "":
-            coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
+        if not indefinite and (expiration == "" or begin == ""):
+            errmsg.append("Missing start or expiration date.")
+        if points != "" and int(points) >= 0 and name != "" and (indefinite or (expiration != "" and begin != "")):
+            if indefinite:
+                coupon = Coupon(rid = rid, name = name, points = points, description = description)
+            else:
+                coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
             db.session.add(coupon)
             db.session.commit()
             return redirect(url_for('coupon'))
