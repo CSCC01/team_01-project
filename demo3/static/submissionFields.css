@@ -29,6 +29,7 @@
 .textfeilds input[type="text"],
 .textfeilds input[type="password"],
 .textfeilds input[type="date"],
+.textfeilds input[type="number"],
 textarea,
 select {
   font-family: 'Poppins', sans-serif;

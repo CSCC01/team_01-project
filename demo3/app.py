@@ -219,19 +219,29 @@ def create_coupon():
     if not owner:
         return redirect(url_for('home'))
 
+    errmsg = []
+
     if request.method == 'POST':
         # Grabs information from coupon fields
         name = request.form['name']
         rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
+        points = request.form['points']
         description = request.form['description']
         expiration = request.form['end']
         begin = request.form['begin']
 
-        # Inserts coupon info to db -- currently input is NOT sanitized
-        coupon = Coupon(rid = rid, name = name, description = description, expiration = expiration, begin = begin)
-        db.session.add(coupon)
-        db.session.commit()
-        return redirect(url_for('coupon'))
+        if int(points) < 0:
+            errmsg.append("Invalid amount for points.")
+        if name == "":
+            errmsg.append("Invalid coupon name, please give your coupon a name.")
+        if int(points) >= 0 and name != "":
+            coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
+            db.session.add(coupon)
+            db.session.commit()
+            return redirect(url_for('coupon'))
+
+        return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(), errmsg = errmsg,
+                            info = {'name': name, 'points': points, 'description': description, 'expiration': expiration, 'begin': begin})
     else:
         return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 

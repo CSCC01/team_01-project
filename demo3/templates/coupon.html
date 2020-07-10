@@ -49,13 +49,14 @@
     </div>
 {% endblock page_name %}
 
-  {% block content %}
+{% block content %}
     {% for c in coupons %}
       <div class = parent>
         <div class = name>
           {{ c.name }}
         </div>
         <div class = amount>
+          {{ c.points }} Points
         </div>
         <div class = description>
           {{ c.description }}
