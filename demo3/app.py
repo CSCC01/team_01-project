@@ -223,13 +223,12 @@ def create_coupon():
         # Grabs information from coupon fields
         name = request.form['name']
         rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-        discount = request.form['discount']
         description = request.form['description']
         expiration = request.form['end']
         begin = request.form['begin']
 
         # Inserts coupon info to db -- currently input is NOT sanitized
-        coupon = Coupon(rid = rid, name = name, discount = discount, description = description, expiration = expiration, begin = begin)
+        coupon = Coupon(rid = rid, name = name, description = description, expiration = expiration, begin = begin)
         db.session.add(coupon)
         db.session.commit()
         return redirect(url_for('coupon'))

@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `rid`          int               NOT NULL,
   `name`         varchar(128)      NOT NULL DEFAULT '',
   `description`  varchar(1028)     NOT NULL DEFAULT '',
-  `discount`     varchar(64)       NOT NULL DEFAULT '',
   `begin`        date              NOT NULL,
   `expiration`   date              NOT NULL,
   PRIMARY KEY (`cid`)
