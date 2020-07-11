@@ -268,6 +268,78 @@ class CouponDBTest(unittest.TestCase):
         self.assertNotIn(b'Invalid coupon description, please give your coupon a description.', response.data)
         self.assertNotIn(b'Missing start or expiration date.', response.data)
 
+
+    ############################
+    ### Testing showing list ###
+    ############################
+
+    # Testing normal empty coupon list in owner's view 
+    def test_coupon_list_empty(self):
+        response_owner = self.register_owner(self, "abc", "abc@mail.com", "pass", "abc", "abc") 
+        response_own_login = self.login_owner(self, "abc@mail.com", "pass")
+        response = self.owner_coupon_list(self)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(b'50%', response.data)
+
+    # Testing normal one coupon list in owner's view 
+    def test_coupon_list_one(self):
+        response_owner = self.register_owner(self, "abc", "abc@mail.com", "pass", "abc", "abc") 
+        response_own_login = self.login_owner(self, "abc@mail.com", "pass")
+        response_coupon = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
+                                            "50%", 100, "for national day", '2020-11-15', '2020-11-14', False)
+        response = self.owner_coupon_list(self)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'50%', response.data)
+        self.assertIn(b'100', response.data)
+        self.assertIn(b'for national day', response.data)
+        self.assertIn(b'2020-11-15')
+        self.assertIn(b'2020-11-14')
+
+    # Testing normal several coupons list in owner's view 
+    def test_coupon_list_several(self):
+        response_owner = self.register_owner(self, "abc", "abc@mail.com", "pass", "abc", "abc") 
+        response_own_login = self.login_owner(self, "abc@mail.com", "pass")
+        response_coupon_0 = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
+                                            "50%", 100, "for national day", '2020-11-15', '2020-11-14', False)
+        response_coupon_1 = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
+                                            "25%", 200, "HAPPYDAY", '2020-09-15', '2020-07-20', False)
+        response_coupon_2 = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
+                                            "80%", 10, "SAD", '2020-06-27', '2020-06-25', False)
+        response_coupon_3 = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
+                                            "100%", 0, "infinite", '', '', True)
+
+        self.assertEqual(response.status_code, 200)
+
+        # First coupon
+        self.assertIn(b'50%', response.data)
+        self.assertIn(b'100', response.data)
+        self.assertIn(b'for national day', response.data)
+        self.assertIn(b'2020-11-15')
+        self.assertIn(b'2020-11-14')
+
+        # Second coupon
+        self.assertIn(b'25%', response.data)
+        self.assertIn(b'200', response.data)
+        self.assertIn(b'HAPPYDAY', response.data)
+        self.assertIn(b'2020-09-15')
+        self.assertIn(b'2020-07-20')
+
+        # Third coupon
+        self.assertIn(b'80%', response.data)
+        self.assertIn(b'10', response.data)
+        self.assertIn(b'SAD', response.data)
+        self.assertIn(b'2020-06-27')
+        self.assertIn(b'2020-06-25')
+
+        # Fourth coupon
+        self.assertIn(b'100%', response.data)
+        self.assertIn(b'0', response.data)
+        self.assertIn(b'infinite', response.data)
+        self.assertIn(b'')
+        self.assertIn(b'')
+
     # All ends
 
     ##############
@@ -300,3 +372,9 @@ class CouponDBTest(unittest.TestCase):
             email = email,
             password = password
         ), follow_redirects=True)
+
+    def owner_coupon_list(self):
+        return self.post('/coupon', follow_redirects=True)
+
+if __name__ == "__main__":
+    unittest.main()
