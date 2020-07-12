@@ -5,6 +5,7 @@ import json
 from models import db
 import time
 from app import app
+from sqlalchemy.exc import IntegrityError
 import os
 
 
@@ -31,6 +32,30 @@ class DatabaseTest(unittest.TestCase):
 
     def test_main_page_3(self):
         response = self.app.get('/login.html', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_4(self):
+        response = self.app.get('/registration', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_5(self):
+        response = self.app.get('/registration.html', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_6(self):
+        response = self.app.get('/registration0', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_7(self):
+        response = self.app.get('/registration0.html', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_8(self):
+        response = self.app.get('/registration1', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_page_9(self):
+        response = self.app.get('/registration1.html', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
     def test_append_data(self):
@@ -88,26 +113,19 @@ class DatabaseTest(unittest.TestCase):
         self.assertEqual(user.password, "passwd")
         self.assertEqual(user.type, -1)
 
-    def test_multi_customer_creation_same_email(self):
-        # u1 = User(name="George", password="passwd", email="george@utsc.com", type=-1)
-        # db.session.add(u1)
-        # u2 = User(name="Wade", password="passwd", email="george@utsc.com", type=-1)
-        # db.session.add(u2)
-        # db.session.commit()
-        # # time.sleep(10)
-        # user = User.query.filter_by(email="george@utsc.com").first()
-        # self.assertIsNotNone(user)
-        # self.assertGreater(user.uid, 0)
-        # self.assertEqual(user.name, "George")
-        # self.assertEqual(user.password, "passwd")
-        # self.assertEqual(user.type, -1)
-        # user2 = User.query.filter_by(email="george@utsc.com").first()
-        # self.assertIsNotNone(user2)
-        # self.assertGreater(user.uid, 0)
-        # self.assertEqual(user.name, "Wade")
-        # self.assertEqual(user.password, "passwd")
-        # self.assertEqual(user.type, -1)
-        pass
+    # def test_multi_customer_creation_same_email(self):
+    #     u1 = User(name="George", password="passwd", email="george@utsc.com", type=-1)
+    #     db.session.add(u1)
+    #     u2 = User(name="Wade", password="passwd", email="george@utsc.com", type=-1)
+    #     db.session.add(u2)
+    #     db.session.commit()
+    #     with self.assertRaises(IntegrityError):
+    #         try:
+    #             db.session.commit()
+    #         except:
+    #             db.session.rollback()
+    #             raise
+    #     self.assertEqual(1, User.query.filter_by(email='george@utsc.com').count())
 
     def test_user_normal(self):
         response = self.app.post("/registration2", data={'name': 'joe', 'email': 'joe@utsc.com', 'password': 'passwd',
