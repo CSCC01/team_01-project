@@ -93,6 +93,8 @@ def user_register():
             errmsg.append("Email has already been used.")
         if password != password2:
             errmsg.append("Passwords do not match.")
+        if not (name and email and password and password2):
+            errmsg.append("Please fill in all blanks")
 
         # Adds user to db if no resistration errors occured
         if user == None and password == password2:

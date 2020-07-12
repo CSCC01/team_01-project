@@ -1,6 +1,7 @@
-from exts import db
+# from exts import db
 # from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
 
 # user_coupon = db.Table(
@@ -9,13 +10,18 @@ from exts import db
 #     db.Column("coupon_id", db.Integer, db.ForeignKey("coupon_info.id"), primary_key=True)
 # )
 
+# for creating test
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db = SQLAlchemy(app)
 
 class User(db.Model):
     __tablename__ = "user"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(64), unique=True, nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    email = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
     type = db.Column(db.Integer)
     # coupons = db.relationship("Coupon", secondary=user_coupon)
 
@@ -36,7 +42,7 @@ class Coupon(db.Model):
     cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
     name = db.Column(db.String(64), nullable=False)
-    discount = db.Column(db.String(64), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(64), nullable=False)
     expiration = db.Column(db.DateTime, nullable=False)
     begin = db.Column(db.DateTime, nullable=False)

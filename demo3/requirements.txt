@@ -47,3 +47,4 @@ wcwidth==0.2.5
 Werkzeug==1.0.1
 WTForms==2.3.1
 zope.interface==5.1.0
+Flask-Testing==0.8.0
