@@ -191,6 +191,7 @@ class CouponDBTest(unittest.TestCase):
                                             "50%", 100, "for national day", '', '', False)
         self.assertIn(b'Missing start or expiration date.', response.data)
 
+    # These three maybe redundent
     # Testing abnormal coupon creation with expiration/begin date is NULL and indefinite is false
     def test_coupon_creation_expiration_NULL(self):
         response_owner = self.register_owner(self, "abc", "abc@mail.com", "pass", "abc", "abc") 
@@ -213,7 +214,9 @@ class CouponDBTest(unittest.TestCase):
         response = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
                                             "50%", 100, "for national day", NULL, NULL, False)
         self.assertNotIn(b'Missing start or expiration date.', response.data)
+    # These three maybe redundent
 
+    # These two maybe redundent
     # Testing abnormal coupon creation with expiration/begin date is empty and indefinite is true
     def test_coupon_creation_expiration_empty_infin(self):
         response_owner = self.register_owner(self, "abc", "abc@mail.com", "pass", "abc", "abc") 
@@ -228,6 +231,7 @@ class CouponDBTest(unittest.TestCase):
         response = self.create_coupon_helper(self, Restaurant.query.filter(Restaurant.uid == session['account']).first().rid,
                                             "50%", 100, "for national day", '2020-11-15', '', True)
         self.assertIn(b'Missing start or expiration date.', response.data)
+    # These two maybe redundent
 
     # Testing normal coupon creation with expiration&begin date are empty and indefinite is true
     def test_coupon_creation_both_empty_infin(self):
@@ -375,6 +379,9 @@ class CouponDBTest(unittest.TestCase):
 
     def owner_coupon_list(self):
         return self.post('/coupon', follow_redirects=True)
+
+    ## All the tests with test case NULL maybe redundent as our database would not even accept NULL case and 
+    ## we have no way to input a NULL.
 
 if __name__ == "__main__":
     unittest.main()
