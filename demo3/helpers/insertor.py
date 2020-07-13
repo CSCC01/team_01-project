@@ -4,9 +4,13 @@
 #                               #
 #################################
 from models import User, Coupon, Restaurant, Employee
-# from exts import db
+import config
 import hashlib
-from models import db
+
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 """
 Inserts a new user into the user table

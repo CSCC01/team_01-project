@@ -4,7 +4,11 @@
 #                               #
 #################################
 from models import User, Coupon, Restaurant, Employee
-from exts import db
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 """
 Returns None
