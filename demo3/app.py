@@ -1,8 +1,9 @@
 # encoding: utf-8
 
 from flask import Flask, render_template, request, redirect, url_for, session
-from exts import db
-from models import User, Coupon, Restaurant, Employee
+from helpers.selector import *
+from helpers.insertor import *
+from helpers.updator import *
 import config
 import os
 import hashlib
@@ -28,7 +29,7 @@ def login():
         # Validates that the user exits in the database
         # If the user exists in the databse, they are logged in
         # If the user does not exist in the database, the user is redirected to the login page with an errmsg
-        user = User.query.filter(User.email == email, User.password == password).first()
+        user = get_user_login(email, password)
         if user:
             session['account'] = user.uid
             session['type'] = user.type
@@ -54,7 +55,7 @@ def login():
 @app.route('/home.html')
 def home():
     if 'account' in session:
-        return render_template('home.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+        return render_template('home.html')
     else:
         return redirect(url_for('login'))
 
@@ -78,7 +79,7 @@ def user_register():
     if 'account' in session:
         return redirect(url_for('home'))
 
-    # An list of all the errors that will be displayed to the user if login fails
+    # A list of all the errors that will be displayed to the user if login fails
     errmsg = []
     if request.method == 'POST':
         # Grabs information from signup fields
@@ -87,18 +88,8 @@ def user_register():
         password = (hashlib.md5(request.form['password'].encode())).hexdigest()
         password2 = (hashlib.md5(request.form['password2'].encode())).hexdigest()
 
-        # Checks if email already exist and passwords are the same
-        user = User.query.filter(User.email == email).first()
-        if user:
-            errmsg.append("Email has already been used.")
-        if password != password2:
-            errmsg.append("Passwords do not match.")
-
-        # Adds user to db if no resistration errors occured
-        if user == None and password == password2:
-            user = User(name=name, email=email, password=password, type = -1)
-            db.session.add(user)
-            db.session.commit()
+        errmsg, uid = insert_new_user(name, email, password, password2, -1)
+        if not errmsg:
             return redirect(url_for('login'))
     return render_template("registration0.html", errmsg=errmsg)
 
@@ -111,7 +102,7 @@ def owner_register():
     if 'account' in session:
         return redirect(url_for('home'))
 
-    # An list of all the errors that will be displayed to the user if login fails
+    # A list of all the errors that will be displayed to the user if login fails
     errmsg = []
     if request.method == 'POST':
         # Grabs information from signup fields
@@ -122,21 +113,10 @@ def owner_register():
         address = request.form['address']
         rname = request.form['rname']
 
-        # Checks if email already exist and passwords match
-        user = User.query.filter(User.email == email).first()
-        if user:
-            errmsg.append("Email has already been used.")
-        if password != password2:
-            errmsg.append("Passwords do not match.")
+        errmsg, uid = insert_new_user(name, email, password, password2, 1)
 
-        if user == None and password == password2:
-            user = User(name = name, email = email, password = password, type = 1)
-            db.session.add(user)
-            db.session.commit()
-
-            restaurant = Restaurant(name = rname, address=address, uid = user.uid)
-            db.session.add(restaurant)
-            db.session.commit()
+        if uid:
+            insert_new_restaurant(rname, address, uid)
             return redirect(url_for('login'))
 
     return render_template("registration1.html", errmsg=errmsg)
@@ -150,10 +130,8 @@ def employee_register():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    # If an owner is logged in, get it
-    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    if not owner:
+    if session['type'] != 1:
         return redirect(url_for('home'))
 
     # An list of all the errors that will be displayed to the user if login fails
@@ -165,27 +143,14 @@ def employee_register():
         password = (hashlib.md5(request.form['password'].encode())).hexdigest()
         password2 = (hashlib.md5(request.form['password2'].encode())).hexdigest()
 
-        # Checks if email already exist and passwords match
-        user = User.query.filter(User.email == email).first()
-        if user:
-            errmsg.append("Email has already been used.")
-        if password != password2:
-            errmsg.append("Passwords do not match.")
+        errmsg, uid = insert_new_user(name, email, password, password2, 0)
 
-        if user == None and password == password2:
-            user = User(name = name, email = email, password = password, type = 0)
-            db.session.add(user)
-            db.session.commit()
-
-            # Get the rid of the restaurant owner creating the account
-            rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-
-            employee = Employee(uid = user.uid, rid = rid)
-            db.session.add(employee)
-            db.session.commit()
+        if uid:
+            rid = get_rid(session["account"])
+            insert_new_employee(uid, rid)
             return redirect(url_for('employee'))
 
-    return render_template("registration2.html", errmsg=errmsg, owner = owner)
+    return render_template("registration2.html", errmsg=errmsg)
 
 
 # Coupon page
@@ -196,18 +161,24 @@ def coupon():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
-    if (owner):
-        if request.method == 'POST':
-            # Deletes coupon from coupon table
-            Coupon.query.filter(Coupon.cid == request.form['coupon']).delete()
-            db.session.commit()
-        rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-        return render_template("coupon.html",
-            owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
-            coupons = Coupon.query.filter(Coupon.rid == rid).all())
+    ### TODO: Customer viewing of coupons can go
+    elif session["type"] == -1:
+        return render_template("coupon.html")
+
+    # TODO: Employees view of the coupon page
+    elif session["type"] == 0:
+        return render_template("coupon.html")
+
+    # Owners view of coupon page
     else:
-        return render_template("coupon.html", owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+        if request.method == 'POST':
+            cid = request.form['coupon']
+            delete_coupon(cid)
+
+        rid = get_rid(session["account"])
+        coupon_list = get_coupons(rid)
+
+        return render_template("coupon.html", coupons = coupon_list)
 
 
 @app.route('/createCoupon.html', methods=['GET', 'POST'])
@@ -217,10 +188,8 @@ def create_coupon():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    # If an owner is logged in, get it
-    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    if not owner:
+    elif session['type'] != 1:
         return redirect(url_for('home'))
 
     errmsg = []
@@ -228,7 +197,6 @@ def create_coupon():
     if request.method == 'POST':
         # Grabs information from coupon fields
         name = request.form['name']
-        rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
         points = request.form['points']
         description = request.form['description']
         expiration = request.form['end']
@@ -236,25 +204,18 @@ def create_coupon():
         # true -> no expiration date, false -> expiration date required
         indefinite = "indefinite" in request.form
 
-        if points == "" or int(points) < 0:
-            errmsg.append("Invalid amount for points.")
-        if name == "":
-            errmsg.append("Invalid coupon name, please give your coupon a name.")
-        if not indefinite and (expiration == "" or begin == ""):
-            errmsg.append("Missing start or expiration date.")
-        if points != "" and int(points) >= 0 and name != "" and (indefinite or (expiration != "" and begin != "")):
-            if indefinite:
-                coupon = Coupon(rid = rid, name = name, points = points, description = description)
-            else:
-                coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
-            db.session.add(coupon)
-            db.session.commit()
+        rid = get_rid(session["account"])
+        errmsg = insert_coupon(rid, name, points, description, begin, expiration, indefinite)
+
+        # Inserting was successful
+        if not errmsg:
             return redirect(url_for('coupon'))
 
-        return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(), errmsg = errmsg,
+        # Inserting failed
+        return render_template('createCoupon.html', errmsg = errmsg,
                             info = {'name': name, 'points': points, 'description': description, 'expiration': expiration, 'begin': begin})
-    else:
-        return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+
+    return render_template('createCoupon.html')
 
 
 @app.route('/employee.html', methods=['GET', 'POST'])
@@ -264,28 +225,19 @@ def employee():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    owner = Restaurant.query.filter(Restaurant.uid == session['account']).first()
-    if owner:
-        if request.method == 'POST':
-            # Deletes employee from employee table
-            Employee.query.filter(Employee.uid == request.form['user']).delete()
-            db.session.commit()
-            # Deletes employee from user table
-            User.query.filter(User.uid == request.form['user']).delete()
-            db.session.commit()
-
-        rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-        employees = Employee.query.filter(Employee.rid == rid).all()
-        employee_list = []
-        for employee in employees:
-            e = User.query.filter(User.uid == employee.uid).first()
-            employee_list.append(e)
-
-        return render_template("employee.html",
-                               owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(),
-                               employees = employee_list)
-    else:
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    elif session['type'] != 1:
         return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        uid = request.form['user']
+        delete_employee(request.form['user'])
+
+    rid = get_rid(session["account"])
+    employee_list = get_employees(rid)
+
+    return render_template("employee.html", employees = employee_list)
+
 
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])
@@ -293,14 +245,15 @@ def search():
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
-    customer = User.query.filter(User.uid == session['account']).first().type
 
-    if customer != -1:
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
         return redirect(url_for('home'))
 
     if request.method == 'POST':
         query = request.form['query']
-        return render_template('search.html', restaurants = Restaurant.query.filter(Restaurant.name.contains(query)), query = request.form['query'])
+        results = get_resturant_by_name(query)
+        return render_template('search.html', restaurants = results, query = request.form['query'])
     else:
         return render_template('search.html')
 
@@ -312,7 +265,7 @@ def profile():
     if 'account' not in session:
         return redirect(url_for('login'))
     else :
-        return render_template('profile.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
+        return render_template('profile.html')
 
 
 # To end session you must logout
@@ -324,6 +277,7 @@ def logout():
         return redirect(url_for('login'))
     else:
         session.pop('account', None)
+        session.pop('type', None)
         return redirect(url_for('login'))
 
 

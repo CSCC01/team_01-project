@@ -27,7 +27,7 @@
   <div class = "current">
       <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
   </div>
-  {% if owner %}
+  {% if session['type'] == 1 %}
   <div class = other_icon>
     <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
   </div>
