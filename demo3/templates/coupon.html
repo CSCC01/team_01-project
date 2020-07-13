@@ -52,8 +52,19 @@
 {% block content %}
     {% for c in coupons %}
       <div class = parent>
-        <div class = name>
-          {{ c.name }}
+        <div class = title>
+          <div class = name>
+            {{ c.name }}
+          </div>
+          <div class = settings_dropdown>
+            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+            <div class = options>
+              <form method = "post">
+                <input type="submit" value = "Delete" name = {{c.name}}>
+                <input type="hidden" value = {{c.cid}} name = coupon>
+              </form>
+            </div>
+          </div>
         </div>
         <div class = amount>
           {{ c.points }} Points

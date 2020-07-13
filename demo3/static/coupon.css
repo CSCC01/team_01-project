@@ -39,3 +39,47 @@
 	margin-top: -15px;
   margin-bottom: 19px;
 }
+
+button, input {
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.settings_dropdown img {
+  /* Change this value to move the settings icon down / up */
+  margin-bottom: -3px;
+  width: 20px;
+  height: 20px;
+}
+
+
+.settings_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.options {
+  display: none;
+  position: absolute;
+  background-color: var(--background);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.options input {
+  font-family: 'Poppins', sans-serif;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.options input:hover {
+  background-color: var(--purpleGrey);
+}
+
+.settings_dropdown:hover .options {
+  display: block;
+}
+
