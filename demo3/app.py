@@ -219,20 +219,36 @@ def create_coupon():
     if not owner:
         return redirect(url_for('home'))
 
+    errmsg = []
+
     if request.method == 'POST':
         # Grabs information from coupon fields
         name = request.form['name']
         rid = Restaurant.query.filter(Restaurant.uid == session['account']).first().rid
-        discount = request.form['discount']
+        points = request.form['points']
         description = request.form['description']
         expiration = request.form['end']
         begin = request.form['begin']
+        # true -> no expiration date, false -> expiration date required
+        indefinite = "indefinite" in request.form
 
-        # Inserts coupon info to db -- currently input is NOT sanitized
-        coupon = Coupon(rid = rid, name = name, discount = discount, description = description, expiration = expiration, begin = begin)
-        db.session.add(coupon)
-        db.session.commit()
-        return redirect(url_for('coupon'))
+        if points == "" or int(points) < 0:
+            errmsg.append("Invalid amount for points.")
+        if name == "":
+            errmsg.append("Invalid coupon name, please give your coupon a name.")
+        if not indefinite and (expiration == "" or begin == ""):
+            errmsg.append("Missing start or expiration date.")
+        if points != "" and int(points) >= 0 and name != "" and (indefinite or (expiration != "" and begin != "")):
+            if indefinite:
+                coupon = Coupon(rid = rid, name = name, points = points, description = description)
+            else:
+                coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
+            db.session.add(coupon)
+            db.session.commit()
+            return redirect(url_for('coupon'))
+
+        return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first(), errmsg = errmsg,
+                            info = {'name': name, 'points': points, 'description': description, 'expiration': expiration, 'begin': begin})
     else:
         return render_template('createCoupon.html', owner = Restaurant.query.filter(Restaurant.uid == session['account']).first())
 

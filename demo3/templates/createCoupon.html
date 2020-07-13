@@ -10,7 +10,11 @@
 ----                                          --->
 
 {% extends "base.html" %}
-{% block style %}<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">{% endblock style %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
+{% endblock style %}
+
 {% block title %}
 <title>Create a Coupon</title>
 {% endblock title %}
@@ -45,33 +49,69 @@
 {% endblock page_name %}
 
 {% block content %}
+
+    {% if errmsg %}
+      <div class = parent>
+        Could not create a coupon because of the following: <br>
+        {% for msg in errmsg %}
+          <li>{{msg}} </li>
+        {% endfor %}
+      </div>
+    {% endif %}
+
       <div class = parent>
         <form method = "post">
           <div class = textfeilds>
             <div class = feild>
                 <label>Coupon Name</label>
-                  <input type="text" name="name">
+                  {% if 'name' in info %}
+                    <input type="text" name="name" value = {{info["name"]}}>
+                  {% else %}
+                    <input type="text" name="name">
+                  {% endif %}
             </div>
-
             <div class = feild>
-                <label>Discount</label>
-
-                <input type="text" name="discount">
+              <label>Cost to Redeem</label>
+              <div class = points>
+                {% if 'points' in info %}
+                  <input type="number" name="points" value = {{info["points"]}}>
+                {% else %}
+                <input type="number" name="points">
+                {% endif %}
+                <div class = right>
+                  Points
+                </div>
+              </div>
             </div>
-
             <div class = feild>
               <label>Description</label>
-              <textarea name = "description"></textarea>
+              {% if 'description' in info %}
+              <textarea name = "description">{{info["description"]}}</textarea>
+              {% else %}
+                <textarea name = "description"></textarea>
+              {% endif %}
+            </div>
+            <div class = container>
+              <input type="checkbox" name="indefinite" value="Indefinite" id = "indefinite" onclick="checkbox('dates')">
+              <label for="indefinite"> Valid Indefinitely</label><br>
             </div>
 
-            <div class = col>
+            <div class = col id = "dates">
               <div class = feild>
                   <label>Begin Data</label>
+                  {% if 'begin' in info %}
+                    <input type="date" name="begin" value = {{info["begin"]}}>
+                  {% else %}
                     <input type="date" name="begin">
+                  {% endif %}
               </div>
               <div class = feild>
                   <label>Expiration Date</label>
+                  {% if 'expiration' in info %}
+                    <input type="date" name="end" value = {{info["expiration"]}}>
+                  {% else %}
                     <input type="date" name="end">
+                  {% endif %}
               </div>
             </div>
           </div>
@@ -81,3 +121,5 @@
         </form>
       </div>
 {% endblock content %}
+
+  {% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}

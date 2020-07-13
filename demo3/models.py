@@ -36,7 +36,7 @@ class Coupon(db.Model):
     cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
     name = db.Column(db.String(64), nullable=False)
-    discount = db.Column(db.String(64), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(64), nullable=False)
     expiration = db.Column(db.DateTime, nullable=False)
     begin = db.Column(db.DateTime, nullable=False)
