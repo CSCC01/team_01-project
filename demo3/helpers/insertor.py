@@ -4,8 +4,9 @@
 #                               #
 #################################
 from models import User, Coupon, Restaurant, Employee
-from exts import db
+# from exts import db
 import hashlib
+from models import db
 
 """
 Inserts a new user into the user table
@@ -21,9 +22,10 @@ def insert_new_user(name, email, password1, password2, type):
     if password1 != password2:
         errmsg.append("Passwords do not match.")
     if email == "":
-        errmsg.append("An email is required")
-    if password1 == (hashlib.md5("".encode())).hexdigest():
-        errmsg.append("A password is required")
+        errmsg.append("An email is required.")
+    # if password1 == (hashlib.md5("".encode())).hexdigest():
+    if password1 == "":
+        errmsg.append("A password is required.")
 
     # Adds user to db if no resistration errors occured
     if not errmsg:
@@ -70,7 +72,7 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
         errmsg.append("Invalid amount for points.")
     if name == "":
         errmsg.append("Invalid coupon name, please give your coupon a name.")
-    if not indefinite and (expiration == "" or begin == ""):
+    if not indefinite and (expiration == None or begin == None):
         errmsg.append("Missing start or expiration date.")
 
     if not errmsg:
