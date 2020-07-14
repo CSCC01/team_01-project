@@ -5,8 +5,8 @@ DEBUG = True
 SECRET_KEY = "fortestpurpose"
 
 
-STATUS = "TEST"
-# STATUS = "PROG"
+# STATUS = "TEST"
+STATUS = "PROG"
 
 
 # Prod
@@ -18,7 +18,7 @@ STATUS = "TEST"
 # # Test
 HOSTNAME = '127.0.0.1'
 PORT = '3306'
-DATABASE = 'demo_05'
+DATABASE = 'test6'
 USERNAME = 'root'
 PASSWORD = '12345678'
 DB_URI = 'mysql+mysqldb://{}:{}@{}:{}/{}?charset=utf8'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
