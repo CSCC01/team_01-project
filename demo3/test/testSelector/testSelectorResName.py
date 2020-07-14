@@ -24,7 +24,54 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.commit()
         result = selector.get_resturant_by_name("hhh")
-        self.assertEqual(result, r1)
+        self.assertIn(r1, result)
+        self.assertNotIn(r2, result)
+
+    def test_res_name_equal_many(self):
+        r1 = Restaurant(name="hhh", address="hhh road", uid=111)
+        r2 = Restaurant(name="hhh", address="jjj road", uid=111)
+        r3 = Restaurant(name="hhh", address="ggg road", uid=222)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(r3)
+        db.session.commit()
+        result = selector.get_resturant_by_name("hhh")
+        self.assertIn(r1, result)
+        self.assertIn(r2, result)
+        self.assertIn(r3, result)
+
+    def test_res_name_part_single(self):
+        r1 = Restaurant(name="hhh restaurant", address="hhh road", uid=111)
+        r2 = Restaurant(name="jjj restaurant", address="jjj road", uid=111)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.commit()
+        result = selector.get_resturant_by_name("hhh")
+        self.assertIn(r1, result)
+        self.assertNotIn(r2, result)
+
+    def test_res_name_part_name(self):
+        r1 = Restaurant(name="kfc kfc kfc", address="hhh road", uid=111)
+        r2 = Restaurant(name="kfc", address="jjj road", uid=111)
+        r3 = Restaurant(name="Kentucky Fried Chicken", address="ggg road", uid=222)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(r3)
+        db.session.commit()
+        result = selector.get_resturant_by_name("kfc")
+        self.assertIn(r1, result)
+        self.assertIn(r2, result)
+        self.assertNotIn(r3, result)
+
+    def test_res_name_none(self):
+        r1 = Restaurant(name="hhh restaurant", address="hhh road", uid=111)
+        r2 = Restaurant(name="jjj restaurant", address="jjj road", uid=111)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.commit()
+        result = selector.get_resturant_by_name("ggg")
+        self.assertNotIn(r1, result)
+        self.assertNotIn(r2, result)
 
 
 if __name__ == "__main__":
