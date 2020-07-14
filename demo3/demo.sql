@@ -28,3 +28,15 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `rid`          int               NOT NULL,
   PRIMARY KEY (`uid`)
 );
+CREATE TABLE IF NOT EXISTS `achievement` (
+  `aid`          int unsigned      NOT NULL AUTO_INCREMENT,
+  `rid`          int               NOT NULL,
+  `name`         varchar(128)      NOT NULL DEFAULT '',
+  `description`  varchar(1028)     NOT NULL DEFAULT '',
+  `experience`   int unsigned      NOT NULL,
+  `points`       int unsigned      NOT NULL,
+  `requireItem`  int unsigned
+  `requireFee`   int unsigned
+
+  PRIMARY KEY (`aid`)
+);

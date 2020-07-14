@@ -64,3 +64,14 @@ class Employee(db.Model):
     __tablename__ = "employee"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
+
+class Achievement(db.Model):
+    __tablename__ = "achievement"
+    aid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rid = db.Column(db.Integer)
+    name = db.Column(db.String(64), nullable=False)
+    description = db.Column(db.String(64), nullable=False)
+    experience = db.Column(db.Integer, nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    requireItem = db.Column(db.Integer, nullable=True)
+    requireFee = db.Column(db.Float, nullable=True)
