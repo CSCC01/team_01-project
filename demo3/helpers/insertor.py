@@ -95,7 +95,7 @@ Inserts a valid achievement into the database
 
 Returns error messages if insertion failed, none otherwise
 """
-def insert_achievement(rid, name, description, experience, points, requireItem, requireFee, Item):
+def insert_achievement(rid, name, description, experience, points, requireItem, requireFee, item):
     errmsg = []
 
     if name == "":
@@ -110,7 +110,7 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
         errmsg.append("Invalid points, please provide non-negative value.")
     # if requireItem == "" and requireFee == "":
     #   errmsg.append("Missing experience and points, please at least provide one requirement.")
-    if Item:
+    if item:
         if requireItem == "":
             errmsg.append("Missing experience.")
         if int(requireItem) < 0:
@@ -122,7 +122,7 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
             errmsg.append("Invalid requirement, please provide non-negative value.")
     
     if not errmsg:
-        if Item:
+        if item:
             achievement = Achievement(rid = rid, name = name, description = description, experience = experience, points = points, requireItem = requireItem)
         else:
             achievement = Achievement(rid = rid, name = name, description = description, experience = experience, points = points, requireFee = requireFee)
