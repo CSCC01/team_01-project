@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import selector
+from helpers import restaurant as rhelper
 
 
 class SelectRidTest(unittest.TestCase):
@@ -24,7 +24,7 @@ class SelectRidTest(unittest.TestCase):
         db.session.add(restaurant)
         db.session.add(user)
         db.session.commit()
-        rid = selector.get_rid(34)
+        rid = rhelper.get_rid(34)
         self.assertEqual(rid, 17465)
 
     def test_owner_not_found(self):
@@ -35,7 +35,7 @@ class SelectRidTest(unittest.TestCase):
         db.session.add(user1)
         db.session.add(user2)
         db.session.commit()
-        rid = selector.get_rid(34)
+        rid = rhelper.get_rid(34)
         self.assertEqual(rid, None)
 
 

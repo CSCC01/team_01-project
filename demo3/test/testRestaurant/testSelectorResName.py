@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import selector
+from helpers import restaurant as rhelper
 
 class SelectResNameTest(unittest.TestCase):
     def setUp(self):
@@ -23,7 +23,7 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r1)
         db.session.add(r2)
         db.session.commit()
-        result = selector.get_resturant_by_name("hhh")
+        result = rhelper.get_resturant_by_name("hhh")
         self.assertIn(r1, result)
         self.assertNotIn(r2, result)
 
@@ -35,7 +35,7 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.add(r3)
         db.session.commit()
-        result = selector.get_resturant_by_name("hhh")
+        result = rhelper.get_resturant_by_name("hhh")
         self.assertIn(r1, result)
         self.assertIn(r2, result)
         self.assertIn(r3, result)
@@ -46,7 +46,7 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r1)
         db.session.add(r2)
         db.session.commit()
-        result = selector.get_resturant_by_name("hhh")
+        result = rhelper.get_resturant_by_name("hhh")
         self.assertIn(r1, result)
         self.assertNotIn(r2, result)
 
@@ -58,7 +58,7 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.add(r3)
         db.session.commit()
-        result = selector.get_resturant_by_name("kfc")
+        result = rhelper.get_resturant_by_name("kfc")
         self.assertIn(r1, result)
         self.assertIn(r2, result)
         self.assertNotIn(r3, result)
@@ -69,7 +69,7 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r1)
         db.session.add(r2)
         db.session.commit()
-        result = selector.get_resturant_by_name("ggg")
+        result = rhelper.get_resturant_by_name("ggg")
         self.assertNotIn(r1, result)
         self.assertNotIn(r2, result)
 

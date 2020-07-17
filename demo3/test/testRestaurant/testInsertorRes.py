@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import insertor
+from helpers import restaurant as rhelper
 
 
 class InsertRestaurantTest(unittest.TestCase):
@@ -19,7 +19,7 @@ class InsertRestaurantTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_one_restaurant(self):
-        rid = insertor.insert_new_restaurant("KFC", "1265 Military Trail", 2)
+        rid = rhelper.insert_new_restaurant("KFC", "1265 Military Trail", 2)
         restaurant = Restaurant.query.filter_by(name="KFC").first()
         self.assertIsNotNone(restaurant)
         self.assertEqual(rid, 1)
@@ -29,10 +29,10 @@ class InsertRestaurantTest(unittest.TestCase):
         self.assertEqual(r1.uid, 2)
 
     def test_insert_many_restaurant(self):
-        rid1 = insertor.insert_new_restaurant("KFC", "1265 Military Trail", 2)
-        rid2 = insertor.insert_new_restaurant("MacDonald's", "1278 Military Trail", 2)
-        rid3 = insertor.insert_new_restaurant("CFK", "5621 Gh Drive", 4)
-        rid4 = insertor.insert_new_restaurant("KFC", "88 Borough Ave", 12)
+        rid1 = rhelper.insert_new_restaurant("KFC", "1265 Military Trail", 2)
+        rid2 = rhelper.insert_new_restaurant("MacDonald's", "1278 Military Trail", 2)
+        rid3 = rhelper.insert_new_restaurant("CFK", "5621 Gh Drive", 4)
+        rid4 = rhelper.insert_new_restaurant("KFC", "88 Borough Ave", 12)
         self.assertEqual(rid1, 1)
         self.assertEqual(rid2, 2)
         self.assertEqual(rid3, 3)

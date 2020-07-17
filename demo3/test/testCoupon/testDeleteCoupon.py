@@ -4,7 +4,7 @@ from models import db
 import time
 from datetime import datetime
 from app import app
-from helpers import updator
+from helpers import coupon as couponhelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")
@@ -28,7 +28,7 @@ class DeleteCouponTest(unittest.TestCase):
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.commit()
-        updator.delete_coupon(1)
+        couponhelper.delete_coupon(1)
         c1 = Coupon.query.filter_by(name="test1").first()
         self.assertIsNone(c1)
         c2 = Coupon.query.filter_by(name="test2").first()
@@ -44,8 +44,8 @@ class DeleteCouponTest(unittest.TestCase):
         db.session.add(coupon3)
         db.session.add(coupon4)
         db.session.commit()
-        updator.delete_coupon(1)
-        updator.delete_coupon(4)
+        couponhelper.delete_coupon(1)
+        couponhelper.delete_coupon(4)
         c1 = Coupon.query.filter_by(name="test1").first()
         c2 = Coupon.query.filter_by(name="test2").first()
         c3 = Coupon.query.filter_by(name="test3").first()

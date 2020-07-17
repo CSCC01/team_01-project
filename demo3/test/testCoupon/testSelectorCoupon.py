@@ -4,7 +4,7 @@ from models import db
 import time
 from datetime import datetime
 from app import app
-from helpers import selector
+from helpers import coupon as couponhelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")
@@ -26,7 +26,7 @@ class SelectCouponTest(unittest.TestCase):
         coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END)
         db.session.add(coupon)
         db.session.commit()
-        coupon_list = selector.get_coupons(12)
+        coupon_list = couponhelper.get_coupons(12)
         self.assertEqual(coupon_list,[{'begin': BEGIN,
                      'cid': 1,
                      'description': '1$ off',
@@ -42,7 +42,7 @@ class SelectCouponTest(unittest.TestCase):
         db.session.add(coupon2)
         db.session.add(coupon3)
         db.session.commit()
-        coupon_list = selector.get_coupons(12)
+        coupon_list = couponhelper.get_coupons(12)
         self.assertEqual(coupon_list, [{'begin': BEGIN,
                      'cid': 1,
                      'description': '1$ off',
@@ -70,7 +70,7 @@ class SelectCouponTest(unittest.TestCase):
         db.session.add(coupon2)
         db.session.add(coupon3)
         db.session.commit()
-        coupon_list = selector.get_coupons(15)
+        coupon_list = couponhelper.get_coupons(15)
         self.assertEqual(coupon_list, [])
 
 

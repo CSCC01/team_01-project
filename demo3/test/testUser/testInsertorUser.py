@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import insertor
+from helpers import user as userhelper
 
 
 class InsertUserTest(unittest.TestCase):
@@ -19,7 +19,7 @@ class InsertUserTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_user_full_info(self):
-        insertor.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
+        userhelper.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         self.assertIsNotNone(user)
         self.assertGreater(user.uid, 0)
@@ -28,28 +28,28 @@ class InsertUserTest(unittest.TestCase):
         self.assertEqual(user.type, -1)
 
     def test_insert_user_same_email(self):
-        insertor.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
+        userhelper.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         self.assertIsNotNone(user)
-        errmsg = insertor.insert_new_user("joseph", "joe@utsc.com", "passwd", "passwd", "1")
+        errmsg = userhelper.insert_new_user("joseph", "joe@utsc.com", "passwd", "passwd", "1")
         self.assertEqual(errmsg, (["Email has already been used."], None))
 
     def test_insert_user_diff_password(self):
-        errmsg = insertor.insert_new_user("joe", "joe@utsc.com", "passwd", "dwssap", "-1")
+        errmsg = userhelper.insert_new_user("joe", "joe@utsc.com", "passwd", "dwssap", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         # to show that insert failed
         self.assertIsNone(user)
         self.assertEqual(errmsg, (["Passwords do not match."], None))
 
     def test_insert_user_miss_key_email(self):
-        errmsg = insertor.insert_new_user("joe", "", "passwd", "passwd", "-1")
+        errmsg = userhelper.insert_new_user("joe", "", "passwd", "passwd", "-1")
         user = User.query.filter_by(name="joe").first()
         # to show that insert failed
         self.assertIsNone(user)
         self.assertEqual(errmsg, (["An email is required."], None))
 
     def test_insert_user_miss_key_password(self):
-        errmsg = insertor.insert_new_user("joe", "joe@utsc.com", "", "", "-1")
+        errmsg = userhelper.insert_new_user("joe", "joe@utsc.com", "", "", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         # to show that insert failed
         self.assertIsNone(user)
@@ -57,29 +57,29 @@ class InsertUserTest(unittest.TestCase):
 
     def test_insert_user_miss_email_password(self):
         # miss email and password
-        errmsg = insertor.insert_new_user("joe", "", "", "", "-1")
+        errmsg = userhelper.insert_new_user("joe", "", "", "", "-1")
         user = User.query.filter_by(name="joe").first()
         # to show that insert failed
         self.assertIsNone(user)
         self.assertEqual(errmsg, (["An email is required.", "A password is required."], None))
 
     def test_insert_user_miss_email_wrong_password(self):
-        errmsg = insertor.insert_new_user("joe", "", "passwd", "passsd", "-1")
+        errmsg = userhelper.insert_new_user("joe", "", "passwd", "passsd", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         # to show that insert failed
         self.assertIsNone(user)
         self.assertEqual(errmsg, (["Passwords do not match.", "An email is required."], None))
 
     def test_insert_user_used_email_wrong_passwd(self):
-        insertor.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
+        userhelper.insert_new_user("joe", "joe@utsc.com", "passwd", "passwd", "-1")
         user = User.query.filter_by(email="joe@utsc.com").first()
         self.assertIsNotNone(user)
         # to show the insert succeed
-        errmsg = insertor.insert_new_user("joseph", "joe@utsc.com", "passwd", "paswd", "-1")
+        errmsg = userhelper.insert_new_user("joseph", "joe@utsc.com", "passwd", "paswd", "-1")
         self.assertEqual(errmsg, (["Email has already been used.", "Passwords do not match."], None))
 
     def test_insert_user_blank(self):
-        errmsg = insertor.insert_new_user("", "", "", "", "0")
+        errmsg = userhelper.insert_new_user("", "", "", "", "0")
         self.assertEqual(errmsg, (['An email is required.', 'A password is required.'], None))
 
 

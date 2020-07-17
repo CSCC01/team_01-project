@@ -1,9 +1,10 @@
 # encoding: utf-8
 
 from flask import Flask, render_template, request, redirect, url_for, session
-from helpers.selector import *
-from helpers.insertor import *
-from helpers.updator import *
+from helpers.coupon import *
+from helpers.employee import *
+from helpers.restaurant import *
+from helpers.user import *
 import config
 import os
 import hashlib

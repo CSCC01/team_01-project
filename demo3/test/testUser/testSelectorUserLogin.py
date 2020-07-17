@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import selector
+from helpers import user as userhelper
 
 class SelectUserTest(unittest.TestCase):
     def setUp(self):
@@ -21,7 +21,7 @@ class SelectUserTest(unittest.TestCase):
         user = User(name="joe", email="joe@utsc.com", password="passwd", type=-1)
         db.session.add(user)
         db.session.commit()
-        u = selector.get_user_login("joe@utsc.com", "passwd")
+        u = userhelper.get_user_login("joe@utsc.com", "passwd")
         self.assertIsNotNone(u)
         self.assertEqual(u.name, "joe")
         self.assertEqual(u.email, "joe@utsc.com")
@@ -36,14 +36,14 @@ class SelectUserTest(unittest.TestCase):
         db.session.add(user2)
         db.session.add(user3)
         db.session.commit()
-        u = selector.get_user_login("jsobe@utsc.com", "passwd")
+        u = userhelper.get_user_login("jsobe@utsc.com", "passwd")
         self.assertIsNotNone(u)
 
     def test_login_wrong_password(self):
         user = User(name="joe", email="joe@utsc.com", password="passwd", type=-1)
         db.session.add(user)
         db.session.commit()
-        u = selector.get_user_login("joe@utsc.com", "wrong_password")
+        u = userhelper.get_user_login("joe@utsc.com", "wrong_password")
         self.assertIsNone(u)
 
 
