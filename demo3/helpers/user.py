@@ -1,4 +1,4 @@
-from models import User, Coupon, Restaurant, Employee
+from models import User
 import config
 import hashlib
 
