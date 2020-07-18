@@ -18,7 +18,7 @@
   <div class = "current">
       <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
   </div>
-  {% if owner %}
+  {% if session['type'] == 1 %}
   <div class = other_icon>
     <a href="employee.html"><img src="static/Resources/employee_pressed.png" alt="Employee"></a>
   </div>
@@ -51,20 +51,20 @@
       <div class = parent>
         <div class = title>
           <div class = name>
-            {{ e.name }}
+            {{ e["name"] }}
           </div>
           <div class = settings_dropdown>
             <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
             <div class = options>
               <form method = "post">
-                <input type="submit" value = "Delete" name = {{e.name}}>
-                <input type="hidden" value = {{e.uid}} name = user>
+                <input type="submit" value = "Delete" name = {{e["name"]}}>
+                <input type="hidden" value = {{e["uid"]}} name = user>
               </form>
             </div>
           </div>
         </div>
         <div class = email>
-          Email: {{ e.email }}
+          Email: {{ e["email"] }}
         </div>
       </div>
     {% endfor %}
