@@ -11,6 +11,7 @@ else:
 def insert_new_user(name, email, password1, password2, type):
     """
     Inserts user into User table.
+
     Args:
         name: The name given to the user. A string with max 64 characters.
         email: The email give to the user. A string with max 64 characters.
@@ -22,6 +23,7 @@ def insert_new_user(name, email, password1, password2, type):
           -1 == customer account.
            1 == owner account.
            0 == employee account.
+
     Returns:
         A touple containing any error messages raised and the user ID of the
         newly created user.
@@ -52,11 +54,14 @@ def insert_new_user(name, email, password1, password2, type):
 def get_user_login(email, password):
     """
     Fetches a row from the User table.
+
     Retrieves a row pertaining the given email and password from the User table
     in the database.
+
     Args:
         email: The email pertaining to a user. A string.
         password: The hashed password pertaining to a user. A string.
+
     Returns:
         A user with matching email's and password's as the ones provided,
         None otherwise.
