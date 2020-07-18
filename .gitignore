@@ -9,8 +9,9 @@ out/
 # class files
 *.class
 *.jar
-# vscode
+*.pyc
+#vscode
 .vscode/
-# vir env
+# virtual env
 venv/
 
