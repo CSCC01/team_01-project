@@ -1,9 +1,9 @@
-function checkbox(dates) {
-    var cb = document.getElementsByName("indefinite");
+function checkbox(Item) {
+    var cb = document.getElementsByName("Item");
     var visability = "flex";
       if(cb[0].checked){
        visability = "none";
       }
 
-    document.getElementById(dates).style.display = visability;
+    document.getElementById(Item).style.display = visability;
 }
