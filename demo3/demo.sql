@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `achievement` (
   `description`  varchar(1028)     NOT NULL DEFAULT '',
   `experience`   int unsigned      NOT NULL,
   `points`       int unsigned      NOT NULL,
-  `requireItem`  int unsigned
-  `requireFee`   int unsigned
+  `requireItem`  int unsigned,
+  `requireFee`   int unsigned,
 
   PRIMARY KEY (`aid`)
 );
