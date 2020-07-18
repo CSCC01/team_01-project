@@ -1,4 +1,4 @@
-from exts import db
+# from exts import db
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_sqlalchemy import SQLAlchemy
 
@@ -9,13 +9,25 @@ from exts import db
 #     db.Column("coupon_id", db.Integer, db.ForeignKey("coupon_info.id"), primary_key=True)
 # )
 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import config
+if config.STATUS == "TEST":
+    # for creating test
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    db = SQLAlchemy(app)
+else:
+    from exts import db
+
 
 class User(db.Model):
     __tablename__ = "user"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(64), unique=True, nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    email = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
     type = db.Column(db.Integer)
     # coupons = db.relationship("Coupon", secondary=user_coupon)
 
@@ -38,8 +50,8 @@ class Coupon(db.Model):
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(64), nullable=False)
-    expiration = db.Column(db.DateTime, nullable=False)
-    begin = db.Column(db.DateTime, nullable=False)
+    expiration = db.Column(db.DateTime, nullable=True)
+    begin = db.Column(db.DateTime, nullable=True)
 
 class Restaurant(db.Model):
     __tablename__ = "restaurant"
