@@ -1,9 +1,11 @@
-function checkbox(Item) {
+function checkbox(requireFee, requireItem) {
     var cb = document.getElementsByName("Item");
     var visability = "flex";
+    var countervisability = "none";
       if(cb[0].checked){
-       visability = "none";
+        countervisability = visability;
+        visability = "none";
       }
-
-    document.getElementById(Item).style.display = visability;
+    document.getElementById(requireFee).style.display = visability;
+    document.getElementById(requireItem).style.display = countervisability;
 }

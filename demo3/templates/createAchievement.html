@@ -12,11 +12,11 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="../static/submissionFields.css">
-<link rel="stylesheet" type="text/css" href="static/coupon.css">
+<link rel="stylesheet" type="text/css" href="static/achievement.css">
 {% endblock style %}
 
 {% block title %}
-<title>Create a Coupon</title>
+<title>Create an Achievement</title>
 {% endblock title %}
 
 {% block icons %}
@@ -24,9 +24,12 @@
   <div class = other_icon>
     <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
   </div>
-  <div class = "current">
-      <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+  <div class = other_icon>
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
   </div>
+  <div class = "current">
+    <a href="achievement.html"><img src="static/Resources/achievement.png" alt="Achievement"></a>
+</div>
   {% if session['type'] == 1 %}
   <div class = other_icon>
     <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
@@ -42,7 +45,7 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          Create a Coupon
+          Create an Achievement
         </div>
       </div>
     </div>
@@ -52,7 +55,7 @@
 
     {% if errmsg %}
       <div class = parent>
-        Could not create a coupon because of the following: <br>
+        Could not create an achievement because of the following: <br>
         {% for msg in errmsg %}
           <li>{{msg}} </li>
         {% endfor %}
@@ -63,26 +66,14 @@
         <form method = "post">
           <div class = textfeilds>
             <div class = feild>
-                <label>Coupon Name</label>
+                <label>Achievement Name</label>
                   {% if 'name' in info %}
                     <input type="text" name="name" value = {{info["name"]}}>
                   {% else %}
                     <input type="text" name="name">
                   {% endif %}
             </div>
-            <div class = feild>
-              <label>Cost to Redeem</label>
-              <div class = points>
-                {% if 'points' in info %}
-                  <input type="number" name="points" value = {{info["points"]}}>
-                {% else %}
-                <input type="number" name="points">
-                {% endif %}
-                <div class = right>
-                  Points
-                </div>
-              </div>
-            </div>
+
             <div class = feild>
               <label>Description</label>
               {% if 'description' in info %}
@@ -91,30 +82,69 @@
                 <textarea name = "description"></textarea>
               {% endif %}
             </div>
-            <div class = container>
-              <input type="checkbox" name="indefinite" value="Indefinite" id = "indefinite" onclick="checkbox('dates')">
-              <label for="indefinite"> Valid Indefinitely</label><br>
+            
+            <div class = feild>
+              <label>Reward experience</label>
+              <div class = points>
+                {% if 'experience' in info %}
+                <input type="number" name="experience" value = {{info["experience"]}}>
+                {% else %}
+                <input type="number" name="experience">
+                {% endif %}
+                <div class = right>
+                  Experience
+                </div>
+              </div>
             </div>
 
-            <div class = col id = "dates">
-              <div class = feild>
-                  <label>Begin Data</label>
-                  {% if 'begin' in info %}
-                    <input type="date" name="begin" value = {{info["begin"]}}>
-                  {% else %}
-                    <input type="date" name="begin">
-                  {% endif %}
+            <div class = feild>
+              <label>Reward points</label>
+              <div class = points>
+                {% if 'points' in info %}
+                <input type="number" name="points" value = {{info["points"]}}>
+                {% else %}
+                <input type="number" name="points">
+                {% endif %}
+                <div class = right>
+                  Points
+                </div>
               </div>
-              <div class = feild>
-                  <label>Expiration Date</label>
-                  {% if 'expiration' in info %}
-                    <input type="date" name="end" value = {{info["expiration"]}}>
-                  {% else %}
-                    <input type="date" name="end">
-                  {% endif %}
+            </div>
+
+            <div class = container>
+              <input type="checkbox" name="Item" value="Item" id = "Item" onclick="checkbox('requireFee', 'requireItem')">
+              <label for="Item"> Change to item type of Achievement</label><br>
+            </div>
+
+            <div class = feild id = "requireFee">
+                <label>Require Fee to spend</label>
+                <div class = points>
+                {% if 'requireFee' in info %}
+                <input type="number" name="requireFee" value = {{info["requireFee"]}}>
+                {% else %}
+                <input type="number" name="requireFee">
+                {% endif %}
+                <div class = right>
+                  Dollar
+                </div>
+              </div>
+            </div>
+
+            <div class = original_invisible id = "requireItem">
+              <label>Require item to buy</label>
+              <div class = points>
+                {% if 'requireItem' in info %}
+                <input type="number" name="requireItem" value = {{info["requireItem"]}}>
+                {% else %}
+                <input type="number" name="requireItem">
+                {% endif %}
+                <div class = right>
+                  Item
+                </div>
               </div>
             </div>
           </div>
+
           <div class = submit_button>
             <input type="submit" value="Submit">
           </div>
@@ -122,4 +152,4 @@
       </div>
 {% endblock content %}
 
-  {% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}
+  {% block script %} <script type="text/javascript" src = "static/achievement.js"></script>{% endblock script %}

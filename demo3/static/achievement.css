@@ -18,9 +18,12 @@
   font-size: var(--subtitle);
 }
 
-.expiration {
-  font-size: var(--mini);
-  color: var(--darkGrey);
+.original_invisible{
+  display:none
+	padding: 9px;
+	border:1px solid var(--black);
+	margin-bottom: 30px;
+  border-radius: 3px;
 }
 
 .description {
