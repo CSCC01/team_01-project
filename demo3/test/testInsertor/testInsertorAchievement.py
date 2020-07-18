@@ -34,7 +34,7 @@ class InsertAchievementTest(unittest.TestCase):
 
     # Test normal achievement creation with only experience reward
     def test_insert_default_normal_exp_only_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, "", 10.0, False)
+        errmsg = insert_achievement(1, "name", "description", 10, "", 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNone(achievement)
         self.assertEqual(achievement.cid, 1)
@@ -49,7 +49,7 @@ class InsertAchievementTest(unittest.TestCase):
 
     # Test normal achievement creation with only points reward
     def test_insert_default_normal_pts_only_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", "", 10, 10.0, False)
+        errmsg = insert_achievement(1, "name", "description", "", 10, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNone(achievement)
         self.assertEqual(achievement.cid, 1)
@@ -79,7 +79,7 @@ class InsertAchievementTest(unittest.TestCase):
 
     # Test abnormal achievement creation with name is empty
     def test_insert_abnormal_name_empty_achievement(self):
-        errmsg = insert_achievement(1, "", "description", 10, 10, 10.0, False)
+        errmsg = insert_achievement(1, "", "description", 10, 10, 10, False)
         self.assertEqual(errmsg, "Invalid achievement name, please provide an achieve name.")
 
     # Test abnormal achievement creation with description is empty

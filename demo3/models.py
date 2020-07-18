@@ -74,4 +74,4 @@ class Achievement(db.Model):
     experience = db.Column(db.Integer, nullable=True)
     points = db.Column(db.Integer, nullable=True)
     requireItem = db.Column(db.Integer, nullable=True)
-    requireFee = db.Column(db.Float, nullable=True)
+    requireFee = db.Column(db.Integer, nullable=True)

@@ -19,8 +19,6 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
         errmsg.append("Invalid experience, please provide non-negative value.")
     if int(points) < 0:
         errmsg.append("Invalid points, please provide non-negative value.")
-    if int(experience) < 0 and int(points) < 0:
-       errmsg.append("Invalid experience and points, please provide non-negative value.")
     if item:
         if requireItem == "":
             errmsg.append("Missing Item.")
@@ -29,7 +27,7 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
     else:
         if requireFee == "":
             errmsg.append("Missing Fee.")
-        if float(requireFee) < 0.0: 
+        if int(requireFee) < 0: 
             errmsg.append("Invalid requirement, please provide non-negative value.")
     
     if not errmsg:
@@ -40,5 +38,5 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
         db.session.add(achievement)
         db.session.commit()
         return None
-    else:
-        return errmsg
+    
+    return errmsg
