@@ -18,6 +18,7 @@
   font-size: var(--subtitle);
 }
 
+/* use for requireItem which originally doesn't show up */
 .original_invisible{
   display:none
 	padding: 9px;
