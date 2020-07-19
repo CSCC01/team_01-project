@@ -83,3 +83,73 @@ button, input {
   display: block;
 }
 
+/* TODO if any other pages want the sidebar, move the functions below to common.css */
+
+/* Styles the container for the sidebare */
+.sidenav {
+  font-family: 'Poppins', sans-serif;
+  width: 250px;
+  position: fixed;
+  top: 75px;
+  left: 8px;
+  background: var(--forground);
+  overflow-x: hidden;
+}
+
+/* Adds the coupon title to the sidebar */
+.side_title {
+  font-weight:600;
+  font-size: var(--sidetitle);
+  padding-left: 10px;
+}
+
+/* Changes the size of the boxes so side bar does not overlap */
+.parent {
+  max-width: none;
+  margin-left: 270px;
+  margin-right: 13px;
+}
+
+/* Styles the little images next to the sidebar options */
+.but img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+
+/* Styling for sidebar buttons */
+button {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 5px;
+  font-weight: 300;
+  font-size: var(--body);
+  text-align: left;
+}
+
+/* Styles the sidebar buttons when hovering over them */
+button:hover {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  color: var(--forground);
+  font-size: var(--body);
+}
+
+/* Turns the black icon images white when hovering over button */
+button:hover img{
+  -webkit-filter: invert(100%);
+}
+
+/* Rotates the coupon image */
+.coupon{
+  transform: rotate(-20deg);
+}

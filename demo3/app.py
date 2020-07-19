@@ -16,7 +16,6 @@ app.config.from_object(config)
 
 db.init_app(app)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login.html', methods=['GET', 'POST'])
 @app.route('/', methods = ['GET', 'POST'])
@@ -218,6 +217,12 @@ def create_coupon():
 
     return render_template('createCoupon.html')
 
+@app.route('/viewUserCoupons.html', methods=['GET', 'POST'])
+@app.route('/viewUserCoupons', methods=['GET', 'POST'])
+def viewUserCoupons():
+    rid = get_rid(session['account'])
+    coupons = get_customer_coupons_by_rid(rid)
+    return render_template("viewUserCoupons.html", coupons = coupons)
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])

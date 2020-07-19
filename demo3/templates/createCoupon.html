@@ -38,6 +38,38 @@
 </div>
 {% endblock icons %}
 
+{% block sidebar %}
+<div class="sidenav">
+  <div class = side_title>
+    Coupons
+  </div>
+  <a href="coupon.html">
+    <button type="button">
+      <div class = but>
+        <img src="static/Resources/coupon_pressed.png" alt="Coupon" class = coupon>
+        My Coupons
+      </div>
+    </button>
+  </a>
+  <a href="createCoupon.html">
+    <button type="button">
+      <div class = but>
+        <img src="static/Resources/plus.png" alt="Coupon">
+        Create A Coupon
+      </div>
+    </button>
+  </a>
+  <a href="viewUserCoupons.html">
+    <button type="button">
+      <div class = but>
+        <img src="static/Resources/eye.png" alt="Coupon">
+        View User Coupons
+      </div>
+    </button>
+  </a>
+</div>
+{% endblock sidebar %}
+
 {% block page_name %}
     <div class = parent>
       <div class = title>
