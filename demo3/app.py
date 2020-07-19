@@ -275,8 +275,8 @@ def search():
     else:
         return render_template('search.html')
 
-@app.route('/restaurant/<rid>.html', methods=['GET', 'POST'])
-@app.route('/restaurant/<rid>', methods=['GET', 'POST'])
+@app.route('/restaurant<rid>.html', methods=['GET', 'POST'])
+@app.route('/restaurant<rid>', methods=['GET', 'POST'])
 def restaurant(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
@@ -286,9 +286,10 @@ def restaurant(rid):
     elif session['type'] != -1:
         return redirect(url_for('home'))
 
-    return rid
+    rname = get_restaurant_name_by_rid(rid)
+    coupons = get_coupons(rid)
 
-    return render_template('restaurant.html')
+    return render_template('restaurant.html', rname = rname, coupons = coupons)
 
 
 

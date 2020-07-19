@@ -1,0 +1,21 @@
+
+.name {
+  font-weight:700;
+  font-size: var(--subtitle);
+}
+
+.expiration {
+  font-size: var(--mini);
+  color: var(--darkGrey);
+}
+
+.description {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.points {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

@@ -67,3 +67,8 @@ def get_resturant_by_name(name):
         }
         res_list.append(dict)
     return res_list
+
+
+def get_restaurant_name_by_rid(rid):
+    name = Restaurant.query.filter(Restaurant.rid == rid).first().name
+    return name
