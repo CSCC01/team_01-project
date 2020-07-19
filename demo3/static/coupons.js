@@ -7,3 +7,7 @@ function checkbox(dates) {
 
     document.getElementById(dates).style.display = visability;
 }
+
+function dropdown_menu() {
+  document.getElementById("dropdown").classList.toggle("show");
+}

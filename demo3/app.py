@@ -220,6 +220,14 @@ def create_coupon():
 @app.route('/viewUserCoupons.html', methods=['GET', 'POST'])
 @app.route('/viewUserCoupons', methods=['GET', 'POST'])
 def viewUserCoupons():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    elif session['type'] != 1:
+        return redirect(url_for('home'))
+
     rid = get_rid(session['account'])
     coupons = get_customer_coupons_by_rid(rid)
     return render_template("viewUserCoupons.html", coupons = coupons)

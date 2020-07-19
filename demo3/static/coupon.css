@@ -45,6 +45,7 @@ button, input {
   background: none;
   outline: none;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .settings_dropdown img {
@@ -65,12 +66,11 @@ button, input {
   position: absolute;
   background-color: var(--background);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
 }
 
 .options input {
   font-family: 'Poppins', sans-serif;
-  padding: 12px 16px;
+  padding: 10px 14px;
   text-decoration: none;
   display: block;
 }
@@ -103,13 +103,6 @@ button, input {
   padding-left: 10px;
 }
 
-/* Changes the size of the boxes so side bar does not overlap */
-.parent {
-  max-width: none;
-  margin-left: 270px;
-  margin-right: 13px;
-}
-
 /* Styles the little images next to the sidebar options */
 .but img {
   width: 20px;
@@ -120,9 +113,8 @@ button, input {
   top: 3px;
 }
 
-
 /* Styling for sidebar buttons */
-button {
+.but button {
   font-family: 'Poppins', sans-serif;
   width: 100%;
   height: 40px;
@@ -133,10 +125,11 @@ button {
   font-weight: 300;
   font-size: var(--body);
   text-align: left;
+  cursor: pointer;
 }
 
 /* Styles the sidebar buttons when hovering over them */
-button:hover {
+.but button:hover {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
   color:transparent;
@@ -145,11 +138,76 @@ button:hover {
 }
 
 /* Turns the black icon images white when hovering over button */
-button:hover img{
+.but button:hover img{
   -webkit-filter: invert(100%);
 }
 
 /* Rotates the coupon image */
 .coupon{
   transform: rotate(-20deg);
+}
+
+/* This is used when the tab size is bigger then 1000px */
+@media only screen and (max-width: 700px) {
+    .parent {
+      max-width: 70%;
+    }
+    .sidenav {
+      display: none;
+    }
+
+    .current {
+      display:none;
+    }
+}
+
+/* This is used when the tab size is smaller then 1000px */
+@media only screen and (min-width: 700px) {
+  /* Changes the size of the boxes so side bar does not overlap */
+  .parent {
+    max-width: none;
+    margin-left: 270px;
+    margin-right: 13px;
+  }
+
+  .small_window {
+    display: none;
+  }
+}
+
+/* Removed styling from the coupon icon in the header */
+.current button {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+
+/* Styling for the drop down menu when the screen size is too small */
+.dropdown_container {
+  display: none;
+  position: absolute;
+  background-color: var(--forground);
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 100;
+  margin-top: 15px;
+}
+
+.dropdown_container a {
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  font-size: var(--body);
+}
+
+#dropdown a:hover {
+  background-color: var(--purpleGrey);
+}
+
+.show {
+  display: block;
 }
