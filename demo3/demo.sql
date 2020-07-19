@@ -24,11 +24,11 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   PRIMARY KEY (`cid`)
 );
 CREATE TABLE IF NOT EXISTS `points` (
-  `pid`          int               NOT NULL,
+  `pid`          int               NOT NULL AUTO_INCREMENT,
   `uid`          int               NOT NULL,
   `rid`          int               NOT NULL,
   `points`       int               NOT NULL,
-  PRIMARY KEY (`uid`)
+  PRIMARY KEY (`pid`)
 );
 CREATE TABLE IF NOT EXISTS `employee` (
   `uid`          int               NOT NULL,

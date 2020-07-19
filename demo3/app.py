@@ -5,9 +5,12 @@ from helpers.user import *
 from helpers.restaurant import *
 from helpers.employee import *
 from helpers.coupon import *
+from helpers.points import *
+from helpers.level import *
 import config
 import os
 import hashlib
+import re
 
 app = Flask(__name__)
 app.secret_key = 'shhhh'
@@ -268,6 +271,29 @@ def profile():
     else :
         return render_template('profile.html')
 
+@app.route('/restaurant/<rid>')
+@app.route('/restaurant/<rid>.html')
+def catch_all(rid = 1):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    if session['type'] != -1:
+        return redirect(url_for('home'))
+    
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        uid = session['account']
+        if not get_points(uid, rid):
+            insert_points(uid, rid)
+        else:
+            points = get_points(uid, rid).points
+        level = convert_points_to_level(points)
+        return render_template("restaurant.html", restaurant = restaurant, level = level,
+                                overflow = get_points_since_last_level(level, points))
+    else:
+        return redirect(url_for('home'))
 
 # To end session you must logout
 @app.route('/logout')
