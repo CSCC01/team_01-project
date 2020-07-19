@@ -1,5 +1,10 @@
 from models import Coupon, Customer_Coupons, User
-from exts import db
+
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def insert_coupon(rid, name, points, description, begin, expiration, indefinite):
