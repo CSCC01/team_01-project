@@ -1,5 +1,10 @@
 from models import Restaurant
-from exts import db
+
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def insert_new_restaurant(rname, address, uid):
