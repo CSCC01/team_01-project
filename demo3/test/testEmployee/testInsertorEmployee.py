@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import insertor
+from helpers import employee as employeehelper
 
 
 class InsertEmployeeTest(unittest.TestCase):
@@ -19,14 +19,14 @@ class InsertEmployeeTest(unittest.TestCase):
         db.drop_all()
 
     def test_add_default_employee(self):
-        insertor.insert_new_employee(12, 14)
+        employeehelper.insert_new_employee(12, 14)
         employee = Employee.query.filter_by(uid=12).first()
         self.assertIsNotNone(employee)
 
     def test_add_employees_one_res(self):
-        insertor.insert_new_employee(12, 14)
-        insertor.insert_new_employee(2, 14)
-        insertor.insert_new_employee(18, 14)
+        employeehelper.insert_new_employee(12, 14)
+        employeehelper.insert_new_employee(2, 14)
+        employeehelper.insert_new_employee(18, 14)
         e1 = Employee.query.filter_by(uid=12).first()
         e2 = Employee.query.filter_by(uid=2).first()
         e3 = Employee.query.filter_by(uid=18).first()
@@ -38,9 +38,9 @@ class InsertEmployeeTest(unittest.TestCase):
         self.assertEqual(e3.rid, 14)
 
     def test_add_employees_multi_res(self):
-        insertor.insert_new_employee(12, 12)
-        insertor.insert_new_employee(2, 16)
-        insertor.insert_new_employee(18, 4)
+        employeehelper.insert_new_employee(12, 12)
+        employeehelper.insert_new_employee(2, 16)
+        employeehelper.insert_new_employee(18, 4)
         e1 = Employee.query.filter_by(uid=12).first()
         e2 = Employee.query.filter_by(uid=2).first()
         e3 = Employee.query.filter_by(uid=18).first()

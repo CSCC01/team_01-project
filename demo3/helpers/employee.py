@@ -1,5 +1,9 @@
 from models import Employee, User
-from exts import db
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def insert_new_employee(uid, rid):
@@ -10,7 +14,7 @@ def insert_new_employee(uid, rid):
         uid: A user ID that corresponds to a user in the User table. A integer.
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.
-
+          
     Returns:
         None.
     """
@@ -26,7 +30,7 @@ def get_employees(rid):
 
     Retrieves a list of employees from the Employee table that work at a
     restaurant with the given restaurant ID.
-
+    
     Args:
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.

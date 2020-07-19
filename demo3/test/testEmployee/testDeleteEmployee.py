@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import updator
+from helpers import employee as employeehelper
 
 
 class DeleteEmployeeTest(unittest.TestCase):
@@ -24,7 +24,7 @@ class DeleteEmployeeTest(unittest.TestCase):
         db.session.add(user)
         db.session.add(employee)
         db.session.commit()
-        updator.delete_employee(9187)
+        employeehelper.delete_employee(9187)
         e = Employee.query.filter_by(uid=9187).first()
         u = User.query.filter_by(uid=9187).first()
         self.assertIsNone(e)

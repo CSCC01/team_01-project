@@ -1,11 +1,16 @@
 from models import Coupon
-from exts import db
+
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def insert_coupon(rid, name, points, description, begin, expiration, indefinite):
     """
     Inserts a coupon into Coupon table.
-
+    
     Args:
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.
@@ -28,7 +33,7 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
         errmsg.append("Invalid amount for points.")
     if name == "":
         errmsg.append("Invalid coupon name, please give your coupon a name.")
-    if not indefinite and (expiration == "" or begin == ""):
+    if not indefinite and (expiration == None or begin == None):
         errmsg.append("Missing start or expiration date.")
 
     if not errmsg:
@@ -83,7 +88,7 @@ def delete_coupon(cid):
     Args:
         cid: A coupon ID that corresponds to a coupon in the Coupon table. A
           integer.
-
+          
     Returns:
         None.
     """

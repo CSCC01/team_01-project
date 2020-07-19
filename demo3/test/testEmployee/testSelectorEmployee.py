@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import selector
+from helpers import employee as employeehelper
 
 class SelectEmployeeTest(unittest.TestCase):
     def setUp(self):
@@ -23,7 +23,7 @@ class SelectEmployeeTest(unittest.TestCase):
         db.session.add(e)
         db.session.add(u)
         db.session.commit()
-        employee_list = selector.get_employees(7)
+        employee_list = employeehelper.get_employees(7)
         self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 3}])
 
     def test_employee_many(self):
@@ -40,7 +40,7 @@ class SelectEmployeeTest(unittest.TestCase):
         db.session.add(e2)
         db.session.add(e3)
         db.session.commit()
-        employee_list = selector.get_employees(7)
+        employee_list = employeehelper.get_employees(7)
         self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 1},
                     {'email': 'joetwo.com', 'name': 'joetwo', 'uid': 2},
                     {'email': 'joethree.com', 'name': 'joethree', 'uid': 3}])
@@ -59,7 +59,7 @@ class SelectEmployeeTest(unittest.TestCase):
         db.session.add(e2)
         db.session.add(e3)
         db.session.commit()
-        employee_list = selector.get_employees(5)
+        employee_list = employeehelper.get_employees(5)
         self.assertEqual(employee_list, [])
 
 

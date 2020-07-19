@@ -5,7 +5,6 @@ from helpers.user import *
 from helpers.restaurant import *
 from helpers.employee import *
 from helpers.coupon import *
-from helpers.achievement import *
 import config
 import os
 import hashlib
