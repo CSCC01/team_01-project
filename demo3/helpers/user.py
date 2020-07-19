@@ -1,6 +1,11 @@
 from models import User
-from exts import db
+import config
 import hashlib
+
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def insert_new_user(name, email, password1, password2, type):
@@ -32,7 +37,8 @@ def insert_new_user(name, email, password1, password2, type):
         errmsg.append("Passwords do not match.")
     if email == "":
         errmsg.append("An email is required.")
-    if password1 == (hashlib.md5("".encode())).hexdigest():
+    # if password1 == (hashlib.md5("".encode())).hexdigest():
+    if password1 == "":
         errmsg.append("A password is required.")
 
     # Adds user to db if no resistration errors occured
