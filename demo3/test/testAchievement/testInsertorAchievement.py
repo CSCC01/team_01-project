@@ -105,7 +105,8 @@ class InsertAchievementTest(unittest.TestCase):
     # Test abnormal achievement creation with exp and pts both are negative
     def test_insert_abnormal_negative_both_achievement(self):
         errmsg = insert_achievement(1, "name", "description", -10, -10, None, 10, False)
-        self.assertEqual(errmsg, "Invalid experience and points, please provide non-negative value.")
+        self.assertEqual(errmsg, 
+                        ["Invalid experience, please provide non-negative value.", "Invalid points, please provide non-negative value."])
 
     # Test abnormal achievement creation with feetype and require fee is empty
     def test_insert_abnormal_feetype_fee_empty_achievement(self):
