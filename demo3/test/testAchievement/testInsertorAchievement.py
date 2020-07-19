@@ -21,7 +21,7 @@ class InsertAchievementTest(unittest.TestCase):
     def test_insert_default_normal_Feetype_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNone(achievement)
+        self.assertIsNotNone(achievement)
         self.assertEqual(achievement.cid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
@@ -36,7 +36,7 @@ class InsertAchievementTest(unittest.TestCase):
     def test_insert_default_normal_exp_only_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, None, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNone(achievement)
+        self.assertIsNotNone(achievement)
         self.assertEqual(achievement.cid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
@@ -51,7 +51,7 @@ class InsertAchievementTest(unittest.TestCase):
     def test_insert_default_normal_pts_only_achievement(self):
         errmsg = insert_achievement(1, "name", "description", None, 10, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNone(achievement)
+        self.assertIsNotNone(achievement)
         self.assertEqual(achievement.cid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
@@ -66,7 +66,7 @@ class InsertAchievementTest(unittest.TestCase):
     def test_insert_default_normal_Itemtype_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, 12, None, True)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNone(achievement)
+        self.assertIsNotNone(achievement)
         self.assertEqual(achievement.cid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
