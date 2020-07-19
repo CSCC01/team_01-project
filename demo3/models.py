@@ -52,3 +52,10 @@ class Employee(db.Model):
     __tablename__ = "employee"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
+
+class Customer_Coupons(db.Model):
+    __tablename__ = "customer_coupons"
+    cid = db.Column(db.Integer, nullable=False, primary_key=True)
+    uid = db.Column(db.Integer, nullable=False, primary_key=True)
+    rid = db.Column(db.Integer, nullable=False, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False)
