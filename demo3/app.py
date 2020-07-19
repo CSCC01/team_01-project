@@ -218,41 +218,6 @@ def create_coupon():
 
     return render_template('createCoupon.html')
 
-# To create an achievement 
-@app.route('/createAchievement.html', methods=['GET', 'POST'])
-@app.route('/createAchievement', methods=['GET', 'POST'])
-def create_achievement():
-    # If someone is not logged in redirects them to login page, same as coupon
-    if 'account' not in session:
-        return redirect(url_for('login'))
-    
-    # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] != 1:
-        return redirect(url_for('home'))
-
-    errmsg = []
-
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        experience = request.form['experience']
-        points = request.form['points']
-        requireItem = request.form['requireItem']
-        requireFee = request.form['requireFee']
-        # true require item, false require amount of fee
-        item = "item" in request.form
-        rid = get_rid(session["account"])
-        errmsg = insert_achievement(rid, name, description, experience, points, requireItem, requireFee, item)
-
-        if not errmsg:
-            return redirect(url_for('achievement'))
-        else:
-            return render_template('createAchievement.html', errmsg = errmsg,
-                                info = {'name' : name, 'description' : description, 'experience' : experience, 'points' : points, 'requireItem' : requireItem, 'requireFee' : requireFee})
-    else:
-        return render_template('createAchievement.html')
-
-
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
@@ -315,6 +280,40 @@ def logout():
         session.pop('account', None)
         session.pop('type', None)
         return redirect(url_for('login'))
+
+# To create an achievement 
+@app.route('/createAchievement.html', methods=['GET', 'POST'])
+@app.route('/createAchievement', methods=['GET', 'POST'])
+def create_achievement():
+    # If someone is not logged in redirects them to login page, same as coupon
+    if 'account' not in session:
+        return redirect(url_for('login'))
+    
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    elif session['type'] != 1:
+        return redirect(url_for('home'))
+
+    errmsg = []
+
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        experience = request.form['experience']
+        points = request.form['points']
+        requireItem = request.form['requireItem']
+        requireFee = request.form['requireFee']
+        # true require item, false require amount of fee
+        item = "item" in request.form
+        rid = get_rid(session["account"])
+        errmsg = insert_achievement(rid, name, description, experience, points, requireItem, requireFee, item)
+
+        if not errmsg:
+            return redirect(url_for('achievement'))
+        else:
+            return render_template('createAchievement.html', errmsg = errmsg,
+                                info = {'name' : name, 'description' : description, 'experience' : experience, 'points' : points, 'requireItem' : requireItem, 'requireFee' : requireFee})
+    else:
+        return render_template('createAchievement.html')
 
 if __name__ == '__main__':
     app.run()

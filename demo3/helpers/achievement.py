@@ -15,9 +15,9 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
         errmsg.append("Invalid description of achievement, please provide a description.")
     if experience == "" and points == "":
         errmsg.append("Missing experience and points, please at least provide experience or points.")
-    if int(experience) < 0:
+    if experience and int(experience) < 0:
         errmsg.append("Invalid experience, please provide non-negative value.")
-    if int(points) < 0:
+    if experience and int(points) < 0:
         errmsg.append("Invalid points, please provide non-negative value.")
     if item:
         if requireItem == "":

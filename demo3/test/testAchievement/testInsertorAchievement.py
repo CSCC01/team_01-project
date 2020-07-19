@@ -123,7 +123,7 @@ class InsertAchievementTest(unittest.TestCase):
         self.assertEqual(errmsg, "Invalid requirement, please provide non-negative value.")
 
     # Test abnormal achievement creation with itemtype and require item is negative
-    def test_insert_abnormal_feetype_fee_negative_achievement(self):
+    def test_insert_abnormal_feetype_item_negative_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, -10, None, True)
         self.assertEqual(errmsg, "Invalid requirement, please provide non-negative value.")
 
