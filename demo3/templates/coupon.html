@@ -1,0 +1,90 @@
+<!--                                          ----
+----    coupon.html contains all frontend     ----
+----     html for the owners view of the      ----
+----               coupon page                ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}<link rel="stylesheet" type="text/css" href="static/coupon.css">{% endblock style %}
+{% block title %}
+<title>My Coupons</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  {% if session['type'] == -1 %}
+  <div class = other_icon>
+    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+  </div>
+  {% if session['type'] == 1 %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          My Coupons
+        </div>
+        {% if session['type'] == 1 %}
+        <div class = plus>
+          <a href="createCoupon.html">+</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+    {% for c in coupons %}
+      <div class = parent>
+        <div class = title>
+          <div class = name>
+            {{ c["name"] }}
+          </div>
+
+          <!-- The gear for deleting coupons -->
+          {% if session['type'] == 1 %}
+          <div class = settings_dropdown>
+            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+            <div class = options>
+              <form method = "post">
+                <input type="submit" value = "Delete" name = {{c["name"]}}>
+                <input type="hidden" value = {{c["cid"]}} name = coupon>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+        <div class = amount>
+          {{ c["points"] }} Points
+        </div>
+        <div class = description>
+          {{ c["description"] }}
+        </div>
+        <div class = expiration>
+          {% if c["begin"] == None or c["expiration"] == None %}
+            Valid indefinitely
+          {% else %}
+            Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+          {% endif %}
+        </div>
+      </div>
+      </div>
+    {% endfor %}
+  {% endblock content %}

@@ -1,9 +1,18 @@
 /*                                                  *
 *                                                   *
-*              Styling for coupon.HTML              *
+*             Styling for employee.HTML             *
 *                                                   *
 *                                                   */
 
+.fine_print {
+  font-size: var(--mini);
+  color: var(--darkGrey);
+}
+
+.name {
+  font-weight:700;
+  font-size: var(--subtitle);
+}
 
 .plus {
   font-size: 40px;
@@ -13,32 +22,6 @@
   -webkit-background-clip: text;
 }
 
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
-}
-
-.expiration {
-  font-size: var(--mini);
-  color: var(--darkGrey);
-}
-
-.description {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.points {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.container {
-  display: block;
-	margin-top: -15px;
-  margin-bottom: 19px;
-}
 
 button, input {
   border: none;
@@ -82,4 +65,3 @@ button, input {
 .settings_dropdown:hover .options {
   display: block;
 }
-

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/profile.css">
+{% endblock style %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock title %}
+
+
+{% block icons %}
+<div class = icons>
+  {% if session['type'] == -1 %}
+  <div class = other_icon>
+    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  {% if session['type'] == 1 %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user_pressed.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          My Profile
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+  <div class = parent>
+    <div class = submit_button>
+      <a href="logout.html"><input type="submit" value="Logout"></a>
+    </div>
+  </div>
+{% endblock content %}

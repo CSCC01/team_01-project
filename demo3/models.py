@@ -1,4 +1,4 @@
-from exts import db
+# from exts import db
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_sqlalchemy import SQLAlchemy
 
@@ -9,17 +9,26 @@ from exts import db
 #     db.Column("coupon_id", db.Integer, db.ForeignKey("coupon_info.id"), primary_key=True)
 # )
 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import config
+if config.STATUS == "TEST":
+    # for creating test
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    db = SQLAlchemy(app)
+else:
+    from exts import db
+
 
 class User(db.Model):
-    __tablename__ = 'user_profile'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(32), unique=True, nullable=True)
-    password_hash = db.Column(db.String(128), nullable=False)
-    email = db.Column(db.String(128), nullable=False)
-    address = db.Column(db.String(256), nullable=True)
-    user_type = db.Column(db.Integer)
-    exp = db.Column(db.Integer)   # experience
+    __tablename__ = "user"
+    uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
+    type = db.Column(db.Integer)
     # coupons = db.relationship("Coupon", secondary=user_coupon)
 
     # @property
@@ -35,11 +44,23 @@ class User(db.Model):
 
 
 class Coupon(db.Model):
-    __tablename__ = "coupon_info"
+    __tablename__ = "coupons"
+    cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rid = db.Column(db.Integer)
+    name = db.Column(db.String(64), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(64), nullable=False)
+    expiration = db.Column(db.DateTime, nullable=True)
+    begin = db.Column(db.DateTime, nullable=True)
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(128), nullable=False)
-    amount = db.Column(db.DECIMAL(4, 2), nullable=False)
-    description = db.Column(db.String(256), nullable=False)
-    date = db.Column(db.String(128), nullable=False)
+class Restaurant(db.Model):
+    __tablename__ = "restaurant"
+    rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(64), nullable=False)
+    address = db.Column(db.String(64), nullable=True)
+    uid = db.Column(db.Integer)
 
+class Employee(db.Model):
+    __tablename__ = "employee"
+    uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rid = db.Column(db.Integer)

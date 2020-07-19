@@ -3,64 +3,116 @@
 ----         html For the coupon page         ----
 ----                                          --->
 
-<!doctype html>
-<html>
-    <head>
-        <!-- Styles and titles for each file -->
-        <link rel="stylesheet" type="text/css" href="static/common.css">
-        <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
-        <title>Create a Coupon</title>
-    </head>
+<!--                                          ----
+---- ownersCoupon.html contains all frontend  ----
+----     html for the owners view of the      ----
+----               coupon page                ----
+----                                          --->
 
-    <body>
-      <!-- Hearer bar containing logo and links to other pages -->
-      <header>
-        <div class = logo>
-          Pickeasy
-        </div>
-        <div class = icons>
-          <div class = other_icon>
-            <img src="static/Resources/home.png" alt="User">
-          </div>
-          <div class = "current">
-              <a href="ownersCoupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
-          </div>
-          <div class = other_icon>
-            <img src="static/Resources/user.png" alt="User">
-          </div>
-        </div>
-      </header>
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
+{% endblock style %}
 
-      <div class = parent>
-        <div class = title>
-          <div class = text>
-            Create a Coupon
-          </div>
+{% block title %}
+<title>Create a Coupon</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Coupon"></a>
+  </div>
+  {% if session['type'] == 1 %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Create a Coupon
         </div>
       </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+
+    {% if errmsg %}
+      <div class = parent>
+        Could not create a coupon because of the following: <br>
+        {% for msg in errmsg %}
+          <li>{{msg}} </li>
+        {% endfor %}
+      </div>
+    {% endif %}
 
       <div class = parent>
-        <form action = "/coupon/create" method = "post" class="form">
+        <form method = "post">
           <div class = textfeilds>
             <div class = feild>
                 <label>Coupon Name</label>
-                  <input type="text" name="name">
+                  {% if 'name' in info %}
+                    <input type="text" name="name" value = {{info["name"]}}>
+                  {% else %}
+                    <input type="text" name="name">
+                  {% endif %}
             </div>
-
             <div class = feild>
-                <label>Discount</label>
-
-                <input type="text" name="discount">
+              <label>Cost to Redeem</label>
+              <div class = points>
+                {% if 'points' in info %}
+                  <input type="number" name="points" value = {{info["points"]}}>
+                {% else %}
+                <input type="number" name="points">
+                {% endif %}
+                <div class = right>
+                  Points
+                </div>
+              </div>
             </div>
-
             <div class = feild>
               <label>Description</label>
-              <textarea name = "description"></textarea>
+              {% if 'description' in info %}
+              <textarea name = "description">{{info["description"]}}</textarea>
+              {% else %}
+                <textarea name = "description"></textarea>
+              {% endif %}
+            </div>
+            <div class = container>
+              <input type="checkbox" name="indefinite" value="Indefinite" id = "indefinite" onclick="checkbox('dates')">
+              <label for="indefinite"> Valid Indefinitely</label><br>
             </div>
 
-            <div class = feild>
-                <label>Experation Date</label>
-                  <input type="text" name="date">
+            <div class = col id = "dates">
+              <div class = feild>
+                  <label>Begin Data</label>
+                  {% if 'begin' in info %}
+                    <input type="date" name="begin" value = {{info["begin"]}}>
+                  {% else %}
+                    <input type="date" name="begin">
+                  {% endif %}
+              </div>
+              <div class = feild>
+                  <label>Expiration Date</label>
+                  {% if 'expiration' in info %}
+                    <input type="date" name="end" value = {{info["expiration"]}}>
+                  {% else %}
+                    <input type="date" name="end">
+                  {% endif %}
+              </div>
             </div>
           </div>
           <div class = submit_button>
@@ -68,14 +120,6 @@
           </div>
         </form>
       </div>
+{% endblock content %}
 
-    </body>
-
-    <!-- Footer -->
-    <footer>
-        <div class = "creators">
-            <p>© 2020 Designed by Enterprise </p>
-        </div>
-    </footer>
-
-</html>
+  {% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}

@@ -1,0 +1,44 @@
+<!--                                          ----
+----  Base.html contains all common html      ----
+----  All other .html files extend base.html  ----
+----                                          --->
+
+
+<!doctype html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="static/common.css">
+      {% block style %} {% endblock style %}
+      {% block title %} {% endblock title %}
+  </head>
+  <body>
+      <header>
+          <div class = logo>
+            <a href="login">Pickeasy</a>
+          </div>
+          {% block icons %} {% endblock icons %}
+      </header>
+      {% block page_name %}
+          <div class = parent>
+            <div class = title>
+              <div class = text>
+              </div>
+            </div>
+          </div>
+      {% endblock page_name %}
+
+          {% block content %} {% endblock content %}
+
+      </body>
+      {% block script %} {% endblock script %}
+
+      <!-- Footer -->
+      <footer>
+          <div class = "creators">
+              <p>© 2020 Designed by Enterprise </p>
+          </div>
+      </footer>
+
+
+</html>
