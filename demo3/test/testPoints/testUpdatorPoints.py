@@ -5,7 +5,7 @@ import time
 from app import app
 from helpers import points as pointshelper
 
-class InsertCouponTest(unittest.TestCase):
+class UpdatePointsTest(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -21,15 +21,15 @@ class InsertCouponTest(unittest.TestCase):
         points = Points(uid=1, rid=13, points=10)
         db.session.add(points)
         db.session.commit()
-        points = pointshelper.update_points(1, 12, 10)
-        self.assertEqual(points, ["Points entry does not exist for the given user ID and restaurant ID."])
+        errmsg = pointshelper.update_points(1, 12, 10)
+        self.assertEqual(errmsg, ["Points entry does not exist for the given user ID and restaurant ID."])
 
     def test_update_points_entry_positive_increment(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
-        points = pointshelper.update_points(1, 12, 10)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.update_points(1, 12, 10)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(uid=1, rid=12).first()
         self.assertNotEqual(points, None)
@@ -38,12 +38,26 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(points.rid, 12)
         self.assertEqual(points.points, 20)
 
+    def test_update_points_entry_zero_increment(self):
+        points = Points(uid=1, rid=12, points=10)
+        db.session.add(points)
+        db.session.commit()
+        errmsg = pointshelper.update_points(1, 12, 0)
+        self.assertEqual(errmsg, None)
+
+        points = Points.query.filter_by(uid=1, rid=12).first()
+        self.assertNotEqual(points, None)
+        self.assertEqual(points.pid, 1)
+        self.assertEqual(points.uid, 1)
+        self.assertEqual(points.rid, 12)
+        self.assertEqual(points.points, 10)
+
     def test_update_points_entry_negative_increment_less_than_existing_points(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
-        points = pointshelper.update_points(1, 12, -5)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.update_points(1, 12, -5)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(uid=1, rid=12).first()
         self.assertNotEqual(points, None)
@@ -56,8 +70,8 @@ class InsertCouponTest(unittest.TestCase):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
-        points = pointshelper.update_points(1, 12, -10)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.update_points(1, 12, -10)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(uid=1, rid=12).first()
         self.assertNotEqual(points, None)
@@ -70,8 +84,8 @@ class InsertCouponTest(unittest.TestCase):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
-        points = pointshelper.update_points(1, 12, -20)
-        self.assertEqual(points, ["A points entry cannot have a negative point count."])
+        errmsg = pointshelper.update_points(1, 12, -20)
+        self.assertEqual(errmsg, ["A points entry cannot have a negative point count."])
 
         points = Points.query.filter_by(uid=1, rid=12).first()
         self.assertNotEqual(points, None)

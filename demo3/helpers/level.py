@@ -1,5 +1,10 @@
 from models import Points
-from exts import db
+
+import config
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def convert_points_to_level(points):

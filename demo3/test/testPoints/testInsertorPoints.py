@@ -18,8 +18,8 @@ class InsertPointsTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_standard_points_entry(self):
-        points = pointshelper.insert_points(1, 12)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.insert_points(1, 12)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(pid=1).first()
         self.assertNotEqual(points, None)
@@ -27,22 +27,12 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.uid, 1)
         self.assertEqual(points.rid, 12)
         self.assertEqual(points.points, 0)
-
-    def test_insert_standard_points_entry(self):
-        points = pointshelper.insert_points(1, 12)
-        self.assertEqual(points, None)
-
-        points = Points.query.filter_by(pid=1).first()
-        self.assertNotEqual(points, None)
-        self.assertEqual(points.uid, 1)
-        self.assertEqual(points.rid, 12)
-        self.assertEqual(points.points, 0)
     
     def test_insert_duplicate_uid_points_entry(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
-        points = pointshelper.insert_points(1, 13)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.insert_points(1, 13)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(uid=1)
         self.assertEqual(points.count(), 2)
@@ -62,8 +52,8 @@ class InsertPointsTest(unittest.TestCase):
     def test_insert_duplicate_rid_points_entry(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
-        points = pointshelper.insert_points(2, 12)
-        self.assertEqual(points, None)
+        errmsg = pointshelper.insert_points(2, 12)
+        self.assertEqual(errmsg, None)
 
         points = Points.query.filter_by(rid=12)
         self.assertEqual(points.count(), 2)
@@ -83,8 +73,8 @@ class InsertPointsTest(unittest.TestCase):
     def test_insert_duplicate_uid_and_rid_points_entry(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
-        points = pointshelper.insert_points(1, 12)
-        self.assertEqual(points, ["Points entry already exists for given user at this restaurant."])
+        errmsg = pointshelper.insert_points(1, 12)
+        self.assertEqual(errmsg, ["Points entry already exists for given user at this restaurant."])
 
         points = Points.query.filter_by(uid=1, rid=12)
         self.assertEqual(points.count(), 1)

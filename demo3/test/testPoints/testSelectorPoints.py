@@ -18,8 +18,8 @@ class SelectPointsTest(unittest.TestCase):
         db.drop_all()
 
     def test_get_existing_points_entry(self):
-        points = Points(uid=1, rid=12, points=10)
-        db.session.add(points)
+        newEntry = Points(uid=1, rid=12, points=10)
+        db.session.add(newEntry)
         db.session.commit()
         points = pointshelper.get_points(1, 12)
         self.assertNotEqual(points, None)
@@ -29,22 +29,22 @@ class SelectPointsTest(unittest.TestCase):
         self.assertEqual(points.points, 10)
 
     def test_get_nonexistent_points_entry(self):
-        points = Points(uid=1, rid=13, points=10)
-        db.session.add(points)
+        newEntry = Points(uid=1, rid=13, points=10)
+        db.session.add(newEntry)
         db.session.commit()
         points = pointshelper.get_points(2, 12)
         self.assertEqual(points, None)
 
     def test_get_nonexistent_points_entry_duplicate_uid(self):
-        points = Points(uid=1, rid=13, points=10)
-        db.session.add(points)
+        newEntry = Points(uid=1, rid=13, points=10)
+        db.session.add(newEntry)
         db.session.commit()
         points = pointshelper.get_points(1, 12)
         self.assertEqual(points, None)
 
     def test_get_nonexistent_points_entry_duplicate_rid(self):
-        points = Points(uid=1, rid=13, points=10)
-        db.session.add(points)
+        newEntry = Points(uid=1, rid=13, points=10)
+        db.session.add(newEntry)
         db.session.commit()
         points = pointshelper.get_points(2, 13)
         self.assertEqual(points, None)
