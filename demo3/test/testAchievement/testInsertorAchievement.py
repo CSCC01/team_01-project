@@ -22,7 +22,7 @@ class InsertAchievementTest(unittest.TestCase):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.cid, 1)
+        self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
         self.assertEqual(achievement.description, "description")
@@ -37,7 +37,7 @@ class InsertAchievementTest(unittest.TestCase):
         errmsg = insert_achievement(1, "name", "description", 10, None, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.cid, 1)
+        self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
         self.assertEqual(achievement.description, "description")
@@ -52,7 +52,7 @@ class InsertAchievementTest(unittest.TestCase):
         errmsg = insert_achievement(1, "name", "description", None, 10, None, 10, False)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.cid, 1)
+        self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
         self.assertEqual(achievement.description, "description")
@@ -67,7 +67,7 @@ class InsertAchievementTest(unittest.TestCase):
         errmsg = insert_achievement(1, "name", "description", 10, 10, 12, None, True)
         achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.cid, 1)
+        self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
         self.assertEqual(achievement.name, "name")
         self.assertEqual(achievement.description, "description")
@@ -80,27 +80,27 @@ class InsertAchievementTest(unittest.TestCase):
     # Test abnormal achievement creation with name is empty
     def test_insert_abnormal_name_empty_achievement(self):
         errmsg = insert_achievement(1, "", "description", 10, 10, None, 10, False)
-        self.assertEqual(errmsg, "Invalid achievement name, please provide an achieve name.")
+        self.assertEqual(errmsg, ["Invalid achievement name, please provide an achieve name."])
 
     # Test abnormal achievement creation with description is empty
     def test_insert_abnormal_descrip_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "", 10, 10, None, 10, False)
-        self.assertEqual(errmsg, "Invalid description of achievement, please provide a description.")
+        self.assertEqual(errmsg, ["Invalid description of achievement, please provide a description."])
 
     # Test abnormal achievement creation with Fee type
     def test_insert_abnormal_exp_pts_both_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "description", "", "", None, 10, False)
-        self.assertEqual(errmsg, "Missing experience and points, please at least provide experience or points.")
+        self.assertEqual(errmsg, ["Missing experience and points, please at least provide experience or points."])
 
     # Test abnormal achievement creation with exp is negative
     def test_insert_abnormal_negative_exp_achievement(self):
         errmsg = insert_achievement(1, "name", "description", -10, 10, None, 10, False)
-        self.assertEqual(errmsg, "Invalid experience, please provide non-negative value.")
+        self.assertEqual(errmsg, ["Invalid experience, please provide non-negative value."])
 
     # Test abnormal achievement creation with points is negative
     def test_insert_abnormal_negative_pts_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, -10, None, 10, False)
-        self.assertEqual(errmsg, "Invalid points, please provide non-negative value.")
+        self.assertEqual(errmsg, ["Invalid points, please provide non-negative value."])
 
     # Test abnormal achievement creation with exp and pts both are negative
     def test_insert_abnormal_negative_both_achievement(self):
@@ -111,22 +111,22 @@ class InsertAchievementTest(unittest.TestCase):
     # Test abnormal achievement creation with feetype and require fee is empty
     def test_insert_abnormal_feetype_fee_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, False)
-        self.assertEqual(errmsg, "Missing Fee.")
+        self.assertEqual(errmsg, ["Missing Fee."])
     
     # Test abnormal achievement creation with itemtype and require item is empty
     def test_insert_abnormal_itemtype_item_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, True)
-        self.assertEqual(errmsg, "Missing Item.")
+        self.assertEqual(errmsg, ["Missing Item."])
     
     # Test abnormal achievement creation with feetype and require fee is negative
     def test_insert_abnormal_feetype_fee_negative_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, -10, False)
-        self.assertEqual(errmsg, "Invalid requirement, please provide non-negative value.")
+        self.assertEqual(errmsg, ["Invalid requirement, please provide non-negative value."])
 
     # Test abnormal achievement creation with itemtype and require item is negative
     def test_insert_abnormal_feetype_item_negative_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, -10, None, True)
-        self.assertEqual(errmsg, "Invalid requirement, please provide non-negative value.")
+        self.assertEqual(errmsg, ["Invalid requirement, please provide non-negative value."])
 
 if __name__ == "__main__":
     unittest.main()

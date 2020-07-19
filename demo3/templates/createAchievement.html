@@ -113,11 +113,11 @@
 
             <div class = container>
               <input type="checkbox" name="Item" value="Item" id = "Item" onclick="checkbox('requireFee', 'requireItem')">
-              <label for="Item"> Change to item type of Achievement</label><br>
+              <label for="Item"> Item</label><br>
             </div>
 
             <div class = feild id = "requireFee">
-                <label>Require Fee to spend</label>
+                <label>Require amount of Fee</label>
                 <div class = points>
                 {% if 'requireFee' in info %}
                 <input type="number" name="requireFee" value = {{info["requireFee"]}}>
@@ -130,8 +130,8 @@
               </div>
             </div>
 
-            <div class = original_invisible id = "requireItem">
-              <label>Require item to buy</label>
+            <div class = feild id = "requireItem">
+              <label>Require number of Item</label>
               <div class = points>
                 {% if 'requireItem' in info %}
                 <input type="number" name="requireItem" value = {{info["requireItem"]}}>

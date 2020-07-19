@@ -19,7 +19,7 @@ def insert_achievement(rid, name, description, experience, points, requireItem, 
         errmsg.append("Invalid experience, please provide non-negative value.")
     if points and int(points) < 0:
         errmsg.append("Invalid points, please provide non-negative value.")
-    if item:
+    if item == True:
         if requireItem == "":
             errmsg.append("Missing Item.")
         if requireItem and int(requireItem) < 0:
