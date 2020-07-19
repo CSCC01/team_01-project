@@ -70,5 +70,18 @@ def get_resturant_by_name(name):
 
 
 def get_restaurant_name_by_rid(rid):
-    name = Restaurant.query.filter(Restaurant.rid == rid).first().name
-    return name
+    """
+    Fetches a row from the Resturant table.
+
+    Args:
+        rid: The restaurant ID that corressponds to the Restaurant that is fetched.
+          A positive integer.
+
+    Returns:
+        The name of a restaurant that corresponds to the givem rid, None otherise.
+    """
+    r = Restaurant.query.filter(Restaurant.rid == rid).first()
+    if r != None:
+        return r.name
+    else:
+        return None
