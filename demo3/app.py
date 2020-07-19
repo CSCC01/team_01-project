@@ -265,11 +265,31 @@ def search():
         return redirect(url_for('home'))
 
     if request.method == 'POST':
-        query = request.form['query']
-        results = get_resturant_by_name(query)
-        return render_template('search.html', restaurants = results, query = request.form['query'])
+        if 'query' in request.form:
+            query = request.form['query']
+            restaurants = get_resturant_by_name(query)
+            return render_template('search.html', restaurants = restaurants, query = request.form['query'])
+        if 'rid' in request.form:
+            rid = request.form['rid']
+            return redirect(url_for('restaurant', rid=rid))
     else:
         return render_template('search.html')
+
+@app.route('/restaurant/<rid>.html', methods=['GET', 'POST'])
+@app.route('/restaurant/<rid>', methods=['GET', 'POST'])
+def restaurant(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home'))
+
+    return rid
+
+    return render_template('restaurant.html')
+
 
 
 @app.route('/profile.html')

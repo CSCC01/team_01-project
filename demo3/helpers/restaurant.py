@@ -57,4 +57,13 @@ def get_resturant_by_name(name):
         A list containing all restaurants from the Restaurant table whose name
         has the substring of the provided name within it.
     """
-    return Restaurant.query.filter(Restaurant.name.contains(name))
+    restaurants = Restaurant.query.filter(Restaurant.name.contains(name))
+    res_list = []
+    for r in restaurants:
+        dict = {
+            "name": r.name,
+            "address": r.address,
+            "rid": r.rid
+        }
+        res_list.append(dict)
+    return res_list
