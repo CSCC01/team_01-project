@@ -269,11 +269,44 @@ def search():
         return redirect(url_for('home'))
 
     if request.method == 'POST':
-        query = request.form['query']
-        results = get_resturant_by_name(query)
-        return render_template('search.html', restaurants = results, query = request.form['query'])
+        if 'query' in request.form:
+            query = request.form['query']
+            restaurants = get_resturant_by_name(query)
+            return render_template('search.html', restaurants = restaurants, query = request.form['query'])
+        if 'rid' in request.form:
+            rid = request.form['rid']
+            return redirect(url_for('restaurant', rid=rid))
     else:
         return render_template('search.html')
+
+@app.route('/restaurant<rid>.html', methods=['GET', 'POST'])
+@app.route('/restaurant<rid>', methods=['GET', 'POST'])
+def restaurant(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        # Gets coupons
+        rname = get_restaurant_name_by_rid(rid)
+        coupons = get_coupons(rid)
+
+        # Gets point progress
+        uid = session['account']
+        if not get_points(uid, rid):
+            insert_points(uid, rid)
+        points = get_points(uid, rid).points
+        level = convert_points_to_level(points)
+        return render_template("restaurant.html", restaurant = restaurant, level = level,
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons)
+    else:
+        return redirect(url_for('home'))
+
 
 
 @app.route('/profile.html')
@@ -284,30 +317,7 @@ def profile():
         return redirect(url_for('login'))
     else :
         return render_template('profile.html')
-
-@app.route('/restaurant/<rid>')
-@app.route('/restaurant/<rid>.html')
-def catch_all(rid = 1):
-    # If someone is not logged in redirects them to login page
-    if 'account' not in session:
-        return redirect(url_for('login'))
-
-    # Page is restricted to customers only, if user is not a customer, redirect to home page
-    if session['type'] != -1:
-        return redirect(url_for('home'))
-    
-    restaurant = get_resturant_by_rid(rid)
-    if restaurant:
-        uid = session['account']
-        if not get_points(uid, rid):
-            insert_points(uid, rid)
-        else:
-            points = get_points(uid, rid).points
-        level = convert_points_to_level(points)
-        return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points))
-    else:
-        return redirect(url_for('home'))
+        
 
 # To end session you must logout
 @app.route('/logout')

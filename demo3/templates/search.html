@@ -39,34 +39,42 @@
 {% block content %}
   <div class = parent>
     <form method = "post">
-    
       <div class = textfeilds>
         <div class = feild>
-            
-              <input type="text" name="query" value="{{ query }}">
+          {% if query %}
+            <input type="text" name = "query" value = "{{ query }}">
+          {% else %}
+            <input type="text" name = "query">
+          {% endif %}
         </div>
       </div>
       <div class = search_button>
         <input type="submit" value="Search">
       </div>
-    
+
     </form>
   </div>
 
   {% for r in restaurants %}
     <div class = parent>
-      <div class = inline>
-          <div class = name>
-            {{ r.name }}
-          </div>
+      <div class = container>
+        <div class = left_container>
+            <div class = name>
+              {{ r['name'] }}
+            </div>
+            <div class = address>
+                {{ r['address'] }}
+            </div>
+        </div>
+        <div class = right_container>
           <div class = goto>
-            <a href="restaurant/{{ r.rid }}.html"><input type="redirect" value="Visit"></a>
+            <form method = "post">
+              <input type="submit" value="Visit">
+              <input type="hidden" name = "rid" value = {{r['rid']}}>
+            </form>
           </div>
-      </div>
-      <div class = address>
-          {{ r.address }}
+        </div>
       </div>
     </div>
   {% endfor %}
 {% endblock content %}
-
