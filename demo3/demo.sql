@@ -35,3 +35,10 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `rid`          int               NOT NULL,
   PRIMARY KEY (`uid`)
 );
+CREATE TABLE IF NOT EXISTS `customer_coupons` (
+  `cid`          int unsigned      NOT NULL,
+  `rid`          int unsigned      NOT NULL,
+  `uid`          int unsigned      NOT NULL,
+  `amount`       int unsigned      NOT NULL,
+  PRIMARY KEY (`cid`, `rid`, `uid`)
+);

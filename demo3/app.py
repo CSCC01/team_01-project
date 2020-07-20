@@ -5,6 +5,7 @@ from helpers.user import *
 from helpers.restaurant import *
 from helpers.employee import *
 from helpers.coupon import *
+from helpers.redeemedCoupons import *
 from helpers.points import *
 from helpers.level import *
 import config
@@ -18,7 +19,6 @@ app.secret_key = 'shhhh'
 app.config.from_object(config)
 
 db.init_app(app)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login.html', methods=['GET', 'POST'])
@@ -221,6 +221,20 @@ def create_coupon():
 
     return render_template('createCoupon.html')
 
+@app.route('/viewUserCoupons.html', methods=['GET', 'POST'])
+@app.route('/viewUserCoupons', methods=['GET', 'POST'])
+def viewUserCoupons():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    elif session['type'] != 1:
+        return redirect(url_for('home'))
+
+    rid = get_rid(session['account'])
+    coupons = get_customer_coupons_by_rid(rid)
+    return render_template("viewUserCoupons.html", coupons = coupons)
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
