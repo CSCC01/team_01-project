@@ -18,7 +18,7 @@
 <p><a href="https://pickeasy-1-2.herokuapp.com">first release</a></p>  
 
 ## Deliverable 4  
-`Deliverable_4.pdf` includes our product backlog, release plan, sprint plan and pur changes from `d3` to `d4`.  
+`Deliverable_4.pdf` includes our product backlog, release plan, sprint plan and our changes from `d3` to `d4`.  
 
 <p><a href="https://pickeasy-beta.herokuapp.com">second release</a></p>  
 
@@ -29,7 +29,7 @@ The folder `sprint_backlog` records our weekly sprint showing what we are curren
 
 The folder `software_process` records our process when developing the software.  
 
-The folder `demo3` is our current tested web application. You can always see the latest version in certain branch (named by released date).  
+The folder `demo3` is our current tested web application. You can always see the latest version in certain branch.  
 
 ## Branch description
 `master branch` is what for release which has approved by clients.  
