@@ -1,5 +1,6 @@
 from models import Coupon, Customer_Coupons, User
 
+import config
 if config.STATUS == "TEST":
     from models import db
 else:
