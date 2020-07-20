@@ -1,5 +1,9 @@
 from models import Coupon, Customer_Coupons, User
-from exts import db
+
+if config.STATUS == "TEST":
+    from models import db
+else:
+    from exts import db
 
 
 def get_customer_coupons_by_rid(rid):
