@@ -90,3 +90,19 @@ def get_restaurant_name_by_rid(rid):
         return r.name
     else:
         return None
+      
+
+def get_resturant_by_rid(rid):
+    """
+    Fetches a resturant from the Restaurant table.
+
+    Retrives the restaurant with the given rid from the Restaurant table.
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+
+    Returns:
+        A restaurant from the Restaurant table whose restaurant ID matches the 
+        given rid, or None if the restaurant does not exist.
+    """
+    return Restaurant.query.filter(Restaurant.rid == rid).first()

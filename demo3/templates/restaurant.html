@@ -36,13 +36,39 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          {{ rname }}'s Coupons
+          {{ rname }}
         </div>
       </div>
     </div>
 {% endblock page_name %}
 
 {% block content %}
+      <div class = parent>
+      <div class = title>
+        <div class = level_title>
+          Your Customer Level:
+        </div>
+        <div class = level>
+          Level {{ level }}
+        </div>
+      </div>
+      <progress value="{{ overflow }}" max="{{ (level + 1) * 100 }}">
+        ({{ overflow }} / {{ (level + 1) * 100 }} * 100)%
+      </progress>
+      <div class = level_progress>
+        <div class = progress_count>
+          {{ overflow }}
+        </div>
+        <div class = progress_count_total>
+          /{{ (level + 1) * 100 }}
+        </div>
+        <div class = progress_text>
+          points to Level {{ level + 1 }}
+        </div>
+      </div>
+    </div>
+  
+  
     {% for c in coupons %}
       <div class = parent>
         <div class = title>
