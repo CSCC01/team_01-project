@@ -77,9 +77,13 @@ progress::-webkit-progress-bar{
   border-radius: 45px;
   background: lightgrey;
 }
-  
+
 progress::-webkit-progress-value {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));               
-  border-radius: 45px; 
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  border-radius: 45px;
+}
+
+.container {
+ padding-top: 15px;
 }

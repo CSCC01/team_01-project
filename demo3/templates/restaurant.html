@@ -68,30 +68,31 @@
       </div>
     </div>
 
-
-    {% for c in coupons %}
       <div class = parent>
         <div class = title>
           <div class = text>
             Available Coupons:
           </div>
         </div>
-        <div class = name>
-          {{ c["name"] }}
-        </div>
-        <div class = amount>
-          {{ c["points"] }} Points
-        </div>
-        <div class = description>
-          {{ c["description"] }}
-        </div>
-        <div class = expiration>
-          {% if c["begin"] == None or c["expiration"] == None %}
-            Valid indefinitely
-          {% else %}
-            Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
-          {% endif %}
-        </div>
+        {% for c in coupons %}
+          <div class = container>
+            <div class = name>
+              {{ c["name"] }}
+            </div>
+            <div class = amount>
+              {{ c["points"] }} Points
+            </div>
+            <div class = description>
+              {{ c["description"] }}
+            </div>
+            <div class = expiration>
+              {% if c["begin"] == None or c["expiration"] == None %}
+                Valid indefinitely
+              {% else %}
+                Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
   {% endblock content %}
