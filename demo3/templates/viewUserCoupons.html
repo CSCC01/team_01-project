@@ -5,12 +5,11 @@
 ----                                          --->
 
 {% extends "base.html" %}
-{% block style %}
-<link rel="stylesheet" type="text/css" href="static/coupon.css">
-{% endblock style %}
+{% block style %}<link rel="stylesheet" type="text/css" href="static/coupon.css">{% endblock style %}
 {% block title %}
 <title>My Coupons</title>
 {% endblock title %}
+
 
 {% block icons %}
 <div class = icons>
@@ -44,7 +43,7 @@
   </div>
   {% else %}
   <div class = other_icon>
-    <a href="coupon.html"><img src="static/Resources/coupon_pressed.png" alt="Home" class = coupon></a>
+    <a href="home.html"><img src="static/Resources/coupon_pressed.png" alt="Home" class = coupon></a>
   </div>
   {% endif %}
 
@@ -58,6 +57,7 @@
   </div>
 </div>
 {% endblock icons %}
+
 
 {% block sidebar %}
 <div class="sidenav">
@@ -99,54 +99,38 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          My Coupons
+          User Coupons
         </div>
-        {% if session['type'] == 1 %}
-        <div class = plus>
-          <a href="createCoupon.html">+</a>
-        </div>
-        {% endif %}
       </div>
     </div>
 {% endblock page_name %}
 
 {% block content %}
-    {% for c in coupons %}
-      <div class = parent>
-        <div class = title>
-          <div class = name>
-            {{ c["name"] }}
-          </div>
-
-          <!-- The gear for deleting coupons -->
-          {% if session['type'] == 1 %}
-          <div class = settings_dropdown>
-            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
-            <div class = options>
-              <form method = "post">
-                <input type="submit" value = "Delete" name = {{c["name"]}}>
-                <input type="hidden" value = {{c["cid"]}} name = coupon>
-              </form>
-            </div>
-          </div>
-          {% endif %}
-
-        </div>
-        <div class = amount>
-          {{ c["points"] }} Points
-        </div>
-        <div class = description>
-          {{ c["description"] }}
-        </div>
-        <div class = expiration>
-          {% if c["begin"] == None or c["expiration"] == None %}
-            Valid indefinitely
-          {% else %}
-            Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
-          {% endif %}
+  {% for c in coupons%}
+    <div class = parent>
+      <div class = title>
+        <div class = name>
+          {{ c["cname"] }}
         </div>
       </div>
-    {% endfor %}
-  {% endblock content %}
+      <div class = amount>
+        {{ c["points"] }} Points
+      </div>
+      <div class = description>
+        {{ c["description"] }}
+      </div>
+      <div class = expiration>
+        {% if c["begin"] == None or c["expiration"] == None %}
+          Valid indefinitely
+        {% else %}
+          Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+        {% endif %}
+      </div>
+      <div class = owner>
+        Owned by: {{ c["email"] }}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}
 
-  {% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}
+{% block script %} <script type="text/javascript" src = "static/coupons.js"></script>{% endblock script %}

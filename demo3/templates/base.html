@@ -8,7 +8,7 @@
 <html>
   <head>
       <meta charset="UTF-8">
-      <link rel="stylesheet" type="text/css" href="static/common.css">
+      <link rel="stylesheet" type="text/css" href="/static/common.css">
       {% block style %} {% endblock style %}
       {% block title %} {% endblock title %}
   </head>
@@ -19,6 +19,11 @@
           </div>
           {% block icons %} {% endblock icons %}
       </header>
+      {% block sidebar %}
+      {% endblock sidebar %}
+      <div class = line>
+        <hr>
+      </div>
       {% block page_name %}
           <div class = parent>
             <div class = title>

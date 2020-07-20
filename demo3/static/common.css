@@ -28,6 +28,7 @@
     --title: 25px;
     --mini: 12px;
     --subtitle: 18px;
+    --sidetitle:20px;
 
     /* line height */
     --lh: 1.5;
@@ -100,14 +101,14 @@ a:link, a:visited, a:hover, a:active {
 /* This is used when the tab size is bigger then 1000px */
 @media only screen and (max-width: 1000px) {
     .parent {
-        max-width: 70%;
+      max-width: 70%;
     }
 }
 
 /* This is used when the tab size is smaller then 1000px */
 @media only screen and (min-width: 1000px) {
     .parent {
-        max-width: 700px;
+      max-width: 700px;
     }
 }
 
@@ -149,4 +150,14 @@ footer div {
     color: var(--black);
     align-self: center;
     font-size: var(--mini);
+}
+
+.line hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to left, var(--pink), var(--orange), var(--red));
+}
+
+.line {
+  margin-top: -8px;
 }
