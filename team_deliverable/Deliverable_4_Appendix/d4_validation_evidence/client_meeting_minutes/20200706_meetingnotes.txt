@@ -1,0 +1,16 @@
+Date: July 6 2020, 3:00PM
+Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Zhao, Anson Zheng, Yolanda Su
+
+Features shown in Demo:
+-Customer and restaurant owner registration
+-Customer and restaurant owner login
+-Restaurant search
+-Coupon creation and restaurant coupon list, coupon deletion
+-Employee creation, restaurant employee list, employee deletion
+
+Feedback:
+-Registration should be more focused on registration for the restaurant side, as customer side login is meant to be connected to the PickEasy app/integrated with PickEasy's user accounts
+-Email Cho Yin and clarify how this integration should be handled/implemented, e.g. using PickEasy API
+-Separate fields for coupon name and discount in coupon seems redundant, a single field should be sufficient
+-Coupon creation should allow for creating coupons that are active indefinitely/don't have an expiry date
+-It's important that the owner should be able to see the coupons redeemed by customers so that they have metrics on how useful the app has been in improving customer engagement/retention
