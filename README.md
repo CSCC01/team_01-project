@@ -33,6 +33,8 @@ The folder `demo3` is our current tested web application. You can always see the
 
 ## Branch description
 `master branch` is what for release which has approved by clients.  
-`Development branch` is what we have done code review and unit tests but pending to be approved by clients.
+
+`Development branch` is what we have done code review and unit tests but pending to be approved by clients.  
+
 `S###` or `T###` is our task id which you can see on our task board. Each one corresponds to a user story.  
 
