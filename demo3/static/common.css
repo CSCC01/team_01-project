@@ -161,9 +161,3 @@ footer div {
 .line {
   margin-top: -8px;
 }
-
-/* Breaks up long words to fit within containers */
-.parent {
-  word-wrap: break-word;
-  word-break: break-word;
-}
