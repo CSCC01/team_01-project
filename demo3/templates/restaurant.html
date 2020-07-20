@@ -67,15 +67,17 @@
         </div>
       </div>
     </div>
-  
-  
+
+
     {% for c in coupons %}
       <div class = parent>
         <div class = title>
-          <div class = name>
-            {{ c["name"] }}
+          <div class = text>
+            Available Coupons:
           </div>
-
+        </div>
+        <div class = name>
+          {{ c["name"] }}
         </div>
         <div class = amount>
           {{ c["points"] }} Points

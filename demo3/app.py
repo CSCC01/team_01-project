@@ -290,10 +290,22 @@ def restaurant(rid):
     elif session['type'] != -1:
         return redirect(url_for('home'))
 
-    rname = get_restaurant_name_by_rid(rid)
-    coupons = get_coupons(rid)
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        # Gets coupons
+        rname = get_restaurant_name_by_rid(rid)
+        coupons = get_coupons(rid)
 
-    return render_template('restaurant.html', rname = rname, coupons = coupons)
+        # Gets point progress
+        uid = session['account']
+        if not get_points(uid, rid):
+            insert_points(uid, rid)
+        points = get_points(uid, rid).points
+        level = convert_points_to_level(points)
+        return render_template("restaurant.html", restaurant = restaurant, level = level,
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons)
+    else:
+        return redirect(url_for('home'))
 
 
 
@@ -305,30 +317,7 @@ def profile():
         return redirect(url_for('login'))
     else :
         return render_template('profile.html')
-
-@app.route('/restaurant/<rid>')
-@app.route('/restaurant/<rid>.html')
-def catch_all(rid = 1):
-    # If someone is not logged in redirects them to login page
-    if 'account' not in session:
-        return redirect(url_for('login'))
-
-    # Page is restricted to customers only, if user is not a customer, redirect to home page
-    if session['type'] != -1:
-        return redirect(url_for('home'))
-    
-    restaurant = get_resturant_by_rid(rid)
-    if restaurant:
-        uid = session['account']
-        if not get_points(uid, rid):
-            insert_points(uid, rid)
-        else:
-            points = get_points(uid, rid).points
-        level = convert_points_to_level(points)
-        return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points))
-    else:
-        return redirect(url_for('home'))
+        
 
 # To end session you must logout
 @app.route('/logout')
