@@ -1,0 +1,13 @@
+Date: July 20 2020, 3:00PM
+Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Zhao
+
+Features shown in Demo:
+-Viewing customer level at a restaurant as a customer user
+-Viewing coupons available to redeem at a restaurant as a customer user
+-Viewing coupons redeemed by customers as a restaurant owner
+
+Feedback:
+-We should add a page for view coupons that have already been used because that’s what the restaurant owner wants to track in our app
+-Change the phrasing “buy coupon” to “redeem coupon”
+-We should clarify what “available coupon” means (i.e. rename “available coupon”) on the customer-side restaurant page; are they available to redeem or available to use, etc.
+-Re-demo once our achievement implementation is done
