@@ -18,7 +18,7 @@
 <p><a href="https://pickeasy-1-2.herokuapp.com">first release</a></p>  
 
 ## Deliverable 4  
-`Deliverable_4.pdf` includes our product backlog, release plan, sprint plan and our changes from `d3` to `d4`.  
+`Deliverable_4.pdf` includes our product backlog, release plan, sprint plan and our changes from `d3` to `d4`. We also include our validation evidence and system design in our `Deliverable_4_Appendix` which you can find under `team_deliverable`  
 
 <p><a href="https://pickeasy-beta.herokuapp.com">second release</a></p>  
 
