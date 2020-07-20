@@ -1,5 +1,5 @@
 Date: July 20 2020, 3:00PM
-Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Zhao
+Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Qiao
 
 Features shown in Demo:
 -Viewing customer level at a restaurant as a customer user

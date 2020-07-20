@@ -1,5 +1,5 @@
 Date: July 6 2020, 3:00PM
-Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Zhao, Anson Zheng, Yolanda Su
+Attendees: Daniel Zhao (Client), Vanessa Pierre, Jiawei Qiao, Anson Feng, Yolanda Su
 
 Features shown in Demo:
 -Customer and restaurant owner registration
