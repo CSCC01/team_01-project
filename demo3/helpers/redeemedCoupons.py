@@ -24,7 +24,7 @@ def get_customer_coupons_by_rid(rid):
     coupons = Customer_Coupons.query.filter(Customer_Coupons.rid == rid).all()
     customer_coupon_list = []
     for c in coupons:
-        user = User.query.filter(User.rid == c.uid).first()
+        user = User.query.filter(User.uid == c.uid).first()
         coupon = Coupon.query.filter(Coupon.cid == c.cid).first()
         dict = {
             "email": user.email,
