@@ -103,21 +103,29 @@ button, input {
   padding-left: 10px;
 }
 
+.but button {
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+}
+
 /* Styles the little images next to the sidebar options */
 .but img {
   width: 20px;
   height: 20px;
   margin-right: 5px;
   margin-left: 5px;
+  padding-right: 5px;
   position: relative;
-  top: 3px;
 }
 
 /* Styling for sidebar buttons */
 .but button {
   font-family: 'Poppins', sans-serif;
   width: 100%;
-  height: 40px;
+  height: auto;
+  padding-top: 6px;
+  padding-bottom: 6px;
   border: none;
   outline: none;
   box-shadow: none;

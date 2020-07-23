@@ -99,14 +99,14 @@ a:link, a:visited, a:hover, a:active {
 }
 
 /* This is used when the tab size is bigger then 1000px */
-@media only screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
     .parent {
       max-width: 70%;
     }
 }
 
 /* This is used when the tab size is smaller then 1000px */
-@media only screen and (min-width: 1000px) {
+@media (min-width: 1000px) {
     .parent {
       max-width: 700px;
     }
