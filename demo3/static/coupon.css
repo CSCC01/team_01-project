@@ -219,3 +219,12 @@ button, input {
 .show {
   display: block;
 }
+
+
+.statusA {
+  color: var(--darkGrey);
+}
+
+.statusD, .statusE {
+  color: var(--darkGrey);
+}

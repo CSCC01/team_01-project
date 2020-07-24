@@ -85,7 +85,7 @@
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemable <br>Coupons 
+        View Redeemable <br>Coupons
       </div>
       </button>
     </div>
@@ -102,32 +102,35 @@
           Customer's Redeemable Coupons
         </div>
       </div>
+      <div class = fine_print>
+        Customers that hold deleted coupons can still use them
+      </div>
     </div>
 {% endblock page_name %}
 
 {% block content %}
-  {% for c in coupons%}
+  {% for c in coupons %}
     <div class = parent>
       <div class = title>
-        <div class = name>
-          {{ c["cname"] }}
-        </div>
+          <div class = name>
+            {{ c['name'] }}
+          </div>
+          <div class = status>
+            {% if c['expiration'] and today > c['expiration'] %}
+              Status: Expired
+            {% elif c['deleted'] == 1%}
+              Status: Deleted
+            {% else %}
+              Status: Active
+            {% endif %}
+          </div>
       </div>
-      <div class = amount>
-        {{ c["points"] }} Points
+
+      <div class = holder>
+        Number of holders: {{ c['holders'] }}
       </div>
-      <div class = description>
-        {{ c["description"] }}
-      </div>
-      <div class = expiration>
-        {% if c["begin"] == None or c["expiration"] == None %}
-          Valid indefinitely
-        {% else %}
-          Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
-        {% endif %}
-      </div>
-      <div class = owner>
-        Owned by: {{ c["email"] }}
+      <div class = holder>
+        Number of used: {{ c['used'] }}
       </div>
     </div>
   {% endfor %}

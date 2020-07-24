@@ -85,7 +85,7 @@
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Customer's Coupons
+        View Redeemable <br>Coupons
       </div>
       </button>
     </div>
@@ -112,6 +112,7 @@
 
 {% block content %}
     {% for c in coupons %}
+      {% if c['deleted'] == 0 %}
       <div class = parent>
         <div class = title>
           <div class = name>
@@ -146,6 +147,7 @@
           {% endif %}
         </div>
       </div>
+      {% endif %}
     {% endfor %}
   {% endblock content %}
 

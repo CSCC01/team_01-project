@@ -4,10 +4,6 @@
 *                                                   *
 *                                                   */
 
-.fine_print {
-  font-size: var(--mini);
-  color: var(--darkGrey);
-}
 
 .name {
   font-weight:700;
