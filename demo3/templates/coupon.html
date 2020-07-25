@@ -112,42 +112,49 @@
 
 {% block content %}
     {% for c in coupons %}
-      {% if c['deleted'] == 0 %}
-      <div class = parent>
-        <div class = title>
-          <div class = name>
-            {{ c["name"] }}
-          </div>
-
-          <!-- The gear for deleting coupons -->
-          {% if session['type'] == 1 %}
-          <div class = settings_dropdown>
-            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
-            <div class = options>
-              <form method = "post">
-                <input type="submit" value = "Delete" name = {{c["name"]}}>
-                <input type="hidden" value = {{c["cid"]}} name = coupon>
-              </form>
+        {% if session['type'] == -1 or  c['deleted'] == 0 %}
+        <div class = parent>
+          <div class = title>
+            <div class = name>
+              {{ c["name"] }}
+              {{ c["cname"] }}
             </div>
-          </div>
-          {% endif %}
 
-        </div>
-        <div class = amount>
-          {{ c["points"] }} Points
-        </div>
-        <div class = description>
-          {{ c["description"] }}
-        </div>
-        <div class = expiration>
-          {% if c["begin"] == None or c["expiration"] == None %}
-            Valid indefinitely
-          {% else %}
-            Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+            <!-- The gear for deleting coupons, only visable to owners -->
+            {% if session['type'] == 1 %}
+            <div class = settings_dropdown>
+              <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+              <div class = options>
+                <form method = "post">
+                  <input type="submit" value = "Delete" name = {{c["name"]}}>
+                  <input type="hidden" value = {{c["cid"]}} name = coupon>
+                </form>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% if session['type'] == 1 %}
+            <div class = amount>
+              {{ c["points"] }} Points
+            </div>
+          {% elif session['type'] == -1 %}
+            <div class = rname>
+              Available at: {{ c["rname"] }}, {{c["raddress"]}}
+            </div>
           {% endif %}
+          <div class = description>
+            {{ c["description"] }}
+            {{ c["cdescription"] }}
+          </div>
+          <div class = expiration>
+            {% if c["begin"] == None or c["expiration"] == None %}
+              Valid indefinitely
+            {% else %}
+              Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+            {% endif %}
+          </div>
         </div>
-      </div>
-      {% endif %}
+        {% endif %}
     {% endfor %}
   {% endblock content %}
 
