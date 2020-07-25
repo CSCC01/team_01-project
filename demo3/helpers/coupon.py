@@ -103,12 +103,15 @@ def delete_coupon(cid):
 def get_coupon_by_cid(cid):
     coupon = Coupon.query.filter(Coupon.cid == cid).first()
 
-    c = {
-        "cid": coupon.cid,
-        "cname": coupon.name,
-        "cdescription": coupon.description,
-        "begin": coupon.begin,
-        "expiration": coupon.expiration
-    }
+    if coupon:
+        c = {
+            "cid": coupon.cid,
+            "cname": coupon.name,
+            "cdescription": coupon.description,
+            "begin": coupon.begin,
+            "expiration": coupon.expiration
+        }
 
-    return c
+        return c
+    else:
+        return None
