@@ -18,3 +18,14 @@ def get_redeemed_coupons_by_rid(rid):
         c['used'] = used
 
     return coupons
+
+
+def mark_redeem_coupon_used_by_rcid(rcid):
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.rcid == rcid).first()
+    coupon.valid = 0
+    db.session.commit()
+    return coupon
+
+def find_rcid_by_cid(cid):
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid).first()
+    return coupon.rcid

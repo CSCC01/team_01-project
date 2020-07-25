@@ -13,6 +13,7 @@ import config
 import os
 import hashlib
 import re
+from helpers.qr_code import *
 
 app = Flask(__name__)
 app.secret_key = 'shhhh'
@@ -168,6 +169,11 @@ def coupon():
 
     ### TODO: Customer viewing of coupons can go
     elif session["type"] == -1:
+        if request.method == 'POST':
+            cid = request.form['coupon']
+            # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/test/"+cid)
+            imgurl = to_qr("http://127.0.0.1:5000/test/"+str(cid))
+            return render_template("couponQR.html", imgurl=imgurl)
         return render_template("coupon.html")
 
     # TODO: Employees view of the coupon page
@@ -309,6 +315,26 @@ def restaurant(rid):
     else:
         return redirect(url_for('home'))
 
+
+@app.route('/test/<cid>', methods=['GET', 'POST'])
+def test(cid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to employee/owner only, if user is a customer, redirect to home page
+    elif session['type'] == -1:
+        return redirect(url_for('home'))
+
+    # find rcid
+    rcid = find_rcid_by_cid(cid)
+
+    # mark used
+    mark_redeem_coupon_used_by_rcid(rcid)
+
+    print(cid)
+    print(rcid)
+    return redirect(url_for('home'))
 
 
 @app.route('/profile.html')

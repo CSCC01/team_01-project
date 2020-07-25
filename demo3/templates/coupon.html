@@ -132,6 +132,18 @@
           </div>
           {% endif %}
 
+            {% if session['type'] == 1 %}
+          <div class = settings_dropdown>
+            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+            <div class = options>
+              <form method = "post">
+                <input type="submit" value = "Use" name = {{c["name"]}}>
+                <input type="hidden" value = {{c["rcid"]}} name = coupon>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+
         </div>
         <div class = amount>
           {{ c["points"] }} Points
