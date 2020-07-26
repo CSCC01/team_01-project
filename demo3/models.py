@@ -60,11 +60,19 @@ class Restaurant(db.Model):
     address = db.Column(db.String(64), nullable=True)
     uid = db.Column(db.Integer)
 
+class Points(db.Model):
+    __tablename__ = "points"
+    pid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    uid = db.Column(db.Integer)
+    rid = db.Column(db.Integer)
+    points = db.Column(db.Integer)
+
 class Employee(db.Model):
     __tablename__ = "employee"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
 
+<<<<<<< HEAD
 class Achievement(db.Model):
     __tablename__ = "achievement"
     aid = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -75,3 +83,11 @@ class Achievement(db.Model):
     points = db.Column(db.Integer, nullable=True)
     requireItem = db.Column(db.Integer, nullable=True)
     requireFee = db.Column(db.Integer, nullable=True)
+=======
+class Customer_Coupons(db.Model):
+    __tablename__ = "customer_coupons"
+    cid = db.Column(db.Integer, nullable=False, primary_key=True)
+    uid = db.Column(db.Integer, nullable=False, primary_key=True)
+    rid = db.Column(db.Integer, nullable=False, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False)
+>>>>>>> origin/Development

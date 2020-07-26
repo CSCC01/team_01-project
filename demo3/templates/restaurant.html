@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ rname }}</title>
+{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{% endblock style %}
+
+{% block icons %}
+<div class = icons>
+  {% if session['type'] == -1 %}
+  <div class = other_icon>
+    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  {% if session['type'] == 1 %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          {{ rname }}
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+      <div class = parent>
+      <div class = title>
+        <div class = level_title>
+          Your Customer Level:
+        </div>
+        <div class = level>
+          Level {{ level }}
+        </div>
+      </div>
+      <progress value="{{ overflow }}" max="{{ (level + 1) * 100 }}">
+        ({{ overflow }} / {{ (level + 1) * 100 }} * 100)%
+      </progress>
+      <div class = level_progress>
+        <div class = progress_count>
+          {{ overflow }}
+        </div>
+        <div class = progress_count_total>
+          /{{ (level + 1) * 100 }}
+        </div>
+        <div class = progress_text>
+          points to Level {{ level + 1 }}
+        </div>
+      </div>
+    </div>
+
+      <div class = parent>
+        <div class = title>
+          <div class = text>
+            Coupon Offers:
+          </div>
+        </div>
+        {% for c in coupons %}
+          <div class = container>
+            <div class = name>
+              {{ c["name"] }}
+            </div>
+            <div class = amount>
+              {{ c["points"] }} Points
+            </div>
+            <div class = description>
+              {{ c["description"] }}
+            </div>
+            <div class = expiration>
+              {% if c["begin"] == None or c["expiration"] == None %}
+                Valid indefinitely
+              {% else %}
+                Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  {% endblock content %}
