@@ -6,6 +6,7 @@ from helpers.restaurant import *
 from helpers.employee import *
 from helpers.coupon import *
 from helpers.redeemedCoupons import *
+from helpers.achievement import *
 from helpers.points import *
 from helpers.level import *
 import config
@@ -267,8 +268,11 @@ def achievement():
     elif session['type'] != 1:
         return redirect(url_for('home'))
 
-    #get achievements with description
-    return render_template("achievement.html")
+    #get achievements
+    rid = get_rid(session["account"])
+    achievement_list = get_achievements_by_rid(rid)
+
+    return render_template("achievement.html", achievements = achievement_list)
 
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])

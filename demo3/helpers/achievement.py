@@ -70,10 +70,10 @@ def get_achievement_progress_maximum(achievement):
     """
     values = get_achievement_values(achievement)
     switcher = {
-        0: int(values[1]),
+        0: values[1],
         1: 1
     }
-    return switcher.get(achievement.type)
+    return int(switcher.get(achievement.type))
 
 def get_achievement_values(achievement):
     """

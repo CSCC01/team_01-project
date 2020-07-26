@@ -28,10 +28,11 @@
 {% endblock page_name %}
 
 {% block content %}
+  {% for a in achievements %}
       <div class = parent>
         <div class = title>
           <div class = name>
-            Name Here
+            {{ a["name"] }}
           </div>
 
           <!-- The gear for deleting coupons -->
@@ -41,13 +42,14 @@
 
         </div>
         <div class = description>
-          Description HERE
+          {{ a["description"] }}
         </div>
         <div class = rewards>
-          <div class = number>10</div>
+          <div class = number>{{ a["points"] }}</div>
           <div class = rewards_text>PT</div>
-          <div class = number>10</div>
+          <div class = number>{{ a["experience"] }}</div>
           <div class = rewards_text>EXP</div>
         </div>
       </div>
+    {% endfor %}
   {% endblock content %}
