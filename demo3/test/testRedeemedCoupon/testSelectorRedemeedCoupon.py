@@ -1,10 +1,10 @@
 import unittest
-from models import User, Coupon, Restaurant, Employee, Customer_Coupons
+from models import Redeemed_Coupons, User, Coupon, Restaurant
 from models import db
 import time
 from datetime import datetime
 from app import app
-from helpers import coupon as chelper
+from helpers import redeemedCoupons as rchelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")
@@ -22,80 +22,180 @@ class SelectCustomerCoupons(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-
     def test_no_coupon(self):
-        customer_coupon_list = chelper.get_customer_coupons_by_rid(20)
-        self.assertEqual(customer_coupon_list, [])
-        return None
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(20)
+        self.assertEqual(redeemed_coupon_list, [])
 
-
-    def test_one_coupon(self):
+    def test_one_coupon_one_user_valid(self):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
         db.session.commit()
         db.session.add(user)
         db.session.commit()
-        customer_coupon = Customer_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, amount = 1)
-        db.session.add(customer_coupon)
+        redeemed_coupon = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 1)
+        db.session.add(redeemed_coupon)
         db.session.commit()
 
-        customer_coupon_list = chelper.get_customer_coupons_by_rid(restaurant.rid)
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(restaurant.rid)
 
-        self.assertEqual(customer_coupon_list,[
+        self.assertEqual(redeemed_coupon_list,[
             {
-                "email": "joe@gmail.com",
-                "cname": "test",
+                "cid": coupon.cid,
+                "name": "test",
+                "description": "50% off",
+                "points": 10,
                 "begin": BEGIN,
                 "expiration": END,
-                "description": "50% off",
-                "points": 10
+                "deleted": 0,
+                "holders": 1,
+                "used": 0
+
             }
         ])
-        
 
-    def test_many_coupon(self):
-                restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
-                db.session.add(restaurant)
-                db.session.commit()
-                coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END)
-                user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
-                db.session.add(coupon)
-                db.session.commit()
-                db.session.add(user)
-                db.session.commit()
-                customer_coupon = Customer_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, amount = 3)
-                db.session.add(customer_coupon)
-                db.session.commit()
+    def test_one_coupon_one_user_invalid(self):
+        restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
+        db.session.add(restaurant)
+        db.session.commit()
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
+        db.session.add(coupon)
+        db.session.commit()
+        db.session.add(user)
+        db.session.commit()
+        redeemed_coupon = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 0)
+        db.session.add(redeemed_coupon)
+        db.session.commit()
 
-                customer_coupon_list = chelper.get_customer_coupons_by_rid(restaurant.rid)
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(restaurant.rid)
 
-                self.assertEqual(customer_coupon_list,[
-                    {
-                        "email": "joe@gmail.com",
-                        "cname": "test",
-                        "begin": BEGIN,
-                        "expiration": END,
-                        "description": "50% off",
-                        "points": 10
-                    },
-                    {
-                        "email": "joe@gmail.com",
-                        "cname": "test",
-                        "begin": BEGIN,
-                        "expiration": END,
-                        "description": "50% off",
-                        "points": 10
-                    },
-                    {
-                        "email": "joe@gmail.com",
-                        "cname": "test",
-                        "begin": BEGIN,
-                        "expiration": END,
-                        "description": "50% off",
-                        "points": 10
-                    }
-                ])
+        self.assertEqual(redeemed_coupon_list,[
+            {
+                "cid": coupon.cid,
+                "name": "test",
+                "description": "50% off",
+                "points": 10,
+                "begin": BEGIN,
+                "expiration": END,
+                "deleted": 0,
+                "holders": 0,
+                "used": 1
+
+            }
+        ])
+
+    def test_one_coupon_no_user(self):
+        restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
+        db.session.add(restaurant)
+        db.session.commit()
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
+        db.session.add(coupon)
+        db.session.commit()
+        db.session.add(user)
+        db.session.commit()
+
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(restaurant.rid)
+
+        self.assertEqual(redeemed_coupon_list,[
+            {
+                "cid": coupon.cid,
+                "name": "test",
+                "description": "50% off",
+                "points": 10,
+                "begin": BEGIN,
+                "expiration": END,
+                "deleted": 0,
+                "holders": 0,
+                "used": 0
+            }
+        ])
+
+    def test_one_coupon_many_customers(self):
+        restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
+        db.session.add(restaurant)
+        db.session.commit()
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
+        user2 = User(uid = 6, name = "John", email = "John@gmail.com", password = "password", type = -1)
+        db.session.add(coupon)
+        db.session.commit()
+        db.session.add(user)
+        db.session.add(user2)
+        db.session.commit()
+        redeemed_coupon1 = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 1)
+        redeemed_coupon2 = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user2.uid, valid = 1)
+        redeemed_coupon3 = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 0)
+        db.session.add(redeemed_coupon1)
+        db.session.add(redeemed_coupon2)
+        db.session.add(redeemed_coupon3)
+        db.session.commit()
+
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(restaurant.rid)
+
+        self.assertEqual(redeemed_coupon_list,[
+            {
+                "cid": coupon.cid,
+                "name": "test",
+                "description": "50% off",
+                "points": 10,
+                "begin": BEGIN,
+                "expiration": END,
+                "deleted": 0,
+                "holders": 2,
+                "used": 1
+            }
+        ])
+
+    def test_many_coupons(self):
+        restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
+        db.session.add(restaurant)
+        db.session.commit()
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid = restaurant.rid, name="test2", points=10, description="25% off", begin=BEGIN, expiration=END, deleted=0)
+        user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
+        user2 = User(uid = 6, name = "John", email = "John@gmail.com", password = "password", type = -1)
+        db.session.add(coupon)
+        db.session.add(coupon2)
+        db.session.commit()
+        db.session.add(user)
+        db.session.add(user2)
+        db.session.commit()
+        redeemed_coupon1 = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 1)
+        redeemed_coupon2 = Redeemed_Coupons(cid = coupon2.cid, rid = restaurant.rid, uid = user2.uid, valid = 1)
+        redeemed_coupon3 = Redeemed_Coupons(cid = coupon.cid, rid = restaurant.rid, uid = user.uid, valid = 0)
+        db.session.add(redeemed_coupon1)
+        db.session.add(redeemed_coupon2)
+        db.session.add(redeemed_coupon3)
+        db.session.commit()
+
+        redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(restaurant.rid)
+
+        self.assertEqual(redeemed_coupon_list,[
+            {
+                "cid": coupon.cid,
+                "name": "test",
+                "description": "50% off",
+                "points": 10,
+                "begin": BEGIN,
+                "expiration": END,
+                "deleted": 0,
+                "holders": 1,
+                "used": 1
+            },
+            {
+                "cid": coupon2.cid,
+                "name": "test2",
+                "description": "25% off",
+                "points": 10,
+                "begin": BEGIN,
+                "expiration": END,
+                "deleted": 0,
+                "holders": 1,
+                "used": 0
+            }
+        ])
