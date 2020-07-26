@@ -93,11 +93,11 @@ progress::-webkit-progress-value {
 .achievement_progress {
   display: flex;
   justify-content: left;
+  font-weight: 500;
 }
 
 .achievement_progress_text {
   padding-right: 5px;
-  font-weight: 600;
 }
 
 .achievement_footer {

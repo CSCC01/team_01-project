@@ -102,16 +102,17 @@
             Achievements:
           </div>
         </div>
+        {% for a in achievements %}
           <div class = container>
             <div class = name>
-              Achievement Name
+              {{ a["name"] }}
             </div>
             <div>
-              Achievement Description
+              {{ a["description"] }}
             </div>
             <div class = achievement_progress_bar>
               <progress value="0" max="1">
-                (0 / 1 * 100)%
+                ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
               </progress>
               <div class = check>✔</div>
             </div>
@@ -121,19 +122,20 @@
                   Progress:
                 </div>
                 <div class = progress_count>
-                  0
+                  {{ a["progress"] }}
                 </div>
                 <div class = progress_count_total>
-                  /1
+                  /{{ a["progressMax"] }}
               </div>
               </div>
               <div class = rewards>
-                <div class = number>10</div>
+                <div class = number>{{ a["points"] }}</div>
                 <div class = rewards_text>PT</div>
-                <div class = number>10</div>
+                <div class = number>{{ a["experience"] }}</div>
                 <div class = rewards_text>EXP</div>
               </div>
             </div>
-            </div>    
+          </div>
+        {% endfor %}    
       </div>
   {% endblock content %}
