@@ -48,7 +48,7 @@ class SelectAchievementTest(unittest.TestCase):
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement1), 5)
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement2), 1)
 
-    def test_get_nonexistent_coupons(self):
+    def test_get_nonexistent_achievements(self):
         """Tests get_achievements_by_rid() when no achievements have a rid 
         matching the given rid."""
         achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
@@ -59,7 +59,7 @@ class SelectAchievementTest(unittest.TestCase):
         achievement_list = achievementhelper.get_achievements_by_rid(10)
         self.assertEqual(achievement_list,[])
 
-    def test_get_single_coupon(self):
+    def test_get_single_achievements(self):
         """Tests get_achievements_by_rid() when one achievement has a rid 
         matching the given rid."""
         achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
@@ -83,7 +83,7 @@ class SelectAchievementTest(unittest.TestCase):
                      'description': "Spend $6.99 in a single visit.",
                      'progressMax': 1}])
 
-    def test_get_multiple_coupons(self):
+    def test_get_multiple_achievements(self):
         """Tests get_achievements_by_rid() when multiple achievements have a rid matching the given rid."""
         achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievement(rid=12, name="test 2", points=15, experience=20, type=1, value=";6.99")
