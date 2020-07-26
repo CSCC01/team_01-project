@@ -8,6 +8,7 @@ from helpers.coupon import *
 from helpers.redeemedCoupons import *
 from helpers.points import *
 from helpers.level import *
+from datetime import date
 import config
 import os
 import hashlib
@@ -294,7 +295,7 @@ def restaurant(rid):
     if restaurant:
         # Gets coupons
         rname = get_restaurant_name_by_rid(rid)
-        coupons = get_coupons(rid)
+        coupons = filter_valid_coupons(get_coupons(rid))
 
         # Gets point progress
         uid = session['account']
@@ -303,7 +304,34 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons[:3], rid = rid)
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/couponOffers<rid>.html', methods=['GET', 'POST'])
+@app.route('/couponOffers<rid>', methods=['GET', 'POST'])
+def couponOffers(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        rname = get_restaurant_name_by_rid(rid)
+        coupons = filter_valid_coupons(get_coupons(rid))
+        points = get_points(session['account'], rid).points
+        if 'cid' in request.form:
+            cid = request.form['cid']
+            c = get_coupon_by_cid(cid)
+            update_points(session['account'], rid, -1 * c['points'])
+            insert_redeemed_coupon(cid, session['account'], rid)
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
+
+        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
     else:
         return redirect(url_for('home'))
 
@@ -317,7 +345,7 @@ def profile():
         return redirect(url_for('login'))
     else :
         return render_template('profile.html')
-        
+
 
 # To end session you must logout
 @app.route('/logout')
