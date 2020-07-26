@@ -30,7 +30,7 @@ class SingleSelectorCouponTest(unittest.TestCase):
         self.assertEqual(result, None)
 
     def test_coupon_single(self):
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
 
@@ -42,6 +42,10 @@ class SingleSelectorCouponTest(unittest.TestCase):
                              "begin": coupon.begin,
                              "expiration": coupon.expiration
                              })
+
+    def test_coupon_none(self):
+        result = couponhelper.get_coupon_by_cid(5)
+        self.assertEqual(result, None)
 
 
 if __name__ == "__main__":
