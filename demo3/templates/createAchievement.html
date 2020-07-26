@@ -24,12 +24,12 @@
   <div class = other_icon>
     <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
   </div>
-  <div class = other_icon>
+  <div class = current>
       <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
   </div>
-  <div class = "current">
-    <a href="achievement.html"><img src="static/Resources/achievement.png" alt="Achievement"></a>
-</div>
+  <div class = "other_icon">
+    <a href="achievement.html"><img src="static/Resources/achievement_pressed.png" alt="Achievement"></a>
+  </div>
   {% if session['type'] == 1 %}
   <div class = other_icon>
     <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
@@ -82,7 +82,7 @@
                 <textarea name = "description"></textarea>
               {% endif %}
             </div>
-            
+
             <div class = feild>
               <label>Reward experience</label>
               <div class = points>
