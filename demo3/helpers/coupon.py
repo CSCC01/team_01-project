@@ -1,5 +1,5 @@
-from models import Coupon, Customer_Coupons, User
-
+from models import Coupon, User
+from datetime import date
 
 import config
 if config.STATUS == "TEST":
@@ -11,7 +11,7 @@ else:
 def insert_coupon(rid, name, points, description, begin, expiration, indefinite):
     """
     Inserts a coupon into Coupon table.
-    
+
     Args:
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.
@@ -39,9 +39,9 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
 
     if not errmsg:
         if indefinite:
-            coupon = Coupon(rid = rid, name = name, points = points, description = description)
+            coupon = Coupon(rid = rid, name = name, points = points, description = description, deleted = 0)
         else:
-            coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin)
+            coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin, deleted = 0)
         db.session.add(coupon)
         db.session.commit()
         return None
@@ -73,7 +73,8 @@ def get_coupons(rid):
             "description": c.description,
             "points": c.points,
             "begin": c.begin,
-            "expiration": c.expiration
+            "expiration": c.expiration,
+            "deleted": c.deleted
         }
         coupon_list.append(dict)
     return coupon_list
@@ -89,7 +90,7 @@ def delete_coupon(cid):
     Args:
         cid: A coupon ID that corresponds to a coupon in the Coupon table. A
           integer.
-          
+
     Returns:
         None.
     """
@@ -98,32 +99,41 @@ def delete_coupon(cid):
     return None
 
 
-def get_customer_coupons_by_rid(rid):
+def filter_valid_coupons(coupons):
     """
-    Fetches rows from the customer_coupons, user and coupon table.
+    Removes invalid coupons from the coupons list.
 
-    Retrieves all coupons that a specific restaurant has in circularion.
+    Deletes coupons that are either deleted or expired.
 
     Args:
-        rid: A restaurant ID that corresponds to a restaurant in the
-          Customer_Coupons table. A integer.
+        coupons: A list of dictinaries, each dictinary must have the keys,
+          int 'deleted' and DateTime 'expiration'.
 
     Returns:
-        A list of dictinaries that contains information about each coupon a
-        customer has possession of at a specific resturant.
+        A the list coupons with the invalid dictinaries removed.
     """
-    coupons = Customer_Coupons.query.filter(Customer_Coupons.rid == rid).all()
-    customer_coupon_list = []
+    today = date.today()
     for c in coupons:
-        user = User.query.filter(User.rid == c.uid).first()
-        coupon = Coupon.query.filter(Coupon.cid == c.cid).first()
-        dict = {
-            "email": user.email,
+        if c["deleted"] == 1 or (c["expiration"] != None and today > c["expiration"]):
+            coupons.remove(c)
+
+    return coupons
+
+
+def get_coupon_by_cid(cid):
+
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+
+    if coupon:
+        c = {
+            "cid": coupon.cid,
+            "points": coupon.cid,
             "cname": coupon.name,
+            "cdescription": coupon.description,
             "begin": coupon.begin,
-            "expiration": coupon.expiration,
-            "description": coupon.description,
-            "points": coupon.points
+            "expiration": coupon.expiration
         }
-        customer_coupon_list.append(dict)
-    return customer_coupon_list
+
+        return c
+    else:
+        return None

@@ -1,4 +1,4 @@
-from models import Coupon, Customer_Coupons, User
+from models import Coupon, Redeemed_Coupons, User
 
 import config
 if config.STATUS == "TEST":
@@ -36,3 +36,14 @@ def get_customer_coupons_by_rid(rid):
         }
         customer_coupon_list.append(dict)
     return customer_coupon_list
+
+
+def insert_redeemed_coupon(cid, uid, rid):
+    coupon = Redeemed_Coupons(cid = cid, uid = uid, rid = rid, valid = 1)
+    db.session.add(coupon)
+    db.session.commit()
+
+    return coupon.rcid
+
+if __name__ == "__main__":
+    unittest.main()
