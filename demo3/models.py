@@ -78,3 +78,10 @@ class Customer_Coupons(db.Model):
     uid = db.Column(db.Integer, nullable=False, primary_key=True)
     rid = db.Column(db.Integer, nullable=False, primary_key=True)
     amount = db.Column(db.Integer, nullable=False)
+
+class Customer_AchievementProgress(db.Model):
+    __tablename__ = "customer_achievement_progress"
+    aid = db.Column(db.Integer, nullable=False, primary_key=True)
+    uid = db.Column(db.Integer, nullable=False, primary_key=True)
+    progress = db.Column(db.Integer, nullable=False)
+    total = db.Column(db.Integer, nullable=False)
