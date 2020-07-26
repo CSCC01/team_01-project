@@ -23,7 +23,7 @@ class SelectCouponTest(unittest.TestCase):
         db.drop_all()
 
     def test_coupon_single(self):
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         coupon_list = couponhelper.get_coupons(12)
@@ -32,12 +32,13 @@ class SelectCouponTest(unittest.TestCase):
                      'description': '1$ off',
                      'expiration': END,
                      'name': 'test',
-                     'points': 10}])
+                     'points': 10,
+                     "deleted": 0}])
 
     def test_coupon_multi(self):
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END)
-        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END)
-        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=1)
+        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.add(coupon3)
@@ -48,24 +49,27 @@ class SelectCouponTest(unittest.TestCase):
                      'description': '1$ off',
                      'expiration': END,
                      'name': 'test1',
-                     'points': 10},
+                     'points': 10,
+                     "deleted": 0},
                     {'begin': BEGIN,
                      'cid': 2,
                      'description': '2$ off',
                      'expiration': END,
                      'name': 'test2',
-                     'points': 20},
+                     'points': 20,
+                     "deleted": 1},
                     {'begin': BEGIN,
                      'cid': 3,
                      'description': '3$ off',
                      'expiration': END,
                      'name': 'test3',
-                     'points': 30}])
+                     'points': 30,
+                     "deleted": 0}])
 
     def test_coupon_none(self):
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END)
-        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END)
-        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END, deleted=1)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.add(coupon3)

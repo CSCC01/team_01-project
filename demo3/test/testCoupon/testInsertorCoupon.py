@@ -31,6 +31,7 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(coupon.description, "50% off")
         self.assertEqual(coupon.begin, begin)
         self.assertEqual(coupon.expiration, end)
+        self.assertEqual(coupon.deleted, 0)
         self.assertEqual(errmsg, None)
 
     def test_insert_default_indefinite_coupon(self):
@@ -42,6 +43,7 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(coupon.name, "indefinite")
         self.assertEqual(coupon.points, 200)
         self.assertEqual(coupon.description, "10% off")
+        self.assertEqual(coupon.deleted, 0)
         self.assertEqual(errmsg, None)
 
     def test_insert_multi_coupons(self):
