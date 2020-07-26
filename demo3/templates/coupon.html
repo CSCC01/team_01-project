@@ -141,6 +141,15 @@
             <div class = rname>
               Available at: {{ c["rname"] }}, {{c["raddress"]}}
             </div>
+              <div class = settings_dropdown>
+              <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+              <div class = options>
+                <form method = "post">
+                  <input type="submit" value = "Use" name = {{c["name"]}}>
+                  <input type="hidden" value = {{c["cid"]}} name = coupon>
+                </form>
+              </div>
+            </div>
           {% endif %}
           <div class = description>
             {{ c["description"] }}

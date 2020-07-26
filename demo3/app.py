@@ -174,7 +174,6 @@ def coupon():
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/test/"+cid)
             imgurl = to_qr("http://127.0.0.1:5000/test/"+str(cid))
             return render_template("couponQR.html", imgurl=imgurl)
-        return render_template("coupon.html")
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
@@ -334,8 +333,6 @@ def test(cid):
     # mark used
     mark_redeem_coupon_used_by_rcid(rcid)
 
-    print(cid)
-    print(rcid)
     return redirect(url_for('home'))
 
 
