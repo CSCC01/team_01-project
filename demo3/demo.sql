@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `achievements` (
   `type`         int unsigned,
   `value`        varchar(2048)     NOT NULL DEFAULT '',
   PRIMARY KEY (`aid`)
+);
 
 CREATE TABLE IF NOT EXISTS `customer_coupons` (
   `cid`          int unsigned      NOT NULL,

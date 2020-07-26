@@ -344,27 +344,29 @@ def create_achievement():
     elif session['type'] != 1:
         return redirect(url_for('home'))
 
-    errmsg = []
+
 
     if request.method == 'POST':
+        rid = get_rid(session["account"])
         name = request.form['name']
-        description = request.form['description']
         experience = request.form['experience']
         points = request.form['points']
-        requireItem = request.form['requireItem']
-        requireFee = request.form['requireFee']
-        # true require item, false require amount of fee
-        item = "item" in request.form
-        rid = get_rid(session["account"])
-        errmsg = insert_achievement(rid, name, description, experience, points, requireItem, requireFee, item)
+        type = request.form.get('type')
+        item = request.form['item']
+        if type == "0":
+            amount = request.form['amount']
+        else:
+            amount = request.form['cost']
+
+        errmsg = insert_achievement(rid, name, experience, points, type, item, amount)
 
         if not errmsg:
-            return redirect(url_for('achievement'))
+            return redirect(url_for('home'))
         else:
-            return render_template('createAchievement.html', errmsg = errmsg,
-                                info = {'name' : name, 'description' : description, 'experience' : experience, 'points' : points, 'requireItem' : requireItem, 'requireFee' : requireFee})
-    else:
-        return render_template('createAchievement.html')
+            return render_template('createAchievement.html', errmsg = errmsg)
+
+    return render_template('createAchievement.html')
+
 
 if __name__ == '__main__':
     app.run()

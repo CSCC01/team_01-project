@@ -1,11 +1,9 @@
-function checkbox(requireFee, requireItem) {
-    var cb = document.getElementsByName("Item");
-    var visability = "flex";
-    var countervisability = "none";
-      if(cb[0].checked){
-        countervisability = visability;
-        visability = "none";
-      }
-    document.getElementById(requireFee).style.display = visability;
-    document.getElementById(requireItem).style.display = countervisability;
-}
+document.getElementById("type").addEventListener('change', function (e) {
+  if (e.target.value === "0") {
+    document.getElementById("type0").style.display = "flex";
+    document.getElementById("type1").style.display = "none";
+  } if (e.target.value === "1") {
+    document.getElementById("type0").style.display = "none";
+    document.getElementById("type1").style.display = "flex";
+  }
+});

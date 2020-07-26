@@ -1,36 +1,9 @@
 /*                                                  *
 *                                                   *
-*              Styling for coupon.HTML              *
+*           Styling for Achievement.HTML            *
 *                                                   *
 *                                                   */
 
-
-.plus {
-  font-size: 40px;
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  -webkit-background-clip: text;
-}
-
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
-}
-
-/* use for requireItem which originally doesn't show up */
-.original_invisible{
-  display:none
-	padding: 9px;
-	border:1px solid var(--black);
-	margin-bottom: 30px;
-  border-radius: 3px;
-}
-
-.description {
-  padding-left: 20px;
-  padding-right: 20px;
-}
 
 .points {
   display: flex;
@@ -38,52 +11,48 @@
   justify-content: space-evenly;
 }
 
-.container {
-  display: block;
-	margin-top: -15px;
-  margin-bottom: 19px;
-}
-
-button, input {
-  border: none;
-  background: none;
-  outline: none;
-  box-shadow: none;
-}
-
-.settings_dropdown img {
-  /* Change this value to move the settings icon down / up */
-  margin-bottom: -3px;
-  width: 20px;
-  height: 20px;
-}
-
-
-.settings_dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.options {
+.type1 {
   display: none;
-  position: absolute;
-  background-color: var(--background);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
 }
 
-.options input {
-  font-family: 'Poppins', sans-serif;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+.type0 {
+  display: flex;
 }
 
-.options input:hover {
-  background-color: var(--purpleGrey);
+.type0 .feild_tag_right,
+.type0 .feild_tag_left,
+.type1 .feild_tag_left,
+.type1 .feild_tag_right{
+  position:relative;
+  top: 11px;
 }
 
-.settings_dropdown:hover .options {
-  display: block;
+.feild_tag_right {
+  margin-left: 5px;
 }
 
+.feild_tag_left {
+  margin-right: 5px;
+}
+
+
+/* Styling to  make the password boxes side by side */
+.col_mod {
+  display: flex;
+  flex-direction: row;
+}
+
+.col_mod .feild {
+  flex: 1 1 0px;
+}
+
+.item {
+  min-width: 100px;
+  margin-right: 20px;
+  width: 50%;
+}
+
+.amount {
+  min-width: 80px;
+  width: 20%;
+}

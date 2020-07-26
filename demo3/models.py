@@ -72,22 +72,19 @@ class Employee(db.Model):
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
 
-<<<<<<< HEAD
-class Achievement(db.Model):
-    __tablename__ = "achievement"
-    aid = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    rid = db.Column(db.Integer)
-    name = db.Column(db.String(64), nullable=False)
-    description = db.Column(db.String(64), nullable=False)
-    experience = db.Column(db.Integer, nullable=True)
-    points = db.Column(db.Integer, nullable=True)
-    requireItem = db.Column(db.Integer, nullable=True)
-    requireFee = db.Column(db.Integer, nullable=True)
-=======
 class Customer_Coupons(db.Model):
     __tablename__ = "customer_coupons"
     cid = db.Column(db.Integer, nullable=False, primary_key=True)
     uid = db.Column(db.Integer, nullable=False, primary_key=True)
     rid = db.Column(db.Integer, nullable=False, primary_key=True)
     amount = db.Column(db.Integer, nullable=False)
->>>>>>> origin/Development
+
+class Achievements(db.Model):
+    __tablename__ = "achievements"
+    aid = db.Column(db.Integer, nullable=False, primary_key=True)
+    rid = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(128), nullable=False)
+    experience = db.Column(db.Integer, nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.String(2048), nullable=False)
