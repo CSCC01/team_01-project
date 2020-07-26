@@ -42,7 +42,8 @@ def get_achievement_description(achievement):
     and values.
 
     Args:
-        achievement: The achievement whose description is to be generated
+        achievement: The achievement whose description is to be generated.
+                     Achievement values must be in the form "ITEM;QUANTITY".
 
     Returns:
         A description for the given achievement.
@@ -64,6 +65,8 @@ def get_achievement_progress_maximum(achievement):
 
     Args:
         achievement: The achievement whose progress maximum is to be calculated
+                     Achievement values must be in the form "ITEM;QUANTITY".
+                     Quantity must be an integer for type 0 achievements.
 
     Returns:
         A progress maximum for a given achievement.
