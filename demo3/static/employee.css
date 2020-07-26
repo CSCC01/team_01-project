@@ -4,10 +4,6 @@
 *                                                   *
 *                                                   */
 
-.fine_print {
-  font-size: var(--mini);
-  color: var(--darkGrey);
-}
 
 .name {
   font-weight:700;
@@ -36,7 +32,6 @@ button, input {
   width: 20px;
   height: 20px;
 }
-
 
 .settings_dropdown {
   position: relative;
