@@ -1,9 +1,11 @@
 import unittest
-from models import User, Coupon, Restaurant, Employee
+
+from helpers.redeemedCoupons import insert_redeemed_coupon
+from models import User, Coupon, Restaurant, Employee, Redeemed_Coupons
 from models import db
 import time
 from app import app
-from helpers import coupon
+from helpers import redeemedCoupons
 from datetime import datetime
 
 class InsertCouponTest(unittest.TestCase):

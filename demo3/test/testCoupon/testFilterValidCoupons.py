@@ -1,4 +1,6 @@
 import unittest
+
+from helpers.coupon import filter_valid_coupons
 from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
@@ -28,7 +30,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_one_valid(self):
-        coupons[{
+        coupons = [{
             'expiration': VALID,
             'deleted': 0
         }]
@@ -36,8 +38,8 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(result, coupons)
 
     def test_many_valid(self):
-        coupons[{
-            'name': "test coupon"
+        coupons = [{
+            'name': "test coupon",
             'expiration': VALID,
             'deleted': 0
         },
@@ -50,7 +52,7 @@ class DeleteCouponTest(unittest.TestCase):
 
 
     def test_one_invalid_date(self):
-        coupons[{
+        coupons = [{
             'expiration': INVALID,
             'deleted': 0
         }]
@@ -58,7 +60,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_one_invalid_deleted(self):
-        coupons[{
+        coupons = [{
             'expiration': VALID,
             'deleted': 1
         }]
@@ -66,8 +68,8 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_many_invalid(self):
-        coupons[{
-            'name': "test coupon"
+        coupons = [{
+            'name': "test coupon",
             'expiration': INVALID,
             'deleted': 0
         },
@@ -79,8 +81,8 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_valid_and_invalid(self):
-        coupons[{
-            'name': "test coupon"
+        coupons = [{
+            'name': "test coupon",
             'expiration': VALID,
             'deleted': 0
         },
