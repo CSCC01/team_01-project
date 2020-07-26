@@ -1,0 +1,53 @@
+<!--                                          ----
+----    achievement.html contains all frontend     ----
+----     html for the owners view of the      ----
+----               achievement page                ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/achievement.css">
+{% endblock style %}
+{% block title %}
+<title>Achievementss</title>
+{% endblock title %}
+
+{% block achievement %}_pressed{% endblock achievement %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Achievements
+        </div>
+        <div class = plus>
+          <a href="createAchievement.html">+</a>
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+      <div class = parent>
+        <div class = title>
+          <div class = name>
+            Name Here
+          </div>
+
+          <!-- The gear for deleting coupons -->
+          <div class = settings_dropdown>
+            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+          </div>
+
+        </div>
+        <div class = description>
+          Description HERE
+        </div>
+        <div class = rewards>
+          <div class = number>10</div>
+          <div class = rewards_text>PT</div>
+          <div class = number>10</div>
+          <div class = rewards_text>EXP</div>
+        </div>
+      </div>
+  {% endblock content %}
