@@ -167,7 +167,7 @@ def coupon():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    ### TODO: Customer viewing of coupons can go
+    ### Customer viewing of coupons
     elif session["type"] == -1:
         if request.method == 'POST':
             cid = request.form['coupon']
@@ -175,6 +175,8 @@ def coupon():
             imgurl = to_qr("http://127.0.0.1:5000/test/"+str(cid))
             return render_template("couponQR.html", imgurl=imgurl)
         return render_template("coupon.html")
+        coupons = get_redeemed_coupons_by_uid(session["account"])
+        return render_template("coupon.html", coupons = coupons)
 
     # TODO: Employees view of the coupon page
     elif session["type"] == 0:

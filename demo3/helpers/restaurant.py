@@ -90,7 +90,7 @@ def get_restaurant_name_by_rid(rid):
         return r.name
     else:
         return None
-      
+
 
 def get_resturant_by_rid(rid):
     """
@@ -102,7 +102,15 @@ def get_resturant_by_rid(rid):
         rid: The unique ID of the restaurant. An integer.
 
     Returns:
-        A restaurant from the Restaurant table whose restaurant ID matches the 
+        A restaurant from the Restaurant table whose restaurant ID matches the
         given rid, or None if the restaurant does not exist.
     """
     return Restaurant.query.filter(Restaurant.rid == rid).first()
+
+
+def get_restaurant_address(rid):
+    r = Restaurant.query.filter(Restaurant.rid == rid).first()
+    if r != None:
+        return r.address
+    else:
+        return None
