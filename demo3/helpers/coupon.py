@@ -94,7 +94,8 @@ def delete_coupon(cid):
     Returns:
         None.
     """
-    Coupon.query.filter(Coupon.cid == cid).delete()
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    coupon.deleted = 1
     db.session.commit()
     return None
 
