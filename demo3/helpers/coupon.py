@@ -127,7 +127,7 @@ def get_coupon_by_cid(cid):
     if coupon:
         c = {
             "cid": coupon.cid,
-            "points": coupon.cid,
+            "points": coupon.points,
             "cname": coupon.name,
             "cdescription": coupon.description,
             "begin": coupon.begin,

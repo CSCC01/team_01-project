@@ -327,9 +327,12 @@ def couponOffers(rid):
         if 'cid' in request.form:
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
-            update_points(session['account'], rid, -1 * c['points'])
-            insert_redeemed_coupon(cid, session['account'], rid)
-            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
+            if c['points'] <= points:
+                update_points(session['account'], rid, (-1 * c['points']))
+                insert_redeemed_coupon(cid, session['account'], rid)
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
+            else:
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
 
         return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
     else:
