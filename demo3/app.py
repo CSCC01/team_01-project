@@ -171,8 +171,8 @@ def coupon():
     elif session["type"] == -1:
         if request.method == 'POST':
             cid = request.form['coupon']
-            # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/test/"+cid)
-            imgurl = to_qr("http://127.0.0.1:5000/test/"+str(cid))
+            # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
+            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid))
             return render_template("couponQR.html", imgurl=imgurl)
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
@@ -317,8 +317,8 @@ def restaurant(rid):
         return redirect(url_for('home'))
 
 
-@app.route('/test/<cid>', methods=['GET', 'POST'])
-def test(cid):
+@app.route('/useCoupon/<cid>', methods=['GET', 'POST'])
+def use_coupon(cid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
