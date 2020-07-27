@@ -10,7 +10,7 @@ BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")
 
 
-class SelectCustomerCoupons(unittest.TestCase):
+class SelectRedeemedCoupons(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -55,7 +55,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "points": 10
             }
         ])
-        
+
 
     def test_many_coupon(self):
                 restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
