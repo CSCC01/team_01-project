@@ -257,6 +257,22 @@ def employee():
 
     return render_template("employee.html", employees = employee_list)
 
+@app.route('/achievement.html', methods=['GET', 'POST'])
+@app.route('/achievement', methods=['GET', 'POST'])
+def achievement():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to owners only, if user is not an owner, redirect to home page
+    elif session['type'] != 1:
+        return redirect(url_for('home'))
+
+    #get achievements
+    rid = get_rid(session["account"])
+    achievement_list = get_achievements_by_rid(rid)
+
+    return render_template("achievement.html", achievements = achievement_list)
 
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])
@@ -361,7 +377,7 @@ def create_achievement():
         errmsg = insert_achievement(rid, name, experience, points, type, item, amount)
 
         if not errmsg:
-            return redirect(url_for('home'))
+            return redirect(url_for('achievement'))
         else:
             return render_template('createAchievement.html', errmsg = errmsg)
 
