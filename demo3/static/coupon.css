@@ -13,7 +13,7 @@
   -webkit-background-clip: text;
 }
 
-.name {
+.name, .status {
   font-weight:700;
   font-size: var(--subtitle);
 }
@@ -227,4 +227,17 @@ button, input {
 
 .statusD, .statusE {
   color: var(--darkGrey);
+}
+
+.status {
+  display: flex;
+  direction: row;
+}
+
+.active {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
