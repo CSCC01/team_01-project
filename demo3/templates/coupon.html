@@ -115,10 +115,10 @@
         {% if session['type'] == -1 or  c['deleted'] == 0 %}
         <div class = parent>
           <div class = title>
-            <div class = name>
-              {{ c["name"] }}
-              {{ c["cname"] }}
-            </div>
+              <div class = name>
+                {{ c["name"] }}
+                {{ c["cname"] }}
+              </div>
 
             <!-- The gear for deleting coupons, only visable to owners -->
             {% if session['type'] == 1 %}
@@ -131,15 +131,17 @@
                 </form>
               </div>
             </div>
+            {% elif session['type'] == -1 %}
+              <div class = right_container>
+                {{ c["rname"] }}, at {{c["raddress"]}}
+              </div>
             {% endif %}
+
+
           </div>
           {% if session['type'] == 1 %}
             <div class = amount>
               {{ c["points"] }} Points
-            </div>
-          {% elif session['type'] == -1 %}
-            <div class = rname>
-              Available at: {{ c["rname"] }}, {{c["raddress"]}}
             </div>
           {% endif %}
           <div class = description>

@@ -228,3 +228,8 @@ button, input {
 .statusD, .statusE {
   color: var(--darkGrey);
 }
+
+.right_container {
+  font-size: var(--subtitle);
+  font-weight: 300;
+}
