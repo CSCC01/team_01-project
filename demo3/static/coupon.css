@@ -39,6 +39,7 @@
 	margin-top: -15px;
   margin-bottom: 19px;
 }
+<<<<<<< HEAD
 
 button, input {
   border: none;
@@ -233,3 +234,5 @@ button, input {
   font-size: var(--subtitle);
   font-weight: 300;
 }
+=======
+>>>>>>> origin/Development
