@@ -225,6 +225,7 @@ def create_coupon():
 
     return render_template('createCoupon.html')
 
+
 @app.route('/viewUserCoupons.html', methods=['GET', 'POST'])
 @app.route('/viewUserCoupons', methods=['GET', 'POST'])
 def viewUserCoupons():
@@ -240,6 +241,7 @@ def viewUserCoupons():
     coupon_list = get_redeemed_coupons_by_rid(rid)
     today = date.today()
     return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
+
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
@@ -261,6 +263,7 @@ def employee():
 
     return render_template("employee.html", employees = employee_list)
 
+
 @app.route('/achievement.html', methods=['GET', 'POST'])
 @app.route('/achievement', methods=['GET', 'POST'])
 def achievement():
@@ -277,6 +280,7 @@ def achievement():
     achievement_list = get_achievements_by_rid(rid)
 
     return render_template("achievement.html", achievements = achievement_list)
+
 
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])
@@ -299,6 +303,7 @@ def search():
             return redirect(url_for('restaurant', rid=rid))
     else:
         return render_template('search.html')
+
 
 @app.route('/restaurant<rid>.html', methods=['GET', 'POST'])
 @app.route('/restaurant<rid>', methods=['GET', 'POST'])
@@ -328,9 +333,10 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
     else:
         return redirect(url_for('home'))
+
 
 @app.route('/couponOffers<rid>.html', methods=['GET', 'POST'])
 @app.route('/couponOffers<rid>', methods=['GET', 'POST'])
@@ -364,7 +370,6 @@ def couponOffers(rid):
         return redirect(url_for('home'))
 
 
-
 @app.route('/profile.html')
 @app.route('/profile')
 def profile():
@@ -387,6 +392,7 @@ def logout():
         session.pop('type', None)
         return redirect(url_for('login'))
 
+
 # To create an achievement
 @app.route('/createAchievement.html', methods=['GET', 'POST'])
 @app.route('/createAchievement', methods=['GET', 'POST'])
@@ -398,8 +404,6 @@ def create_achievement():
     # Page is restricted to owners only, if user is not an owner, redirect to home page
     elif session['type'] != 1:
         return redirect(url_for('home'))
-
-
 
     if request.method == 'POST':
         rid = get_rid(session["account"])
