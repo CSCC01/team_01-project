@@ -69,11 +69,12 @@
 
 {% block content %}
     {% for c in coupons %}
-      {% if c['deleted'] == 0 %}
+    {% if session['type'] == -1 or  c['deleted'] == 0 %}
       <div class = parent>
         <div class = title>
           <div class = name>
             {{ c["name"] }}
+            {{ c["cname"] }}
           </div>
 
             <!-- The gear for deleting coupons, only visable to owners -->
