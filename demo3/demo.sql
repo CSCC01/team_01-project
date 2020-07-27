@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `achievements` (
   `value`        varchar(2048)     NOT NULL DEFAULT '',
   PRIMARY KEY (`aid`)
 );
-
 CREATE TABLE IF NOT EXISTS `redeemed_coupons` (
   `rcid`         int               NOT NULL AUTO_INCREMENT,
   `cid`          int unsigned      NOT NULL,

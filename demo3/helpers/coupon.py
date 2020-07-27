@@ -98,3 +98,20 @@ def delete_coupon(cid):
     coupon.deleted = 1
     db.session.commit()
     return None
+
+
+def get_coupon_by_cid(cid):
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+
+    if coupon:
+        c = {
+            "cid": coupon.cid,
+            "cname": coupon.name,
+            "cdescription": coupon.description,
+            "begin": coupon.begin,
+            "expiration": coupon.expiration
+        }
+
+        return c
+    else:
+        return None

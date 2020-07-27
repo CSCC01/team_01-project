@@ -39,7 +39,6 @@
 	margin-top: -15px;
   margin-bottom: 19px;
 }
-<<<<<<< HEAD
 
 button, input {
   border: none;
@@ -230,6 +229,11 @@ button, input {
   color: var(--darkGrey);
 }
 
+.right_container {
+  font-size: var(--subtitle);
+  font-weight: 300;
+}
+
 .status {
   display: flex;
   direction: row;
@@ -242,5 +246,3 @@ button, input {
   -webkit-background-clip: text;
   background-clip: text;
 }
-=======
->>>>>>> origin/Development

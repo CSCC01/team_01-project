@@ -168,9 +168,10 @@ def coupon():
     if 'account' not in session:
         return redirect(url_for('login'))
 
-    ### TODO: Customer viewing of coupons can go
+    ### Customer viewing of coupons
     elif session["type"] == -1:
-        return render_template("coupon.html")
+        coupons = get_redeemed_coupons_by_uid(session["account"])
+        return render_template("coupon.html", coupons = coupons)
 
     # TODO: Employees view of the coupon page
     elif session["type"] == 0:
