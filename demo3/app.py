@@ -295,7 +295,8 @@ def restaurant(rid):
     if restaurant:
         # Gets coupons
         rname = get_restaurant_name_by_rid(rid)
-        coupons = filter_valid_coupons(get_coupons(rid))
+        coupons = filter_valid_coupons(get_coupons(rid))[-3:]
+        coupons.reverse()
 
         # Gets point progress
         uid = session['account']
@@ -304,7 +305,7 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons[:3], rid = rid)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid)
     else:
         return redirect(url_for('home'))
 
