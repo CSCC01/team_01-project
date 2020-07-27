@@ -23,6 +23,9 @@ class DeleteCouponTest(unittest.TestCase):
         db.drop_all()
 
     def test_delete_one(self):
+        """
+        Deletes one coupon, expects that other coupons remain the same.
+        """
         coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon1)
@@ -47,6 +50,9 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(c2.deleted, 0)
 
     def test_delete_many(self):
+        """
+        Deletes multiple coupons, expects that other coupons remain the same.
+        """
         coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         coupon2 = Coupon(rid=14, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
         coupon3 = Coupon(rid=2, name="test3", points=100, description="10$ off", begin=BEGIN, expiration=END, deleted=0)
