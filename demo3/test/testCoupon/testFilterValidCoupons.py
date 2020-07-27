@@ -12,7 +12,7 @@ VALID = datetime.strptime("1 May, 9999", "%d %B, %Y")
 INVALID = datetime.strptime("30 June, 2020", "%d %B, %Y")
 
 
-class DeleteCouponTest(unittest.TestCase):
+class FilterValidCouponTest(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
