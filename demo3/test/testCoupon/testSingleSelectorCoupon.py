@@ -29,7 +29,7 @@ class SingleSelectorCouponTest(unittest.TestCase):
         """
         Test getting no matching coupon, with a coupon in database.
         """
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
 
