@@ -25,12 +25,12 @@ class SelectAchievementTest(unittest.TestCase):
         db.drop_all()
     
     def test_get_values(self):
-        """Tests get_achievement_values() for all achievement types."""
+        """Tests get_achievement_data() for all achievement types."""
         achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
 
-        self.assertEqual(achievementhelper.get_achievement_values(achievement1), ["Item", "5"])
-        self.assertEqual(achievementhelper.get_achievement_values(achievement2), ["", "6.99"])
+        self.assertEqual(achievementhelper.get_achievement_data(achievement1), ["Item", "5"])
+        self.assertEqual(achievementhelper.get_achievement_data(achievement2), ["", "6.99"])
 
     def test_get_description(self):
         """Tests get_achievement_description() for all achievement types."""
