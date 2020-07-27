@@ -1,4 +1,4 @@
-from models import Achievement, Customer_Achievement_Progress
+from models import Achievements, Customer_Achievement_Progress
 
 import config
 if config.STATUS == "TEST":
@@ -35,7 +35,7 @@ def get_achievement_progress_by_uid(uid):
 
 def get_achievements_with_no_progress(achievements, uid):
     """
-    Filters achievements with zero progress by the given user from a 
+    Filters achievements with zero progress by the given user from a
     list of achievements and appends progress data to each achievement.
 
     Args:
@@ -59,6 +59,3 @@ def get_achievements_with_no_progress(achievements, uid):
             a["progress"] = 0
             filtered_achievements.append(a)
     return filtered_achievements
-
-
-
