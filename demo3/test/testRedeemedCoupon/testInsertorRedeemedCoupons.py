@@ -1,3 +1,8 @@
+"""
+Test suite for helpers.redeemedCoupons.py's insert_redeemed_coupon function.
+"""
+
+
 import unittest
 
 from helpers.redeemedCoupons import insert_redeemed_coupon
@@ -21,6 +26,9 @@ class InsertRedeemedCouponTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_coupon(self):
+        """
+        Testing inserting an arbitrary coupon.
+        """
         cid = 3
         rid = 5
         uid = 6

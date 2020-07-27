@@ -1,3 +1,7 @@
+"""
+Test suite for helpers.coupon.py's filter_valid_coupons function.
+"""
+
 import unittest
 
 from helpers.coupon import filter_valid_coupons
@@ -25,11 +29,17 @@ class FilterValidCouponTest(unittest.TestCase):
         db.drop_all()
 
     def test_empty_list(self):
+        """
+        Test filtering an empty list.
+        """
         coupons = []
         result = filter_valid_coupons(coupons)
         self.assertEqual(result, [])
 
     def test_one_valid(self):
+        """
+        Test filtering a list with one item that should not be removed.
+        """
         coupons = [{
             'expiration': VALID,
             'deleted': 0
@@ -38,6 +48,9 @@ class FilterValidCouponTest(unittest.TestCase):
         self.assertEqual(result, coupons)
 
     def test_many_valid(self):
+        """
+        Test filtering a list with many items, all of which should not be removed.
+        """
         coupons = [{
             'name': "test coupon",
             'expiration': VALID,
@@ -52,6 +65,9 @@ class FilterValidCouponTest(unittest.TestCase):
 
 
     def test_one_invalid_date(self):
+        """
+        Test filtering a list containing one item with an invalid date, the item should be removed.
+        """
         coupons = [{
             'expiration': INVALID,
             'deleted': 0
@@ -60,6 +76,9 @@ class FilterValidCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_one_invalid_deleted(self):
+        """
+        Test filtering a list containing one item that was deleted, the item should be removed.
+        """
         coupons = [{
             'expiration': VALID,
             'deleted': 1
@@ -68,6 +87,9 @@ class FilterValidCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_many_invalid(self):
+        """
+        Test filtering a list with many invalid items, they should all be removed.
+        """
         coupons = [{
             'name': "test coupon",
             'expiration': INVALID,
@@ -81,6 +103,9 @@ class FilterValidCouponTest(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_valid_and_invalid(self):
+        """
+        Test filtering a list with valid and invalid items, only invalid items should be removed.
+        """
         coupons = [{
             'name': "test coupon",
             'expiration': VALID,
