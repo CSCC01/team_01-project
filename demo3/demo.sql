@@ -53,6 +53,13 @@ CREATE TABLE IF NOT EXISTS `customer_coupons` (
   `amount`       int unsigned      NOT NULL,
   PRIMARY KEY (`cid`, `rid`, `uid`)
 );
+CREATE TABLE IF NOT EXISTS `customer_achievement_progress` (
+  `aid`          int unsigned      NOT NULL,
+  `uid`          int unsigned      NOT NULL,
+  `progress`     int unsigned      NOT NULL,
+  `total`        int unsigned      NOT NULL,
+  PRIMARY KEY (`aid`, `uid`)
+);
 CREATE TABLE IF NOT EXISTS `achievements` (
   `aid`          int unsigned      NOT NULL AUTO_INCREMENT,
   `rid`          int unsigned      NOT NULL,
