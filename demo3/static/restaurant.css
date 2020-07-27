@@ -145,3 +145,64 @@ progress::-webkit-progress-value {
 .container {
  padding-top: 15px;
 }
+
+/* Styling for sidebar buttons */
+.seeMore button {
+  font-family: 'Poppins', sans-serif;
+  color: var(--pink);
+  margin-top: 15px;
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: var(--body);
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Styles the sidebar buttons when hovering over them */
+.seeMore button:hover {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: background;
+  background-clip: background;
+  color: var(--forground);
+}
+
+input[type = submit] {
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+.fine_print, .toPoor {
+  text-align: center;
+  margin-top: 5px;
+  cursor: default;
+}
+
+.toPoor input[type = submit] {
+  background-image: none;
+  background-color: var(--purpleGrey)
+}
+
+.message a {
+  color: var(--pink);
+}
+
+.total_points {
+  font-size: var(--subtitle);
+  display: flex;
+  direction: row;
+}
+
+.pink {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}

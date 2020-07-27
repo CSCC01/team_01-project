@@ -1,5 +1,5 @@
-from models import Coupon
-
+from models import Coupon, User
+from datetime import date
 
 import config
 if config.STATUS == "TEST":
@@ -100,12 +100,35 @@ def delete_coupon(cid):
     return None
 
 
+def filter_valid_coupons(coupons):
+    """
+    Removes invalid coupons from the coupons list.
+
+    Deletes coupons that are either deleted or expired.
+
+    Args:
+        coupons: A list of dictinaries, each dictinary must have the keys,
+          int 'deleted' and DateTime 'expiration'.
+
+    Returns:
+        A the list coupons with the invalid dictinaries removed.
+    """
+    today = date.today()
+    for c in coupons:
+        if c["deleted"] == 1 or (c["expiration"] != None and today > c["expiration"]):
+            coupons.remove(c)
+
+    return coupons
+
+
 def get_coupon_by_cid(cid):
+
     coupon = Coupon.query.filter(Coupon.cid == cid).first()
 
     if coupon:
         c = {
             "cid": coupon.cid,
+            "points": coupon.points,
             "cname": coupon.name,
             "cdescription": coupon.description,
             "begin": coupon.begin,

@@ -53,6 +53,7 @@ class Coupon(db.Model):
     description = db.Column(db.String(64), nullable=False)
     expiration = db.Column(db.DateTime, nullable=True)
     begin = db.Column(db.DateTime, nullable=True)
+    deleted = db.Column(db.Integer, nullable=False)
 
 class Restaurant(db.Model):
     __tablename__ = "restaurant"
