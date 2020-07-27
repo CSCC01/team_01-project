@@ -48,7 +48,7 @@ def get_achievement_description(achievement):
     Returns:
         A description for the given achievement.
     """
-    values = get_achievement_values(achievement)
+    values = get_achievement_data(achievement)
     switcher = {
         0: "Buy " + values[0] + " " + values[1] + " times.",
         1: "Spend $" + values[1] + " in a single visit."
@@ -71,21 +71,21 @@ def get_achievement_progress_maximum(achievement):
     Returns:
         A progress maximum for a given achievement.
     """
-    values = get_achievement_values(achievement)
+    values = get_achievement_data(achievement)
     switcher = {
         0: values[1],
         1: 1
     }
     return int(switcher.get(achievement.type))
 
-def get_achievement_values(achievement):
+def get_achievement_data(achievement):
     """
-    Splits achievement values data into a list.
+    Splits achievement value into a data list.
 
     Args:
-        achievement: The achievement whose values are to be processed
+        achievement: The achievement whose value data is to be processed
 
     Returns:
-        A list of values for a given achievement.
+        A data list for a given achievement.
     """
     return achievement.value.split(';')

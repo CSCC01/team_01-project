@@ -337,9 +337,9 @@ def profile():
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
-    else :
+    else:
         return render_template('profile.html')
-        
+
 
 # To end session you must logout
 @app.route('/logout')
