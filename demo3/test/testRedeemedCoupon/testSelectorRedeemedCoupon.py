@@ -23,10 +23,16 @@ class SelectCustomerCoupons(unittest.TestCase):
         db.drop_all()
 
     def test_no_coupon(self):
+        """
+        Retrives a list of no coupons.
+        """
         redeemed_coupon_list = rchelper.get_redeemed_coupons_by_rid(20)
         self.assertEqual(redeemed_coupon_list, [])
 
     def test_one_coupon_one_user_valid(self):
+        """
+        Retrives a list of one valid coupon belonging to one user.
+        """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
@@ -58,6 +64,9 @@ class SelectCustomerCoupons(unittest.TestCase):
         ])
 
     def test_one_coupon_one_user_invalid(self):
+        """
+        Retrives a list of one invalid coupon belonging to one user.
+        """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
@@ -89,6 +98,9 @@ class SelectCustomerCoupons(unittest.TestCase):
         ])
 
     def test_one_coupon_no_user(self):
+        """
+        Retrives a list of one valid coupon belonging to no users.
+        """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
@@ -116,6 +128,9 @@ class SelectCustomerCoupons(unittest.TestCase):
         ])
 
     def test_one_coupon_many_customers(self):
+        """
+        Retrives a list of one coupon belonging to many users.
+        """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
@@ -152,6 +167,9 @@ class SelectCustomerCoupons(unittest.TestCase):
         ])
 
     def test_many_coupons(self):
+        """
+        Retrives a list of many coupons belonging to many users.
+        """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
