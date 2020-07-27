@@ -134,3 +134,17 @@ input[type = submit] {
 .message a {
   color: var(--pink);
 }
+
+.total_points {
+  font-size: var(--subtitle);
+  display: flex;
+  direction: row;
+}
+
+.pink {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
