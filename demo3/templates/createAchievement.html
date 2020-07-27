@@ -1,0 +1,134 @@
+<!--                                               ----
+----  createAchievement.html contains all frontend ----
+----         html For the Achievement page         ----
+----                                               --->
+
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">
+<link rel="stylesheet" type="text/css" href="static/achievement.css">
+{% endblock style %}
+
+{% block title %}
+<title>Create an Achievement</title>
+{% endblock title %}
+
+{% block achievement %}_pressed{% endblock achievement %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Create an Achievement
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+
+    {% if errmsg %}
+      <div class = parent>
+        Could not create an achievement because of the following: <br>
+        {% for msg in errmsg %}
+          <li>{{msg}} </li>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+      <div class = parent>
+        <form method = "post">
+          <div class = textfeilds>
+            <!-- The name feild -->
+            <div class = feild>
+                <label>Achievement Name</label>
+                    <input type="text" name="name">
+            </div>
+
+
+            <!-- Rewards feilds -->
+            <div class = col>
+              <div class = feild>
+                <label>Reward experience</label>
+                <div class = points>
+                    <input type="number" name="experience" value = 0>
+                  <div class = right>
+                    Experience
+                  </div>
+                </div>
+              </div>
+
+              <div class = feild>
+                <label>Reward points</label>
+                <div class = points>
+                    <input type="number" name="points" value = 0>
+                  <div class = right>
+                    Points
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class = feild>
+              <label>Achievement Type</label>
+              <select id = type name = type>
+                  <option value="0">Amount of items purchased</option>
+                  <option value="1">Amount of money spent in a visit</option>
+              </select>
+            </div>
+
+            <!-- Type = 0 - Purchase item x times -->
+            <div class = type0 id = type0>
+              <div class = col_mod>
+                <div class = feild_tag_left>
+                  Purchase
+                </div>
+
+                <div class = item>
+                  <div class = feild>
+                      <label>item</label>
+                          <input type="text" name="item" value = "">
+                  </div>
+                </div>
+                <div class = amount>
+                  <div class = feild>
+                      <label>amount</label>
+                          <input type="number" name="amount">
+                  </div>
+                </div>
+
+                <div class = feild_tag_right>
+                  times
+                </div>
+            </div>
+            </div>
+
+            <!-- Type = 1 - Spend xx.xx amount -->
+            <div class = type1 id = type1>
+              <div class = col_mod>
+                <div class = feild_tag_left>
+                  Spend
+                </div>
+
+                <div class = amount>
+                  <div class = feild>
+                      <label>amount</label>
+                          <input type="number" min="0.01" step="0.01" name="cost" value = 10.00>
+                  </div>
+                </div>
+
+                <div class = feild_tag_right>
+                  in a single visit
+                </div>
+              </div>
+            </div>
+
+
+          <div class = submit_button>
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+{% endblock content %}
+
+{% block script %}<script type="text/javascript" src = "static/achievement.js"></script>{% endblock script %}
