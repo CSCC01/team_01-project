@@ -25,7 +25,7 @@ class SingleSelectorCouponTest(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_coupon_none(self):
+    def test_coupon_no_matching(self):
         """
         Test getting no matching coupon, with a coupon in database.
         """
