@@ -42,7 +42,7 @@
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemable <br>Coupons
+        View Redeemed Coupons
       </div>
       </button>
     </div>
@@ -56,7 +56,7 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          Customer's Redeemable Coupons
+          Customers' Redeemed Coupons
         </div>
       </div>
       <div class = fine_print>
@@ -78,16 +78,20 @@
             {% elif c['deleted'] == 1%}
               Status: Deleted
             {% else %}
-              Status: Active
+              <div class = placeholder> Status:&nbsp;</div>
+              <div class = active>Active</div>
             {% endif %}
           </div>
+      </div>
+      <div class = description>
+        {{ c["description"] }}
       </div>
 
       <div class = holder>
         Number of holders: {{ c['holders'] }}
       </div>
       <div class = holder>
-        Number of used: {{ c['used'] }}
+        Number of uses: {{ c['used'] }}
       </div>
     </div>
   {% endfor %}

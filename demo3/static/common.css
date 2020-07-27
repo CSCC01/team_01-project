@@ -162,8 +162,6 @@ footer div {
   font-size: var(--mini);
   color: var(--darkGrey);
 }
-<<<<<<< HEAD
-=======
 
 /* Rotates the coupon image */
 .coupon_large, .coupon {
@@ -321,4 +319,3 @@ button, input {
 .settings_dropdown:hover .options {
   display: block;
 }
->>>>>>> origin/Development

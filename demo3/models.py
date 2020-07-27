@@ -81,6 +81,13 @@ class Redeemed_Coupons(db.Model):
     rid = db.Column(db.Integer, nullable=False)
     valid = db.Column(db.Integer, nullable=False)
 
+class Customer_Achievement_Progress(db.Model):
+    __tablename__ = "customer_achievement_progress"
+    aid = db.Column(db.Integer, nullable=False, primary_key=True)
+    uid = db.Column(db.Integer, nullable=False, primary_key=True)
+    progress = db.Column(db.Integer, nullable=False)
+    total = db.Column(db.Integer, nullable=False)
+
 class Achievements(db.Model):
     __tablename__ = "achievements"
     aid = db.Column(db.Integer, nullable=False, primary_key=True)

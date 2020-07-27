@@ -13,7 +13,7 @@
   -webkit-background-clip: text;
 }
 
-.name {
+.name, .status {
   font-weight:700;
   font-size: var(--subtitle);
 }
@@ -39,7 +39,6 @@
 	margin-top: -15px;
   margin-bottom: 19px;
 }
-<<<<<<< HEAD
 
 button, input {
   border: none;
@@ -230,9 +229,21 @@ button, input {
   color: var(--darkGrey);
 }
 
+<<<<<<< HEAD
 .right_container {
   font-size: var(--subtitle);
   font-weight: 300;
 }
-=======
->>>>>>> origin/Development
+
+.status {
+  display: flex;
+  direction: row;
+}
+
+.active {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}

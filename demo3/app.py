@@ -6,6 +6,7 @@ from helpers.restaurant import *
 from helpers.employee import *
 from helpers.coupon import *
 from helpers.achievement import *
+from helpers.achievementProgress import *
 from helpers.redeemedCoupons import *
 from helpers.points import *
 from helpers.level import *
@@ -316,6 +317,9 @@ def restaurant(rid):
         rname = get_restaurant_name_by_rid(rid)
         coupons = get_coupons(rid)
 
+        # Gets achievements with no progress
+        achievements_no_progress = get_achievements_with_no_progress(get_achievements_by_rid(rid), session['account'])
+
         # Gets point progress
         uid = session['account']
         if not get_points(uid, rid):
@@ -323,7 +327,8 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons,
+                                achievements = achievements_no_progress)
     else:
         return redirect(url_for('home'))
 
@@ -335,7 +340,7 @@ def profile():
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
-    else :
+    else:
         return render_template('profile.html')
 
 
