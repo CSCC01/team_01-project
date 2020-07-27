@@ -10,6 +10,7 @@ from helpers.achievementProgress import *
 from helpers.redeemedCoupons import *
 from helpers.points import *
 from helpers.level import *
+from datetime import date
 import config
 import os
 import hashlib
@@ -235,8 +236,9 @@ def viewUserCoupons():
         return redirect(url_for('home'))
 
     rid = get_rid(session['account'])
-    coupons = get_customer_coupons_by_rid(rid)
-    return render_template("viewUserCoupons.html", coupons = coupons)
+    coupon_list = get_redeemed_coupons_by_rid(rid)
+    today = date.today()
+    return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])

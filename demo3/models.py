@@ -47,6 +47,7 @@ class Coupon(db.Model):
     __tablename__ = "coupons"
     cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
+    deleted = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(64), nullable=False)
@@ -72,12 +73,13 @@ class Employee(db.Model):
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     rid = db.Column(db.Integer)
 
-class Customer_Coupons(db.Model):
-    __tablename__ = "customer_coupons"
-    cid = db.Column(db.Integer, nullable=False, primary_key=True)
-    uid = db.Column(db.Integer, nullable=False, primary_key=True)
-    rid = db.Column(db.Integer, nullable=False, primary_key=True)
-    amount = db.Column(db.Integer, nullable=False)
+class Redeemed_Coupons(db.Model):
+    __tablename__ = "redeemed_coupons"
+    rcid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cid = db.Column(db.Integer, nullable=False)
+    uid = db.Column(db.Integer, nullable=False)
+    rid = db.Column(db.Integer, nullable=False)
+    valid = db.Column(db.Integer, nullable=False)
 
 class Customer_Achievement_Progress(db.Model):
     __tablename__ = "customer_achievement_progress"

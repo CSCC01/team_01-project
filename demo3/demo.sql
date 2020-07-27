@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `description`  varchar(1028)     NOT NULL DEFAULT '',
   `begin`        date,
   `expiration`   date,
+  `deleted`      int               NOT NULL,
   PRIMARY KEY (`cid`)
 );
 CREATE TABLE IF NOT EXISTS `points` (
@@ -46,12 +47,13 @@ CREATE TABLE IF NOT EXISTS `achievements` (
   PRIMARY KEY (`aid`)
 );
 
-CREATE TABLE IF NOT EXISTS `customer_coupons` (
+CREATE TABLE IF NOT EXISTS `redeemed_coupons` (
+  `rcid`         int               NOT NULL AUTO_INCREMENT,
   `cid`          int unsigned      NOT NULL,
   `rid`          int unsigned      NOT NULL,
   `uid`          int unsigned      NOT NULL,
-  `amount`       int unsigned      NOT NULL,
-  PRIMARY KEY (`cid`, `rid`, `uid`)
+  `valid`        int unsigned      NOT NULL,
+  PRIMARY KEY (`rcid`)
 );
 CREATE TABLE IF NOT EXISTS `customer_achievement_progress` (
   `aid`          int unsigned      NOT NULL,
