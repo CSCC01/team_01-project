@@ -331,6 +331,7 @@ def couponOffers(rid):
             if c['points'] <= points:
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
+                points = get_points(session['account'], rid).points
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
             else:
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
