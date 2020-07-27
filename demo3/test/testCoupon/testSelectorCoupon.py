@@ -1,3 +1,11 @@
+"""
+
+Test suite for helper.coupon.py's get_coupons function.
+
+"""
+
+
+
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db

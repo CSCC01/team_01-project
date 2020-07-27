@@ -1,3 +1,10 @@
+"""
+
+Tests for helpers.redeemedCoupons.py's get_redeemed_coupons_by_rid function.
+
+"""
+
+
 import unittest
 from models import Redeemed_Coupons, User, Coupon, Restaurant
 from models import db

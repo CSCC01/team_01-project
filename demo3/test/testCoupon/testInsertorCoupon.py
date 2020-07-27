@@ -1,3 +1,10 @@
+"""
+
+Test suite for helper.coupon.py's insert_coupon function.
+
+"""
+
+
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db

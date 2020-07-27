@@ -1,3 +1,9 @@
+"""
+
+Test suite for helpers.coupon.py's delete_coupon function.
+
+"""
+
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db
