@@ -66,6 +66,14 @@
   </div>
 {% endif %}
 
+{% if errmsg %}
+  <div class = parent>
+    {% for msg in errmsg %}
+      {{msg}}
+    {% endfor %}
+  </div>
+{% endif %}
+
   {% for c in coupons %}
     <div class = parent>
       <div class = title>
