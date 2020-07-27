@@ -1,0 +1,100 @@
+/*                                                  *
+*                                                   *
+*           Styling for Achievement.HTML            *
+*                                                   *
+*                                                   */
+
+
+.points {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.type1 {
+  display: none;
+}
+
+.type0 {
+  display: flex;
+}
+
+.type0 .feild_tag_right,
+.type0 .feild_tag_left,
+.type1 .feild_tag_left,
+.type1 .feild_tag_right{
+  position:relative;
+  top: 11px;
+}
+
+.feild_tag_right {
+  margin-left: 5px;
+}
+
+.feild_tag_left {
+  margin-right: 5px;
+}
+
+
+/* Styling to  make the password boxes side by side */
+.col_mod {
+  display: flex;
+  flex-direction: row;
+}
+
+.col_mod .feild {
+  flex: 1 1 0px;
+}
+
+.item {
+  min-width: 100px;
+  margin-right: 20px;
+  width: 50%;
+}
+
+.amount {
+  min-width: 80px;
+  width: 20%;
+}
+
+.plus {
+  font-size: 40px;
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+}
+
+.name {
+  font-weight:700;
+  font-size: var(--subtitle);
+}
+
+.description {
+  font-weight:400;
+}
+
+.points {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.number {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.rewards_text {
+  padding-right: 5px;
+  font-weight: 525;
+}
+
+.rewards {
+  display: flex;
+  justify-content: flex-end;
+}
