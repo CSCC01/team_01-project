@@ -180,6 +180,7 @@ def coupon():
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl)
+          
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
@@ -235,6 +236,7 @@ def create_coupon():
 
     return render_template('createCoupon.html')
 
+
 @app.route('/viewUserCoupons.html', methods=['GET', 'POST'])
 @app.route('/viewUserCoupons', methods=['GET', 'POST'])
 def viewUserCoupons():
@@ -250,6 +252,7 @@ def viewUserCoupons():
     coupon_list = get_redeemed_coupons_by_rid(rid)
     today = date.today()
     return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
+
 
 @app.route('/employee.html', methods=['GET', 'POST'])
 @app.route('/employee', methods=['GET', 'POST'])
@@ -271,6 +274,7 @@ def employee():
 
     return render_template("employee.html", employees = employee_list)
 
+
 @app.route('/achievement.html', methods=['GET', 'POST'])
 @app.route('/achievement', methods=['GET', 'POST'])
 def achievement():
@@ -287,6 +291,7 @@ def achievement():
     achievement_list = get_achievements_by_rid(rid)
 
     return render_template("achievement.html", achievements = achievement_list)
+
 
 @app.route('/search.html', methods=['GET', 'POST'])
 @app.route('/search', methods=['GET', 'POST'])
@@ -310,6 +315,7 @@ def search():
     else:
         return render_template('search.html')
 
+
 @app.route('/restaurant<rid>.html', methods=['GET', 'POST'])
 @app.route('/restaurant<rid>', methods=['GET', 'POST'])
 def restaurant(rid):
@@ -325,7 +331,8 @@ def restaurant(rid):
     if restaurant:
         # Gets coupons
         rname = get_restaurant_name_by_rid(rid)
-        coupons = get_coupons(rid)
+        coupons = filter_valid_coupons(get_coupons(rid))[-3:]
+        coupons.reverse()
 
         # Gets achievements with no progress
         achievements_no_progress = get_achievements_with_no_progress(get_achievements_by_rid(rid), session['account'])
@@ -337,12 +344,43 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons,
-                                achievements = achievements_no_progress)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
     else:
         return redirect(url_for('home'))
 
 
+
+@app.route('/couponOffers<rid>.html', methods=['GET', 'POST'])
+@app.route('/couponOffers<rid>', methods=['GET', 'POST'])
+def couponOffers(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+      
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        rname = get_restaurant_name_by_rid(rid)
+        coupons = filter_valid_coupons(get_coupons(rid))
+        points = get_points(session['account'], rid).points
+        if 'cid' in request.form:
+            cid = request.form['cid']
+            c = get_coupon_by_cid(cid)
+            if c['points'] <= points:
+                update_points(session['account'], rid, (-1 * c['points']))
+                insert_redeemed_coupon(cid, session['account'], rid)
+                points = get_points(session['account'], rid).points
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
+            else:
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
+
+        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
+    else:
+        return redirect(url_for('home'))
+      
 @app.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
 def use_coupon(cid,uid):
     # If someone is not logged in redirects them to login page
@@ -402,6 +440,7 @@ def logout():
         session.pop('type', None)
         return redirect(url_for('login'))
 
+
 # To create an achievement
 @app.route('/createAchievement.html', methods=['GET', 'POST'])
 @app.route('/createAchievement', methods=['GET', 'POST'])
@@ -413,8 +452,6 @@ def create_achievement():
     # Page is restricted to owners only, if user is not an owner, redirect to home page
     elif session['type'] != 1:
         return redirect(url_for('home'))
-
-
 
     if request.method == 'POST':
         rid = get_rid(session["account"])
