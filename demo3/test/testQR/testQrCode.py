@@ -16,6 +16,9 @@ class testQrCode(unittest.TestCase):
     Can only check path
     """
     def test_path_normal_url_to_img(self):
+        """
+        Test with url to check if it can be saved in correct destination
+        """
         path = to_qr("iamurl",10)
         target = str(cwd_pp) + '/static/Resources/QR/'+str(10)+'.png'
         self.assertEqual(path, target)
