@@ -20,7 +20,7 @@ class MarkRedeemedCoupon(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_one_valid_coupon(self):
+    def test_valid_coupon(self):
         """
         Test mark on one valid coupon
         """
@@ -30,19 +30,6 @@ class MarkRedeemedCoupon(unittest.TestCase):
         rchelper.mark_redeem_coupon_used_by_rcid(1)
         self.assertEqual(rc.valid, 0)
 
-    def test_many_valid_coupon(self):
-        """
-        Test mark on multiple valid coupons
-        """
-        rc1 = Redeemed_Coupons(cid=32, uid=12, rid=12, valid=1)
-        rc2 = Redeemed_Coupons(cid=123, uid=21, rid=33, valid=1)
-        db.session.add(rc1)
-        db.session.add(rc2)
-        db.session.commit()
-        rchelper.mark_redeem_coupon_used_by_rcid(1)
-        rchelper.mark_redeem_coupon_used_by_rcid(2)
-        self.assertEqual(rc1.valid, 0)
-        self.assertEqual(rc2.valid, 0)
 
     def test_invalid_coupon(self):
         """
