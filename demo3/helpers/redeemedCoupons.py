@@ -27,8 +27,8 @@ def mark_redeem_coupon_used_by_rcid(rcid):
     db.session.commit()
     return coupon
 
-def find_rcid_by_cid(cid):
-    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid).first()
+def find_rcid_by_cid_and_uid(cid, uid):
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid, Redeemed_Coupons.uid == uid).first()
     return coupon.rcid
 
 
