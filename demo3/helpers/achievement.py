@@ -138,3 +138,22 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
         db.session.commit()
 
     return errmsg
+
+def delete_achievement(aid):
+    """
+    Removes a row from the Achievement table.
+
+    Deletes an achievement from the database.
+
+    Args:
+        aid: An achievement ID that corresponds to a achievement in the Achievement table.
+        An integer.
+
+    Returns:
+        None.
+    """
+    achievement = Achievements.query.filter(Achievements.aid == aid).first()
+    db.session.delete(achievement)
+    db.session.commit()
+    return None
+

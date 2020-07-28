@@ -38,6 +38,12 @@
           <!-- The gear for deleting coupons -->
           <div class = settings_dropdown>
             <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+              <div class = options>
+                <form method = "post">
+                  <input type="submit" value = "Delete" name = {{a["name"]}}>
+                  <input type="hidden" value = {{a["aid"]}} name=achievement>
+                </form>
+              </div>
           </div>
 
         </div>
