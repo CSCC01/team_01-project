@@ -28,7 +28,8 @@ def mark_redeem_coupon_used_by_rcid(rcid):
     return coupon
 
 def find_rcid_by_cid_and_uid(cid, uid):
-    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid, Redeemed_Coupons.uid == uid).first()
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid,
+                                           Redeemed_Coupons.uid == uid, Redeemed_Coupons.valid == 1).first()
     if coupon:
         return coupon.rcid
     return "Not Found"
