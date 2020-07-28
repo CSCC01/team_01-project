@@ -6,6 +6,9 @@ from helpers import redeemedCoupons as rchelper
 
 
 class MarkRedeemedCoupon(unittest.TestCase):
+    """
+    Test mark_redeem_coupon_used_by_rcid(rcid) in redeemedCoupons.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
