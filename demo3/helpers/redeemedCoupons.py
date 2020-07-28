@@ -21,6 +21,20 @@ def get_redeemed_coupons_by_rid(rid):
     return coupons
 
 
+def mark_redeem_coupon_used_by_rcid(rcid):
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.rcid == rcid).first()
+    coupon.valid = 0
+    db.session.commit()
+    return coupon
+
+def find_rcid_by_cid_and_uid(cid, uid):
+    coupon = Redeemed_Coupons.query.filter(Redeemed_Coupons.cid == cid,
+                                           Redeemed_Coupons.uid == uid, Redeemed_Coupons.valid == 1).first()
+    if coupon:
+        return coupon.rcid
+    return "Not Found"
+
+
 def get_redeemed_coupons_by_uid(uid):
     coupons = Redeemed_Coupons.query.filter(Redeemed_Coupons.uid == uid, Redeemed_Coupons.valid == 1).all()
     coupon_list = []
@@ -34,7 +48,7 @@ def get_redeemed_coupons_by_uid(uid):
 
     return coupon_list
 
-
+  
 def insert_redeemed_coupon(cid, uid, rid):
     coupon = Redeemed_Coupons(cid = cid, uid = uid, rid = rid, valid = 1)
     db.session.add(coupon)

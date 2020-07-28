@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+{% block icons %}
+<div class = icons>
+  <div class = other_icon>
+    <a href="home.html"><img src="static/Resources/home_pressed.png" alt="Home"></a>
+  </div>
+  <div class = "current">
+      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
+  </div>
+  {% if session['type'] == 1 %}
+  <div class = other_icon>
+    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
+  </div>
+  {% endif %}
+  <div class = other_icon>
+    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
+  </div>
+</div>
+{% endblock icons %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Scan Successful!
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}

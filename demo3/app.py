@@ -15,6 +15,7 @@ import config
 import os
 import hashlib
 import re
+from helpers.qr_code import *
 
 app = Flask(__name__)
 app.secret_key = 'shhhh'
@@ -170,6 +171,16 @@ def coupon():
 
     ### Customer viewing of coupons
     elif session["type"] == -1:
+        if request.method == 'POST':
+            cid = request.form['coupon']
+            print(cid)
+            uid = session['account']
+            print(uid)
+            rcid = find_rcid_by_cid_and_uid(cid,uid)
+            # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
+            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
+            return render_template("couponQR.html", imgurl=imgurl)
+          
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
@@ -338,13 +349,14 @@ def restaurant(rid):
         return redirect(url_for('home'))
 
 
+
 @app.route('/couponOffers<rid>.html', methods=['GET', 'POST'])
 @app.route('/couponOffers<rid>', methods=['GET', 'POST'])
 def couponOffers(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
-
+      
     # Page is restricted to customers only, if user is not a customer, redirect to home page
     elif session['type'] != -1:
         return redirect(url_for('home'))
@@ -368,6 +380,24 @@ def couponOffers(rid):
         return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
     else:
         return redirect(url_for('home'))
+      
+@app.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
+def use_coupon(cid,uid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login'))
+
+    # Page is restricted to employee/owner only, if user is a customer, redirect to home page
+    elif session['type'] == -1:
+        return redirect(url_for('scan_failure'))
+
+    # find rcid
+    rcid = find_rcid_by_cid_and_uid(cid, uid)
+    if rcid != "Not Found":
+        # mark used
+        mark_redeem_coupon_used_by_rcid(rcid)
+        return redirect(url_for('scan_successful'))
+    return redirect(url_for('scan_no_coupon'))
 
 
 @app.route('/profile.html')
@@ -378,6 +408,24 @@ def profile():
         return redirect(url_for('login'))
     else:
         return render_template('profile.html')
+
+
+@app.route('/scanFailure.html')
+@app.route('/scanFailure')
+def scan_failure():
+    return render_template('scanFailure.html')
+
+
+@app.route('/scanSuccessful.html')
+@app.route('/scanSuccessful')
+def scan_successful():
+    return render_template('scanSuccessful.html')
+
+
+@app.route('/scanNoCoupon.html')
+@app.route('/scanNoCoupon')
+def scan_no_coupon():
+    return render_template('scanNoCoupon.html')
 
 
 # To end session you must logout
