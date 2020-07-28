@@ -1,0 +1,13 @@
+This is where you should report bugs which you have not fixed.
+You can delete when you fixed the bug of course. No need to change number.
+Enjoy!
+
+Test:
+1. In testInsertorAchievement, insert_achievement() takes 7 positional arguments but 8 were given
+2. Miss documentation in testInsertorAchievement
+3. Missing Directory in testEmployee directory. (All 3 tests)
+4. Missing documentation in testLevel
+5. Missing documentation in testPage
+6. Missing documentation in testPoints
+7. Missing documentation in testRestaurant
+8. Missing documentation in testUser
