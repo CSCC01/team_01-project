@@ -1,0 +1,86 @@
+/* This is used when the tab size is bigger then 1000px */
+@media only screen and (max-width: 700px) {
+    .parent {
+      max-width: 70%;
+    }
+    .sidenav {
+      display: none;
+    }
+
+    .current {
+      display:none;
+    }
+}
+
+/* This is used when the tab size is smaller then 1000px */
+@media only screen and (min-width: 700px) {
+  /* Changes the size of the boxes so side bar does not overlap */
+  .parent {
+    max-width: none;
+    margin-left: 270px;
+    margin-right: 13px;
+  }
+
+  .small_window {
+    display: none;
+  }
+}
+
+
+/* Styles the container for the sidebare */
+.sidenav {
+  font-family: 'Poppins', sans-serif;
+  width: 250px;
+  position: fixed;
+  top: 75px;
+  left: 8px;
+  background: var(--forground);
+  overflow-x: hidden;
+}
+
+/* Adds the coupon title to the sidebar */
+.side_title {
+  font-weight:600;
+  font-size: var(--sidetitle);
+  padding-left: 10px;
+}
+
+
+/* Styles the little images next to the sidebar options */
+.but img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+/* Styling for sidebar buttons */
+.but button {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 5px;
+  font-weight: 300;
+  font-size: var(--body);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Styles the sidebar buttons when hovering over them */
+.but button:hover {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  color: var(--forground);
+  font-size: var(--body);
+}
+
+/* Turns the black icon images white when hovering over button */
+.but button:hover img{
+  -webkit-filter: invert(100%);
+}

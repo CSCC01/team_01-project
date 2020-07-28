@@ -16,9 +16,43 @@
   <body>
       <header>
           <div class = logo>
-            <a href="login">Pickeasy</a>
+            <a href="login">PickEasy</a>
           </div>
-          {% block icons %} {% endblock icons %}
+          {% if 'account' in session %}
+            <div class = icons>
+              {% if session['type'] == -1 %}
+                <a href="search.html"><img src="static/Resources/search{% block search %}{% endblock search %}.png" alt="Search"></a>
+              {% endif %}
+                <a href="home.html"><img src="static/Resources/home{% block home %}{% endblock home %}.png" alt="Home"></a>
+
+              <!-- This is only displayed if they screen size is larger then 700px -->
+              <div class = coupon_large>
+                <a href="coupon.html">
+                    <img src="static/Resources/coupon{% block coupon %}{% endblock coupon %}.png" alt="Coupon">
+                </a>
+              </div>
+
+              <!-- This is only displayed if they screen size is smaller then 700px -->
+              <div class = small_window>
+                <button onclick="dropdown_menu()" class="coupon_drop_down">
+                  <img src="static/Resources/coupon{% block coupon2 %}{% endblock coupon2 %}.png" alt="Coupon" class = coupon>
+                </button>
+                <div id="dropdown" class="dropdown_container">
+                  <a href="coupon.html">My Coupons</a>
+                  {% if session['type'] == 1 %}
+                    <a href="createCoupon.html">Create a Coupon</a>
+                    <a href="viewUserCoupons.html">View Customer Coupons</a>
+                  {% endif %}
+                </div>
+              </div>
+              {% if session['type'] == 1 %}
+                <a href="achievement.html"><img src="static/Resources/achievement{% block achievement %}{% endblock achievement %}.png" alt="Achievement"></a>
+                <a href="employee.html"><img src="static/Resources/employee{% block employee %}{% endblock employee %}.png" alt="Employee"></a>
+              {% endif %}
+                <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>
+            </div>
+          {% endif %}
+
       </header>
       {% block sidebar %}
       {% endblock sidebar %}
@@ -37,6 +71,7 @@
           {% block content %} {% endblock content %}
 
       </body>
+       <script type="text/javascript" src = "static/common.js"></script>
       {% block script %} {% endblock script %}
 
       <!-- Footer -->
