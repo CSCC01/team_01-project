@@ -173,9 +173,7 @@ def coupon():
     elif session["type"] == -1:
         if request.method == 'POST':
             cid = request.form['coupon']
-            print(cid)
             uid = session['account']
-            print(uid)
             rcid = find_rcid_by_cid_and_uid(cid,uid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
