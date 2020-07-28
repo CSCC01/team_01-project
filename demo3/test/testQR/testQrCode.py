@@ -1,14 +1,6 @@
 import unittest
 from helpers.qr_code import *
 import os
-from app import cwd
-
-cwd = os.getcwd()
-path = Path(cwd)
-cwd_p = path.parent
-path_p = Path(cwd_p)
-cwd_pp = path_p.parent
-
 
 class testQrCode(unittest.TestCase):
     """
@@ -20,8 +12,19 @@ class testQrCode(unittest.TestCase):
         Test with url to check if it can be saved in correct destination
         """
         path = to_qr("iamurl",10)
-        target = str(cwd_pp) + '/static/Resources/QR/'+str(10)+'.png'
+        target = str(self.get_root()) + '/static/Resources/QR/'+str(10)+'.png'
+        target = target.replace("/", os.path.sep)
         self.assertEqual(path, target)
 
+    def get_root(self):
+        cwd = os.getcwd()
+        path = Path(cwd)
+        while (str(path) != str(path.parent)):
+            if str(path).endswith("demo3"):
+                return path
+            cwd = path.parent
+            path = Path(cwd)
+        return path
+            
 if __name__ == "__main__":
     unittest.main()
