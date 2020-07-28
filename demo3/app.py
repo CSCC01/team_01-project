@@ -329,15 +329,15 @@ def use_coupon(cid,uid):
 
     # Page is restricted to employee/owner only, if user is a customer, redirect to home page
     elif session['type'] == -1:
-        return redirect(url_for('home'))
+        return redirect(url_for('scan_failure'))
 
     # find rcid
     rcid = find_rcid_by_cid_and_uid(cid, uid)
-
-    # mark used
-    mark_redeem_coupon_used_by_rcid(rcid)
-
-    return redirect(url_for('home'))
+    if rcid != "Not Found":
+        # mark used
+        mark_redeem_coupon_used_by_rcid(rcid)
+        return redirect(url_for('scan_successful'))
+    return redirect(url_for('scan_no_coupon'))
 
 
 @app.route('/profile.html')
@@ -348,6 +348,24 @@ def profile():
         return redirect(url_for('login'))
     else :
         return render_template('profile.html')
+
+
+@app.route('/scanFailure.html')
+@app.route('/scanFailure')
+def scan_failure():
+    return render_template('scanFailure.html')
+
+
+@app.route('/scanSuccessful.html')
+@app.route('/scanSuccessful')
+def scan_successful():
+    return render_template('scanSuccessful.html')
+
+
+@app.route('/scanNoCoupon.html')
+@app.route('/scanNoCoupon')
+def scan_no_coupon():
+    return render_template('scanNoCoupon.html')
 
 
 # To end session you must logout
