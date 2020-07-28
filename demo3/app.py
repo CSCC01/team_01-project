@@ -178,7 +178,7 @@ def coupon():
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl)
-          
+
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
@@ -354,7 +354,7 @@ def couponOffers(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
-      
+
     # Page is restricted to customers only, if user is not a customer, redirect to home page
     elif session['type'] != -1:
         return redirect(url_for('home'))
@@ -378,7 +378,7 @@ def couponOffers(rid):
         return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
     else:
         return redirect(url_for('home'))
-      
+
 @app.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
 def use_coupon(cid,uid):
     # If someone is not logged in redirects them to login page
