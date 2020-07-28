@@ -58,7 +58,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         self.assertEqual(rcid1, rc1.rcid)
         self.assertEqual(rcid2, rc2.rcid)
 
-    def test_many_coupon_same_user(self):
+    def test_coupon_diff_user(self):
         """
         Test coupon not redeemed by given user
         """
@@ -67,6 +67,32 @@ class FindRcidByCidAndUid(unittest.TestCase):
         db.session.commit()
         rcid = rchelper.find_rcid_by_cid_and_uid(32, 10)
         self.assertEqual(rcid, "Not Found")
+
+    def test_coupon_invalid_coupon(self):
+        """
+        Test coupon with cid and uid but not valid
+        """
+        rc = Redeemed_Coupons(rcid=121, cid=32, uid=12, rid=12, valid=0)
+        db.session.add(rc)
+        db.session.commit()
+        rcid = rchelper.find_rcid_by_cid_and_uid(32, 12)
+        self.assertEqual(rcid, "Not Found")
+
+    def test_mult_coupon_first_valid(self):
+        """
+        Test for multi redeemed coupons with same cid owned by the same user
+        Check if it returns the first valid coupon (rcid)
+        """
+        rc1 = Redeemed_Coupons(rcid=121, cid=32, uid=12, rid=12, valid=0)
+        rc2 = Redeemed_Coupons(rcid=125, cid=32, uid=12, rid=12, valid=1)
+        rc3 = Redeemed_Coupons(rcid=129, cid=32, uid=12, rid=12, valid=1)
+        db.session.add(rc1)
+        db.session.add(rc2)
+        db.session.add(rc3)
+        db.session.commit()
+        rcid = rchelper.find_rcid_by_cid_and_uid(32, 12)
+        self.assertEqual(rcid, rc2.rcid)
+
 
 if __name__ == "__main__":
     unittest.main()
