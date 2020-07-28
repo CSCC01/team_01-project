@@ -50,16 +50,15 @@ class Coupon(db.Model):
     deleted = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(64), nullable=False)
+    description = db.Column(db.String(1024), nullable=False)
     expiration = db.Column(db.DateTime, nullable=True)
     begin = db.Column(db.DateTime, nullable=True)
-    deleted = db.Column(db.Integer, nullable=False)
 
 class Restaurant(db.Model):
     __tablename__ = "restaurant"
     rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), nullable=False)
-    address = db.Column(db.String(64), nullable=True)
+    address = db.Column(db.String(128), nullable=True)
     uid = db.Column(db.Integer)
 
 class Points(db.Model):
