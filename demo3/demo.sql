@@ -36,7 +36,16 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `rid`          int               NOT NULL,
   PRIMARY KEY (`uid`)
 );
-
+CREATE TABLE IF NOT EXISTS `achievements` (
+  `aid`          int unsigned      NOT NULL AUTO_INCREMENT,
+  `rid`          int unsigned      NOT NULL,
+  `name`         varchar(128)      NOT NULL DEFAULT '',
+  `experience`   int unsigned      NOT NULL,
+  `points`       int unsigned      NOT NULL,
+  `type`         int unsigned,
+  `value`        varchar(2048)     NOT NULL DEFAULT '',
+  PRIMARY KEY (`aid`)
+);
 CREATE TABLE IF NOT EXISTS `redeemed_coupons` (
   `rcid`         int               NOT NULL AUTO_INCREMENT,
   `cid`          int unsigned      NOT NULL,
@@ -44,4 +53,21 @@ CREATE TABLE IF NOT EXISTS `redeemed_coupons` (
   `uid`          int unsigned      NOT NULL,
   `valid`        int unsigned      NOT NULL,
   PRIMARY KEY (`rcid`)
+);
+CREATE TABLE IF NOT EXISTS `customer_achievement_progress` (
+  `aid`          int unsigned      NOT NULL,
+  `uid`          int unsigned      NOT NULL,
+  `progress`     int unsigned      NOT NULL,
+  `total`        int unsigned      NOT NULL,
+  PRIMARY KEY (`aid`, `uid`)
+);
+CREATE TABLE IF NOT EXISTS `achievements` (
+  `aid`          int unsigned      NOT NULL AUTO_INCREMENT,
+  `rid`          int unsigned      NOT NULL,
+  `name`         varchar(128)      NOT NULL DEFAULT '',
+  `experience`   int unsigned      NOT NULL,
+  `points`       int unsigned      NOT NULL,
+  `type`         int unsigned      NOT NULL,
+  `value`        varchar(2048)     NOT NULL DEFAULT '',
+  PRIMARY KEY (`aid`)
 );

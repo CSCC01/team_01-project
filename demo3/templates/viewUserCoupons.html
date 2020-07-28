@@ -5,59 +5,16 @@
 ----                                          --->
 
 {% extends "base.html" %}
-{% block style %}<link rel="stylesheet" type="text/css" href="static/coupon.css">{% endblock style %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
+<link rel="stylesheet" type="text/css" href="static/sidebar.css">
+{% endblock style %}
 {% block title %}
 <title>My Coupons</title>
 {% endblock title %}
 
-
-{% block icons %}
-<div class = icons>
-  {% if session['type'] == -1 %}
-  <div class = other_icon>
-    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
-  </div>
-
-  {% if session['type'] == 1 %}
-  <!-- This is only displayed if they screen size is larger then 700px -->
-  <div class = "current">
-      <a href="coupon.html">
-          <img src="static/Resources/coupon_pressed.png" alt="Coupon">
-      </a>
-  </div>
-
-  <!-- This is only displayed if they screen size is smaller then 700px -->
-  <div class = small_window>
-    <button onclick="dropdown_menu()" class="coupon_drop_down">
-      <img src="static/Resources/coupon_pressed.png" alt="Coupon" class = coupon>
-    </button>
-    <div id="dropdown" class="dropdown_container">
-      <a href="coupon.html">My Coupons</a>
-      <a href="createCoupon.html">Create a Coupon</a>
-      <a href="viewUserCoupons.html">View Redeemable Coupons</a>
-    </div>
-  </div>
-  {% else %}
-  <div class = other_icon>
-    <a href="home.html"><img src="static/Resources/coupon_pressed.png" alt="Home" class = coupon></a>
-  </div>
-  {% endif %}
-
-  {% if session['type'] == 1 %}
-  <div class = other_icon>
-    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
-  </div>
-</div>
-{% endblock icons %}
-
+{% block coupon %}_pressed{% endblock coupon %}
+{% block coupon2 %}_pressed{% endblock coupon2 %}
 
 {% block sidebar %}
 <div class="sidenav">
@@ -85,7 +42,7 @@
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemable <br>Coupons
+        View Redeemed Coupons
       </div>
       </button>
     </div>
@@ -99,7 +56,7 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          Customer's Redeemable Coupons
+          Customers' Redeemed Coupons
         </div>
       </div>
       <div class = fine_print>
@@ -121,16 +78,20 @@
             {% elif c['deleted'] == 1%}
               Status: Deleted
             {% else %}
-              Status: Active
+              <div class = placeholder> Status:&nbsp;</div>
+              <div class = active>Active</div>
             {% endif %}
           </div>
+      </div>
+      <div class = description>
+        {{ c["description"] }}
       </div>
 
       <div class = holder>
         Number of holders: {{ c['holders'] }}
       </div>
       <div class = holder>
-        Number of used: {{ c['used'] }}
+        Number of uses: {{ c['used'] }}
       </div>
     </div>
   {% endfor %}

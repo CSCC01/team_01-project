@@ -1,3 +1,7 @@
+"""
+Test suite for helpers.coupon.py's get_coupon_by_cid function.
+"""
+
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db
@@ -21,8 +25,11 @@ class SingleSelectorCouponTest(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_coupon_none(self):
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END)
+    def test_coupon_no_matching(self):
+        """
+        Test getting no matching coupon, with a coupon in database.
+        """
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
 
@@ -30,6 +37,9 @@ class SingleSelectorCouponTest(unittest.TestCase):
         self.assertEqual(result, None)
 
     def test_coupon_single(self):
+        """
+        Test getting a coupon, with a coupon in the database.
+        """
         coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
@@ -44,6 +54,9 @@ class SingleSelectorCouponTest(unittest.TestCase):
                              })
 
     def test_coupon_none(self):
+        """
+        Test getting no coupon with no coupon in database.
+        """
         result = couponhelper.get_coupon_by_cid(5)
         self.assertEqual(result, None)
 
