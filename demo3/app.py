@@ -171,8 +171,12 @@ def coupon():
     elif session["type"] == -1:
         if request.method == 'POST':
             cid = request.form['coupon']
+            print(cid)
+            uid = session['account']
+            print(uid)
+            rcid = find_rcid_by_cid_and_uid(cid,uid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
-            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid))
+            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl)
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
@@ -317,8 +321,8 @@ def restaurant(rid):
         return redirect(url_for('home'))
 
 
-@app.route('/useCoupon/<cid>', methods=['GET', 'POST'])
-def use_coupon(cid):
+@app.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
+def use_coupon(cid,uid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login'))
@@ -328,7 +332,7 @@ def use_coupon(cid):
         return redirect(url_for('home'))
 
     # find rcid
-    rcid = find_rcid_by_cid(cid)
+    rcid = find_rcid_by_cid_and_uid(cid, uid)
 
     # mark used
     mark_redeem_coupon_used_by_rcid(rcid)
