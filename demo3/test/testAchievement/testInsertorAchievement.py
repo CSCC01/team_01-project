@@ -1,5 +1,5 @@
 import unittest
-from models import Achievement
+from models import Achievements
 from models import db
 import time
 from app import app
@@ -20,7 +20,7 @@ class InsertAchievementTest(unittest.TestCase):
     # Test normal achievement creation with Fee type
     def test_insert_default_normal_Feetype_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, 10, False)
-        achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
+        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
         self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
@@ -35,7 +35,7 @@ class InsertAchievementTest(unittest.TestCase):
     # Test normal achievement creation with only experience reward
     def test_insert_default_normal_exp_only_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, None, None, 10, False)
-        achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
+        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
         self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
@@ -50,7 +50,7 @@ class InsertAchievementTest(unittest.TestCase):
     # Test normal achievement creation with only points reward
     def test_insert_default_normal_pts_only_achievement(self):
         errmsg = insert_achievement(1, "name", "description", None, 10, None, 10, False)
-        achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
+        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
         self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
@@ -65,7 +65,7 @@ class InsertAchievementTest(unittest.TestCase):
     # Test normal achievement creation with Item type
     def test_insert_default_normal_Itemtype_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, 12, None, True)
-        achievement = Achievement.query.filter_by(rid = 1, name = "name").first()
+        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
         self.assertIsNotNone(achievement)
         self.assertEqual(achievement.aid, 1)
         self.assertEqual(achievement.rid, 1)
