@@ -1,5 +1,5 @@
 import unittest
-from models import Redeemed_Coupons
+from models import Redeemed_Coupons, Coupon
 from models import db
 from app import app
 from helpers import redeemedCoupons as rchelper
@@ -58,6 +58,15 @@ class FindRcidByCidAndUid(unittest.TestCase):
         self.assertEqual(rcid1, rc1.rcid)
         self.assertEqual(rcid2, rc2.rcid)
 
+    def test_many_coupon_same_user(self):
+        """
+        Test coupon not redeemed by given user
+        """
+        rc = Redeemed_Coupons(rcid=121, cid=32, uid=12, rid=12, valid=1)
+        db.session.add(rc)
+        db.session.commit()
+        rcid = rchelper.find_rcid_by_cid_and_uid(32, 10)
+        self.assertEqual(rcid, "Not Found")
 
 if __name__ == "__main__":
     unittest.main()
