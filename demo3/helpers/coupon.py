@@ -115,7 +115,7 @@ def filter_valid_coupons(coupons):
     """
     today = date.today()
     for c in coupons:
-        if c["deleted"] == 1 or (c["expiration"] != None and today > c["expiration"]):
+        if c["deleted"] == 1 or (c["expiration"] != None and today > c["expiration"].date()):
             coupons.remove(c)
 
     return coupons
