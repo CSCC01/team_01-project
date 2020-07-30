@@ -3,7 +3,7 @@ from models import Achievement
 from models import db
 import time
 from app import app
-from helpers.achievement import *
+from databaseHelpers.achievement import *
 
 class InsertAchievementTest(unittest.TestCase):
     def setUp(self):
@@ -105,19 +105,19 @@ class InsertAchievementTest(unittest.TestCase):
     # Test abnormal achievement creation with exp and pts both are negative
     def test_insert_abnormal_negative_both_achievement(self):
         errmsg = insert_achievement(1, "name", "description", -10, -10, None, 10, False)
-        self.assertEqual(errmsg, 
+        self.assertEqual(errmsg,
                         ["Invalid experience, please provide non-negative value.", "Invalid points, please provide non-negative value."])
 
     # Test abnormal achievement creation with feetype and require fee is empty
     def test_insert_abnormal_feetype_fee_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, False)
         self.assertEqual(errmsg, ["Missing Fee."])
-    
+
     # Test abnormal achievement creation with itemtype and require item is empty
     def test_insert_abnormal_itemtype_item_empty_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, True)
         self.assertEqual(errmsg, ["Missing Item."])
-    
+
     # Test abnormal achievement creation with feetype and require fee is negative
     def test_insert_abnormal_feetype_fee_negative_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, None, -10, False)

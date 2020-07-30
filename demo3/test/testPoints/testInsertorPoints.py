@@ -3,7 +3,7 @@ from models import User, Restaurant, Points
 from models import db
 import time
 from app import app
-from helpers import points as pointshelper
+from databaseHelpers import points as pointshelper
 
 class InsertPointsTest(unittest.TestCase):
     def setUp(self):
@@ -27,7 +27,7 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.uid, 1)
         self.assertEqual(points.rid, 12)
         self.assertEqual(points.points, 0)
-    
+
     def test_insert_duplicate_uid_points_entry(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
@@ -69,7 +69,7 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.uid, 2)
         self.assertEqual(points.rid, 12)
         self.assertEqual(points.points, 0)
-    
+
     def test_insert_duplicate_uid_and_rid_points_entry(self):
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
@@ -82,7 +82,7 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.first().uid, 1)
         self.assertEqual(points.first().rid, 12)
         self.assertEqual(points.first().points, 10)
-    
+
 
 
 

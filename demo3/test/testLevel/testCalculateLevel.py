@@ -2,7 +2,7 @@ import unittest
 from models import db
 import time
 from app import app
-from helpers.level import *
+from databaseHelpers.level import *
 
 class CalculateLevelTest(unittest.TestCase):
     def test_convert_points_to_level(self):
@@ -15,7 +15,7 @@ class CalculateLevelTest(unittest.TestCase):
         self.assertEqual(3, convert_points_to_level(600))
         self.assertEqual(99, convert_points_to_level(504999))
         self.assertEqual(100, convert_points_to_level(505000))
-    
+
     def test_calculate_points_since_last_level(self):
         self.assertEqual(0, get_points_since_last_level(0, 0))
         self.assertEqual(99, get_points_since_last_level(0, 99))

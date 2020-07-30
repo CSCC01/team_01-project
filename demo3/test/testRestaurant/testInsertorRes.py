@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import restaurant as rhelper
+from databaseHelpers import restaurant as rhelper
 
 
 class InsertRestaurantTest(unittest.TestCase):

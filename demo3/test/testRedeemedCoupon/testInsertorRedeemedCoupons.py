@@ -1,16 +1,16 @@
 """
-Test suite for helpers.redeemedCoupons.py's insert_redeemed_coupon function.
+Test suite for databaseHelpers.redeemedCoupons.py's insert_redeemed_coupon function.
 """
 
 
 import unittest
 
-from helpers.redeemedCoupons import insert_redeemed_coupon
+from databaseHelpers.redeemedCoupons import insert_redeemed_coupon
 from models import User, Coupon, Restaurant, Employee, Redeemed_Coupons
 from models import db
 import time
 from app import app
-from helpers import redeemedCoupons
+from databaseHelpers import redeemedCoupons
 from datetime import datetime
 
 class InsertRedeemedCouponTest(unittest.TestCase):

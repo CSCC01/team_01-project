@@ -3,7 +3,7 @@ from models import User, Restaurant, Points
 from models import db
 import time
 from app import app
-from helpers import points as pointshelper
+from databaseHelpers import points as pointshelper
 
 class UpdatePointsTest(unittest.TestCase):
     def setUp(self):
@@ -97,4 +97,3 @@ class UpdatePointsTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

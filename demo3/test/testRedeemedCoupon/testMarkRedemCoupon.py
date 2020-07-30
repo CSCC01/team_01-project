@@ -2,7 +2,7 @@ import unittest
 from models import Redeemed_Coupons
 from models import db
 from app import app
-from helpers import redeemedCoupons as rchelper
+from databaseHelpers import redeemedCoupons as rchelper
 
 
 class MarkRedeemedCoupon(unittest.TestCase):

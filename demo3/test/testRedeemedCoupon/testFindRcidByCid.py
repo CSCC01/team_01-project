@@ -2,7 +2,7 @@ import unittest
 from models import Redeemed_Coupons, Coupon
 from models import db
 from app import app
-from helpers import redeemedCoupons as rchelper
+from databaseHelpers import redeemedCoupons as rchelper
 
 
 class FindRcidByCidAndUid(unittest.TestCase):

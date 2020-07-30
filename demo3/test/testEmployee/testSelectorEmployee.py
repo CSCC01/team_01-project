@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import employee as employeehelper
+from databaseHelpers import employee as employeehelper
 
 class SelectEmployeeTest(unittest.TestCase):
     def setUp(self):

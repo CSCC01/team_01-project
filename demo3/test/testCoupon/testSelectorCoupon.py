@@ -12,7 +12,7 @@ from models import db
 import time
 from datetime import datetime
 from app import app
-from helpers import coupon as couponhelper
+from databaseHelpers import coupon as couponhelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")
