@@ -17,116 +17,116 @@ class InsertAchievementTest(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    # Test normal achievement creation with Fee type
-    def test_insert_default_normal_Feetype_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, None, 10, False)
-        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.aid, 1)
-        self.assertEqual(achievement.rid, 1)
-        self.assertEqual(achievement.name, "name")
-        self.assertEqual(achievement.description, "description")
-        self.assertEqual(achievement.experience, 10)
-        self.assertEqual(achievement.points, 10)
-        self.assertEqual(achievement.requireFee, 10)
-        self.assertIsNone(achievement.requireItem)
-        self.assertIsNone(errmsg)
+    def test_insert_normal_zero_type(self):
+        """
+        test insert a normal achievement of type 0
+        """
+        errmsg = insert_achievement(rid=8, name='Starbucks', experience=10, points=5, type='0', item='test', amount=20)
+        a = Achievements.query.filter_by(rid=8).first()
+        self.assertEqual(a.name, 'Starbucks')
+        self.assertEqual(a.experience, 10)
+        self.assertEqual(a.points, 5)
+        self.assertEqual(a.type, 0)
+        self.assertEqual(a.value, 'test;20')
+        self.assertEqual(errmsg, [])
 
-    # Test normal achievement creation with only experience reward
-    def test_insert_default_normal_exp_only_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, None, None, 10, False)
-        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.aid, 1)
-        self.assertEqual(achievement.rid, 1)
-        self.assertEqual(achievement.name, "name")
-        self.assertEqual(achievement.description, "description")
-        self.assertEqual(achievement.experience, 10)
-        self.assertIsNone(achievement.points)
-        self.assertEqual(achievement.requireFee, 10)
-        self.assertIsNone(achievement.requireItem)
-        self.assertIsNone(errmsg)
 
-    # Test normal achievement creation with only points reward
-    def test_insert_default_normal_pts_only_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", None, 10, None, 10, False)
-        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.aid, 1)
-        self.assertEqual(achievement.rid, 1)
-        self.assertEqual(achievement.name, "name")
-        self.assertEqual(achievement.description, "description")
-        self.assertIsNone(achievement.experience)
-        self.assertEqual(achievement.points, 10)
-        self.assertEqual(achievement.requireFee, 10)
-        self.assertIsNone(achievement.requireItem)
-        self.assertIsNone(errmsg)
+    def test_insert_normal_one_type(self):
+        """
+        test insert a normal achievement of type 1
+        """
+        errmsg = insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type='1', item='test', amount=20)
+        a = Achievements.query.filter_by(rid=9).first()
+        self.assertEqual(a.name, 'Starbucks')
+        self.assertEqual(a.experience, 10)
+        self.assertEqual(a.points, 5)
+        self.assertEqual(a.type, 1)
+        self.assertEqual(a.value, ';20')
+        self.assertEqual(errmsg, [])
 
-    # Test normal achievement creation with Item type
-    def test_insert_default_normal_Itemtype_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, 12, None, True)
-        achievement = Achievements.query.filter_by(rid = 1, name = "name").first()
-        self.assertIsNotNone(achievement)
-        self.assertEqual(achievement.aid, 1)
-        self.assertEqual(achievement.rid, 1)
-        self.assertEqual(achievement.name, "name")
-        self.assertEqual(achievement.description, "description")
-        self.assertEqual(achievement.experience, 10)
-        self.assertEqual(achievement.points, 10)
-        self.assertEqual(achievement.requireItem, 12)
-        self.assertIsNone(achievement.requireFee)
-        self.assertIsNone(errmsg)
+    def test_insert_only_exp(self):
+        """
+        test insert an achievement with only experience
+        """
+        errmsg = insert_achievement(rid=10, name='Starbucks', experience=10, points='', type='1', item='', amount=20)
+        a = Achievements.query.filter_by(rid=10).first()
+        self.assertEqual(a.name, 'Starbucks')
+        self.assertEqual(a.experience, 10)
+        self.assertEqual(a.type, 1)
+        self.assertEqual(a.value, ';20')
+        self.assertEqual(errmsg, [])
 
-    # Test abnormal achievement creation with name is empty
-    def test_insert_abnormal_name_empty_achievement(self):
-        errmsg = insert_achievement(1, "", "description", 10, 10, None, 10, False)
-        self.assertEqual(errmsg, ["Invalid achievement name, please provide an achieve name."])
+    def test_insert_only_points(self):
+        """
+        test insert an achievement with only experience
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience='', points=20, type='0', item='test',
+                                    amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertEqual(a.name, 'Starbucks')
+        self.assertEqual(a.points, 20)
+        self.assertEqual(a.type, 0)
+        self.assertEqual(a.value, 'test;20')
+        self.assertEqual(errmsg, [])
 
-    # Test abnormal achievement creation with description is empty
-    def test_insert_abnormal_descrip_empty_achievement(self):
-        errmsg = insert_achievement(1, "name", "", 10, 10, None, 10, False)
-        self.assertEqual(errmsg, ["Invalid description of achievement, please provide a description."])
+    def test_insert_miss_name(self):
+        """
+        test insert an achievement with name missing
+        """
+        errmsg = insert_achievement(rid=11, name='', experience='', points=20, type='0', item='test', amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
+        self.assertEqual(errmsg, ["Invalid achievement name, please provide an achievement name."])
 
-    # Test abnormal achievement creation with Fee type
-    def test_insert_abnormal_exp_pts_both_empty_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", "", "", None, 10, False)
+    def test_insert_miss_exp_points(self):
+        """
+        test insert an achievement with experience and points missing
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience='', points='', type='0', item='test', amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
         self.assertEqual(errmsg, ["Missing experience and points, please at least provide experience or points."])
 
-    # Test abnormal achievement creation with exp is negative
-    def test_insert_abnormal_negative_exp_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", -10, 10, None, 10, False)
+    def test_insert_invalid_experience(self):
+        """
+        test insert an achievement with invalid experience
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience=-10, points=5, type='0', item='test',
+                                    amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
         self.assertEqual(errmsg, ["Invalid experience, please provide non-negative value."])
 
-    # Test abnormal achievement creation with points is negative
-    def test_insert_abnormal_negative_pts_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, -10, None, 10, False)
+    def test_insert_invalid_points(self):
+        """
+        test insert an achievement with invalid points
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience=10, points=-5, type='0', item='test',
+                                    amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
         self.assertEqual(errmsg, ["Invalid points, please provide non-negative value."])
 
-    # Test abnormal achievement creation with exp and pts both are negative
-    def test_insert_abnormal_negative_both_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", -10, -10, None, 10, False)
-        self.assertEqual(errmsg, 
-                        ["Invalid experience, please provide non-negative value.", "Invalid points, please provide non-negative value."])
+    def test_insert_miss_item(self):
+        """
+        test insert an achievement with item missing
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience=10, points=5, type='0', item='',
+                                    amount=20)
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
+        self.assertEqual(errmsg, ["Missing an item, please provide an item for the achievement."])
 
-    # Test abnormal achievement creation with feetype and require fee is empty
-    def test_insert_abnormal_feetype_fee_empty_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, False)
-        self.assertEqual(errmsg, ["Missing Fee."])
-    
-    # Test abnormal achievement creation with itemtype and require item is empty
-    def test_insert_abnormal_itemtype_item_empty_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, None, None, True)
-        self.assertEqual(errmsg, ["Missing Item."])
-    
-    # Test abnormal achievement creation with feetype and require fee is negative
-    def test_insert_abnormal_feetype_fee_negative_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, None, -10, False)
-        self.assertEqual(errmsg, ["Invalid requirement, please provide non-negative value."])
+    def test_insert_miss_amount(self):
+        """
+        test insert an achievement with amount missing
+        """
+        errmsg = insert_achievement(rid=11, name='Starbucks', experience=10, points=5, type='0', item='test', amount='')
+        a = Achievements.query.filter_by(rid=11).first()
+        self.assertIsNone(a)
+        self.assertEqual(errmsg, ["Missing an amount, please provide an amount for the achievement."])
 
-    # Test abnormal achievement creation with itemtype and require item is negative
-    def test_insert_abnormal_feetype_item_negative_achievement(self):
-        errmsg = insert_achievement(1, "name", "description", 10, 10, -10, None, True)
-        self.assertEqual(errmsg, ["Invalid requirement, please provide non-negative value."])
+
 
 if __name__ == "__main__":
     unittest.main()
