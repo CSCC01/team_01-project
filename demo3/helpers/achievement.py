@@ -150,10 +150,13 @@ def delete_achievement(aid):
         An integer.
 
     Returns:
-        None.
+        (if deleted) None.
+        (if not) "No such achievement"
     """
     achievement = Achievements.query.filter(Achievements.aid == aid).first()
-    db.session.delete(achievement)
-    db.session.commit()
-    return None
+    if achievement:
+        db.session.delete(achievement)
+        db.session.commit()
+        return None
+    return "No such achievement"
 

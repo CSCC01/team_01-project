@@ -29,11 +29,19 @@ class DeleteAchievementTest(unittest.TestCase):
         db.session.add(ac1)
         db.session.add(ac2)
         db.session.commit()
-        delete_achievement(32)
+        errmsg = delete_achievement(32)
         a1 = Achievements.query.filter_by(aid=32).first()
         a2 = Achievements.query.filter_by(aid=22).first()
+        self.assertEqual(errmsg, None)
         self.assertIsNone(a1)
         self.assertIsNotNone(a2)
+
+    def test_delete_non_exist_achievement(self):
+        """
+        Test delete on a non-existing achievement
+        """
+        errmsg = delete_achievement(2)
+        self.assertEqual(errmsg, "No such achievement")
 
 
 if __name__ == "__main__":
