@@ -7,13 +7,13 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from helpers.restaurant import *
-from helpers.coupon import *
-from helpers.achievement import *
-from helpers.achievementProgress import *
-from helpers.redeemedCoupons import *
-from helpers.points import *
-from helpers.level import *
+from databaseHelpers.restaurant import *
+from databaseHelpers.coupon import *
+from databaseHelpers.achievement import *
+from databaseHelpers.achievementProgress import *
+from databaseHelpers.redeemedCoupons import *
+from databaseHelpers.points import *
+from databaseHelpers.level import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
 

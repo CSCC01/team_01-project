@@ -9,9 +9,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 
 coupon_page = Blueprint('coupon_page', __name__, template_folder='templates')
-from helpers.coupon import *
-from helpers.redeemedCoupons import *
-from helpers.qr_code import *
+from databaseHelpers.coupon import *
+from databaseHelpers.redeemedCoupons import *
+from databaseHelpers.qr_code import *
 
 # My coupon page
 @coupon_page.route('/coupon.html', methods=['GET', 'POST'])

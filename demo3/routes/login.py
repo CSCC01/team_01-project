@@ -7,7 +7,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 login_page = Blueprint('login_page', __name__, template_folder='templates')
-from helpers.user import *
+from databaseHelpers.user import *
 
 @login_page.route('/login', methods=['GET', 'POST'])
 @login_page.route('/login.html', methods=['GET', 'POST'])

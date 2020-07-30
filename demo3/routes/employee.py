@@ -5,8 +5,8 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from helpers.restaurant import *
-from helpers.employee import *
+from databaseHelpers.restaurant import *
+from databaseHelpers.employee import *
 
 employee_page = Blueprint('employee_page', __name__, template_folder='templates')
 

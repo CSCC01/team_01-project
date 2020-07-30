@@ -5,7 +5,7 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from helpers.qr_code import *
+from databaseHelpers.qr_code import *
 
 qr_page = Blueprint('qr_page', __name__, template_folder='templates')
 

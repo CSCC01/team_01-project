@@ -7,8 +7,8 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from helpers.achievement import *
-from helpers.restaurant import *
+from databaseHelpers.achievement import *
+from databaseHelpers.restaurant import *
 
 achievement_page = Blueprint('achievement_page', __name__, template_folder='templates')
 

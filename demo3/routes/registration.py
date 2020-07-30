@@ -7,9 +7,9 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from helpers.user import *
-from helpers.restaurant import *
-from helpers.employee import *
+from databaseHelpers.user import *
+from databaseHelpers.restaurant import *
+from databaseHelpers.employee import *
 
 registration_page = Blueprint('registration_page', __name__, template_folder='templates')
 
