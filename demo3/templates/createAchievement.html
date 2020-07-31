@@ -74,6 +74,7 @@
               <select id = type name = type>
                   <option value="0">Amount of items purchased</option>
                   <option value="1">Amount of money spent in a visit</option>
+                  <option value="2">Visit with a group</option>
               </select>
             </div>
 
@@ -113,12 +114,32 @@
                 <div class = amount>
                   <div class = feild>
                       <label>amount</label>
-                          <input type="number" min="0.01" step="0.01" name="cost" value = 10.00>
+                      <input type="number" min="0.01" step="0.01" name="cost" value = 10.00>
                   </div>
                 </div>
 
                 <div class = feild_tag_right>
                   in a single visit
+                </div>
+              </div>
+            </div>
+
+            <!-- Type = 2 - Visit in a group of x -->
+            <div class = type2 id = type2>
+              <div class = col_mod>
+                <div class = feild_tag_left>
+                  Visit in a group of at least
+                </div>
+
+                <div class = amount>
+                  <div class = feild>
+                      <label>amount</label>
+                          <input type="number" name="people" value = 1>
+                  </div>
+                </div>
+
+                <div class = feild_tag_right>
+                  people
                 </div>
               </div>
             </div>

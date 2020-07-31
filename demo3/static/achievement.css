@@ -11,7 +11,7 @@
   justify-content: space-evenly;
 }
 
-.type1 {
+.type1, .type2 {
   display: none;
 }
 
@@ -22,7 +22,9 @@
 .type0 .feild_tag_right,
 .type0 .feild_tag_left,
 .type1 .feild_tag_left,
-.type1 .feild_tag_right{
+.type1 .feild_tag_right,
+.type2 .feild_tag_left,
+.type2 .feild_tag_right {
   position:relative;
   top: 11px;
 }
