@@ -5,7 +5,11 @@ import time
 from app import app
 from helpers.achievement import *
 
+
 class InsertAchievementTest(unittest.TestCase):
+    """
+    Test function on insert achievement
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -125,6 +129,33 @@ class InsertAchievementTest(unittest.TestCase):
         a = Achievements.query.filter_by(rid=11).first()
         self.assertIsNone(a)
         self.assertEqual(errmsg, ["Missing an amount, please provide an amount for the achievement."])
+
+    def test_insert_item_with_semi(self):
+        """
+        test insert achievement for sanitizing input in type 0
+        """
+        errmsg = insert_achievement(rid=8, name='Starbucks', experience=10, points=5, type='0', item='Ham;Cheese', amount=20)
+        a = Achievements.query.filter_by(rid=8).first()
+        self.assertEqual(a.name, 'Starbucks')
+        self.assertEqual(a.experience, 10)
+        self.assertEqual(a.points, 5)
+        self.assertEqual(a.type, 0)
+        self.assertEqual(a.value, 'HamCheese;20')
+        self.assertEqual(errmsg, [])
+
+    def test_insert_same_achievement(self):
+        """
+        test for inserting achievement with the exact same detail
+        make sure insert as separate achievement
+        """
+        e1 = insert_achievement(rid=7, name='Starbucks', experience=10, points=5, type='0', item='Ham;Cheese', amount=20)
+        e2 = insert_achievement(rid=7, name='Starbucks', experience=10, points=5, type='0', item='Ham;Cheese', amount=20)
+        a1 = Achievements.query.filter_by(aid=1).first()
+        a2 = Achievements.query.filter_by(aid=2).first()
+        self.assertIsNotNone(a1)
+        self.assertIsNotNone(a2)
+        self.assertEqual(e1, [])
+        self.assertEqual(e2, [])
 
 
 
