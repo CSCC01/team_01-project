@@ -114,8 +114,9 @@ def filter_valid_coupons(coupons):
         A the list coupons with the invalid dictinaries removed.
     """
     today = date.today()
-    for c in coupons:
-        if c["deleted"] == 1 or (c["expiration"] != None and today > c["expiration"]):
+    copy = coupons[:]
+    for c in copy:
+        if (c["deleted"] == 1) or (c["expiration"] != None and today > c["expiration"].date()):
             coupons.remove(c)
 
     return coupons

@@ -1,5 +1,5 @@
 import unittest
-from models import Achievement
+from models import Achievements
 from models import db
 import time
 from datetime import datetime
@@ -25,62 +25,47 @@ class SelectAchievementTest(unittest.TestCase):
         db.drop_all()
     
     def test_get_values(self):
-<<<<<<< HEAD
         """Tests get_achievement_values() for all achievement types."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
-
-        self.assertEqual(achievementhelper.get_achievement_values(achievement1), ["Item", "5"])
-        self.assertEqual(achievementhelper.get_achievement_values(achievement2), ["", "6.99"])
-=======
-        """Tests get_achievement_data() for all achievement types."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
 
         self.assertEqual(achievementhelper.get_achievement_data(achievement1), ["Item", "5"])
         self.assertEqual(achievementhelper.get_achievement_data(achievement2), ["", "6.99"])
->>>>>>> origin/Development
 
     def test_get_description(self):
         """Tests get_achievement_description() for all achievement types."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         
         self.assertEqual(achievementhelper.get_achievement_description(achievement1), "Buy Item 5 times.")
         self.assertEqual(achievementhelper.get_achievement_description(achievement2), "Spend $6.99 in a single visit.")
     
     def test_get_progress_max(self):
         """Tests get_achievement_progress_maximum() for all achievement types."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement1), 5)
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement2), 1)
 
-<<<<<<< HEAD
-    def test_get_nonexistent_coupons(self):
-=======
+
     def test_get_nonexistent_achievements(self):
->>>>>>> origin/Development
         """Tests get_achievements_by_rid() when no achievements have a rid 
         matching the given rid."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         db.session.add(achievement1)
         db.session.add(achievement2)
         db.session.commit()
         achievement_list = achievementhelper.get_achievements_by_rid(10)
         self.assertEqual(achievement_list,[])
 
-<<<<<<< HEAD
-    def test_get_single_coupon(self):
-=======
+
     def test_get_single_achievements(self):
->>>>>>> origin/Development
         """Tests get_achievements_by_rid() when one achievement has a rid 
         matching the given rid."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         db.session.add(achievement1)
         db.session.add(achievement2)
         db.session.commit()
@@ -100,14 +85,11 @@ class SelectAchievementTest(unittest.TestCase):
                      'description': "Spend $6.99 in a single visit.",
                      'progressMax': 1}])
 
-<<<<<<< HEAD
-    def test_get_multiple_coupons(self):
-=======
+
     def test_get_multiple_achievements(self):
->>>>>>> origin/Development
         """Tests get_achievements_by_rid() when multiple achievements have a rid matching the given rid."""
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=12, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
+        achievement2 = Achievements(rid=12, name="test 2", points=15, experience=20, type=1, value=";6.99")
         db.session.add(achievement1)
         db.session.add(achievement2)
         db.session.commit()
