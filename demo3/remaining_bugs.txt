@@ -3,7 +3,6 @@ You can delete when you fixed the bug of course. No need to change number.
 Enjoy!
 
 Test:
-1. In testInsertorAchievement, insert_achievement() takes 7 positional arguments but 8 were given
 2. Miss documentation in testInsertorAchievement
 3. Missing Directory in testEmployee directory. (All 3 tests)
 4. Missing documentation in testLevel
