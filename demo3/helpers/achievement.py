@@ -131,7 +131,7 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
             achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 1, value= value)
         # Example: Buy item amount times
         else:
-            item.replace(";", "")
+            item = item.replace(";", "")
             value = item + ";" + str(amount)
             achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 0, value = value)
         db.session.add(achievement)
