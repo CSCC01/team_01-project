@@ -75,6 +75,7 @@
                   <option value="0">Amount of items purchased</option>
                   <option value="1">Amount of money spent in a visit</option>
                   <option value="2">Visit with a group</option>
+                  <option value="3">Visit a specific amount of times</option>
               </select>
             </div>
 
@@ -87,13 +88,13 @@
 
                 <div class = item>
                   <div class = feild>
-                      <label>item</label>
+                      <label>Item</label>
                           <input type="text" name="item" value = "">
                   </div>
                 </div>
                 <div class = amount>
                   <div class = feild>
-                      <label>amount</label>
+                      <label>Amount</label>
                           <input type="number" name="amount">
                   </div>
                 </div>
@@ -113,7 +114,7 @@
 
                 <div class = amount>
                   <div class = feild>
-                      <label>amount</label>
+                      <label>Amount</label>
                       <input type="number" min="0.01" step="0.01" name="cost" value = 10.00>
                   </div>
                 </div>
@@ -133,7 +134,7 @@
 
                 <div class = amount>
                   <div class = feild>
-                      <label>amount</label>
+                      <label>Amount</label>
                           <input type="number" name="people" value = 1>
                   </div>
                 </div>
@@ -141,6 +142,41 @@
                 <div class = feild_tag_right>
                   people
                 </div>
+              </div>
+            </div>
+
+
+            <!-- Type = 3 - Visit x times within date1 and date2 -->
+            <div class = type3 id = type3>
+              <div class = col_mod>
+                <div class = feild_tag_left>
+                  Visit
+                </div>
+
+                <div class = amount>
+                  <div class = feild>
+                      <label>Amount</label>
+                          <input type="number" name="people">
+                  </div>
+                </div>
+
+                <div class = feild_tag_right>
+                  times
+                </div>
+              </div>
+              <div class = container>
+                <input type="checkbox" name="indefinite" value="Indefinite" id = "indefinite" onclick="checkbox('dates')">
+                <label for="indefinite">Lasts Indefinitely</label><br>
+              </div>
+              <div class = col id = "dates">
+                  <div class = feild>
+                      <label>Start</label>
+                          <input type="date" name="people">
+                  </div>
+                  <div class = feild>
+                      <label>End</label>
+                          <input type="date" name="people">
+                  </div>
               </div>
             </div>
 
