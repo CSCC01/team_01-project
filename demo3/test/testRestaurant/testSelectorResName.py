@@ -24,8 +24,8 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.commit()
         result = rhelper.get_resturant_by_name("hhh")
-        self.assertIn(r1, result)
-        self.assertNotIn(r2, result)
+        self.assertIn({'name': 'hhh', 'address': 'hhh road', 'rid': 1}, result)
+        self.assertNotIn({'name': 'jjj', 'address': 'jjj road', 'rid': 2}, result)
 
     def test_res_name_equal_many(self):
         r1 = Restaurant(name="hhh", address="hhh road", uid=111)
@@ -36,9 +36,9 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r3)
         db.session.commit()
         result = rhelper.get_resturant_by_name("hhh")
-        self.assertIn(r1, result)
-        self.assertIn(r2, result)
-        self.assertIn(r3, result)
+        self.assertIn({'name': 'hhh', 'address': 'hhh road', 'rid': 1}, result)
+        self.assertIn({'name': 'hhh', 'address': 'jjj road', 'rid': 2}, result)
+        self.assertIn({'name': 'hhh', 'address': 'ggg road', 'rid': 3}, result)
 
     def test_res_name_part_single(self):
         r1 = Restaurant(name="hhh restaurant", address="hhh road", uid=111)
@@ -47,8 +47,8 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.commit()
         result = rhelper.get_resturant_by_name("hhh")
-        self.assertIn(r1, result)
-        self.assertNotIn(r2, result)
+        self.assertIn({'name': 'hhh restaurant', 'address': 'hhh road', 'rid': 1}, result)
+        self.assertNotIn({'name': 'jjj restaurant', 'address': 'jjj road', 'rid': 2}, result)
 
     def test_res_name_part_name(self):
         r1 = Restaurant(name="kfc kfc kfc", address="hhh road", uid=111)
@@ -59,9 +59,9 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r3)
         db.session.commit()
         result = rhelper.get_resturant_by_name("kfc")
-        self.assertIn(r1, result)
-        self.assertIn(r2, result)
-        self.assertNotIn(r3, result)
+        self.assertIn({'name': 'kfc kfc kfc', 'address': 'hhh road', 'rid': 1}, result)
+        self.assertIn({'name': 'kfc', 'address': 'jjj road', 'rid': 2}, result)
+        self.assertNotIn({'name': 'kentucky Fried Chicken', 'address': 'ggg road', 'rid': 3}, result)
 
     def test_res_name_none(self):
         r1 = Restaurant(name="hhh restaurant", address="hhh road", uid=111)
@@ -70,8 +70,8 @@ class SelectResNameTest(unittest.TestCase):
         db.session.add(r2)
         db.session.commit()
         result = rhelper.get_resturant_by_name("ggg")
-        self.assertNotIn(r1, result)
-        self.assertNotIn(r2, result)
+        self.assertNotIn({'name': 'hhh restaurant', 'address': 'hhh road', 'rid': 1}, result)
+        self.assertNotIn({'name': 'jjj restaurant', 'address': 'jjj road', 'rid': 2}, result)
 
 
 if __name__ == "__main__":

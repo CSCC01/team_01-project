@@ -100,9 +100,9 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
         experience: The reward experience value. Integer value.
         points: The reward points value. Integer value
         type: The type of achievement:
-          0: buy item amount times.
-          1: Spend $amount.
-          Integer value.
+          '0': buy item amount times.
+          '1': Spend $amount.
+          String value.
         item: The item the required for type 0. String value
         amount: The amount of money/items needed to complete acheievement. Integer value.
 
@@ -128,13 +128,35 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
         # Example: Spend $xx.xx in a single visit
         if type == "1":
             value = ";" + str(amount)
-            achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 1, value = value)
+            achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 1, value= value)
         # Example: Buy item amount times
         else:
-            item.replace(";", "")
+            item = item.replace(";", "")
             value = item + ";" + str(amount)
             achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 0, value = value)
         db.session.add(achievement)
         db.session.commit()
 
     return errmsg
+
+def delete_achievement(aid):
+    """
+    Removes a row from the Achievement table.
+
+    Deletes an achievement from the database.
+
+    Args:
+        aid: An achievement ID that corresponds to a achievement in the Achievement table.
+        An integer.
+
+    Returns:
+        (if deleted) None.
+        (if not) "No such achievement"
+    """
+    achievement = Achievements.query.filter(Achievements.aid == aid).first()
+    if achievement:
+        db.session.delete(achievement)
+        db.session.commit()
+        return None
+    return "No such achievement"
+

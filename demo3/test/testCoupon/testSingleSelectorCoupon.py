@@ -50,7 +50,8 @@ class SingleSelectorCouponTest(unittest.TestCase):
                              "cname": coupon.name,
                              "cdescription": coupon.description,
                              "begin": coupon.begin,
-                             "expiration": coupon.expiration
+                             "expiration": coupon.expiration,
+                             "points": coupon.points
                              })
 
     def test_coupon_none(self):

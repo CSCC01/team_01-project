@@ -31,3 +31,7 @@ class SelectResNameByID(unittest.TestCase):
         db.session.commit()
         name = rhelper.get_restaurant_name_by_rid(96)
         self.assertEqual(name, "bla")
+
+if __name__ == "__main__":
+    unittest.main()
+

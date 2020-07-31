@@ -224,3 +224,6 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "used": 0
             }
         ])
+
+if __name__ == "__main__":
+    unittest.main()

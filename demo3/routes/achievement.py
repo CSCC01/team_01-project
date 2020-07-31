@@ -23,6 +23,10 @@ def achievement():
     elif session['type'] != 1:
         return redirect(url_for('home_page.home'))
 
+    else:
+        if request.method == 'POST':
+            aid = request.form['achievement']
+            delete_achievement(aid)
     #get achievements
     rid = get_rid(session["account"])
     achievement_list = get_achievements_by_rid(rid)

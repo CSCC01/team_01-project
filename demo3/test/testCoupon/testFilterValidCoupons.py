@@ -10,7 +10,6 @@ from models import db
 import time
 from datetime import datetime
 from app import app
-from databaseHelpers import coupon
 
 VALID = datetime.strptime("1 May, 9999", "%d %B, %Y")
 INVALID = datetime.strptime("30 June, 2020", "%d %B, %Y")
@@ -121,7 +120,9 @@ class FilterValidCouponTest(unittest.TestCase):
         }
         ]
         result = filter_valid_coupons(coupons)
-        self.assertEqual(result, [{
-            'expiration': VALID,
-            'deleted': 0
-        }])
+        self.assertEqual(result,
+                         [{'deleted': 0, 'expiration': VALID, 'name': 'test coupon'},
+                            {'deleted': 0, 'expiration': VALID}])
+
+if __name__ == "__main__":
+    unittest.main()
