@@ -111,7 +111,6 @@ class InsertAchievementTest(unittest.TestCase):
         self.assertIsNone(a)
         self.assertEqual(errmsg, ["Invalid points, please provide non-negative value."])
 
-<<<<<<< HEAD
     # Test abnormal achievement creation with exp and pts both are negative
     def test_insert_abnormal_negative_both_achievement(self):
         errmsg = insert_achievement(1, "name", "description", -10, -10, None, 10, False)
@@ -137,7 +136,7 @@ class InsertAchievementTest(unittest.TestCase):
     def test_insert_abnormal_feetype_item_negative_achievement(self):
         errmsg = insert_achievement(1, "name", "description", 10, 10, -10, None, True)
         self.assertEqual(errmsg, ["Invalid requirement, please provide non-negative value."])
-=======
+
     def test_insert_miss_item(self):
         """
         test insert an achievement with item missing
@@ -183,9 +182,6 @@ class InsertAchievementTest(unittest.TestCase):
         self.assertIsNotNone(a2)
         self.assertEqual(e1, [])
         self.assertEqual(e2, [])
-
-
->>>>>>> origin/Development
 
 if __name__ == "__main__":
     unittest.main()
