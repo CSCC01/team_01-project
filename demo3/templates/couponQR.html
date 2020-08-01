@@ -2,6 +2,7 @@
 
 {% block style %}
   <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/coupon.css">
 {% endblock style %}
 
 <!DOCTYPE html>
@@ -15,10 +16,42 @@
     
     <div class = parent>
       <div class = title>
+        <!-- change all css class here -->
         <div class = text>
           Redeeming Coupon: {{ name }}
         </div>
+
+        <div class = text>
+          From {{ rname }}, at {{ raddr }}
+        </div>
       </div>
+
+      <div class = title>
+        <div class = text>
+          {{ description }}
+        </div>
+      </div>
+      
+      <div class = title>
+        <div class = amount>
+          {{ points }} Points
+        </div>
+
+        
+      </div>
+
+      <div class = title>
+        <div class = description>
+          {% if begin == None or expiration == None %}
+            Valid indefinitely
+          {% else %}
+            Valid from: {{ begin }} to {{ expiration }}
+          {% endif %}
+        </div>
+      </div>
+
+
+
     </div>
 {% endblock page_name %}
 
@@ -35,7 +68,7 @@
         </div>
         
         <div class = submit_button>
-            <a href="coupon.html"><input type="submit" value="Continue"></a>
+            <a href="coupon.html"><input type="submit" value="Go Back"></a>
         </div>
     </div>
 {% endblock content %}

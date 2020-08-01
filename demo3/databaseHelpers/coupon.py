@@ -1,4 +1,4 @@
-from models import Coupon, User
+from models import Coupon, User, Restaurant
 from datetime import date
 
 import config
@@ -148,3 +148,57 @@ def find_coupon_name_by_cid(cid):
     if coupon:
         return coupon.name
     return "Not Found"
+
+def find_coupon_description_by_cid(cid):
+    
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    
+    if coupon:
+        return coupon.description
+    return "Not Found"
+
+def find_coupon_points_by_cid(cid):
+    
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    
+    if coupon:
+        return coupon.points
+    return "Not Found"
+
+def find_coupon_begin_by_cid(cid):
+    
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    
+    if coupon:
+        return coupon.begin
+    return "Not Found"
+
+def find_coupon_expiration_by_cid(cid):
+    
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    
+    if coupon:
+        return coupon.expiration
+    return "Not Found"
+
+def find_res_name_of_coupon_by_cid(cid):
+
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    if coupon:
+        restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
+        if restaurant:
+            return restaurant.name
+        return "Not Found"
+    else:
+        return "Not Found"
+
+def find_res_addr_of_coupon_by_cid(cid):
+
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    if coupon:
+        restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
+        if restaurant:
+            return restaurant.address
+        return "Not Found"
+    else:
+        return "Not Found"

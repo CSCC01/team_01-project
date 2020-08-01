@@ -28,9 +28,17 @@ def coupon():
             uid = session['account']
             rcid = find_rcid_by_cid_and_uid(cid,uid)
             name = find_coupon_name_by_cid(cid)
+            description = find_coupon_description_by_cid(cid)
+            points = find_coupon_points_by_cid(cid)
+            begin = find_coupon_begin_by_cid(cid)
+            expiration = find_coupon_expiration_by_cid(cid)
+            rname = find_res_name_of_coupon_by_cid(cid)
+            raddr = find_res_addr_of_coupon_by_cid(cid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
-            return render_template("couponQR.html", imgurl=imgurl, name=name)
+            return render_template("couponQR.html", imgurl=imgurl, name=name, description=description, 
+                                                    points=points, begin=begin, expiration=expiration,
+                                                    rname=rname, raddr=raddr)
 
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
