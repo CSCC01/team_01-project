@@ -51,8 +51,13 @@ def get_achievement_description(achievement):
     switcher = {
         0: "Buy " + values[0] + " " + values[1] + " times.",
         1: "Spend $" + values[1] + " in a single visit.",
-        2: "Visit with a group of at least " + values[1] + "."
+        2: "Visit with a group of at least " + values[1] + ".",
     }
+    if (values[2] == "False"):
+        switcher[3] = "Visit " + values[1] + " times between " + values[3] + " and " + values[4] + "."
+    else:
+        switcher[3] = "Visit " + values[1] + " times."
+
     return switcher.get(achievement.type)
 
 
@@ -76,7 +81,8 @@ def get_achievement_progress_maximum(achievement):
     switcher = {
         0: values[1],
         1: 1,
-        2: values[1]
+        2: values[1],
+        3: values[1]
     }
     return int(switcher.get(achievement.type))
 
@@ -111,6 +117,8 @@ def get_errmsg(name, experience, points, type, value):
         errmsg.append("Missing an item, please provide an item for the achievement.")
     if data[1] == "" or float(data[1]) < 0:
         errmsg.append("Invalid amount, please provide a positive value.")
+    if type == 3 and data[2] == "False" and (data[3] == "" or data[4] == ""):
+        errmsg.append("Missing start or expiration date.")
 
     return errmsg
 
