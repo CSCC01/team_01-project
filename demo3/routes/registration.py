@@ -43,7 +43,7 @@ def user_register():
 
         errmsg, uid = insert_new_user(name, email, password, password2, -1)
         if not errmsg:
-            return redirect(url_for('login'))
+            return redirect(url_for('login_page.login'))
     return render_template("registration0.html", errmsg=errmsg)
 
 
@@ -70,7 +70,7 @@ def owner_register():
 
         if uid:
             insert_new_restaurant(rname, address, uid)
-            return redirect(url_for('login'))
+            return redirect(url_for('login_page.login'))
 
     return render_template("registration1.html", errmsg=errmsg)
 
@@ -82,7 +82,7 @@ def owner_register():
 def employee_register():
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('login_page.login'))
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
     if session['type'] != 1:
