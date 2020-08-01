@@ -27,7 +27,7 @@ def coupon():
             cid = request.form['coupon']
             uid = session['account']
             rcid = find_rcid_by_cid_and_uid(cid,uid)
-            name = find_coupon_name_by_cid_and_uid(cid,uid)
+            name = find_coupon_name_by_cid(cid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl, name=name)

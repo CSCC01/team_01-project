@@ -139,3 +139,12 @@ def get_coupon_by_cid(cid):
         return c
     else:
         return None
+
+
+def find_coupon_name_by_cid(cid):
+    
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    
+    if coupon:
+        return coupon.name
+    return "Not Found"
