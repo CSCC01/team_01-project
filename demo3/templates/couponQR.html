@@ -1,10 +1,42 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+{% endblock style %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<img src="{{ imgurl }}">
-</body>
+
+{% block page_name %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Coupon redemption</title>
+    </head>
+    
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Redeeming Coupon
+        </div>
+      </div>
+    </div>
+{% endblock page_name %}
+
+{% block content %}
+    <div class = parent>
+        <div class = title>
+            <div class = text>
+              QR code:
+            </div>
+          </div>
+          
+        <div class = submit_button>
+            <img src="{{ imgurl }}">
+        </div>
+        
+        <div class = submit_button>
+            <a href="coupon.html"><input type="submit" value="Continue"></a>
+        </div>
+    </div>
+{% endblock content %}
 </html>
