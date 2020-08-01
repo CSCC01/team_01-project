@@ -29,6 +29,7 @@ def achievement():
             delete_achievement(aid)
     #get achievements
     rid = get_rid(session["account"])
+    delete_expired_achievements(rid)
     achievement_list = get_achievements_by_rid(rid)
 
     return render_template("achievement.html", achievements = achievement_list)
