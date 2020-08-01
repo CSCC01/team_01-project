@@ -13,6 +13,7 @@ from databaseHelpers.achievement import *
 from databaseHelpers.achievementProgress import *
 from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.points import *
+from databaseHelpers.experience import *
 from databaseHelpers.level import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
@@ -65,10 +66,12 @@ def restaurant(rid):
         uid = session['account']
         if not get_points(uid, rid):
             insert_points(uid, rid)
-        points = get_points(uid, rid).points
-        level = convert_points_to_level(points)
+        if not get_experience(uid, rid):
+            insert_experience(uid, rid)
+        experience = get_experience(uid, rid).experience
+        level = convert_experience_to_level(experience)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
+                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
     else:
         return redirect(url_for('home_page.home'))
 
