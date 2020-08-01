@@ -50,9 +50,11 @@ def get_achievement_description(achievement):
     values = get_achievement_data(achievement)
     switcher = {
         0: "Buy " + values[0] + " " + values[1] + " times.",
-        1: "Spend $" + values[1] + " in a single visit."
+        1: "Spend $" + values[1] + " in a single visit.",
+        2: "Visit with a group of at least " + values[1] + "."
     }
     return switcher.get(achievement.type)
+
 
 def get_achievement_progress_maximum(achievement):
     """
@@ -73,7 +75,8 @@ def get_achievement_progress_maximum(achievement):
     values = get_achievement_data(achievement)
     switcher = {
         0: values[1],
-        1: 1
+        1: 1,
+        2: values[1]
     }
     return int(switcher.get(achievement.type))
 
@@ -90,7 +93,29 @@ def get_achievement_data(achievement):
     return achievement.value.split(';')
 
 
-def insert_achievement(rid, name, experience, points, type, item, amount):
+def get_errmsg(name, experience, points, type, value):
+    errmsg = []
+
+    if name == "":
+        errmsg.append("Invalid achievement name, please provide an achievement name.")
+    if (experience == "" and points == "") or (experience == '0' and points == '0'):
+        errmsg.append("Missing experience and points, please provide at least one reward.")
+    if experience != "" and int(experience) < 0:
+        errmsg.append("Invalid experience, please provide non-negative value.")
+    if points != "" and int(points) < 0:
+        errmsg.append("Invalid points, please provide non-negative value.")
+
+    data = value.split(';')
+
+    if type == 0 and data[0] == "":
+        errmsg.append("Missing an item, please provide an item for the achievement.")
+    if data[1] == "" or float(data[1]) < 0:
+        errmsg.append("Invalid amount, please provide a positive value.")
+
+    return errmsg
+
+
+def insert_achievement(rid, name, experience, points, type, value):
     """
     Inserts a a row into the Acheievments table.
 
@@ -109,7 +134,33 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
     Returns:
         A list of error messages from inserting an object, if no errors occured, returns an empty list.
     """
-    errmsg = []
+
+    achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = type, value = value)
+    db.session.add(achievement)
+    db.session.commit()
+
+
+
+#def insert_achievement(rid, name, experience, points, type, item, amount):
+    """
+    Inserts a a row into the Acheievments table.
+
+    Args:
+        rid: A restuarants ID. Integer value.
+        name: The name of a restaurant. String value.
+        experience: The reward experience value. Integer value.
+        points: The reward points value. Integer value
+        type: The type of achievement:
+          '0': buy item amount times.
+          '1': Spend $amount.
+          String value.
+        item: The item the required for type 0. String value
+        amount: The amount of money/items needed to complete acheievement. Integer value.
+
+    Returns:
+        A list of error messages from inserting an object, if no errors occured, returns an empty list.
+    """
+'''errmsg = []
 
     if name == "":
         errmsg.append("Invalid achievement name, please provide an achievement name.")
@@ -125,19 +176,22 @@ def insert_achievement(rid, name, experience, points, type, item, amount):
         errmsg.append("Missing an amount, please provide an amount for the achievement.")
 
     if not errmsg:
+        value = ";" + str(amount)
         # Example: Spend $xx.xx in a single visit
         if type == "1":
-            value = ";" + str(amount)
-            achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 1, value= value)
+            achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 1, value = value)
         # Example: Buy item amount times
-        else:
+        if type == "0":
             item = item.replace(";", "")
-            value = item + ";" + str(amount)
+            value = item + value
             achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 0, value = value)
+        # Example: Visit with a group of at least x
+        if type == "2":
+            achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = 2, value = value)
         db.session.add(achievement)
         db.session.commit()
 
-    return errmsg
+    return errmsg'''
 
 def delete_achievement(aid):
     """
@@ -159,4 +213,3 @@ def delete_achievement(aid):
         db.session.commit()
         return None
     return "No such achievement"
-
