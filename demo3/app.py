@@ -27,6 +27,7 @@ app.register_blueprint(employee_page)
 app.register_blueprint(profile_page)
 app.register_blueprint(search_page)
 app.register_blueprint(login_page)
+app.register_blueprint(qr_page)
 app.secret_key = 'shhhh'
 
 app.config.from_object(config)
