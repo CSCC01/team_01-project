@@ -54,8 +54,11 @@ def create_achievement():
         type = int(request.form.get('type'))
         item = request.form['item']
         amount = request.form['amount' + str(type)]
+        end = request.form['end']
+        begin = request.form['start']
+        indefinite = "indefinite" in request.form
 
-        value = item + ";" + amount + ";" + ";"
+        value = item + ";" + amount + ";" + str(indefinite) + ";" + begin + ";" + end
 
         errmsg = get_errmsg(name, experience, points, type, value)
 
