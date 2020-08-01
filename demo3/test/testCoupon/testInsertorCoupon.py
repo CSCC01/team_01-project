@@ -10,7 +10,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import coupon as couponhelper
+from databaseHelpers import coupon as couponhelper
 from datetime import datetime
 
 class InsertCouponTest(unittest.TestCase):

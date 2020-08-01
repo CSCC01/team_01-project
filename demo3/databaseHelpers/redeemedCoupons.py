@@ -1,6 +1,6 @@
 from models import Coupon, Redeemed_Coupons, User
-from helpers.coupon import *
-from helpers.restaurant import *
+from databaseHelpers.coupon import *
+from databaseHelpers.restaurant import *
 
 import config
 if config.STATUS == "TEST":
@@ -48,7 +48,7 @@ def get_redeemed_coupons_by_uid(uid):
 
     return coupon_list
 
-  
+
 def insert_redeemed_coupon(cid, uid, rid):
     coupon = Redeemed_Coupons(cid = cid, uid = uid, rid = rid, valid = 1)
     db.session.add(coupon)

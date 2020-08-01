@@ -1,10 +1,10 @@
 """
-Test suite for helpers.coupon.py's filter_valid_coupons function.
+Test suite for databaseHelpers.coupon.py's filter_valid_coupons function.
 """
 
 import unittest
 
-from helpers.coupon import filter_valid_coupons
+from databaseHelpers.coupon import filter_valid_coupons
 from models import User, Coupon, Restaurant, Employee
 from models import db
 import time

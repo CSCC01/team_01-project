@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import user as userhelper
+from databaseHelpers import user as userhelper
 
 
 class InsertUserTest(unittest.TestCase):

@@ -1,6 +1,6 @@
 """
 
-Tests for helpers.redeemedCoupons.py's get_redeemed_coupons_by_rid function.
+Tests for databaseHelpers.redeemedCoupons.py's get_redeemed_coupons_by_rid function.
 
 """
 
@@ -11,7 +11,7 @@ from models import db
 import time
 from datetime import datetime
 from app import app
-from helpers import redeemedCoupons as rchelper
+from databaseHelpers import redeemedCoupons as rchelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")

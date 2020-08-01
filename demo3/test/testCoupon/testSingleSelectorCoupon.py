@@ -1,5 +1,5 @@
 """
-Test suite for helpers.coupon.py's get_coupon_by_cid function.
+Test suite for databaseHelpers.coupon.py's get_coupon_by_cid function.
 """
 
 import unittest
@@ -7,7 +7,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 from datetime import datetime
 from app import app
-from helpers import coupon as couponhelper
+from databaseHelpers import coupon as couponhelper
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END = datetime.strptime("30 June, 2020", "%d %B, %Y")

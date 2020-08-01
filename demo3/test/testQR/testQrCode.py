@@ -1,5 +1,5 @@
 import unittest
-from helpers.qr_code import *
+from databaseHelpers.qr_code import *
 import os
 
 class testQrCode(unittest.TestCase):
@@ -25,6 +25,6 @@ class testQrCode(unittest.TestCase):
             cwd = path.parent
             path = Path(cwd)
         return path
-            
+
 if __name__ == "__main__":
     unittest.main()

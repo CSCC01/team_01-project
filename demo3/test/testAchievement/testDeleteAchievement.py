@@ -1,6 +1,6 @@
 import unittest
 from app import app
-from helpers.achievement import *
+from databaseHelpers.achievement import *
 from models import db
 from models import Achievements
 
