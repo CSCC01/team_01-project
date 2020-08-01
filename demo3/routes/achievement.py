@@ -51,16 +51,16 @@ def create_achievement():
         name = request.form['name']
         experience = request.form['experience']
         points = request.form['points']
-        type = request.form.get('type')
+        type = int(request.form.get('type'))
         item = request.form['item']
-        if type == "0":
-            amount = request.form['amount']
-        else:
-            amount = request.form['cost']
+        amount = request.form['amount' + str(type)]
 
-        errmsg = insert_achievement(rid, name, experience, points, type, item, amount)
+        value = item + ";" + amount + ";" + ";"
+
+        errmsg = get_errmsg(name, experience, points, type, value)
 
         if not errmsg:
+            insert_achievement(rid, name, experience, points, type, value)
             return redirect(url_for('achievement_page.achievement'))
         else:
             return render_template('createAchievement.html', errmsg = errmsg)
