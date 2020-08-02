@@ -34,40 +34,23 @@ class SelectAchievementTest(unittest.TestCase):
 
     def test_get_description(self):
         """Tests get_achievement_description() for all achievement types."""
-<<<<<<< HEAD
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
-
-=======
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         
->>>>>>> origin/Development
         self.assertEqual(achievementhelper.get_achievement_description(achievement1), "Buy Item 5 times.")
         self.assertEqual(achievementhelper.get_achievement_description(achievement2), "Spend $6.99 in a single visit.")
 
     def test_get_progress_max(self):
         """Tests get_achievement_progress_maximum() for all achievement types."""
-<<<<<<< HEAD
-        achievement1 = Achievement(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievement(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
-
-=======
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
         
->>>>>>> origin/Development
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement1), 5)
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement2), 1)
 
 
     def test_get_nonexistent_achievements(self):
-<<<<<<< HEAD
->>>>>>> origin/Development
         """Tests get_achievements_by_rid() when no achievements have a rid
-=======
-        """Tests get_achievements_by_rid() when no achievements have a rid 
->>>>>>> origin/Development
         matching the given rid."""
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
@@ -79,12 +62,7 @@ class SelectAchievementTest(unittest.TestCase):
 
 
     def test_get_single_achievements(self):
-<<<<<<< HEAD
->>>>>>> origin/Development
-        """Tests get_achievements_by_rid() when one achievement has a rid
-=======
         """Tests get_achievements_by_rid() when one achievement has a rid 
->>>>>>> origin/Development
         matching the given rid."""
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
