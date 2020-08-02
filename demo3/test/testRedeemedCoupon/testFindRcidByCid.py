@@ -100,11 +100,11 @@ class FindRcidByCidAndUid(unittest.TestCase):
         as we expected.
         """
 
-        res = Restaurant(name = "resName", address="Address", uid = 404)
+        res = Restaurant(name="resName", address="Address", uid=404)
         db.session.add(res)
         db.session.commit()
-        coupon = coupon = Coupon(rid = res.rid, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=res.rid, name="coupon_testing", points=10, description="description", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(coupon.cid)
@@ -115,8 +115,8 @@ class FindRcidByCidAndUid(unittest.TestCase):
         Test that this cid is not exist, the method should return 
         "Not Found".
         """
-        coupon = coupon = Coupon(rid = 100, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=100, name="coupon_testing", points=25, description="des", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(100)
@@ -127,11 +127,11 @@ class FindRcidByCidAndUid(unittest.TestCase):
         Test that the coupon's related rid is not exist, the method should return 
         "Not Found", the rid is autoincrement, which cannot be negative.
         """
-        res = Restaurant(name = "resName", address="Address", uid = 404)
+        res = Restaurant(name="resName", address="Address", uid=404)
         db.session.add(res)
         db.session.commit()
-        coupon = coupon = Coupon(rid = 100, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=100, name="coupon_testing", points=10, description="description", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(coupon.cid)
@@ -143,11 +143,11 @@ class FindRcidByCidAndUid(unittest.TestCase):
         as we expected.
         """
 
-        res = Restaurant(name = "resName", address="Address", uid = 404)
+        res = Restaurant(name="res", address="Address", uid=505)
         db.session.add(res)
         db.session.commit()
-        coupon = coupon = Coupon(rid = res.rid, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=res.rid, name="coupon_testing", points=10, description="description", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         raddr = chelper.find_res_addr_of_coupon_by_cid(coupon.cid)
@@ -158,11 +158,11 @@ class FindRcidByCidAndUid(unittest.TestCase):
         Test that this cid is not exist, the method should return 
         "Not Found".
         """
-        coupon = coupon = Coupon(rid = 100, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=90, name="coupon_testing", points=10, description="description", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
-        raddr = chelper.find_res_addr_of_coupon_by_cid(100)
+        raddr = chelper.find_res_addr_of_coupon_by_cid(120)
         self.assertEqual(raddr, "Not Found")
 
     def test_no_such_rid_addr(self):
@@ -170,11 +170,11 @@ class FindRcidByCidAndUid(unittest.TestCase):
         Test that the coupon's related rid is not exist, the method should return 
         "Not Found".
         """
-        res = Restaurant(name = "resName", address="Address", uid = 404)
+        res = Restaurant(name="resName", address="Address", uid=404)
         db.session.add(res)
         db.session.commit()
-        coupon = coupon = Coupon(rid = 100, name = "coupon_testing", points = 10, description = "description", 
-                                expiration = None, begin = None, deleted = 0)
+        coupon = Coupon(rid=900, name="coupon_testing", points=10, description="description", 
+                                expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         raddr = chelper.find_res_addr_of_coupon_by_cid(coupon.cid)
