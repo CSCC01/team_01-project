@@ -19,7 +19,7 @@ registration_page = Blueprint('registration_page', __name__, template_folder='te
 def registration():
     # If someone is already logged in they get redirected to the home page
     if 'account' in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('home_page.home'))
     else:
         return render_template('registration.html')
 
@@ -30,7 +30,7 @@ def registration():
 def user_register():
     # If someone is already logged in they get redirected to the home page
     if 'account' in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('home_page.home'))
 
     # A list of all the errors that will be displayed to the user if login fails
     errmsg = []
@@ -53,7 +53,7 @@ def user_register():
 def owner_register():
     # If someone is already logged in they get redirected to the home page
     if 'account' in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('home_page.home'))
 
     # A list of all the errors that will be displayed to the user if login fails
     errmsg = []
@@ -86,7 +86,7 @@ def employee_register():
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
     if session['type'] != 1:
-        return redirect(url_for('home'))
+        return redirect(url_for('home_page.home'))
 
     # An list of all the errors that will be displayed to the user if login fails
     errmsg = []
