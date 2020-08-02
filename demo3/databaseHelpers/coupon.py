@@ -141,46 +141,6 @@ def get_coupon_by_cid(cid):
         return None
 
 
-def find_coupon_name_by_cid(cid):
-    
-    coupon = Coupon.query.filter(Coupon.cid == cid).first()
-    
-    if coupon:
-        return coupon.name
-    return "Not Found"
-
-def find_coupon_description_by_cid(cid):
-    
-    coupon = Coupon.query.filter(Coupon.cid == cid).first()
-    
-    if coupon:
-        return coupon.description
-    return "Not Found"
-
-def find_coupon_points_by_cid(cid):
-    
-    coupon = Coupon.query.filter(Coupon.cid == cid).first()
-    
-    if coupon:
-        return coupon.points
-    return "Not Found"
-
-def find_coupon_begin_by_cid(cid):
-    
-    coupon = Coupon.query.filter(Coupon.cid == cid).first()
-    
-    if coupon:
-        return coupon.begin
-    return "Not Found"
-
-def find_coupon_expiration_by_cid(cid):
-    
-    coupon = Coupon.query.filter(Coupon.cid == cid).first()
-    
-    if coupon:
-        return coupon.expiration
-    return "Not Found"
-
 def find_res_name_of_coupon_by_cid(cid):
 
     coupon = Coupon.query.filter(Coupon.cid == cid).first()

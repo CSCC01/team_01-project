@@ -93,6 +93,8 @@ class FindRcidByCidAndUid(unittest.TestCase):
         rcid = rchelper.find_rcid_by_cid_and_uid(32, 12)
         self.assertEqual(rcid, rc2.rcid)
 
+    def test_find_res_name_of_coupon
+
 
 if __name__ == "__main__":
     unittest.main()
