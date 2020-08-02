@@ -34,7 +34,7 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
         errmsg.append("Invalid amount for points.")
     if name == "":
         errmsg.append("Invalid coupon name, please give your coupon a name.")
-    if not indefinite and (expiration == None or begin == None):
+    if not indefinite and ((expiration == None or begin == None) or (expiration == "" or begin == "")):
         errmsg.append("Missing start or expiration date.")
 
     if not errmsg:
