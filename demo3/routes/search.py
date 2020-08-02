@@ -58,8 +58,8 @@ def restaurant(rid):
         coupons = filter_valid_coupons(get_coupons(rid))[-3:]
         coupons.reverse()
 
-        # Gets achievements with no progress
-        achievements_no_progress = get_achievements_with_no_progress(get_achievements_by_rid(rid), session['account'])
+        # Gets achievements
+        achievements = get_recently_started_achievements(get_achievements_by_rid(rid), session['account'])
 
         # Gets point progress
         uid = session['account']
@@ -68,7 +68,7 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -102,5 +102,35 @@ def couponOffers(rid):
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
 
         return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
+    else:
+        return redirect(url_for('home_page.home'))
+
+@search_page.route('/<filter>Achievements<rid>.html', methods=['GET', 'POST'])
+@search_page.route('/<filter>Achievements<rid>', methods=['GET', 'POST'])
+def restaurantAchievements(rid, filter):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home_page.home'))
+
+    switcher = {
+        "available": NOT_STARTED,
+        "inProgress" : IN_PROGRESS,
+        "complete" : COMPLETE
+    }
+
+    # Check that filter is valid
+    if switcher.get(filter, -1) == -1:
+        return redirect(url_for('home_page.home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        rname = get_restaurant_name_by_rid(rid)
+        # Gets achievements
+        achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
+        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
     else:
         return redirect(url_for('home_page.home'))
