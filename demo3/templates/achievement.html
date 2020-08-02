@@ -20,9 +20,11 @@
         <div class = text>
           Achievements
         </div>
-        <div class = plus>
-          <a href="createAchievement.html">+</a>
-        </div>
+        {% if session["type"] == 1 %}
+          <div class = plus>
+            <a href="createAchievement.html">+</a>
+          </div>
+        {% endif %}
       </div>
     </div>
 {% endblock page_name %}
