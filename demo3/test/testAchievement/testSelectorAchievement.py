@@ -58,8 +58,8 @@ class SelectAchievementTest(unittest.TestCase):
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99;;;")
         achievement3 = Achievements(rid=13, name="test 3", points=15, experience=20, type=2, value=";6;;;")
-        achievement4 = Achievements(rid=13, name="test 3", points=15, experience=20, type=2, value=";6;True;;")
-        achievement4 = Achievements(rid=13, name="test 3", points=15, experience=20, type=2, value=";6;False;2020-08-1;2020-08-31")
+        achievement4 = Achievements(rid=13, name="test 4", points=15, experience=20, type=2, value=";6;True;;")
+        achievement4 = Achievements(rid=13, name="test 5", points=15, experience=20, type=2, value=";6;False;2020-08-1;2020-08-31")
 
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement1), 5)
         self.assertEqual(achievementhelper.get_achievement_progress_maximum(achievement2), 1)
