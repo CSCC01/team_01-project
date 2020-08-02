@@ -39,13 +39,15 @@
       </div>
 
       <div class = title>
-        <div class = expiration_qr>
           {% if begin == None or expiration == None %}
+          <div class = expiration_inf_qr>
             Valid indefinitely
+          </div>
           {% else %}
+          <div class = expiration_qr>
             Valid from: {{ begin }} to {{ expiration }}
+          </div>
           {% endif %}
-        </div>
       </div>
 
       

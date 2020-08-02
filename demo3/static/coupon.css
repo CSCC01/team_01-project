@@ -30,6 +30,13 @@
   padding-right: 0px;
 }
 
+.expiration_inf_qr {
+  font-size: var(--subtitle);
+  color: var(--darkGrey);
+  padding-left: 1900px;
+  padding-right: 0px;
+}
+
 .description {
   padding-left: 20px;
   padding-right: 20px;

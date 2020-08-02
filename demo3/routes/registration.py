@@ -102,7 +102,7 @@ def employee_register():
         if uid:
             rid = get_rid(session["account"])
             insert_new_employee(uid, rid)
-            return redirect(url_for('employee'))
+            return redirect(url_for('employee_page.employee'))
 
     return render_template("registration2.html", errmsg=errmsg)
 
