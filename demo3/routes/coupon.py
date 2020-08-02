@@ -10,6 +10,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, B
 
 coupon_page = Blueprint('coupon_page', __name__, template_folder='templates')
 from databaseHelpers.coupon import *
+from databaseHelpers.employee import *
 from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.qr_code import *
 
@@ -34,9 +35,11 @@ def coupon():
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
-    # TODO: Employees view of the coupon page
-    elif session["type"] == 0:
-        return render_template("coupon.html")
+    # Employee view of coupon page
+    if session["type"] == 0:
+        rid = get_employee_rid(session["account"])
+        coupon_list = get_coupons(rid)
+        return render_template("coupon.html", coupons = coupon_list)
 
     # Owners view of coupon page
     else:
@@ -46,7 +49,6 @@ def coupon():
 
         rid = get_rid(session["account"])
         coupon_list = get_coupons(rid)
-
         return render_template("coupon.html", coupons = coupon_list)
 
 

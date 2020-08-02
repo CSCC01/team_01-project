@@ -14,7 +14,7 @@ def insert_new_employee(uid, rid):
         uid: A user ID that corresponds to a user in the User table. A integer.
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.
-          
+
     Returns:
         None.
     """
@@ -30,7 +30,7 @@ def get_employees(rid):
 
     Retrieves a list of employees from the Employee table that work at a
     restaurant with the given restaurant ID.
-    
+
     Args:
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
           table. A integer.
@@ -72,3 +72,9 @@ def delete_employee(uid):
     User.query.filter(User.uid == uid).delete()
     db.session.commit()
     return None
+
+
+def get_employee_rid(uid):
+    employee = Employee.query.filter(Employee.uid == uid).first()
+
+    return employee.rid
