@@ -88,10 +88,19 @@
     {% for a in achievements %}
       {% if a["status"] == filterID %}
       <div class = parent>
-        <div class = name>
-          {{ a["name"] }}
+        <div class = title>
+          <div class = name>
+            {{ a["name"] }}
+          </div>
+          {% if a["status"] < 2 %}
+              <div class = use_button>
+                <form method = "post">
+                  <input type="submit" value = "Update Progress" name = {{a["name"]}}>
+                </form>
+              </div>
+          {% endif %}
         </div>
-        <div>
+        <div class = description>
           {{ a["description"] }}
         </div>
         <div class = achievement_progress_bar>
