@@ -62,6 +62,7 @@ def get_achievements_with_progress_data(achievements, uid):
                     a["status"] = IN_PROGRESS
                 a["progress"] = p["progress"]
                 has_progress = True
+                achievement_progress_list.remove(p)
                 break
         if not has_progress:
             a["progress"] = 0
@@ -95,6 +96,7 @@ def get_recently_started_achievements(achievements, uid):
                     a["status"] = IN_PROGRESS
                     a["progress"] = p["progress"]
                     recent_achievements.append(a)
+                achievements.remove(a)
                 break
         if len(recent_achievements) == 3:
             break
