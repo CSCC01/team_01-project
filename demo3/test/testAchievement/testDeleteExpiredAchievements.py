@@ -3,7 +3,7 @@ from app import app
 from databaseHelpers.achievement import *
 from models import db
 from models import Achievements
-rom datetime import datetime
+from datetime import datetime
 
 BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
 END_VALID = datetime.strptime("30 June, 2099", "%d %B, %Y")
