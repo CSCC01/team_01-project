@@ -136,7 +136,6 @@ def complete_progress(achievement_progress):
         db.session.add(user_point)
     else:
         user_point.points += points
-    db.session.delete(achievement_progress)
     db.session.commit()
     return None
 
@@ -148,5 +147,9 @@ def get_rid_points_by_aid(aid):
                 'points': achievement.points}
     return 'Not Found'
 
+def insert_new_achievement(aid,uid,total):
+    ap = Customer_Achievement_Progress(aid=aid, uid=uid, progress=0, total=total)
+    db.session.add(ap)
+    db.session.commit()
 
 

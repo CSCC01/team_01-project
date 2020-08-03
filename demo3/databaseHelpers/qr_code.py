@@ -27,8 +27,9 @@ def update_achievement_qr(url, aid, uid):
     img = qrcode.make(url)
     if config.STATUS == 'TEST':
         path = str(get_root()) + '/static/Resources/QR/update_achievement/'+str(uid)+'_'+str(aid)+'.png'
+        path = path.replace("/", os.path.sep)
     else:
-        path = '/static/Resources/QR/update_achievement/'+str(uid)+'_'+str(aid)+'.png'
+        path = 'static/Resources/QR/update_achievement/'+str(uid)+'_'+str(aid)+'.png'
     img.save(path)
     return path
 

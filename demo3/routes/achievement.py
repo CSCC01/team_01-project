@@ -69,6 +69,8 @@ def create_achievement():
 
     return render_template('createAchievement.html')
 
+
+# To update achievement
 # def ach()
 #     ### Customer viewing of achievement
 #     elif session["type"] == -1:
@@ -79,7 +81,7 @@ def create_achievement():
 #             return render_template("couponQR.html", imgurl=imgurl)
 
 @achievement_page.route('/verifyAchievement/<aid>/<uid>', methods=['GET', 'POST'])
-def use_coupon(aid,uid):
+def use_achievement(aid,uid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
