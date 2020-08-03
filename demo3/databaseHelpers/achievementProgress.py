@@ -1,4 +1,4 @@
-from models import Achievements, Customer_Achievement_Progress
+from models import Achievements, Customer_Achievement_Progress, Points
 
 import config
 if config.STATUS == "TEST":
@@ -98,5 +98,55 @@ def get_recently_started_achievements(achievements, uid):
                 break
         if len(recent_achievements) == 3:
             break
-    
+
     return recent_achievements
+def get_exact_achivement_progress(aid, uid):
+    """
+    Get the exact achivement progress by applying both aid and uid to it
+    :param aid: achievement id
+    :param uid: user id
+    :return: Customer_Achievement_Progress if found
+             'Not Found' if not found
+    """
+    achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.aid==aid,
+                                                                      Customer_Achievement_Progress.uid==uid).first()
+
+    if achievement_progress:
+        return achievement_progress
+    else:
+        return 'Not Found'
+
+
+def add_one_progress_bar(achievements_progress):
+    achievements_progress.progress += 1
+    if achievements_progress.progress == achievements_progress.total:
+        complete_progress(achievements_progress)
+    db.session.commit()
+    return None
+
+
+def complete_progress(achievement_progress):
+    rid = get_rid_points_by_aid(achievement_progress.aid)['rid']
+    uid = achievement_progress.uid
+    points = get_rid_points_by_aid(achievement_progress.aid)['points']
+
+    user_point = Points.query.filter(Points.uid==uid, Points.rid==rid).first()
+    if not user_point:
+        user_point = Points(uid=uid, rid=rid, points=points)
+        db.session.add(user_point)
+    else:
+        user_point.points += points
+    db.session.delete(achievement_progress)
+    db.session.commit()
+    return None
+
+
+def get_rid_points_by_aid(aid):
+    achievement = Achievements.query.filter(Achievements.aid==aid).first()
+    if achievement:
+        return {'rid': achievement.rid,
+                'points': achievement.points}
+    return 'Not Found'
+
+
+
