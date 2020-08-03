@@ -1,4 +1,4 @@
-from models import Achievements, Customer_Achievement_Progress, Points
+from models import Achievements, Customer_Achievement_Progress, Points, Experience
 
 import config
 if config.STATUS == "TEST":
@@ -126,9 +126,10 @@ def add_one_progress_bar(achievements_progress):
 
 
 def complete_progress(achievement_progress):
-    rid = get_rid_points_by_aid(achievement_progress.aid)['rid']
+    rid = get_rid_points_exp_by_aid(achievement_progress.aid)['rid']
     uid = achievement_progress.uid
-    points = get_rid_points_by_aid(achievement_progress.aid)['points']
+    points = get_rid_points_exp_by_aid(achievement_progress.aid)['points']
+    exp = get_rid_points_exp_by_aid(achievement_progress.aid)['exp']
 
     user_point = Points.query.filter(Points.uid==uid, Points.rid==rid).first()
     if not user_point:
@@ -136,15 +137,22 @@ def complete_progress(achievement_progress):
         db.session.add(user_point)
     else:
         user_point.points += points
+    user_exp = Experience.query.filter(Experience.uid==uid, Experience.rid==rid).first()
+    if not user_exp:
+        user_exp = Experience(uid=uid, rid=rid, exp=exp)
+        db.session.add(user_exp)
+    else:
+        user_exp.experience += exp
     db.session.commit()
     return None
 
 
-def get_rid_points_by_aid(aid):
+def get_rid_points_exp_by_aid(aid):
     achievement = Achievements.query.filter(Achievements.aid==aid).first()
     if achievement:
         return {'rid': achievement.rid,
-                'points': achievement.points}
+                'points': achievement.points,
+                'exp': achievement.experience}
     return 'Not Found'
 
 def insert_new_achievement(aid,uid,total):
