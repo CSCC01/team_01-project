@@ -35,6 +35,7 @@ def find_rcid_by_cid_and_uid(cid, uid):
     return "Not Found"
 
 
+
 def get_redeemed_coupons_by_uid(uid):
     coupons = Redeemed_Coupons.query.filter(Redeemed_Coupons.uid == uid, Redeemed_Coupons.valid == 1).all()
     coupon_list = []
