@@ -10,7 +10,7 @@ END_VALID = datetime.strptime("30 June, 2099", "%d %B, %Y")
 END_EXPIRED = datetime.strptime("30 June, 2019", "%d %B, %Y")
 
 
-class DeleteAchievementTest(unittest.TestCase):
+class DeleteExpiredAchievementTest(unittest.TestCase):
     """
     Test function on delete expired achievement.
     """
