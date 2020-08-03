@@ -36,7 +36,7 @@
           <div class = name>
             {{ a["name"] }}
           </div>
-
+          {% if session["type"] == 1 %}
           <!-- The gear for deleting coupons -->
           <div class = settings_dropdown>
             <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
@@ -47,6 +47,7 @@
                 </form>
               </div>
           </div>
+          {% endif %}
 
         </div>
         <div class = description>
