@@ -121,6 +121,12 @@ def get_errmsg(name, experience, points, type, value):
         errmsg.append("Invalid amount, please provide a positive value.")
     if type == 3 and data[2] == "False" and (data[3] == "" or data[4] == ""):
         errmsg.append("Missing start or expiration date.")
+    if type == 3 and data[2] == "False":
+        today = date.today()
+        e = (data[4]).split('-')
+        expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+        if expiration > today:
+            errmsg.append("This achievemnt is already outdated.")
 
     return errmsg
 
@@ -159,7 +165,7 @@ def delete_expired_achievements(rid):
     Args:
         rid: A restuarants ID that corresponds to a restaurant in the restaurant
           table. Integer value.
-          
+
     Returns: None
     """
     today = date.today()
