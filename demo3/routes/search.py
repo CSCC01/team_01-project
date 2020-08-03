@@ -139,7 +139,7 @@ def restaurantAchievements(rid, filter):
                 insert_new_achievement(aid, uid, total)
                 db.session.commit()
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
-            return render_template("couponQR.html", imgurl=imgurl)
+            return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
