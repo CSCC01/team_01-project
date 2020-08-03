@@ -4,14 +4,81 @@
 <title>Home</title>
 {% endblock title %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{% endblock style %}
+
 {% block home %}_pressed{% endblock home %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
         <div class = text>
-          Home
+          Welcome, {{ user['name'] }}
         </div>
       </div>
     </div>
 {% endblock page_name %}
+
+{% block content %}
+<div class = parent>
+  <div class = title>
+    <div class = text>
+      Recently Purchased Coupon:
+    </div>
+  </div>
+  {% for c in coupons %}
+      <div class = container>
+        <div class = name>
+          {{ c["cname"] }}
+        </div>
+        <div class = amount>
+          {{ c["rname"] }}, at {{c["raddress"]}}
+        </div>
+        <div class = description>
+          {{ c["cdescription"] }}
+        </div>
+        <div class = expiration>
+          {% if c["begin"] == None or c["expiration"] == None %}
+            Valid indefinitely
+          {% else %}
+            Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+          {% endif %}
+        </div>
+      </div>
+  {% endfor %}
+  <a href="coupon">
+    <div class = seeMore>
+      <button type="button">
+        View All My Coupons
+      </button>
+    </div>
+  </a>
+</div>
+
+
+<div class = parent>
+  <div class = title>
+    <div class = text>
+      Commonly Visited Restaurants:
+    </div>
+  </div>
+  {% for r in restaurants %}
+      <div class = container>
+        <div class = name>
+          {{ r["name"] }}
+        </div>
+        <div class = amount>
+          {{ r["address"] }}
+        </div>
+      </div>
+  {% endfor %}
+  <a href="visitedRestaurants">
+    <div class = seeMore>
+      <button type="button">
+        View All Restaurants I've Visted
+      </button>
+    </div>
+  </a>
+</div>
+{% endblock content %}
