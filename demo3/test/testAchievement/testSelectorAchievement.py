@@ -1,8 +1,8 @@
 import unittest
-from models import Achievements
-from models import db
 from app import app
 from databaseHelpers.achievement import *
+from models import db
+from models import Achievements
 
 
 class SelectAchievementTest(unittest.TestCase):

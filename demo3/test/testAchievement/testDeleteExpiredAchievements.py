@@ -26,8 +26,8 @@ class DeleteAchievementTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_expired_achievements(self):
-        ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=1, value='test;4;False;2020-4-11;2099-4-11')
-        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=1, value='test;5;False;2020-4-1;2099-4-11')
+        ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2099-4-11')
+        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-4-1;2099-4-11')
         db.session.add(ac1)
         db.session.add(ac2)
         db.session.commit()
@@ -39,20 +39,20 @@ class DeleteAchievementTest(unittest.TestCase):
 
 
     def test_one_expired_achievement(self):
-        ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=1, value='test;4;False;2020-4-11;2020-4-11')
-        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=1, value='test;5;False;2020-04-1;2099-04-11')
+        ac1 = Achievements(rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
+        ac2 = Achievements(rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-04-1;2099-04-11')
         db.session.add(ac1)
         db.session.add(ac2)
         db.session.commit()
         delete_expired_achievements(12)
-        a1 = Achievements.query.filter_by(aid=32).first()
-        a2 = Achievements.query.filter_by(aid=22).first()
+        a1 = Achievements.query.filter_by(aid=ac1.aid).first()
+        a2 = Achievements.query.filter_by(aid=ac2.aid).first()
         self.assertIsNone(a1)
         self.assertIsNotNone(a2)
 
     def test_many_expired_achievements(self):
-        ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=1, value='test;4;False;2020-4-11;2020-4-11')
-        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=1, value='test;5;False;2020-04-1;2020-04-11')
+        ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
+        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-04-1;2020-04-11')
         db.session.add(ac1)
         db.session.add(ac2)
         db.session.commit()
