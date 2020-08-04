@@ -125,6 +125,8 @@ def filter_valid_coupons(coupons):
 
     return coupons
 
+def filter_level_able_coupons(coupons, level):
+    return None
 
 def get_coupon_by_cid(cid):
 

@@ -33,7 +33,7 @@ def coupon():
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
-                                                    points=coupon.get("points"), begin=coupon.get("begin"), 
+                                                    points=coupon.get("points"), level=coupon.get("clevel"), begin=coupon.get("begin"), 
                                                     expiration=coupon.get("expiration"),
                                                     rname=rname, raddr=raddr)
 
@@ -75,13 +75,14 @@ def create_coupon():
         name = request.form['name']
         points = request.form['points']
         description = request.form['description']
+        level = request.form['level']
         expiration = request.form['end']
         begin = request.form['begin']
         # true -> no expiration date, false -> expiration date required
         indefinite = "indefinite" in request.form
 
         rid = get_rid(session["account"])
-        errmsg = insert_coupon(rid, name, points, description, begin, expiration, indefinite)
+        errmsg = insert_coupon(rid, name, points, description, level, begin, expiration, indefinite)
 
         # Inserting was successful
         if not errmsg:
@@ -89,7 +90,7 @@ def create_coupon():
 
         # Inserting failed
         return render_template('createCoupon.html', errmsg = errmsg,
-                            info = {'name': name, 'points': points, 'description': description, 'expiration': expiration, 'begin': begin})
+                            info = {'name': name, 'points': points, 'description': description, 'level': level, 'expiration': expiration, 'begin': begin})
 
     return render_template('createCoupon.html')
 
