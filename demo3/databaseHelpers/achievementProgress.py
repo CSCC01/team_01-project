@@ -166,5 +166,3 @@ def insert_new_achievement(aid,uid,total):
     db.session.add(ap)
     db.session.commit()
     return ap
-
-
