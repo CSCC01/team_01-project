@@ -33,7 +33,7 @@ class SelectAchievementTest(unittest.TestCase):
         self.assertEqual(get_achievement_data(achievement1), ["Item", "5", "", "", ""])
         self.assertEqual(get_achievement_data(achievement2), ["", "6.99", "", "", ""])
         self.assertEqual(get_achievement_data(achievement3), ["", "6", "", "", ""])
-        self.assertEqual(get_achievement_data(achievement5), ["", "6", "True", "", ""])
+        self.assertEqual(get_achievement_data(achievement4), ["", "6", "True", "", ""])
         self.assertEqual(get_achievement_data(achievement5), ["", "6", "False", "2020-08-1", "2020-08-31"])
 
 
@@ -47,7 +47,7 @@ class SelectAchievementTest(unittest.TestCase):
 
         self.assertEqual(get_achievement_description(achievement1), "Buy Item 5 times.")
         self.assertEqual(get_achievement_description(achievement2), "Spend $6.99 in a single visit.")
-        self.assertEqual(get_achievement_description(achievement3), "Visit with a group of at least 2.")
+        self.assertEqual(get_achievement_description(achievement3), "Visit with a group of at least 2 people.")
         self.assertEqual(get_achievement_description(achievement4), "Visit 5 times.")
         self.assertEqual(get_achievement_description(achievement5), "Visit 5 times between 2020-08-01 and 2020-08-31.")
 
@@ -82,8 +82,8 @@ class SelectAchievementTest(unittest.TestCase):
     def test_get_single_achievements(self):
         """Tests get_achievements_by_rid() when one achievement has a rid
         matching the given rid."""
-        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
+        achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99;;;")
         db.session.add(achievement1)
         db.session.add(achievement2)
         db.session.commit()
@@ -106,8 +106,8 @@ class SelectAchievementTest(unittest.TestCase):
 
     def test_get_multiple_achievements(self):
         """Tests get_achievements_by_rid() when multiple achievements have a rid matching the given rid."""
-        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5")
-        achievement2 = Achievements(rid=12, name="test 2", points=15, experience=20, type=1, value=";6.99")
+        achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
+        achievement2 = Achievements(rid=12, name="test 2", points=15, experience=20, type=1, value=";6.99;;;")
         db.session.add(achievement1)
         db.session.add(achievement2)
         db.session.commit()
