@@ -8,16 +8,18 @@ else:
     from exts import db
 
 
-def insert_coupon(rid, name, points, description, begin, expiration, indefinite):
+def insert_coupon(rid, name, points, description, level, begin, expiration, indefinite):
     """
     Inserts a coupon into Coupon table.
 
     Args:
         rid: A restaurant ID that corresponds to a restaurant in the Restaurant
-          table. A integer.
+            table. An integer.
         name: A name for the coupon. A 64 character string.
-        points: A point value for the coupon. A integer.
+        points: A point value for the coupon. An integer.
         description: A description of the coupon. A 1024 character string.
+        level: A level that restricts only users reach this level or above in 
+            the restaurant can purchase/use(available). An unsigned Int
         begin: A starting date for the coupon. A DateTime.
         expiration: An ending date for the coupon. A DateTime.
         indefinite: A boolean with the following property:
@@ -34,14 +36,16 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
         errmsg.append("Invalid amount for points.")
     if name == "":
         errmsg.append("Invalid coupon name, please give your coupon a name.")
+    if level == "" or int(level) < 0:
+        errmsg.append("Invalid number of level, please give a non-negative value.")
     if not indefinite and ((expiration == None or begin == None) or (expiration == "" or begin == "")):
         errmsg.append("Missing start or expiration date.")
 
     if not errmsg:
         if indefinite:
-            coupon = Coupon(rid = rid, name = name, points = points, description = description, deleted = 0)
+            coupon = Coupon(rid = rid, name = name, points = points, description = description, level = level, deleted = 0)
         else:
-            coupon = Coupon(rid = rid, name = name, points = points, description = description, expiration = expiration, begin = begin, deleted = 0)
+            coupon = Coupon(rid = rid, name = name, points = points, description = description, level = level, expiration = expiration, begin = begin, deleted = 0)
         db.session.add(coupon)
         db.session.commit()
         return None
