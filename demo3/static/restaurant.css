@@ -142,6 +142,46 @@ progress::-webkit-progress-value {
   color: lightgrey;
 }
 
+/* Styles the container for the achievement filter bar */
+.achievement_nav_container .parent{
+  margin-bottom: -10px;
+  background-color: transparent
+}
+
+.achievement_nav {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  margin-left: -20px;
+}
+
+.achievement_nav img {
+  margin-right: -1px;
+}
+
+.achievement_nav button {
+  background-color: var(--forground);
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.use_button input[type = submit] {
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red)); /* For Chrome and Safari */
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red)); /* Standard syntax; must be last */
+  color:transparent;
+  color: var(--forground);
+  font-size: var(--body);
+
+  margin-top: -5px;
+  width: 150px;
+  height: 25px;
+}
+
 .container {
  padding-top: 15px;
 }
@@ -205,4 +245,11 @@ input[type = submit] {
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.none {
+  text-align: center;
+  font-weight: 400;
+  margin-top: 15px;
+  margin-bottom: -15px;
 }

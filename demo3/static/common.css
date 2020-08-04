@@ -141,7 +141,7 @@ a:link, a:visited, a:hover, a:active {
   font-size: var(--title);
 }
 
-/* Sytling of the box that holds the footer */
+/* Styling of the box that holds the footer */
 footer {
     display: flex;
     flex-direction: column;
@@ -149,8 +149,9 @@ footer {
     justify-content: space-evenly;
 }
 
-/* Sytling of individual elements in footer */
+/* Styling of individual elements in footer */
 footer div {
+    margin-top: 20px;
     font-family: 'Poppins', sans-serif;
     font-weight:200;
     color: var(--black);
