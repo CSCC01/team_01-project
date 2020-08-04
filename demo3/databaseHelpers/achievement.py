@@ -83,7 +83,7 @@ def get_achievement_progress_maximum(achievement):
     switcher = {
         0: values[1],
         1: 1,
-        2: values[1],
+        2: 1,
         3: values[1]
     }
     return int(switcher.get(achievement.type))
@@ -171,34 +171,6 @@ def delete_expired_achievements(rid):
             if today > expiration:
                 delete_achievement(a.aid)
     return None
-
-
-
-def insert_achievement(rid, name, experience, points, type, value):
-    """
-    Inserts a a row into the Acheievments table.
-
-    Args:
-        rid: A restuarants ID. Integer value.
-        name: The name of a restaurant. String value.
-        experience: The reward experience value. Integer value.
-        points: The reward points value. Integer value
-        type: The type of achievement:
-          0: buy item amount times.
-          1: Spend $$.$$ amount.
-          2: Visit with a group.
-          3: Visit a specific amount of time.
-          Interger value.
-        item: The item the required for type 0. String value
-        amount: The amount of money/items needed to complete acheievement. Integer value.
-
-    Returns:
-        A list of error messages from inserting an object, if no errors occured, returns an empty list.
-    """
-
-    achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = type, value = value)
-    db.session.add(achievement)
-    db.session.commit()
 
 
 def filter_expired_achievements(rid):
