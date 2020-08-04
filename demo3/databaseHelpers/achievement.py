@@ -160,9 +160,3 @@ def delete_achievement(aid):
         return None
     return "No such achievement"
 
-def get_achievement_by_aid(aid):
-    ach = Achievements.query.filter(Achievements.aid == aid).first()
-    if ach:
-        return ach
-    return "Not Found"
-

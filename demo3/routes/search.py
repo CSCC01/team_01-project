@@ -9,7 +9,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.restaurant import *
 from databaseHelpers.coupon import *
-from databaseHelpers.qr_code import *
 from databaseHelpers.achievement import *
 from databaseHelpers.achievementProgress import *
 from databaseHelpers.redeemedCoupons import *
@@ -59,8 +58,8 @@ def restaurant(rid):
         coupons = filter_valid_coupons(get_coupons(rid))[-3:]
         coupons.reverse()
 
-        # Gets achievements
-        achievements = get_recently_started_achievements(get_achievements_by_rid(rid), session['account'])
+        # Gets achievements with no progress
+        achievements_no_progress = get_achievements_with_no_progress(get_achievements_by_rid(rid), session['account'])
 
         # Gets point progress
         uid = session['account']
@@ -69,7 +68,7 @@ def restaurant(rid):
         points = get_points(uid, rid).points
         level = convert_points_to_level(points)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements)
+                                overflow = get_points_since_last_level(level, points), rname = rname, coupons = coupons, rid = rid, achievements = achievements_no_progress)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -103,46 +102,5 @@ def couponOffers(rid):
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
 
         return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
-    else:
-        return redirect(url_for('home_page.home'))
-
-@search_page.route('/<filter>Achievements<rid>.html', methods=['GET', 'POST'])
-@search_page.route('/<filter>Achievements<rid>', methods=['GET', 'POST'])
-def restaurantAchievements(rid, filter):
-    # If someone is not logged in redirects them to login page
-    if 'account' not in session:
-        return redirect(url_for('login_page.login'))
-
-    # Page is restricted to customers only, if user is not a customer, redirect to home page
-    elif session['type'] != -1:
-        return redirect(url_for('home_page.home'))
-
-    switcher = {
-        "available": NOT_STARTED,
-        "inProgress" : IN_PROGRESS,
-        "complete" : COMPLETE
-    }
-
-    # Check that filter is valid
-    if switcher.get(filter, -1) == -1:
-        return redirect(url_for('home_page.home'))
-
-    restaurant = get_resturant_by_rid(rid)
-    if restaurant:
-        if request.method == 'POST':
-            aid = request.form['achievement']
-            # ach = get_achievement_by_aid(aid)
-            # total = get_achievement_progress_maximum(ach)
-            uid = session['account']
-            imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
-            # ap = get_exact_achivement_progress(aid, uid)
-            # if ap == 'Not Found':
-            #     insert_new_achievement(aid, uid, total)
-            #     db.session.commit()
-            return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
-        rname = get_restaurant_name_by_rid(rid)
-        # Gets achievements
-        achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
-        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
     else:
         return redirect(url_for('home_page.home'))
