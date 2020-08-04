@@ -29,7 +29,7 @@ def achievement():
             delete_achievement(aid)
     #get achievements
     rid = get_rid(session["account"])
-    achievement_list = get_achievements_by_rid(rid)
+    achievement_list = filter_expired_achievements(rid)
 
     return render_template("achievement.html", achievements = achievement_list)
 
@@ -51,16 +51,19 @@ def create_achievement():
         name = request.form['name']
         experience = request.form['experience']
         points = request.form['points']
-        type = request.form.get('type')
-        item = request.form['item']
-        if type == "0":
-            amount = request.form['amount']
-        else:
-            amount = request.form['cost']
+        type = int(request.form.get('type'))
+        item = request.form['item'].replace(";", "")
+        amount = request.form['amount' + str(type)]
+        end = request.form['end']
+        begin = request.form['start']
+        indefinite = "indefinite" in request.form
 
-        errmsg = insert_achievement(rid, name, experience, points, type, item, amount)
+        value = item + ";" + amount + ";" + str(indefinite) + ";" + begin + ";" + end
+
+        errmsg = get_errmsg(name, experience, points, type, value)
 
         if not errmsg:
+            insert_achievement(rid, name, experience, points, type, value)
             return redirect(url_for('achievement_page.achievement'))
         else:
             return render_template('createAchievement.html', errmsg = errmsg)
