@@ -53,7 +53,7 @@ def get_achievement_description(achievement):
     switcher = {
         0: "Buy " + values[0] + " " + values[1] + " times.",
         1: "Spend $" + values[1] + " in a single visit.",
-        2: "Visit with a group of at least " + values[1] + ".",
+        2: "Visit with a group of at least " + values[1] + " people.",
     }
     if (values[2] == "False"):
         switcher[3] = "Visit " + values[1] + " times between " + values[3] + " and " + values[4] + "."
