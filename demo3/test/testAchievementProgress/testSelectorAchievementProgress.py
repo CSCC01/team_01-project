@@ -7,7 +7,7 @@ from app import app
 from databaseHelpers import achievementProgress as achievementhelper
 
 
-class SelectCustomerAchievementProgressTest(unittest.TestCase):
+class SelectCustomer_Achievement_ProgressTest(unittest.TestCase):
     """
     Tests all methods in achievementProgress.py related to selecting achievement progress
     using the achievement progress table.
@@ -69,8 +69,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
                      'progress': 1,
                      'progressMax': 5}])
 
-    def test_get_achievements_progress_data_no_achievements_to_filter(self):
-        """Tests get_achievements_with_progress_data() when the given achievement list to
+    def test_filter_no_progress_achievements_no_achievements_to_filter(self):
+        """Tests get_achievements_with_no_progress() when the given achievement list to
         filter is empty."""
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=6)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=11, progress=1, total=5)
@@ -78,211 +78,59 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
         db.session.add(achievementProgress2)
         db.session.commit()
 
-        self.assertEqual(achievementhelper.get_achievements_with_progress_data([], 5), [])
+        self.assertEqual(achievementhelper.get_achievements_with_no_progress([], 5), [])
 
-    def test_get_achievements_progress_data_some_achievements_to_filter(self):
-        """Tests get_achievements_with_progress_data() when the given achievement list to
-        filter is not empty"""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=3, total=3)
-        achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=13, progress=3, total=6)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.add(achievementProgress3)
-        db.session.commit()
-
-        achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_achievements_with_progress_data(achievement_list, 5),
-                [{"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "progress": 0,
-            "status": 0
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "progress": 2,
-            "status": 1
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 3,
-            "status": 2
-            }])
-
-    def test_get_recent_achievements_no_achievements_to_filter(self):
-        """Tests get_recently_started_achievements() when the given achievement list to
-        filter is empty."""
+    def test_filter_no_progress_achievements_all_achievements_have_progress(self):
+        """Tests get_achievements_with_no_progress() when all achievements in the given
+        achievement list have progress."""
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=6)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=11, progress=1, total=5)
         db.session.add(achievementProgress1)
         db.session.add(achievementProgress2)
         db.session.commit()
 
-        self.assertEqual(achievementhelper.get_recently_started_achievements([], 5), [])
-
-    def test_get_recent_achievements_no_progress_to_filter(self):
-        """Tests get_recently_started_achievements() when the given user has no progress entries."""
         achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5), [])
+        self.assertEqual(achievementhelper.get_achievements_with_no_progress(achievement_list, 5),[])
 
-    def test_get_recent_achievements_no_relevant_achievements_to_filter(self):
-        """Tests get_recently_started_achievements() when the user does not have progress relevant
-        to the achievements in the given achievement list."""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=5, progress=2, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=6, aid=12, progress=1, total=3)
-        achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=13, progress=3, total=6)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.add(achievementProgress3)
+    def test_filter_no_progress_achievements_some_achievements_have_progress(self):
+        """Tests get_achievements_with_no_progress() when some but not all achievements in
+        the given achievement list have progress."""
+        achievementProgress = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=6)
+        db.session.add(achievementProgress)
         db.session.commit()
 
         achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),[])
+        self.assertEqual(achievementhelper.get_achievements_with_no_progress(achievement_list, 5),
+                            [{"aid": 11,
+                            "name": "test 2",
+                            "description": "description 2",
+                            "experience": 15,
+                            "points": 20,
+                            "progressMax": 5,
+                            "progress": 0,
+                            }])
 
-    def test_get_recent_achievements_only_complete_achievements(self):
-        """Tests get_recently_started_achievements() when the user only has complete progress (progress
-        = progressMax) relevant to the achievements in the given achievement list."""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=5, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=3, total=3)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.commit()
-
+    def test_filter_no_progress_achievements_no_achievements_have_progress(self):
+        """Tests get_achievements_with_no_progress() when no achievements in the given
+        achievement list have progress."""
         achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),[])
-
-    def test_get_recent_achievements_less_than_three_matches(self):
-        """Tests get_recently_started_achievements() when the user has less than three incomplete
-        progress entries relevant to the given achievement list."""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.commit()
-
-        achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 1,
-            "status": 1
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "progress": 2,
-            "status": 1
-            }])
-    
-    def test_get_recent_achievements_three_matches(self):
-        """Tests get_recently_started_achievements() when the user has exactly three incomplete
-        progress entries relevant to the given achievement list."""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
-        achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=10, progress=2, total=6)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.add(achievementProgress3)
-        db.session.commit()
-
-        achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "progress": 2,
-            "status": 1
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 1,
-            "status": 1
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "progress": 2,
-            "status": 1
-            }])
-    
-    def test_get_recent_achievements_more_than_three_matches(self):
-        """Tests get_recently_started_achievements() when the user has more than three incomplete
-        progress entries relevant to the given achievement list."""
-        achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
-        achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
-        achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=10, progress=2, total=6)
-        achievementProgress4 = Customer_Achievement_Progress(uid=5, aid=20, progress=5, total=6)
-        db.session.add(achievementProgress1)
-        db.session.add(achievementProgress2)
-        db.session.add(achievementProgress3)
-        db.session.add(achievementProgress4)
-        db.session.commit()
-
-        achievement_list = self.achievement_list_helper()
-        achievement_list.append({ "aid": 20,
-                                    "name": "test 4",
-                                    "description": "description 4",
-                                    "experience": 5,
-                                    "points": 5,
-                                    "progressMax": 6})
-
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 20,
-            "name": "test 4",
-            "description": "description 4",
-            "experience": 5,
-            "points": 5,
-            "progressMax": 6,
-            "progress": 5,
-            "status": 1
-            },
-            {"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "progress": 2,
-            "status": 1
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 1,
-            "status": 1
-            }])
+        self.assertEqual(achievementhelper.get_achievements_with_no_progress(achievement_list, 5),
+                            [{"aid": 10,
+                            "name": "test",
+                            "description": "description",
+                            "experience": 10,
+                            "points": 15,
+                            "progressMax": 6,
+                            "progress": 0
+                            },
+                            {"aid": 11,
+                            "name": "test 2",
+                            "description": "description 2",
+                            "experience": 15,
+                            "points": 20,
+                            "progressMax": 5,
+                            "progress": 0
+                            }])
 
     def achievement_list_helper(self):
         return [{"aid": 10,
@@ -298,13 +146,6 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 15,
             "points": 20,
             "progressMax": 5
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3
             }]
 
 if __name__ == "__main__":
