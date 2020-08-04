@@ -53,7 +53,7 @@ def create_achievement():
         experience = request.form['experience']
         points = request.form['points']
         type = int(request.form.get('type'))
-        item = request.form['item']
+        item = request.form['item'].replace(";", "")
         amount = request.form['amount' + str(type)]
         end = request.form['end']
         begin = request.form['start']
