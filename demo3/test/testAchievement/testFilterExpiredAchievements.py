@@ -33,7 +33,7 @@ class FilterExpiredAchievementTest(unittest.TestCase):
         db.session.add(ac2)
         db.session.commit()
         result = filter_expired_achievements(12)
-        actual = [{
+        expected = [{
                     "aid": 22,
                     "name": "test",
                     "description": "Visit 5 times between 2020-4-1 and 2099-4-11.",
@@ -46,9 +46,9 @@ class FilterExpiredAchievementTest(unittest.TestCase):
                     "description": "Visit 4 times between 2020-4-11 and 2099-4-11.",
                     "experience": 10,
                     "points": 10,
-                    "progressMax": 5}
+                    "progressMax": 4}
                  ]
-        self.assertEqual(result, actual)
+        self.assertEqual(result, expected)
 
 
 
@@ -61,7 +61,7 @@ class FilterExpiredAchievementTest(unittest.TestCase):
         db.session.add(ac2)
         db.session.commit()
         result = filter_expired_achievements(12)
-        actual = [{
+        expected = [{
                     "aid": 22,
                     "name": "test",
                     "description": "Visit 5 times between 2020-4-1 and 2099-4-11.",
@@ -69,7 +69,7 @@ class FilterExpiredAchievementTest(unittest.TestCase):
                     "points": 10,
                     "progressMax": 5}
                  ]
-        self.assertEqual(result, actual)
+        self.assertEqual(result, expected)
 
 
     def test_many_expired_achievements(self):
@@ -80,8 +80,8 @@ class FilterExpiredAchievementTest(unittest.TestCase):
         db.session.add(ac2)
         db.session.commit()
         result = filter_expired_achievements(12)
-        actual = []
-        self.assertEqual(result, actual)
+        expected = []
+        self.assertEqual(result, expected)
 
 
 
