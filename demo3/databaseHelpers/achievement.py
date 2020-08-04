@@ -53,7 +53,7 @@ def get_achievement_description(achievement):
     switcher = {
         0: "Buy " + values[0] + " " + values[1] + " times.",
         1: "Spend $" + values[1] + " in a single visit.",
-        2: "Visit with a group of at least " + values[1] + ".",
+        2: "Visit with a group of at least " + values[1] + " people.",
     }
     if (values[2] == "False"):
         switcher[3] = "Visit " + values[1] + " times between " + values[3] + " and " + values[4] + "."
@@ -127,7 +127,7 @@ def get_errmsg(name, experience, points, type, value):
 
 def insert_achievement(rid, name, experience, points, type, value):
     """
-    Inserts a a row into the Acheievments table.
+    Gets all error messages that can occur from inserting a achievement.
 
     Args:
         rid: A restuarants ID. Integer value.
@@ -136,13 +136,11 @@ def insert_achievement(rid, name, experience, points, type, value):
         points: The reward points value. Integer value
         type: The type of achievement:
           0: buy item amount times.
-          1: Spend $amount.
+          1: Spend $$.$$ amount.
+          2: Visit with a group.
+          3: Visit a specific amount of time.
           Interger value.
-        item: The item the required for type 0. String value
-        amount: The amount of money/items needed to complete acheievement. Integer value.
-
-    Returns:
-        A list of error messages from inserting an object, if no errors occured, returns an empty list.
+        value: of the form: "INT;STRING;BOOLEAN;DATE;DATE"
     """
 
     achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = type, value = value)
@@ -159,7 +157,7 @@ def delete_expired_achievements(rid):
     Args:
         rid: A restuarants ID that corresponds to a restaurant in the restaurant
           table. Integer value.
-          
+
     Returns: None
     """
     today = date.today()
@@ -173,6 +171,70 @@ def delete_expired_achievements(rid):
             if today > expiration:
                 delete_achievement(a.aid)
     return None
+
+
+
+def insert_achievement(rid, name, experience, points, type, value):
+    """
+    Inserts a a row into the Acheievments table.
+
+    Args:
+        rid: A restuarants ID. Integer value.
+        name: The name of a restaurant. String value.
+        experience: The reward experience value. Integer value.
+        points: The reward points value. Integer value
+        type: The type of achievement:
+          0: buy item amount times.
+          1: Spend $$.$$ amount.
+          2: Visit with a group.
+          3: Visit a specific amount of time.
+          Interger value.
+        item: The item the required for type 0. String value
+        amount: The amount of money/items needed to complete acheievement. Integer value.
+
+    Returns:
+        A list of error messages from inserting an object, if no errors occured, returns an empty list.
+    """
+
+    achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = type, value = value)
+    db.session.add(achievement)
+    db.session.commit()
+
+
+def filter_expired_achievements(rid):
+    """
+    Removed rows from the achievemnt table.
+
+    Deleted achievement that are of type 3 and past their expiration date.
+
+    Args:
+        rid: A restuarants ID that corresponds to a restaurant in the restaurant
+          table. Integer value.
+
+    Returns: None
+    """
+    today = date.today()
+    achievements = Achievements.query.filter(Achievements.rid == rid).all()
+    achievement_list = []
+
+    for a in achievements:
+        dict = {
+            "aid": a.aid,
+            "name": a.name,
+            "description": get_achievement_description(a),
+            "experience": a.experience,
+            "points": a.points,
+            "progressMax": get_achievement_progress_maximum(a)
+        }
+        values = a.value.split(';')
+        if a.type == 3 and values[2] == "False":
+            e = (values[4]).split('-')
+            expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+            if today < expiration:
+                achievement_list.append(dict)
+        else:
+            achievement_list.append(dict)
+    return achievement_list
 
 
 def delete_achievement(aid):

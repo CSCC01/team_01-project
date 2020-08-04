@@ -1,10 +1,80 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/coupon.css">
+{% endblock style %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<img src="{{ imgurl }}">
-</body>
+
+{% block page_name %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Coupon redemption</title>
+    </head>
+    
+    <div class = parent_qr>
+      <div class = title>
+        <div class = text>
+          Redeeming Coupon
+        </div>
+      </div>
+    </div>
+
+{% endblock page_name %}
+
+{% block content %}
+
+    <div class = parent_qr>
+      
+      <div class = title>
+        
+        <div class = name>
+          {{ name }}
+        </div>
+        
+        <div class = right_container>
+          {{ rname }}, at {{ raddr }}
+        </div>
+
+      </div>
+        
+      <div class = description_qr>
+        {{ description }}
+      </div>
+      
+      
+      <div class = amount>
+        {{ points }} Points
+      </div>        
+
+      <div class = expiration_qr>
+        {% if begin == None or expiration == None %}
+          Valid indefinitely
+        {% else %}
+          Valid from: {{ begin }} to {{ expiration }}
+        {% endif %}
+      </div>
+
+    </div> 
+
+    <div class = parent_qr>
+      
+      <div class = title>
+        <div class = text>
+          QR code:
+        </div>
+      </div>
+          
+      <div class = image>
+        <img src="{{ imgurl }}">
+      </div>
+        
+      <div class = submit_button>
+        <a href="coupon.html"><input type="submit" value="Go Back"></a>
+      </div>
+
+    </div>
+{% endblock content %}
 </html>

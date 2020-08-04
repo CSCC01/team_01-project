@@ -118,6 +118,16 @@ a:link, a:visited, a:hover, a:active {
   margin-bottom: 20px;
 }
 
+/* Styles for the white boxes in QR scanning page */
+.parent_qr {
+  background-color: var(--forground);
+  margin: 20px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .title {
   display: flex;
   justify-content: space-between;
