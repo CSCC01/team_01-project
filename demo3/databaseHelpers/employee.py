@@ -76,5 +76,7 @@ def delete_employee(uid):
 
 def get_employee_rid(uid):
     employee = Employee.query.filter(Employee.uid == uid).first()
-
-    return employee.rid
+    if employee:
+        return employee.rid
+    else:
+        return None
