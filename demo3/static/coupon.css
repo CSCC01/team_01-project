@@ -174,46 +174,6 @@ button, input {
   transform: rotate(-20deg);
 }
 
-/* This is used when the tab size is smaller then 700px */
-@media only screen and (max-width: 700px) {
-    .parent {
-      max-width: 70%;
-    }
-
-    .parent_qr {
-      max-width: 80%;
-    }
-
-    .sidenav {
-      display: none;
-    }
-
-    .current {
-      display:none;
-    }
-}
-
-/* This is used when the tab size is bigger then 700px */
-@media only screen and (min-width: 700px) {
-  /* Changes the size of the boxes so side bar does not overlap */
-  .parent {
-    max-width: none;
-    margin-left: 270px;
-    margin-right: 13px;
-  }
-
-  /* A style to let the box align at the center */
-  .parent_qr {
-    max-width: none;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-
-  .small_window {
-    display: none;
-  }
-}
-
 /* Removed styling from the coupon icon in the header */
 .current button {
   border: none;
