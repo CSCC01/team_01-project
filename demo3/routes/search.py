@@ -131,14 +131,14 @@ def restaurantAchievements(rid, filter):
     if restaurant:
         if request.method == 'POST':
             aid = request.form['achievement']
-            ach = get_achievement_by_aid(aid)
-            total = get_achievement_progress_maximum(ach)
+            # ach = get_achievement_by_aid(aid)
+            # total = get_achievement_progress_maximum(ach)
             uid = session['account']
-            ap = get_exact_achivement_progress(aid, uid)
-            if ap == 'Not Found':
-                insert_new_achievement(aid, uid, total)
-                db.session.commit()
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
+            # ap = get_exact_achivement_progress(aid, uid)
+            # if ap == 'Not Found':
+            #     insert_new_achievement(aid, uid, total)
+            #     db.session.commit()
             return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements

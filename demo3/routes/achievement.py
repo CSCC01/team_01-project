@@ -93,7 +93,7 @@ def use_achievement(aid,uid):
     # get achievement
     achievement = get_exact_achivement_progress(aid, uid)
     if achievement:
-        add_one_progress_bar(achievement)
+        add_one_progress_bar(achievement, aid, uid)
         return redirect(url_for('qr_page.scan_successful'))
 
     return redirect(url_for('qr_page.scan_no_coupon'))

@@ -163,8 +163,6 @@ def delete_achievement(aid):
 def get_achievement_by_aid(aid):
     ach = Achievements.query.filter(Achievements.aid == aid).first()
     if ach:
-        db.session.add(ach)
-        db.session.commit()
         return ach
     return "Not Found"
 
