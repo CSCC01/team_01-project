@@ -174,7 +174,7 @@ def insert_achievement(rid, name, experience, points, type, value):
     db.session.commit()
 
 
-def delete_expired_achievements(rid):
+def filter_expired_achievements(rid):
     """
     Removed rows from the achievemnt table.
 
@@ -188,15 +188,26 @@ def delete_expired_achievements(rid):
     """
     today = date.today()
     achievements = Achievements.query.filter(Achievements.rid == rid).all()
+    achievement_list = []
 
     for a in achievements:
+        dict = {
+            "aid": a.aid,
+            "name": a.name,
+            "description": get_achievement_description(a),
+            "experience": a.experience,
+            "points": a.points,
+            "progressMax": get_achievement_progress_maximum(a)
+        }
         values = a.value.split(';')
         if a.type == 3 and values[2] == "False":
             e = (values[4]).split('-')
             expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-            if today > expiration:
-                delete_achievement(a.aid)
-    return None
+            if today < expiration:
+                achievement_list.append(dict)
+        else:
+            achievement_list.append(dict)
+    return achievement_list
 
 
 def delete_achievement(aid):
