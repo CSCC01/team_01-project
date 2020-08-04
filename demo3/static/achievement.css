@@ -11,7 +11,7 @@
   justify-content: space-evenly;
 }
 
-.type1 {
+.type1, .type2, .type3 {
   display: none;
 }
 
@@ -19,10 +19,8 @@
   display: flex;
 }
 
-.type0 .feild_tag_right,
-.type0 .feild_tag_left,
-.type1 .feild_tag_left,
-.type1 .feild_tag_right{
+.feild_tag_right,
+.feild_tag_left {
   position:relative;
   top: 11px;
 }
@@ -34,7 +32,6 @@
 .feild_tag_left {
   margin-right: 5px;
 }
-
 
 /* Styling to  make the password boxes side by side */
 .col_mod {
@@ -97,4 +94,8 @@
 .rewards {
   display: flex;
   justify-content: flex-end;
+}
+
+.container {
+  top: -12px;
 }

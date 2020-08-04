@@ -9,6 +9,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.achievement import *
 from databaseHelpers.restaurant import *
+from databaseHelpers.employee import *
 
 achievement_page = Blueprint('achievement_page', __name__, template_folder='templates')
 
@@ -19,8 +20,8 @@ def achievement():
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
-    # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] != 1:
+    # Page is restricted to owners and employees only, if user is a customer, redirect to home page
+    elif session['type'] == -1:
         return redirect(url_for('home_page.home'))
 
     else:
@@ -28,8 +29,11 @@ def achievement():
             aid = request.form['achievement']
             delete_achievement(aid)
     #get achievements
-    rid = get_rid(session["account"])
-    achievement_list = get_achievements_by_rid(rid)
+    if session['type'] == 1:
+        rid = get_rid(session["account"])
+    else:
+        rid = get_employee_rid(session["account"])
+    achievement_list = filter_expired_achievements(rid)
 
     return render_template("achievement.html", achievements = achievement_list)
 
@@ -51,16 +55,19 @@ def create_achievement():
         name = request.form['name']
         experience = request.form['experience']
         points = request.form['points']
-        type = request.form.get('type')
-        item = request.form['item']
-        if type == "0":
-            amount = request.form['amount']
-        else:
-            amount = request.form['cost']
+        type = int(request.form.get('type'))
+        item = request.form['item'].replace(";", "")
+        amount = request.form['amount' + str(type)]
+        end = request.form['end']
+        begin = request.form['start']
+        indefinite = "indefinite" in request.form
 
-        errmsg = insert_achievement(rid, name, experience, points, type, item, amount)
+        value = item + ";" + amount + ";" + str(indefinite) + ";" + begin + ";" + end
+
+        errmsg = get_errmsg(name, experience, points, type, value)
 
         if not errmsg:
+            insert_achievement(rid, name, experience, points, type, value)
             return redirect(url_for('achievement_page.achievement'))
         else:
             return render_template('createAchievement.html', errmsg = errmsg)
