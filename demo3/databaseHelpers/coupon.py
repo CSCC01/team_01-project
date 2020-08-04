@@ -1,4 +1,4 @@
-from models import Coupon, User
+from models import Coupon, User, Restaurant
 from datetime import date
 
 import config
@@ -34,7 +34,7 @@ def insert_coupon(rid, name, points, description, begin, expiration, indefinite)
         errmsg.append("Invalid amount for points.")
     if name == "":
         errmsg.append("Invalid coupon name, please give your coupon a name.")
-    if not indefinite and (expiration == None or begin == None):
+    if not indefinite and ((expiration == None or begin == None) or (expiration == "" or begin == "")):
         errmsg.append("Missing start or expiration date.")
 
     if not errmsg:
@@ -139,3 +139,26 @@ def get_coupon_by_cid(cid):
         return c
     else:
         return None
+
+
+def find_res_name_of_coupon_by_cid(cid):
+
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    if coupon:
+        restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
+        if restaurant:
+            return restaurant.name
+        return "Not Found"
+    else:
+        return "Not Found"
+
+def find_res_addr_of_coupon_by_cid(cid):
+
+    coupon = Coupon.query.filter(Coupon.cid == cid).first()
+    if coupon:
+        restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
+        if restaurant:
+            return restaurant.address
+        return "Not Found"
+    else:
+        return "Not Found"

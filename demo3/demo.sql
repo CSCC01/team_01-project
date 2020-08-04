@@ -67,3 +67,4 @@ CREATE TABLE IF NOT EXISTS `experience` (
   `experience`   int               NOT NULL,
   PRIMARY KEY (`uid`, `rid`)
 );
+

@@ -23,9 +23,28 @@
   color: var(--darkGrey);
 }
 
+.expiration_qr {
+  font-size: 16px;
+  color: var(--darkGrey);
+  font-weight: 500;
+}
+
+.expiration_inf_qr {
+  font-size: var(--subtitle);
+  color: var(--darkGrey);
+  padding-left: 1900px;
+  padding-right: 0px;
+}
+
 .description {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.description_qr {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 400;
 }
 
 .points {
@@ -155,11 +174,16 @@ button, input {
   transform: rotate(-20deg);
 }
 
-/* This is used when the tab size is bigger then 1000px */
+/* This is used when the tab size is smaller then 700px */
 @media only screen and (max-width: 700px) {
     .parent {
       max-width: 70%;
     }
+
+    .parent_qr {
+      max-width: 80%;
+    }
+
     .sidenav {
       display: none;
     }
@@ -169,13 +193,20 @@ button, input {
     }
 }
 
-/* This is used when the tab size is smaller then 1000px */
+/* This is used when the tab size is bigger then 700px */
 @media only screen and (min-width: 700px) {
   /* Changes the size of the boxes so side bar does not overlap */
   .parent {
     max-width: none;
     margin-left: 270px;
     margin-right: 13px;
+  }
+
+  /* A style to let the box align at the center */
+  .parent_qr {
+    max-width: none;
+    margin-left: 100px;
+    margin-right: 100px;
   }
 
   .small_window {
@@ -234,6 +265,18 @@ button, input {
   font-weight: 300;
 }
 
+.right_container_qr {
+  font-size: var(--sidetitle);
+  font-weight: 600;
+}
+
+/* For QR page points */
+.cost_point_qr {
+  font-size: var(--sidetitle);
+  font-weight: 1000;
+  color: black;
+}
+
 .status {
   display: flex;
   direction: row;
@@ -266,3 +309,10 @@ button, input {
   height: 25px;
 }
 
+/* QR code align */
+.image {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  text-align: center;
+}
