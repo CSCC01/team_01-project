@@ -102,7 +102,7 @@ def get_achievement_data(achievement):
 
 
 def get_errmsg(name, experience, points, type, value):
-        """
+    """
     Gets all error messages that can occur from inserting a achievement.
     Args:
         rid: A restuarants ID. Integer value.
