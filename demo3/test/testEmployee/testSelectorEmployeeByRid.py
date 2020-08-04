@@ -6,6 +6,8 @@ from app import app
 from databaseHelpers.employee import *
 
 class SelectEmployeeByRidTest(unittest.TestCase):
+    """Test suite for the function get_employee_rid in employee.py"""
+    
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
