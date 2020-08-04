@@ -51,6 +51,7 @@ class Coupon(db.Model):
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(1024), nullable=False)
+    level = db.Column(db.Integer, nullable=False)
     expiration = db.Column(db.DateTime, nullable=True)
     begin = db.Column(db.DateTime, nullable=True)
 

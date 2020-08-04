@@ -10,3 +10,9 @@ Test:
 6. Missing documentation in testPoints
 7. Missing documentation in testRestaurant
 8. Missing documentation in testUser
+
+insert_coupon() added level, double check;
+demo.sql added level, double check;
+model.py added level, double check;
+get_coupon_by_cid() added level, double check;
+get_coupon() added level, double check;

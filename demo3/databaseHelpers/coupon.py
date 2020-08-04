@@ -76,13 +76,13 @@ def get_coupons(rid):
             "name": c.name,
             "description": c.description,
             "points": c.points,
+            "level": c.level,
             "begin": c.begin,
             "expiration": c.expiration,
             "deleted": c.deleted
         }
         coupon_list.append(dict)
     return coupon_list
-
 
 
 def delete_coupon(cid):
@@ -136,6 +136,7 @@ def get_coupon_by_cid(cid):
             "points": coupon.points,
             "cname": coupon.name,
             "cdescription": coupon.description,
+            "clevel": coupon.level,
             "begin": coupon.begin,
             "expiration": coupon.expiration
         }
@@ -155,6 +156,7 @@ def find_res_name_of_coupon_by_cid(cid):
         return "Not Found"
     else:
         return "Not Found"
+
 
 def find_res_addr_of_coupon_by_cid(cid):
 
