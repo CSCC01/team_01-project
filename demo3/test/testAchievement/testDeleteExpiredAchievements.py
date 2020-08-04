@@ -26,6 +26,7 @@ class DeleteExpiredAchievementTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_expired_achievements(self):
+        """No coupons in the achievement table are expired. No coupons are removed"""
         ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2099-4-11')
         ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-4-1;2099-4-11')
         db.session.add(ac1)
@@ -39,6 +40,7 @@ class DeleteExpiredAchievementTest(unittest.TestCase):
 
 
     def test_one_expired_achievement(self):
+        """One coupon in the achievement table are expired. The expired coupon is removed."""
         ac1 = Achievements(rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
         ac2 = Achievements(rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-04-1;2099-04-11')
         db.session.add(ac1)
@@ -51,6 +53,7 @@ class DeleteExpiredAchievementTest(unittest.TestCase):
         self.assertIsNotNone(a2)
 
     def test_many_expired_achievements(self):
+        """Many coupons in the achievement table are expired. The expired coupons are removed."""
         ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
         ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-04-1;2020-04-11')
         db.session.add(ac1)
