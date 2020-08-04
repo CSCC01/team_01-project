@@ -9,6 +9,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.achievement import *
 from databaseHelpers.restaurant import *
+from databaseHelpers.qr_code import *
+from databaseHelpers.achievementProgress import *
 from databaseHelpers.employee import *
 
 achievement_page = Blueprint('achievement_page', __name__, template_folder='templates')
@@ -73,3 +75,21 @@ def create_achievement():
             return render_template('createAchievement.html', errmsg = errmsg)
 
     return render_template('createAchievement.html')
+
+@achievement_page.route('/verifyAchievement/<aid>/<uid>', methods=['GET', 'POST'])
+def use_achievement(aid,uid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+
+    # Page is restricted to employee/owner only, if user is a customer, redirect to home page
+    elif session['type'] == -1:
+        return redirect(url_for('qr_page.scan_failure'))
+
+    # get achievement
+    achievement = get_exact_achivement_progress(aid, uid)
+    if achievement:
+        add_one_progress_bar(achievement, aid, uid)
+        return redirect(url_for('qr_page.scan_successful'))
+
+    return redirect(url_for('qr_page.scan_no_coupon'))

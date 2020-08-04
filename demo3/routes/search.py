@@ -9,6 +9,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.restaurant import *
 from databaseHelpers.coupon import *
+from databaseHelpers.qr_code import *
 from databaseHelpers.achievement import *
 from databaseHelpers.achievementProgress import *
 from databaseHelpers.redeemedCoupons import *
@@ -131,6 +132,12 @@ def restaurantAchievements(rid, filter):
 
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
+        if request.method == 'POST':
+            aid = request.form['achievement']
+            uid = session['account']
+            imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
+            return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
+          
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])

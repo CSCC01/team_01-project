@@ -103,3 +103,9 @@ class Achievements(db.Model):
     points = db.Column(db.Integer, nullable=False)
     type = db.Column(db.Integer, nullable=False)
     value = db.Column(db.String(2048), nullable=False)
+
+class Experience(db.Model):
+    __tablename__ = "experience"
+    uid = db.Column(db.Integer, primary_key=True)
+    rid = db.Column(db.Integer, primary_key=True)
+    experience = db.Column(db.Integer)
