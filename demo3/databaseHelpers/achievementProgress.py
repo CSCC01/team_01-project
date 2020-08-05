@@ -128,15 +128,13 @@ def get_progress_completion_status(achievements_progress):
         achievements_progress: The progress entry to check
 
     Returns:
-        0, if the progress entry does not exist;
-        1, if the progress is incomplete;
-        2, is the progress is complete
+        The progress completion status.
     """
     if achievements_progress == 'Not Found':
-        return 0
+        return NOT_STARTED
     elif achievements_progress.progress == achievements_progress.total:
-        return 2
-    return 1
+        return COMPLETE
+    return IN_PROGRESS
 
 
 def add_one_progress_bar(achievements_progress, aid, uid):
