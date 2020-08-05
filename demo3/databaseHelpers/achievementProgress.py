@@ -1,5 +1,7 @@
 from models import Achievements, Customer_Achievement_Progress, Points, Experience
 from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
+from databaseHelpers.experience import *
+from databaseHelpers.points import *
 
 import config
 if config.STATUS == "TEST":
@@ -63,6 +65,7 @@ def get_achievements_with_progress_data(achievements, uid):
                     a["status"] = IN_PROGRESS
                 a["progress"] = p["progress"]
                 has_progress = True
+                achievement_progress_list.remove(p)
                 break
         if not has_progress:
             a["progress"] = 0
@@ -96,11 +99,13 @@ def get_recently_started_achievements(achievements, uid):
                     a["status"] = IN_PROGRESS
                     a["progress"] = p["progress"]
                     recent_achievements.append(a)
+                achievements.remove(a)
                 break
         if len(recent_achievements) == 3:
             break
-
+    
     return recent_achievements
+
 def get_exact_achivement_progress(aid, uid):
     """
     Get the exact achivement progress by applying both aid and uid to it
@@ -137,18 +142,14 @@ def complete_progress(achievement_progress):
     points = get_rid_points_exp_by_aid(achievement_progress.aid)['points']
     exp = get_rid_points_exp_by_aid(achievement_progress.aid)['exp']
 
-    user_point = Points.query.filter(Points.uid==uid, Points.rid==rid).first()
+    user_point = get_points(uid, rid)
     if not user_point:
-        user_point = Points(uid=uid, rid=rid, points=points)
-        db.session.add(user_point)
-    else:
-        user_point.points += points
-    user_exp = Experience.query.filter(Experience.uid==uid, Experience.rid==rid).first()
+        insert_points(uid, rid)
+    update_points(uid, rid, points)
+    user_exp = get_experience(uid, rid)
     if not user_exp:
-        user_exp = Experience(uid=uid, rid=rid, experience=exp)
-        db.session.add(user_exp)
-    else:
-        user_exp.experience += exp
+        insert_experience(uid, rid)
+    update_experience(uid, rid, exp)
     db.session.commit()
     return None
 
@@ -166,3 +167,4 @@ def insert_new_achievement(aid,uid,total):
     db.session.add(ap)
     db.session.commit()
     return ap
+

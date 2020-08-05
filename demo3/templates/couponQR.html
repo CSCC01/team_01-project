@@ -17,58 +17,64 @@
     <div class = parent_qr>
       <div class = title>
         <div class = text>
-          Redeeming Coupon: {{ name }}
-        </div>
-
-        <div class = right_container_qr>
-          From {{ rname }}, at {{ raddr }}
+          Redeeming Coupon
         </div>
       </div>
-
-      <div class = title>
-        <div class = description_qr>
-          {{ description }}
-        </div>
-      </div>
-      
-      <div class = title>
-        <div class = cost_point_qr>
-          {{ points }} Points
-        </div>        
-      </div>
-
-      <div class = title>
-          {% if begin == None or expiration == None %}
-          <div class = expiration_inf_qr>
-            Valid indefinitely
-          </div>
-          {% else %}
-          <div class = expiration_qr>
-            Valid from: {{ begin }} to {{ expiration }}
-          </div>
-          {% endif %}
-      </div>
-
-      
-
     </div>
+
 {% endblock page_name %}
 
 {% block content %}
+
     <div class = parent_qr>
-        <div class = title>
-            <div class = text>
-              QR code:
-            </div>
-          </div>
-          
-        <div class = image>
-            <img src="{{ imgurl }}">
+      
+      <div class = title>
+        
+        <div class = name>
+          {{ name }}
         </div>
         
-        <div class = submit_button>
-            <a href="coupon.html"><input type="submit" value="Go Back"></a>
+        <div class = right_container>
+          {{ rname }}, at {{ raddr }}
         </div>
+
+      </div>
+        
+      <div class = description_qr>
+        {{ description }}
+      </div>
+      
+      
+      <div class = amount>
+        {{ points }} Points
+      </div>        
+
+      <div class = expiration_qr>
+        {% if begin == None or expiration == None %}
+          Valid indefinitely
+        {% else %}
+          Valid from: {{ begin }} to {{ expiration }}
+        {% endif %}
+      </div>
+
+    </div> 
+
+    <div class = parent_qr>
+      
+      <div class = title>
+        <div class = text>
+          QR code:
+        </div>
+      </div>
+          
+      <div class = image>
+        <img src="{{ imgurl }}">
+      </div>
+        
+      <div class = submit_button>
+        <a href="coupon.html"><input type="submit" value="Go Back"></a>
+      </div>
+
     </div>
 {% endblock content %}
 </html>

@@ -45,8 +45,10 @@
                   {% endif %}
                 </div>
               </div>
-              {% if session['type'] == 1 %}
+              {% if session['type'] == 1 or session['type'] == 0 %}
                 <a href="achievement.html"><img src="static/Resources/achievement{% block achievement %}{% endblock achievement %}.png" alt="Achievement"></a>
+              {% endif %}
+              {% if session['type'] == 1 %}
                 <a href="employee.html"><img src="static/Resources/employee{% block employee %}{% endblock employee %}.png" alt="Employee"></a>
               {% endif %}
                 <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>

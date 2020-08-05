@@ -24,10 +24,9 @@
 }
 
 .expiration_qr {
-  font-size: var(--subtitle);
+  font-size: 16px;
   color: var(--darkGrey);
-  padding-left: 1735px;
-  padding-right: 0px;
+  font-weight: 500;
 }
 
 .expiration_inf_qr {
@@ -43,9 +42,9 @@
 }
 
 .description_qr {
-  font-size: var(--title);
   padding-left: 20px;
   padding-right: 20px;
+  font-weight: 400;
 }
 
 .points {
@@ -175,38 +174,20 @@ button, input {
   transform: rotate(-20deg);
 }
 
-/* This is used when the tab size is bigger then 1000px */
+/* This is used when the tab size is smaller then 700px */
 @media only screen and (max-width: 700px) {
-    .parent {
-      max-width: 70%;
-    }
-    .sidenav {
-      display: none;
-    }
-
-    .current {
-      display:none;
+    .parent_qr {
+      max-width: 80%;
     }
 }
 
-/* This is used when the tab size is smaller then 1000px */
+/* This is used when the tab size is bigger then 700px */
 @media only screen and (min-width: 700px) {
-  /* Changes the size of the boxes so side bar does not overlap */
-  .parent {
-    max-width: none;
-    margin-left: 270px;
-    margin-right: 13px;
-  }
-
   /* A style to let the box align at the center */
   .parent_qr {
     max-width: none;
-    margin-left: 200px;
-    margin-right: 200px;
-  }
-
-  .small_window {
-    display: none;
+    margin-left: 100px;
+    margin-right: 100px;
   }
 }
 
@@ -307,5 +288,8 @@ button, input {
 
 /* QR code align */
 .image {
+  max-width: 100%;
+  height: auto;
+  width: auto;
   text-align: center;
 }

@@ -51,8 +51,8 @@ class Coupon(db.Model):
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(1024), nullable=False)
-    expiration = db.Column(db.DateTime, nullable=True)
-    begin = db.Column(db.DateTime, nullable=True)
+    expiration = db.Column(db.Date, nullable=True)
+    begin = db.Column(db.Date, nullable=True)
 
 class Restaurant(db.Model):
     __tablename__ = "restaurant"
@@ -67,6 +67,12 @@ class Points(db.Model):
     uid = db.Column(db.Integer)
     rid = db.Column(db.Integer)
     points = db.Column(db.Integer)
+
+class Experience(db.Model):
+    __tablename__ = "experience"
+    uid = db.Column(db.Integer, primary_key=True)
+    rid = db.Column(db.Integer, primary_key=True)
+    experience = db.Column(db.Integer)
 
 class Employee(db.Model):
     __tablename__ = "employee"
