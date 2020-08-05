@@ -21,7 +21,7 @@ def scan_successful():
     return render_template('scanSuccessful.html')
 
 
-@qr_page.route('/scanNoCoupon.html')
-@qr_page.route('/scanNoCoupon')
-def scan_no_coupon():
-    return render_template('scanNoCoupon.html')
+@qr_page.route('/scanNonexistent<scanType>.html')
+@qr_page.route('/scanNonexistent<scanType>')
+def scan_nonexistent(scanType):
+    return render_template('scanNonexistent.html', scanType = scanType)

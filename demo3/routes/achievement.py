@@ -88,8 +88,8 @@ def use_achievement(aid,uid):
 
     # get achievement
     achievement = get_exact_achivement_progress(aid, uid)
-    if achievement:
+    if get_achievement_by_aid(aid) != 'Not Found':
         add_one_progress_bar(achievement, aid, uid)
         return redirect(url_for('qr_page.scan_successful'))
 
-    return redirect(url_for('qr_page.scan_no_coupon'))
+    return redirect(url_for('qr_page.scan_nonexistent', scanType = 1))
