@@ -84,7 +84,7 @@ def get_achievement_progress_maximum(achievement):
     switcher = {
         0: values[1],
         1: 1,
-        2: values[1],
+        2: 1,
         3: values[1]
     }
     return int(switcher.get(achievement.type))
@@ -130,6 +130,21 @@ def get_achievement_data(achievement):
 
 
 def get_errmsg(name, experience, points, type, value):
+    """
+    Gets all error messages that can occur from inserting a achievement.
+    Args:
+        rid: A restuarants ID. Integer value.
+        name: The name of a restaurant. String value.
+        experience: The reward experience value. Integer value.
+        points: The reward points value. Integer value
+        type: The type of achievement:
+          0: buy item amount times.
+          1: Spend $$.$$ amount.
+          2: Visit with a group.
+          3: Visit a specific amount of time.
+          Interger value.
+        value: of the form: "INT;STRING;BOOLEAN;DATE;DATE"
+    """
     errmsg = []
 
     if name == "":
@@ -149,6 +164,12 @@ def get_errmsg(name, experience, points, type, value):
         errmsg.append("Invalid amount, please provide a positive value.")
     if type == 3 and data[2] == "False" and (data[3] == "" or data[4] == ""):
         errmsg.append("Missing start or expiration date.")
+    if type == 3 and data[2] == "False" and data[4] != "":
+        today = date.today()
+        e = (data[4]).split('-')
+        expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+        if expiration < today:
+            errmsg.append("This achievemnt is already outdated.")
 
     return errmsg
 
@@ -201,34 +222,6 @@ def delete_expired_achievements(rid):
     return None
 
 
-
-def insert_achievement(rid, name, experience, points, type, value):
-    """
-    Inserts a a row into the Acheievments table.
-
-    Args:
-        rid: A restuarants ID. Integer value.
-        name: The name of a restaurant. String value.
-        experience: The reward experience value. Integer value.
-        points: The reward points value. Integer value
-        type: The type of achievement:
-          0: buy item amount times.
-          1: Spend $$.$$ amount.
-          2: Visit with a group.
-          3: Visit a specific amount of time.
-          Interger value.
-        item: The item the required for type 0. String value
-        amount: The amount of money/items needed to complete acheievement. Integer value.
-
-    Returns:
-        A list of error messages from inserting an object, if no errors occured, returns an empty list.
-    """
-
-    achievement = Achievements(rid = rid, name = name, experience = experience, points = points, type = type, value = value)
-    db.session.add(achievement)
-    db.session.commit()
-
-
 def filter_expired_achievements(rid):
     """
     Removed rows from the achievemnt table.
@@ -258,7 +251,7 @@ def filter_expired_achievements(rid):
         if a.type == 3 and values[2] == "False":
             e = (values[4]).split('-')
             expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-            if today < expiration:
+            if today <= expiration:
                 achievement_list.append(dict)
         else:
             achievement_list.append(dict)
@@ -291,4 +284,3 @@ def get_achievement_by_aid(aid):
     if ach:
         return ach
     return "Not Found"
-
