@@ -68,7 +68,7 @@ def get_achievement_with_progress_data(aid, uid):
         "description": get_achievement_description(achievement),
         "experience": achievement.experience,
         "points": achievement.points,
-        "progressMax": progress.progressMax,
+        "progressMax": get_achievement_progress_maximum(achievement),
         "progress": progressCount
     }
     return dict
