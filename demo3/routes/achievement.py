@@ -87,9 +87,21 @@ def use_achievement(aid,uid):
         return redirect(url_for('qr_page.scan_failure'))
 
     # get achievement
-    achievement = get_exact_achivement_progress(aid, uid)
-    if achievement:
-        add_one_progress_bar(achievement, aid, uid)
+    achievementProgress = get_exact_achivement_progress(aid, uid)
+    achievement = get_achievement_by_aid(aid)
+
+    if achievement != 'Not Found':
+        # check if achievement is already complete
+        if get_progress_completion_status(achievementProgress) == COMPLETE:
+            return redirect(url_for('qr_page.scan_forbidden', forbiddenType = 0, itemType = 'Achievement'))
+        
+        # check if it is before achievement start date or after achievement end date
+        isInDateRange = is_today_in_achievement_date_range(achievement)
+        if isInDateRange != 0:
+            return redirect(url_for('qr_page.scan_forbidden', forbiddenType = isInDateRange, itemType = 'Achievement'))
+        
+        # update progress
+        add_one_progress_bar(achievementProgress, aid, uid)
         return redirect(url_for('qr_page.scan_successful'))
 
-    return redirect(url_for('qr_page.scan_no_coupon'))
+    return redirect(url_for('qr_page.scan_nonexistent', scanType = 1))

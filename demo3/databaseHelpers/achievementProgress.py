@@ -156,6 +156,22 @@ def get_exact_achivement_progress(aid, uid):
     else:
         return 'Not Found'
 
+def get_progress_completion_status(achievements_progress):
+    """
+    Checks whether a progress entry is complete.
+
+    Args:
+        achievements_progress: The progress entry to check
+
+    Returns:
+        The progress completion status.
+    """
+    if achievements_progress == 'Not Found':
+        return NOT_STARTED
+    elif achievements_progress.progress == achievements_progress.total:
+        return COMPLETE
+    return IN_PROGRESS
+
 
 def add_one_progress_bar(achievements_progress, aid, uid):
     ach = get_achievement_by_aid(aid)

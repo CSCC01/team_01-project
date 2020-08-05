@@ -93,7 +93,8 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 10,
                      'experience': 15,
                      'description': "Buy Item 5 times.",
-                     'progressMax': 5}])
+                     'progressMax': 5,
+                     'expired': 0}])
 
         achievement_list = get_achievements_by_rid(13)
         self.assertEqual(achievement_list,[{'aid': 2,
@@ -101,7 +102,8 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 15,
                      'experience': 20,
                      'description': "Spend $6.99 in a single visit.",
-                     'progressMax': 1}])
+                     'progressMax': 1,
+                     'expired': 0}])
 
 
     def test_get_multiple_achievements(self):
@@ -117,13 +119,15 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 10,
                      'experience': 15,
                      'description': "Buy Item 5 times.",
-                     'progressMax': 5},
+                     'progressMax': 5,
+                     'expired': 0},
                     {'aid': 2,
                      'name': 'test 2',
                      'points': 15,
                      'experience': 20,
                      'description': "Spend $6.99 in a single visit.",
-                     'progressMax': 1}])
+                     'progressMax': 1,
+                     'expired': 0}])
 
 
 if __name__ == "__main__":

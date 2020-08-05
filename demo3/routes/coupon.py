@@ -130,4 +130,4 @@ def use_coupon(cid,uid):
         # mark used
         mark_redeem_coupon_used_by_rcid(rcid)
         return redirect(url_for('qr_page.scan_successful'))
-    return redirect(url_for('qr_page.scan_no_coupon'))
+    return redirect(url_for('qr_page.scan_nonexistent', scanType = 0))
