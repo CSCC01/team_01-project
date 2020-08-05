@@ -17,15 +17,15 @@
       <div class = title>
         {% if forbiddenType == '0' %}
         <div class = text>
-          This achievement has already been completed.
+          This {{ itemType }} has already been completed.
         </div>
         {% elif forbiddenType == '-1' %}
         <div class = text>
-          This achievement's start date has not been reached.
+          This {{ itemType }}'s start date has not been reached.
         </div>
         {% elif forbiddenType == '1' %}
         <div class = text>
-          This achievement has already expired.
+          This {{ itemType }} has already expired.
         </div>
         {% endif %}
       </div>
