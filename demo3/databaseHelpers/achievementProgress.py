@@ -142,18 +142,14 @@ def complete_progress(achievement_progress):
     points = get_rid_points_exp_by_aid(achievement_progress.aid)['points']
     exp = get_rid_points_exp_by_aid(achievement_progress.aid)['exp']
 
-    user_point = Points.query.filter(Points.uid==uid, Points.rid==rid).first()
+    user_point = get_points(uid, rid)
     if not user_point:
-        user_point = Points(uid=uid, rid=rid, points=points)
-        db.session.add(user_point)
-    else:
-        update_points(uid, rid, points)
-    user_exp = Experience.query.filter(Experience.uid==uid, Experience.rid==rid).first()
+        insert_points(uid, rid)
+    update_points(uid, rid, points)
+    user_exp = get_experience(uid, rid)
     if not user_exp:
-        user_exp = Experience(uid=uid, rid=rid, experience=exp)
-        db.session.add(user_exp)
-    else:
-        update_experience(uid, rid, exp)
+        insert_experience(uid, rid)
+    update_experience(uid, rid, exp)
     db.session.commit()
     return None
 
