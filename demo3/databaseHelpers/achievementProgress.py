@@ -1,5 +1,5 @@
 from models import Achievements, Customer_Achievement_Progress, Points, Experience
-from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
+from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid, get_achievement_description
 from databaseHelpers.experience import *
 from databaseHelpers.points import *
 
@@ -38,6 +38,40 @@ def get_achievement_progress_by_uid(uid):
         }
         achievement_progress_list.append(dict)
     return achievement_progress_list
+
+def get_achievement_with_progress_data(aid, uid):
+    """
+    Appends progress data for a given user and a fiven achievement
+
+    Args:
+        aid: An achievement ID that corresponds to an achievement in the
+            Achievement table. An integer.
+        uid: A user ID that corresponds to a user in the User
+            table. An integer.
+
+    Returns:
+        An achievement with progress data.
+    """
+    achievement = get_achievement_by_aid(aid)
+    progress = get_exact_achivement_progress(aid, uid)
+
+    if (achievement == 'Not Found'):
+        return None
+    if (progress == 'Not Found'):
+        progressCount = 0
+    else:
+        progressCount = progress.progress
+
+    dict = {
+        "aid": achievement.aid,
+        "name": achievement.name,
+        "description": get_achievement_description(achievement),
+        "experience": achievement.experience,
+        "points": achievement.points,
+        "progressMax": progress.progressMax,
+        "progress": progressCount
+    }
+    return dict
 
 def get_achievements_with_progress_data(achievements, uid):
     """
