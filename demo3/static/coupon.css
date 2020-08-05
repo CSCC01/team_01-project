@@ -286,6 +286,16 @@ button, input {
   height: 25px;
 }
 
+.out_of_range input[type = submit], .expired input[type = submit] {
+  cursor: default;
+  background-image: none;
+  background-color: var(--purpleGrey)
+}
+
+.expired input[type = submit]{
+  width: 65px;
+}
+
 /* QR code align */
 .image {
   max-width: 100%;

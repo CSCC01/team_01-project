@@ -118,10 +118,20 @@
             </div>
             {% if session['type'] == -1 %}
             <div class = use_button>
+              {% if c["status"] == 1 %}
+              <div class = expired>
+                <input type="submit" value = "Expired">
+              </div>
+              {% elif c["status"] == -1 %}
+              <div class = out_of_range>
+                <input type="submit" value = "Use">
+              </div>
+              {% else %}
               <form method = "post">
                 <input type="submit" value = "Use" name = {{c["name"]}}>
                 <input type="hidden" value = {{c["cid"]}} name = coupon>
               </form>
+              {% endif %}
             </div>
             {% endif %}
           </div>
