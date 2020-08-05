@@ -93,10 +93,10 @@ def is_today_in_coupon_date_range(coupon):
         1, if today is after the coupon date range.
     """
     today = date.today()
-    if coupon['expiration']:
-        if today > coupon['expiration']:
+    if coupon.expiration:
+        if today > coupon.expiration:
             return 1
-        if today < coupon['begin']:
+        if today < coupon.begin:
             return -1
     return 0
 
@@ -153,7 +153,8 @@ def get_coupon_by_cid(cid):
             "cname": coupon.name,
             "cdescription": coupon.description,
             "begin": coupon.begin,
-            "expiration": coupon.expiration
+            "expiration": coupon.expiration,
+            "status": is_today_in_coupon_date_range(coupon)
         }
 
         return c
