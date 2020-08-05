@@ -33,7 +33,7 @@ def get_achievements_by_rid(rid):
             "experience": a.experience,
             "points": a.points,
             "progressMax": get_achievement_progress_maximum(a),
-            "expired": is_achievement_expired(a)
+            "expired": is_today_in_achievement_date_range(a)
         }
         achievement_list.append(dict)
     return achievement_list
@@ -89,23 +89,32 @@ def get_achievement_progress_maximum(achievement):
     }
     return int(switcher.get(achievement.type))
 
-def is_achievement_expired(achievement):
+def is_today_in_achievement_date_range(achievement):
     """
-    Checks the expiry status of an achievement.
+    Checks whether today is in, before, or after the range of
+    valid dates for an achievement.
 
     Args:
         achievement: The achievement to be checked
 
     Returns:
-        True if the achievement is expired, otherwise False.
+        -1, if today is before the achievement date range;
+        0, if today is within the achievement date range;
+        1, if today is after the achievement date range.
     """
     today = date.today()
     values = get_achievement_data(achievement)
     if achievement.type == 3 and values[2] == "False":
         e = (values[4]).split('-')
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-        return today > expiration
-    return False
+        if today > expiration:
+            return 1
+
+        e = (values[3]).split('-')
+        start = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+        if today < start:
+            return -1
+    return 0
 
 def get_achievement_data(achievement):
     """

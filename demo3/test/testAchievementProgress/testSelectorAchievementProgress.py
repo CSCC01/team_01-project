@@ -101,7 +101,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 6,
             "progress": 0,
             "status": 0,
-            "expired": False
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -111,7 +111,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 5,
             "progress": 2,
             "status": 1,
-            "expired": False
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
@@ -121,7 +121,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 3,
             "progress": 3,
             "status": 2,
-            "expired": False
+            "expired": 0
             }])
 
     def test_get_recent_achievements_no_achievements_to_filter(self):
@@ -185,7 +185,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 3,
             "progress": 1,
             "status": 1,
-            "expired": False
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -195,7 +195,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 5,
             "progress": 2,
             "status": 1,
-            "expired": False
+            "expired": 0
             }])
     
     def test_get_recent_achievements_three_matches(self):
@@ -219,7 +219,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 6,
             "progress": 2,
             "status": 1,
-            "expired": False
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
@@ -229,7 +229,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 3,
             "progress": 1,
             "status": 1,
-            "expired": False
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -239,7 +239,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "progressMax": 5,
             "progress": 2,
             "status": 1,
-            "expired": False
+            "expired": 0
             }])
     
     def test_get_recent_achievements_more_than_three_matches(self):
@@ -262,7 +262,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
                                     "experience": 5,
                                     "points": 5,
                                     "progressMax": 6,
-                                    "expired": False})
+                                    "expired": 0})
 
         self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
         [{"aid": 20,
@@ -271,7 +271,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 5,
             "points": 5,
             "progressMax": 6,
-            "expired": False,
+            "expired": 0,
             "progress": 5,
             "status": 1
             },
@@ -281,7 +281,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 10,
             "points": 15,
             "progressMax": 6,
-            "expired": False,
+            "expired": 0,
             "progress": 2,
             "status": 1
             },
@@ -291,7 +291,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 15,
             "points": 15,
             "progressMax": 3,
-            "expired": False,
+            "expired": 0,
             "progress": 1,
             "status": 1
             }])
@@ -303,7 +303,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 10,
             "points": 15,
             "progressMax": 6,
-            "expired": False
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -311,7 +311,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 15,
             "points": 20,
             "progressMax": 5,
-            "expired": False
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
@@ -319,7 +319,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 15,
             "points": 15,
             "progressMax": 3,
-            "expired": False
+            "expired": 0
             }]
 
 if __name__ == "__main__":
