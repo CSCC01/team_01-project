@@ -3,6 +3,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.experience import *
+from databaseHelpers.favourite import *
 
 restaurant_page = Blueprint('restaurant_page', __name__, template_folder='templates')
 
@@ -20,5 +21,5 @@ def visitedRestaurants():
         if request.method == 'POST' and 'rid' in request.form:
             rid = request.form['rid']
             return redirect(url_for('search_page.restaurant', rid=rid))
-        restaurants = get_restaurants_with_experience(session["account"])[:3]
+        restaurants = get_favourites(session['account'])
         return render_template('visitedRestaurants.html', restaurants = restaurants)
