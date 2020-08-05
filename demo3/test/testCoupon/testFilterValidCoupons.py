@@ -8,11 +8,11 @@ from databaseHelpers.coupon import filter_valid_coupons
 from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
-from datetime import datetime
+import datetime
 from app import app
 
-VALID = datetime.strptime("1 May, 9999", "%d %B, %Y")
-INVALID = datetime.strptime("30 June, 2020", "%d %B, %Y")
+VALID = datetime.date(9999, 5, 1)
+INVALID = datetime.date(2020, 6, 30)
 
 
 class FilterValidCouponTest(unittest.TestCase):
