@@ -15,3 +15,21 @@
       </div>
     </div>
 {% endblock page_name %}
+
+{% block content %}
+  {% if session['type'] == 0 %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Employer:
+        </div>
+      </div>
+      <div class = text>
+        {{ rname }}
+      </div>
+      <div class = subtext>
+        at {{ raddress }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}
