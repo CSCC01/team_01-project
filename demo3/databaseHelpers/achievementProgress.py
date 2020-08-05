@@ -1,5 +1,7 @@
 from models import Achievements, Customer_Achievement_Progress, Points, Experience
 from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
+from databaseHelpers.experience import *
+from databaseHelpers.points import *
 
 import config
 if config.STATUS == "TEST":
@@ -145,13 +147,13 @@ def complete_progress(achievement_progress):
         user_point = Points(uid=uid, rid=rid, points=points)
         db.session.add(user_point)
     else:
-        user_point.points += points
+        update_points(uid, rid, points)
     user_exp = Experience.query.filter(Experience.uid==uid, Experience.rid==rid).first()
     if not user_exp:
         user_exp = Experience(uid=uid, rid=rid, experience=exp)
         db.session.add(user_exp)
     else:
-        user_exp.experience += exp
+        update_experience(uid, rid, exp)
     db.session.commit()
     return None
 
