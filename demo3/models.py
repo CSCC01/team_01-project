@@ -69,6 +69,12 @@ class Points(db.Model):
     rid = db.Column(db.Integer)
     points = db.Column(db.Integer)
 
+class Experience(db.Model):
+    __tablename__ = "experience"
+    uid = db.Column(db.Integer, primary_key=True)
+    rid = db.Column(db.Integer, primary_key=True)
+    experience = db.Column(db.Integer)
+
 class Employee(db.Model):
     __tablename__ = "employee"
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
