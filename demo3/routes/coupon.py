@@ -127,6 +127,11 @@ def use_coupon(cid,uid):
     # find rcid
     rcid = find_rcid_by_cid_and_uid(cid, uid)
     if rcid != "Not Found":
+        # check if it is before coupon start date or after coupon end date
+        isInDateRange = is_today_in_coupon_date_range(get_coupon_by_cid(cid))
+        if isInDateRange != 0:
+            return redirect(url_for('qr_page.scan_forbidden', forbiddenType = isInDateRange, itemType = 'Coupon'))
+        
         # mark used
         mark_redeem_coupon_used_by_rcid(rcid)
         return redirect(url_for('qr_page.scan_successful'))
