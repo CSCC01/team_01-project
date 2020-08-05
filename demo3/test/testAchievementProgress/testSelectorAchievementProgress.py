@@ -284,20 +284,21 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "status": 1
             }])
 
-    def get_achievement_with_progress_data_by_nonexistent_aid(self):
+
+    def test_get_achievement_with_progress_data_by_nonexistent_aid(self):
         '''Tests get_achievement_with_progress_data(aid, uid) for an aid that
         does not match any achievement.'''
         self.assertIsNone(achievementhelper.get_achievement_with_progress_data(5, 6), None)
         
 
-    def get_achievement_with_progress_data_by_uid_with_no_progress(self):
+    def test_get_achievement_with_progress_data_by_uid_with_no_progress(self):
         '''Tests get_achievement_with_progress_data(aid, uid) for a uid that
         does not match any achievement progress entry.'''
         achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
         db.session.add(achievement)
         db.session.commit()
 
-        self.assertEqual(achievementhelper.get_achievement_with_progress_data(12, 6), 
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
             {
                 "aid": 1,
                 "name": "test",
@@ -310,7 +311,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
 
 
     
-    def get_achievement_with_progress_data_by_uid_with_no_relevant_progress(self):
+    def test_get_achievement_with_progress_data_by_uid_with_no_relevant_progress(self):
         '''Tests get_achievement_with_progress_data(aid, uid) for a uid that
         does not match any achievement progress entry for the given aid.'''
         achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
@@ -319,7 +320,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
         db.session.add(achievementProgress)
         db.session.commit()
 
-        self.assertEqual(achievementhelper.get_achievement_with_progress_data(12, 6), 
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
             {
                 "aid": 1,
                 "name": "test",
@@ -330,16 +331,17 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
                 "progress": 0
             })
     
-    def get_achievement_with_progress_data_with_valid_aid_and_progress(self):
+
+    def test_get_achievement_with_progress_data_with_valid_aid_and_progress(self):
         '''Tests get_achievement_with_progress_data(aid, uid) for an existing
         aid and an existing customer progress entry.'''
         achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
-        achievementProgress = Customer_Achievement_Progress(uid=6, aid=12, progress=2, total=5)
+        achievementProgress = Customer_Achievement_Progress(uid=6, aid=1, progress=2, total=5)
         db.session.add(achievement)
         db.session.add(achievementProgress)
         db.session.commit()
 
-        self.assertEqual(achievementhelper.get_achievement_with_progress_data(12, 6), 
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
             {
                 "aid": 1,
                 "name": "test",
