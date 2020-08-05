@@ -28,6 +28,6 @@ def home():
         raddress = get_restaurant_address(rid)
         return render_template('home.html', rname = rname, raddress = raddress)
 
-    # owner / employee view of home page
+    # default view of home page
     else:
         return render_template('home.html')
