@@ -7,7 +7,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.user import *
 from databaseHelpers.redeemedCoupons import *
-from databaseHelpers.experience import *
+from databaseHelpers.favourite import *
 
 home_page = Blueprint('home_page', __name__, template_folder='templates')
 
@@ -23,9 +23,12 @@ def home():
 
     # Customer view of home page
     elif session['type'] == -1:
+        # Last 3 coupons purchased
         coupons = get_redeemed_coupons_by_uid(session["account"])[-3:]
         coupons.reverse()
-        restaurants = get_restaurants_with_experience(session["account"])[:3]
+
+        # Last 3 restaurants added to favourites
+        restaurants = get_favourites(session['account'])[-3:]
         user = get_user(session['account'])
         return render_template('home.html', user = user, coupons = coupons, restaurants = restaurants)
 
