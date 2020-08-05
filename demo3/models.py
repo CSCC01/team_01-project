@@ -95,3 +95,4 @@ class Favourite(db.Model):
     __tablename__ = "favourite"
     uid = db.Column(db.Integer, primary_key=True)
     rid = db.Column(db.Integer, primary_key=True)
+
