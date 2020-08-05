@@ -136,7 +136,9 @@ def restaurantAchievements(rid, filter):
             aid = request.form['achievement']
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
-            return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
+            
+            achievement = get_achievement_with_progress_data(aid, uid)
+            return render_template("achievementQR.html", imgurl=imgurl, rid=rid, a=achievement)
           
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
