@@ -22,3 +22,11 @@ def top_n_in_order(rid,n):
         dict[e.uid] = e.experience
     sort_list = sorted(dict.items(), key=lambda item:item[1], reverse=True)
     return sort_list[:n]
+
+def get_rank(uid, rid):
+    """
+    :param uid:
+    :param rid:
+    :return:
+    """
+    # TODO get customer rank at current restaurant
