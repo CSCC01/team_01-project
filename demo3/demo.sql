@@ -61,6 +61,12 @@ CREATE TABLE IF NOT EXISTS `customer_achievement_progress` (
   `total`        int unsigned      NOT NULL,
   PRIMARY KEY (`aid`, `uid`)
 );
+CREATE TABLE IF NOT EXISTS `experience` (
+  `uid`          int               NOT NULL,
+  `rid`          int               NOT NULL,
+  `experience`   int               NOT NULL,
+  PRIMARY KEY (`uid`, `rid`)
+);
 CREATE TABLE IF NOT EXISTS `favourite` (
   `uid`          int unsigned      NOT NULL,
   `rid`          int unsigned      NOT NULL,
