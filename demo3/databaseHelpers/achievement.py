@@ -32,7 +32,8 @@ def get_achievements_by_rid(rid):
             "description": get_achievement_description(a),
             "experience": a.experience,
             "points": a.points,
-            "progressMax": get_achievement_progress_maximum(a)
+            "progressMax": get_achievement_progress_maximum(a),
+            "expired": is_achievement_expired(a)
         }
         achievement_list.append(dict)
     return achievement_list
