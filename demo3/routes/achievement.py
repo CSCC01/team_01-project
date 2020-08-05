@@ -92,7 +92,7 @@ def use_achievement(aid,uid):
 
     if achievement != 'Not Found':
         # check if achievement is already complete
-        if is_progress_complete(achievementProgress):
+        if is_progress_complete(achievementProgress) == 2:
             return redirect(url_for('qr_page.scan_forbidden', forbiddenType = 0))
         
         # check if it is before achievement start date or after achievement end date

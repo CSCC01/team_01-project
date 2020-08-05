@@ -121,9 +121,22 @@ def get_exact_achivement_progress(aid, uid):
         return 'Not Found'
 
 def is_progress_complete(achievements_progress):
+    """
+    Checks whether a progress entry is complete.
+
+    Args:
+        achievements_progress: The progress entry to check
+
+    Returns:
+        0, if the progress entry does not exist;
+        1, if the progress is incomplete;
+        2, is the progress is complete
+    """
     if achievements_progress == 'Not Found':
-        return False
-    return achievements_progress.progress == achievements_progress.total
+        return 0
+    elif achievements_progress.progress == achievements_progress.total:
+        return 2
+    return 1
 
 
 def add_one_progress_bar(achievements_progress, aid, uid):
