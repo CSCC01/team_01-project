@@ -99,10 +99,11 @@ def is_achievement_expired(achievement):
         True if the achievement is expired, otherwise False.
     """
     today = date.today()
-    if a.type == 3 and values[2] == "False":
+    values = get_achievement_data(achievement)
+    if achievement.type == 3 and values[2] == "False":
         e = (values[4]).split('-')
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-        return today > expiration:
+        return today > expiration
     return False
 
 def get_achievement_data(achievement):
