@@ -25,3 +25,8 @@ def scan_successful():
 @qr_page.route('/scanNonexistent<scanType>')
 def scan_nonexistent(scanType):
     return render_template('scanNonexistent.html', scanType = scanType)
+
+@qr_page.route('/scanForbidden<forbiddenType>.html')
+@qr_page.route('/scanForbidden<forbiddenType>')
+def scan_forbidden(forbiddenType):
+    return render_template('scanForbidden.html', forbiddenType = forbiddenType)

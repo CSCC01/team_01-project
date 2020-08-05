@@ -120,6 +120,11 @@ def get_exact_achivement_progress(aid, uid):
     else:
         return 'Not Found'
 
+def is_progress_complete(achievements_progress):
+    if achievements_progress == 'Not Found':
+        return False
+    return achievements_progress.progress == achievements_progress.total
+
 
 def add_one_progress_bar(achievements_progress, aid, uid):
     ach = get_achievement_by_aid(aid)
