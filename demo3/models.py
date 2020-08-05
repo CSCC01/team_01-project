@@ -29,19 +29,6 @@ class User(db.Model):
     password = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     type = db.Column(db.Integer)
-    # coupons = db.relationship("Coupon", secondary=user_coupon)
-
-    # @property
-    # def password(self):
-    #     raise AttributeError("not readable!")
-    #
-    # @password.setter
-    # def password(self, password):
-    #     self.password_hash = generate_password_hash(password)
-    #
-    # def check_password(self, password):
-    #     return check_password_hash(self.password_hash, password)
-
 
 class Coupon(db.Model):
     __tablename__ = "coupons"
@@ -103,3 +90,8 @@ class Experience(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     rid = db.Column(db.Integer, primary_key=True)
     experience = db.Column(db.Integer)
+
+class Favourite(db.Model):
+    __tablename__ = "favourite"
+    uid = db.Column(db.Integer, primary_key=True)
+    rid = db.Column(db.Integer, primary_key=True)
