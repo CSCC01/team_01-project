@@ -120,7 +120,7 @@ def get_exact_achivement_progress(aid, uid):
     else:
         return 'Not Found'
 
-def is_progress_complete(achievements_progress):
+def get_progress_completion_status(achievements_progress):
     """
     Checks whether a progress entry is complete.
 
