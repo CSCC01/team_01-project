@@ -88,6 +88,23 @@ def get_achievement_progress_maximum(achievement):
     }
     return int(switcher.get(achievement.type))
 
+def is_achievement_expired(achievement):
+    """
+    Checks the expiry status of an achievement.
+
+    Args:
+        achievement: The achievement to be checked
+
+    Returns:
+        True if the achievement is expired, otherwise False.
+    """
+    today = date.today()
+    if a.type == 3 and values[2] == "False":
+        e = (values[4]).split('-')
+        expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+        return today > expiration:
+    return False
+
 def get_achievement_data(achievement):
     """
     Splits achievement value into a data list.
