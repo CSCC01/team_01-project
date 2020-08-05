@@ -141,6 +141,10 @@ a:link, a:visited, a:hover, a:active {
   font-size: var(--title);
 }
 
+.subtext {
+  font-size: var(--subtitle);
+}
+
 /* Styling of the box that holds the footer */
 footer {
     display: flex;
