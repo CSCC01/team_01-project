@@ -106,10 +106,6 @@
             <div class = amount>
               {{ c["points"] }} Points
             </div>
-          {% elif session['type'] == -1 %}
-            <div class = amount>
-              Requirement: Level {{ c["clevel"] }} or Above
-            </div>
           {% endif %}
           <div class = description>
             {{ c["description"] }}
