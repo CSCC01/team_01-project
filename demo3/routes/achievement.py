@@ -93,3 +93,37 @@ def use_achievement(aid,uid):
         return redirect(url_for('qr_page.scan_successful'))
 
     return redirect(url_for('qr_page.scan_no_coupon'))
+
+@achievement_page.route('/achievement_progress.html', methods=['GET', 'POST'])
+@achievement_page.route('/achievement_progress', methods=['GET', 'POST'])
+def achievement_progress():
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home_page.home'))
+
+ # Gets achievements
+    achievements_progress = get_recently_update_achievements(session['account'])
+    print(achievements_progress, end="\n\n")
+
+    achievements = []
+    for ap in achievements_progress:
+        achievement = {}
+        achievement['aid'] = ap.aid
+        achievement['uid'] = ap.uid
+        achievement['progress'] = ap.progress
+        achievement['progressMax'] = ap.total
+        a = Achievements.query.filter(Achievements.aid==ap.aid).first()
+        achievement['discription'] = get_achievement_description(a)
+        achievement['name'] = a.name
+        achievement['points'] = a.points
+        achievement['experience'] = a.experience
+        achievements.append(achievement)
+
+    print(achievement, end="\n\n")
+    print(achievements)
+
+    return render_template("achievement_progress.html", recent_achievements = achievements)

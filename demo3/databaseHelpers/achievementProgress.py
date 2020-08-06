@@ -2,6 +2,7 @@ from models import Achievements, Customer_Achievement_Progress, Points, Experien
 from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
 from databaseHelpers.experience import *
 from databaseHelpers.points import *
+from datetime import datetime
 
 import config
 if config.STATUS == "TEST":
@@ -33,8 +34,10 @@ def get_achievement_progress_by_uid(uid):
     for a in achievement_progress:
         dict = {
             "aid": a.aid,
+            "uid": a.uid,
             "progress": a.progress,
             "progressMax": a.total,
+            "update": a.update
         }
         achievement_progress_list.append(dict)
     return achievement_progress_list
@@ -130,6 +133,7 @@ def add_one_progress_bar(achievements_progress, aid, uid):
         achievements_progress = insert_new_achievement(aid, uid, total)
 
     achievements_progress.progress += 1
+    achievements_progress.update = datetime.now()
     if achievements_progress.progress == achievements_progress.total:
         complete_progress(achievements_progress)
     db.session.commit()
@@ -146,6 +150,7 @@ def complete_progress(achievement_progress):
     if not user_point:
         insert_points(uid, rid)
     update_points(uid, rid, points)
+
     user_exp = get_experience(uid, rid)
     if not user_exp:
         insert_experience(uid, rid)
@@ -163,8 +168,55 @@ def get_rid_points_exp_by_aid(aid):
     return 'Not Found'
 
 def insert_new_achievement(aid,uid,total):
-    ap = Customer_Achievement_Progress(aid=aid, uid=uid, progress=0, total=total)
+    update = datetime.now()
+    ap = Customer_Achievement_Progress(aid=aid, uid=uid, progress=0, total=total, update=update)
     db.session.add(ap)
     db.session.commit()
     return ap
+
+def get_no_complete_achievement_progress_by_uid(uid):
+    """
+    Fetches rows from the Achievement Progress table.
+
+    Retrieves a list of achievement progress from the Achievement Progress table that
+    belongs to the user with the given user ID.
+
+    Args:
+        uid: A user ID that corresponds to a user in the User
+          table. An integer.
+
+    Returns:
+        A list of achievement progress for a user with user ID that
+        matches uid.
+    """
+    achievement_progress_list = []
+    achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.uid == uid,
+                                Customer_Achievement_Progress.progress < Customer_Achievement_Progress.total).all()
+    for a in achievement_progress:
+        dict = {
+            "aid": a.aid,
+            "uid": a.uid,
+            "progress": a.progress,
+            "progressMax": a.total,
+            "update": a.update
+        }
+        achievement_progress_list.append(dict)
+    return achievement_progress_list
+
+
+def get_recently_update_achievements(uid):
+    """
+
+    :param uid:
+    :return: a list of recent achievement progress (<=3)
+    """
+    from operator import itemgetter
+    recent_achievements = []
+    ap_list = get_no_complete_achievement_progress_by_uid(uid)
+    new_list = sorted(ap_list, key=itemgetter('update'), reverse=True)
+    for ap in new_list[:3]:
+        recent_achievements.append(get_exact_achivement_progress(ap['aid'], ap['uid']))
+    return recent_achievements
+
+
 
