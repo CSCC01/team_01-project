@@ -13,6 +13,8 @@ from databaseHelpers.coupon import *
 from databaseHelpers.employee import *
 from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.qr_code import *
+from databaseHelpers.experience import *
+from databaseHelpers.level import *
 
 # My coupon page
 @coupon_page.route('/coupon.html', methods=['GET', 'POST'])
@@ -31,11 +33,12 @@ def coupon():
             coupon = get_coupon_by_cid(cid)
             rname = find_res_name_of_coupon_by_cid(cid)
             raddr = find_res_addr_of_coupon_by_cid(cid)
+            ulevel = convert_experience_to_level(get_experience(uid, coupon.get("rid")).experience)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
             return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
-                                                    points=coupon.get("points"), level=coupon.get("clevel"), begin=coupon.get("begin"), 
-                                                    expiration=coupon.get("expiration"),
+                                                    points=coupon.get("points"), level=coupon.get("clevel"), ulevel=ulevel, 
+                                                    begin=coupon.get("begin"), expiration=coupon.get("expiration"),
                                                     rname=rname, raddr=raddr)
 
         coupons = get_redeemed_coupons_by_uid(session["account"])
