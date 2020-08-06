@@ -18,16 +18,19 @@
         <div class = text>
           Employees
         </div>
-        <div class = plus>
-          <a href="registration2.html">+</a>
-        </div>
+        {% if session["type"] == 1 %}
+          <div class = plus>
+            <a href="registration2.html">+</a>
+          </div>
+        {% endif %}
       </div>
       <div class = fine_print>
-        Adding an employee account to your restaurant will give the account the ability to scan customer coupons.</div>
+        Adding an employee account to your restaurant will give the account the ability to scan customer coupons.<br>
+        Promoting an employee to manger gives them the ability to create, remove and view stats of coupons and achievements.
+      </div>
     </div>
     </div>
 {% endblock page_name %}
-
 
   {% block content %}
     {% for e in employees %}
@@ -36,19 +39,31 @@
           <div class = name>
             {{ e["name"] }}
           </div>
+          {% if session["type"] == 1 %}
           <div class = settings_dropdown>
             <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
             <div class = options>
               <form method = "post">
-                <input type="submit" value = "Delete" name = {{e["name"]}}>
+                {% if e["type"] == 0 %}
+                  <input type="submit" value = "Promote" name = promote>
+                {% else %}
+                  <input type="submit" value = "Demote" name = depromote>
+                {% endif %}
+                <input type="submit" value = "Delete" name = delete>
                 <input type="hidden" value = {{e["uid"]}} name = user>
               </form>
             </div>
           </div>
+          {% endif %}
         </div>
         <div class = email>
           Email: {{ e["email"] }}
         </div>
+          {% if e["type"] == 2 %}
+            Employee Type: Manger
+          {% else %}
+            Employee Type: General Employee
+          {% endif %}
       </div>
     {% endfor %}
   {% endblock content %}
