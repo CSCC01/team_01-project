@@ -4,6 +4,11 @@
 <title>Home</title>
 {% endblock title %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
+{% endblock style %}
+
 {% block home %}_pressed{% endblock home %}
 
 {% block page_name %}
@@ -17,12 +22,18 @@
 {% endblock page_name %}
 
 {% block content %}
-  {% if session['type'] == 0 %}
+  {% if session['type'] >= 0 %}
     <div class = parent>
       <div class = title>
+        {% if session['type'] == 0 %}
         <div class = text>
           Employer:
         </div>
+        {% else %}
+        <div class = text>
+          My Restaurant:
+        </div>
+        {% endif %}
       </div>
       <div class = text>
         {{ rname }}
@@ -32,4 +43,125 @@
       </div>
     </div>
   {% endif %}
+
+  {% if session['type'] == 1 %}
+  <div class = parent>
+    <div class = title>
+      <div class = text>
+        Most Owned Coupons:
+      </div>
+    </div>
+    {% for c in top_owned_coupons %}
+        <div class = container>
+          <div class = title>
+            <div class = name>
+              {{ c['name'] }}
+            </div>
+            <div class = status>
+              {% if c['expiration'] and today > c['expiration'] %}
+                Status: Expired
+              {% elif c['deleted'] == 1%}
+                Status: Deleted
+              {% else %}
+                <div class = placeholder> Status:&nbsp;</div>
+                <div class = active>Active</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class = description>
+            {{ c["description"] }}
+          </div>
+          <div class = holder>
+            Number of copies held by customers: {{ c['holders'] }}
+          </div>
+          </div>
+    {% endfor %}
+    <a href="viewUserCoupons">
+      <div class = seeMore>
+        <button type="button">
+          View All Coupon Statistics
+        </button>
+      </div>
+    </a>
+  </div>
+
+  <div class = parent>
+    <div class = title>
+      <div class = text>
+        Most Used Coupons:
+      </div>
+    </div>
+    {% for c in top_used_coupons %}
+        <div class = container>
+          <div class = title>
+            <div class = name>
+              {{ c['name'] }}
+            </div>
+            <div class = status>
+              {% if c['expiration'] and today > c['expiration'] %}
+                Status: Expired
+              {% elif c['deleted'] == 1%}
+                Status: Deleted
+              {% else %}
+                <div class = placeholder> Status:&nbsp;</div>
+                <div class = active>Active</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class = description>
+            {{ c["description"] }}
+          </div>
+          <div class = holder>
+            Number of copies used by customers: {{ c['used'] }}
+          </div>
+          </div>
+    {% endfor %}
+    <a href="viewUserCoupons">
+      <div class = seeMore>
+        <button type="button">
+          View All Coupon Statistics
+        </button>
+      </div>
+    </a>
+  </div>
+
+  <div class = parent>
+    <div class = title>
+      <div class = text>
+        Most Popular Achievements:
+      </div>
+    </div>
+    {% for a in achievements %}
+      <div class = container>
+        <div class = title>
+          <div class = name>
+            {{ a["name"] }}
+          </div>
+          <div class = status>
+            {% if a['expired'] == 1 %}
+              Status: Expired
+            {% else %}
+              <div class = placeholder> Status:&nbsp;</div>
+              <div class = active>Active</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = holder>
+          Number of customers who have worked on this achievement: {{ a['progress_entries'] }}
+        </div>
+      </div>
+    {% endfor %}
+    <a href="#placeholder">
+      <div class = seeMore>
+        <button type="button">
+          View All Achievement Statistics
+        </button>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+
 {% endblock content %}
