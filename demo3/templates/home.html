@@ -49,6 +49,10 @@
             </div>
           </div>
       {% endfor %}
+      {% if coupons == [] %}
+          You currently have no coupons. <br>
+          Search for restaurants and see what coupons are available.
+      {% endif %}
       <a href="coupon">
         <div class = seeMore>
           <button type="button">
@@ -74,6 +78,10 @@
             </div>
           </div>
       {% endfor %}
+      {% if restaurants == [] %}
+          You currently have no favourited restaurants. <br>
+          Search for your favourite restaurants and heart them.
+      {% endif %}
       <a href="visitedRestaurants">
         <div class = seeMore>
           <button type="button">
