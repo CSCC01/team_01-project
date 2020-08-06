@@ -68,3 +68,16 @@ def get_user_login(email, password):
     """
     user = User.query.filter(User.email == email, User.password == password).first()
     return user
+
+
+def get_user(uid):
+    """"""
+    user = User.query.filter(User.uid == uid).first()
+    if user:
+        dict = {
+            "uid": uid,
+            "name": user.name,
+            "email": user.email
+        }
+        return dict
+    return None

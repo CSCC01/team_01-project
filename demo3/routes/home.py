@@ -5,9 +5,9 @@
 ###################################################
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
-from databaseHelpers.restaurant import *
-from databaseHelpers.employee import *
 from databaseHelpers.user import *
+from databaseHelpers.redeemedCoupons import *
+from databaseHelpers.favourite import *
 
 home_page = Blueprint('home_page', __name__, template_folder='templates')
 
@@ -21,13 +21,18 @@ def home():
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
-    # Employee view of home page
-    elif session['type'] == 0:
-        rid = get_employee_rid(session["account"])
-        rname = get_restaurant_name_by_rid(rid)
-        raddress = get_restaurant_address(rid)
-        return render_template('home.html', rname = rname, raddress = raddress)
+    # Customer view of home page
+    elif session['type'] == -1:
+        # Last 3 coupons purchased
+        coupons = get_redeemed_coupons_by_uid(session["account"])[-3:]
+        coupons.reverse()
 
-    # default view of home page
+        # Last 3 restaurants added to favourites
+        restaurants = get_favourites(session['account'])[-3:]
+        user = get_user(session['account'])
+        return render_template('home.html', user = user, coupons = coupons, restaurants = restaurants)
+
+    # owner / employee view of home page
     else:
-        return render_template('home.html')
+        user = get_user(session['account'])
+        return render_template('home.html', user = user)
