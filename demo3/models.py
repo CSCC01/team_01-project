@@ -52,8 +52,8 @@ class Coupon(db.Model):
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(1024), nullable=False)
     level = db.Column(db.Integer, nullable=False)
-    expiration = db.Column(db.DateTime, nullable=True)
-    begin = db.Column(db.DateTime, nullable=True)
+    expiration = db.Column(db.Date, nullable=True)
+    begin = db.Column(db.Date, nullable=True)
 
 class Restaurant(db.Model):
     __tablename__ = "restaurant"
