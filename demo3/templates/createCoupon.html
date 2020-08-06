@@ -104,6 +104,18 @@
                 </div>
               </div>
             </div>
+
+            <div class = feild>
+              <label>Required Minimum Level to Redeem</label>
+              <div class = points>
+                {% if 'level' in info %}
+                  <input type="number" name="level" value = {{info["level"]}}>
+                {% else %}
+                  <input type="number" name="level">
+                {% endif %}
+              </div>
+            </div>
+            
             <div class = feild>
               <label>Description</label>
               {% if 'description' in info %}
