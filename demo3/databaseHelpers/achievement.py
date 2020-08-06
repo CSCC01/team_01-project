@@ -223,7 +223,7 @@ def filter_expired_achievements(rid):
         if a.type == 3 and values[2] == "False":
             e = (values[4]).split('-')
             expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-            if today < expiration:
+            if today <= expiration:
                 achievement_list.append(dict)
         else:
             achievement_list.append(dict)
