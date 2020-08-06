@@ -22,18 +22,28 @@ def employee():
     elif session['type'] == -1 or session["type"] == 0:
         return redirect(url_for('home_page.home'))
 
+    filter = 1
     if request.method == 'POST':
-        uid = request.form['user']
         if "delete" in request.form:
             delete_employee(request.form['user'])
+            uid = request.form['user']
         elif "promote" in request.form:
             update_type(uid, 2)
+            uid = request.form['user']
         elif "depromote" in request.form:
             update_type(uid, 0)
+            uid = request.form['user']
+        elif "general" in request.form:
+            filter = 0
+        elif "manger" in request.form:
+            filter = 2
+
+
+
     if session["type"] == 1:
         rid = get_rid(session["account"])
     elif session["type"] == 2:
         rid = get_employee_rid(session["account"])
-    employee_list = get_employees(rid)
 
-    return render_template("employee.html", employees = employee_list)
+    employee_list = get_employees(rid)
+    return render_template("employee.html", employees = employee_list, filter = filter)
