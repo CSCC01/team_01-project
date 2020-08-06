@@ -24,7 +24,9 @@
                 <a href="search.html"><img src="static/Resources/search{% block search %}{% endblock search %}.png" alt="Search"></a>
               {% endif %}
                 <a href="home.html"><img src="static/Resources/home{% block home %}{% endblock home %}.png" alt="Home"></a>
-
+              {% if session['type'] == 1 %}
+                <a href="restaurantSettings.html"><img src="static/Resources/fork{% block settings %}{% endblock settings %}.png" alt="settings"></a>
+              {% endif %}
               <!-- This is only displayed if they screen size is larger then 700px -->
               <div class = coupon_large>
                 <a href="coupon.html">
