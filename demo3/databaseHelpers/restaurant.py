@@ -1,4 +1,4 @@
-from models import Restaurant
+from models import Restaurant, Employee, Achievements
 
 import config
 if config.STATUS == "TEST":
@@ -114,3 +114,18 @@ def get_restaurant_address(rid):
         return r.address
     else:
         return None
+
+def verify_scan_list(rid):
+    access = []
+    r = Restaurant.query.filter(Restaurant.rid == rid).first()
+    access.append(r.uid)
+    employees = Employee.query.filter(Employee.rid == rid).all()
+    for e in employees:
+        access.append(e.uid)
+    return access
+
+def get_rid_by_aid(aid):
+    a = Achievements.query.filter(Achievements.aid == aid).first()
+    if a:
+        return a.rid
+    return "Not Found"
