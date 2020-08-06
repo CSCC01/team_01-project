@@ -6,6 +6,7 @@
 
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{#<link rel="stylesheet" type="text/css" href="static/sidebar.css">    #}
 {% endblock style %}
 
 {% block home %}_pressed{% endblock home %}
@@ -90,5 +91,48 @@
         </div>
       </a>
     </div>
+
+      <div class = parent>
+      <div class = title>
+        <div class = text>
+          Recently Updated Achievement:
+        </div>
+      </div>
+     {% for a in achievements %}
+        <div class = title>
+          <div class = name>
+            {{ a["name"] }}
+          </div>
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = achievement_progress_bar>
+          <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
+            ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
+          </progress>
+          <div class = "check{% if a["status"] == 2%}_complete{% endif %}">✔</div>
+        </div>
+        <div class = achievement_footer>
+          <div class = achievement_progress>
+            <div class = achievement_progress_text>
+              Progress:
+            </div>
+            <div class = progress_count>
+              {{ a["progress"] }}
+            </div>
+            <div class = progress_count_total>
+              /{{ a["progressMax"] }}
+          </div>
+          </div>
+          <div class = rewards>
+            <div class = number>{{ a["points"] }}</div>
+            <div class = rewards_text>PT</div>
+            <div class = number>{{ a["experience"] }}</div>
+            <div class = rewards_text>EXP</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   {% endif %}
 {% endblock content %}

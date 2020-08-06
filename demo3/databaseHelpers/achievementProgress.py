@@ -1,5 +1,5 @@
 from models import Achievements, Customer_Achievement_Progress, Points, Experience
-from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
+from databaseHelpers.achievement import *
 from databaseHelpers.experience import *
 from databaseHelpers.points import *
 from datetime import datetime
@@ -207,7 +207,7 @@ def get_no_complete_achievement_progress_by_uid(uid):
 def get_recently_update_achievements(uid):
     """
 
-    :param uid:
+    :param uid: user id
     :return: a list of recent achievement progress (<=3)
     """
     from operator import itemgetter
@@ -217,6 +217,22 @@ def get_recently_update_achievements(uid):
     for ap in new_list[:3]:
         recent_achievements.append(get_exact_achivement_progress(ap['aid'], ap['uid']))
     return recent_achievements
+
+def get_updated_info(recent_achievements):
+    achievements = []
+    for ap in recent_achievements:
+        a = Achievements.query.filter(Achievements.aid == ap.aid).first()
+        achievement = {'aid': ap.aid,
+                       'uid': ap.uid,
+                       'progress': ap.progress,
+                       'progressMax': ap.total,
+                       'description': get_achievement_description(a),
+                       'name': a.name,
+                       'points': a.points,
+                       'experience': a.experience
+                       }
+        achievements.append(achievement)
+    return achievements
 
 
 
