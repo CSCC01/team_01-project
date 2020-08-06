@@ -174,34 +174,34 @@ def insert_new_achievement(aid,uid,total):
     db.session.commit()
     return ap
 
-def get_no_complete_achievement_progress_by_uid(uid):
-    """
-    Fetches rows from the Achievement Progress table.
-
-    Retrieves a list of achievement progress from the Achievement Progress table that
-    belongs to the user with the given user ID.
-
-    Args:
-        uid: A user ID that corresponds to a user in the User
-          table. An integer.
-
-    Returns:
-        A list of achievement progress for a user with user ID that
-        matches uid.
-    """
-    achievement_progress_list = []
-    achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.uid == uid,
-                                Customer_Achievement_Progress.progress < Customer_Achievement_Progress.total).all()
-    for a in achievement_progress:
-        dict = {
-            "aid": a.aid,
-            "uid": a.uid,
-            "progress": a.progress,
-            "progressMax": a.total,
-            "update": a.update
-        }
-        achievement_progress_list.append(dict)
-    return achievement_progress_list
+# def get_no_complete_achievement_progress_by_uid(uid):
+#     """
+#     Fetches rows from the Achievement Progress table.
+#
+#     Retrieves a list of achievement progress from the Achievement Progress table that
+#     belongs to the user with the given user ID.
+#
+#     Args:
+#         uid: A user ID that corresponds to a user in the User
+#           table. An integer.
+#
+#     Returns:
+#         A list of achievement progress for a user with user ID that
+#         matches uid.
+#     """
+#     achievement_progress_list = []
+#     achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.uid == uid,
+#                                 Customer_Achievement_Progress.progress < Customer_Achievement_Progress.total).all()
+#     for a in achievement_progress:
+#         dict = {
+#             "aid": a.aid,
+#             "uid": a.uid,
+#             "progress": a.progress,
+#             "progressMax": a.total,
+#             "update": a.update
+#         }
+#         achievement_progress_list.append(dict)
+#     return achievement_progress_list
 
 
 def get_recently_update_achievements(uid):
@@ -212,13 +212,18 @@ def get_recently_update_achievements(uid):
     """
     from operator import itemgetter
     recent_achievements = []
-    ap_list = get_no_complete_achievement_progress_by_uid(uid)
+    ap_list = get_achievement_progress_by_uid(uid)
     new_list = sorted(ap_list, key=itemgetter('update'), reverse=True)
     for ap in new_list[:3]:
         recent_achievements.append(get_exact_achivement_progress(ap['aid'], ap['uid']))
     return recent_achievements
 
 def get_updated_info(recent_achievements):
+    """
+    :param recent_achievements: a list of achievement_progress (<=3) sorted by updated time
+    :return: a dict of these achievement_progress containing following info:
+    'aid', 'uid', 'progress', 'progressMax', 'description', 'name', 'points' and 'experience'
+    """
     achievements = []
     for ap in recent_achievements:
         a = Achievements.query.filter(Achievements.aid == ap.aid).first()
