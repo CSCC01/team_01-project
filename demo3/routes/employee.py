@@ -25,14 +25,14 @@ def employee():
     filter = 1
     if request.method == 'POST':
         if "delete" in request.form:
+            uid = request.form['user']
             delete_employee(request.form['user'])
-            uid = request.form['user']
         elif "promote" in request.form:
+            uid = request.form['user']
             update_type(uid, 2)
-            uid = request.form['user']
         elif "depromote" in request.form:
-            update_type(uid, 0)
             uid = request.form['user']
+            update_type(uid, 0)
         elif "general" in request.form:
             filter = 0
         elif "manager" in request.form:
