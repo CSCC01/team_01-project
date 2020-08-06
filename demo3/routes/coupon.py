@@ -33,8 +33,8 @@ def coupon():
             raddr = find_res_addr_of_coupon_by_cid(cid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
-            return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
-                                                    points=coupon.get("points"), begin=coupon.get("begin"), 
+            return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"),
+                                                    points=coupon.get("points"), begin=coupon.get("begin"),
                                                     expiration=coupon.get("expiration"),
                                                     rname=rname, raddr=raddr)
 
@@ -100,17 +100,21 @@ def create_coupon():
 @coupon_page.route('/viewUserCoupons.html', methods=['GET', 'POST'])
 @coupon_page.route('/viewUserCoupons', methods=['GET', 'POST'])
 def viewUserCoupons():
+    today = date.today()
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] != 1:
+    elif session['type'] == -1:
         return redirect(url_for('home_page.home'))
 
-    rid = get_rid(session['account'])
+    elif session['type'] == 1:
+        rid = get_rid(session['account'])
+    else:
+        rid = get_employee_rid(session["account"])
+        
     coupon_list = get_redeemed_coupons_by_rid(rid)
-    today = date.today()
     return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
 
 
