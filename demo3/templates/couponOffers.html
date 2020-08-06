@@ -69,7 +69,7 @@
 {% if errmsg %}
   <div class = parent>
     {% for msg in errmsg %}
-      {{msg}}
+      <li>{{msg}} </li>
     {% endfor %}
   </div>
 {% endif %}
@@ -95,7 +95,14 @@
         {% endif %}
       </div>
 
-      {% if c["points"] > points %}
+      {% if c["level"] > level %}
+        <div class = toPoor>
+          <input type="submit" value="Purchase">
+        </div>
+        <div class = fine_print>
+          You do not have high enough level to purchase this coupon
+        </div>
+      {% elif c["points"] > points %}
         <div class = toPoor>
           <input type="submit" value="Purchase">
         </div>

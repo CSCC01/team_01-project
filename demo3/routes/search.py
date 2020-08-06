@@ -94,18 +94,31 @@ def couponOffers(rid):
         rname = get_restaurant_name_by_rid(rid)
         coupons = filter_valid_coupons(get_coupons(rid))
         points = get_points(session['account'], rid).points
+        level = convert_experience_to_level(get_experience(session['account'], rid).experience)
         if 'cid' in request.form:
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
-            if c['points'] <= points:
+            errmsg = []
+            
+            # if meet all the requirement
+            if c['points'] <= points and c['clevel'] <= level:
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
-            else:
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
+            
+            # not enough points
+            if c['points'] > points:
+                errmsg.append("You do not have enough points for this coupon.")  
+            
+            # not enough level
+            if c['clevel'] > level: 
+                errmsg.append("You do not have high enough level to purchase this coupon.")
+                
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
 
-        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
+        else:
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level)
     else:
         return redirect(url_for('home_page.home'))
 
