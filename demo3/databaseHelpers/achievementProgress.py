@@ -2,6 +2,7 @@ from models import Achievements, Customer_Achievement_Progress, Points, Experien
 from databaseHelpers.achievement import *
 from databaseHelpers.experience import *
 from databaseHelpers.points import *
+from databaseHelpers.restaurant import get_restaurant_name_by_rid
 from datetime import datetime
 
 import config
@@ -234,7 +235,9 @@ def get_updated_info(recent_achievements):
                        'description': get_achievement_description(a),
                        'name': a.name,
                        'points': a.points,
-                       'experience': a.experience
+                       'experience': a.experience,
+                       'rname': get_restaurant_name_by_rid(a.rid),
+                       'raddress': get_restaurant_address(a.rid)
                        }
         achievements.append(achievement)
     return achievements
