@@ -35,7 +35,7 @@ def employee():
             uid = request.form['user']
         elif "general" in request.form:
             filter = 0
-        elif "manger" in request.form:
+        elif "manager" in request.form:
             filter = 2
 
 

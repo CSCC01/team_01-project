@@ -40,7 +40,7 @@
                 <input type = "submit" value = "General" name = general>
               </div>
               <div class = but>
-                <input type = "submit" value = "Manger" name = manger>
+                <input type = "submit" value = "Manager" name = manager>
               </div>
           </div>
         </div>
@@ -77,9 +77,9 @@
             Email: {{ e["email"] }}
           </div>
             {% if e["type"] == 2 %}
-              Employee Type: Manger
+              Employee Type: Manager
             {% else %}
-              Employee Type: General Employee
+              Employee Type: Regular
             {% endif %}
         </div>
       {% endif %}
