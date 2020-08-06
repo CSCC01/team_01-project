@@ -91,6 +91,8 @@
                     <input type="text" name="name">
                   {% endif %}
             </div>
+            
+          <div class = col id = "number">
             <div class = feild>
               <label>Cost to Redeem</label>
               <div class = points>
@@ -106,16 +108,17 @@
             </div>
 
             <div class = feild>
-              <label>Required Minimum Level to Redeem</label>
+              <label>Level to Redeem</label>
               <div class = points>
                 {% if 'level' in info %}
                   <input type="number" name="level" value = {{info["level"]}}>
                 {% else %}
-                  <input type="number" name="level">
+                  <input type="number" name="level" value = 0>
                 {% endif %}
               </div>
             </div>
-            
+          </div>
+
             <div class = feild>
               <label>Description</label>
               {% if 'description' in info %}
