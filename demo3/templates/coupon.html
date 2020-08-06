@@ -101,10 +101,14 @@
           </div>
           {% if session['type'] == 1 %}
             <div class = amount>
-              {{ c["points"] }} Points
+              Only available at Level {{ c["level"] }} or Above
             </div>
             <div class = amount>
-              Only available at Level {{ c["level"] }} or above
+              {{ c["points"] }} Points
+            </div>
+          {% elif session['type'] == -1 %}
+            <div class = amount>
+              Requirement: Level {{ c["clevel"] }} or Above
             </div>
           {% endif %}
           <div class = description>

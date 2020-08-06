@@ -44,11 +44,14 @@
         {{ description }}
       </div>
       
-      
       <div class = amount>
-        {{ points }} Points
-      </div>        
+        Requirement: Level {{ level }} or Above
+      </div>
 
+      <div class = amount>
+        Cost: {{ points }} Points
+      </div>
+      
       <div class = expiration_qr>
         {% if begin == None or expiration == None %}
           Valid indefinitely

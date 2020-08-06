@@ -82,6 +82,9 @@
         </div>
       </div>
       <div class = amount>
+        Requirement: Level {{ c["level"] }} or Above
+      </div>
+      <div class = amount>
         {{ c["points"] }} Points
       </div>
       <div class = description>
@@ -100,7 +103,7 @@
           <input type="submit" value="Purchase">
         </div>
         <div class = fine_print>
-          You do not have high enough level to purchase this coupon
+          You have not reach the level requirement
         </div>
       {% elif c["points"] > points %}
         <div class = toPoor>
