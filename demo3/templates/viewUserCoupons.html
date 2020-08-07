@@ -17,7 +17,7 @@
 {% block coupon2 %}_pressed{% endblock coupon2 %}
 
 {% block sidebar %}
-{% if session['type'] == 1  or session['type'] == 0 %}
+{% if session['type'] == 1  or session['type'] == 2 %}
 <div class="sidenav">
   <div class = side_title>
     Coupons
@@ -30,7 +30,6 @@
       </button>
     </div>
   </a>
-  {% if session['type'] == 1 %}
   <a href="createCoupon.html">
     <div class = but>
       <button type="button">
@@ -39,7 +38,6 @@
       </button>
     </div>
   </a>
-  {% endif %}
 
   <a href="viewUserCoupons.html">
     <div class = but>

@@ -46,7 +46,8 @@ def get_employees(rid):
         dict = {
             "uid": employee.uid,
             "name": employee.name,
-            "email": employee.email
+            "email": employee.email,
+            "type": employee.type
         }
         employee_list.append(dict)
     return employee_list

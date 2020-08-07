@@ -44,19 +44,14 @@ def coupon():
         coupons = get_redeemed_coupons_by_uid(session["account"])
         return render_template("coupon.html", coupons = coupons)
 
-    # Employee view of coupon page
-    if session["type"] == 0:
-        rid = get_employee_rid(session["account"])
-        coupon_list = get_coupons(rid)
-        return render_template("coupon.html", coupons = coupon_list)
-
-    # Owners view of coupon page
     else:
         if request.method == 'POST':
             cid = request.form['coupon']
             delete_coupon(cid)
-
-        rid = get_rid(session["account"])
+        if session["type"] == 1:
+            rid = get_rid(session["account"])
+        else:
+            rid = get_employee_rid(session["account"])
         coupon_list = get_coupons(rid)
         return render_template("coupon.html", coupons = coupon_list)
 
@@ -70,7 +65,7 @@ def create_coupon():
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] != 1:
+    elif session['type'] == -1 or session["type"] == 0:
         return redirect(url_for('home_page.home'))
 
     errmsg = []
@@ -86,7 +81,10 @@ def create_coupon():
         # true -> no expiration date, false -> expiration date required
         indefinite = "indefinite" in request.form
 
-        rid = get_rid(session["account"])
+        if session["type"] == 1:
+            rid = get_rid(session["account"])
+        else:
+            rid = get_employee_rid(session["account"])
         errmsg = insert_coupon(rid, name, points, description, level, begin, expiration, indefinite)
 
         # Inserting was successful
@@ -110,14 +108,14 @@ def viewUserCoupons():
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] == -1:
+    elif session['type'] == -1 or session["type"] == 0:
         return redirect(url_for('home_page.home'))
 
     elif session['type'] == 1:
         rid = get_rid(session['account'])
     else:
         rid = get_employee_rid(session["account"])
-        
+
     coupon_list = get_redeemed_coupons_by_rid(rid)
     return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
 
