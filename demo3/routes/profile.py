@@ -47,7 +47,7 @@ def edit_restaurant_info():
 
             errmsg = update_restaurant_information(restaurant, rname, raddress)
             
-            if len(errmsg) == 0:
+            if not errmsg:
                 return redirect(url_for('profile_page.profile'))
             return render_template('editRestaurantInfo.html', rname = rname, raddress = raddress, errmsg = errmsg)
 

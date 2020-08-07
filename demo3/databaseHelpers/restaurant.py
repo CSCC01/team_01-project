@@ -125,7 +125,7 @@ def update_restaurant_information(restaurant, name, address):
     if len(address) < 1:
         errmsg.append("The restaurant's address cannot be empty.")
     
-    if len(errmsg) == 0:
+    if not errmsg:
         restaurant.name = name
         restaurant.address = address
         db.session.commit()
