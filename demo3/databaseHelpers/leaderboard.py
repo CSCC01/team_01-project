@@ -33,7 +33,8 @@ def get_data(list):
     data_list = []
     rank = 1
     for l in list:
-        data={"username": get_user_name_by_uid(l[0]),
+        data={"uid": l[0],
+              "username": get_user_name_by_uid(l[0]),
               "exp": l[1],
               "level": convert_experience_to_level(l[1]),
               "rank": rank}
