@@ -89,3 +89,13 @@ def get_milestone(uid, rid):
                 "reward": threshold.reward
             }
     return None
+
+def get_incomplete_milestones(rid, level):
+    """"""
+    threshold_list = get_thresholds(rid)
+    incomplete_list = []
+    for t in threshold_list:
+        if t["level"] > level:
+            incomplete_list.append(t)
+
+    return incomplete_list

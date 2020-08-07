@@ -83,8 +83,11 @@ def restaurant(rid):
         experience = get_experience(uid, rid).experience
         level = convert_experience_to_level(experience)
         milestone = get_milestone(uid, rid)
+        threshold_list = get_incomplete_milestones(rid, level)[:3]
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, milestone = milestone, liked = liked)
+                                overflow = get_experience_since_last_level(level, experience),
+                                rname = rname, coupons = coupons, rid = rid, achievements = achievements,
+                                milestone = milestone, liked = liked, thresholds = threshold_list)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -155,5 +158,34 @@ def restaurantAchievements(rid, filter):
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
         return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
+    else:
+        return redirect(url_for('home_page.home'))
+
+@search_page.route('/milestones<rid>.html', methods=['GET', 'POST'])
+@search_page.route('/milestones<rid>', methods=['GET', 'POST'])
+def milestones(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home_page.home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        filter = "all"
+        if request.method == 'POST' and 'all' in request.form:
+            filter = "all"
+        elif request.method == 'POST' and 'complete' in request.form:
+            filter = "complete"
+        elif request.method == 'POST' and 'incomplete' in request.form:
+            filter = "incomplete"
+
+        uid = session["account"]
+        experience = get_experience(uid, rid).experience
+        level = convert_experience_to_level(experience)
+        threshold_list = get_thresholds(rid)
+        return render_template("milestones.html", rid = rid, thresholds = threshold_list, level = level, filter = filter)
     else:
         return redirect(url_for('home_page.home'))

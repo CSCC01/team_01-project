@@ -7,6 +7,7 @@
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
+<link rel="stylesheet" type="text/css" href="static/milestone.css">
 {% endblock style %}
 
 {% block sidebar %}
@@ -35,6 +36,14 @@
       <button type="button">
         <img src="static/Resources/achievement_pressed.png" alt="Achievement">
         Achievement Offers
+      </button>
+    </div>
+  </a>
+  <a href="milestones{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/flag.png" alt="Milestones">
+        Milestones
       </button>
     </div>
   </a>
@@ -191,5 +200,55 @@
           </div>
         </a>
         {% endif %}
+      </div>
+
+      <div class = parent>
+        <div class = title>
+          <div class = text>
+            Next Milestones:
+          </div>
+        </div>
+        <div class = table>
+            <div class = header>
+              <div class = columns>
+                <div class = child>
+                  Level
+                </div>
+                <div class = child>
+                  Reward Points
+                </div>
+                <div class = child>
+                  Status
+                </div>
+              </div>
+            </div>
+
+              {% for t in thresholds %}
+                <div class = columns>
+                    <div class = child>
+                      {{ t["level"] }}
+                    </div>
+                    <div class = child>
+                      {{ t["reward"] }} PTS
+                    </div>
+                    <div class = child>
+                      {% if level >=  t["level"] %}
+                        <div class = pink_text>
+                          Completed
+                        </div>
+                      {% else %}
+                        Incomplete
+                      {% endif %}
+                    </div>
+                  </div>
+              {% endfor %}
+        </div>
+        <a href="milestones{{ rid }}">
+          <div class = seeMore>
+            <button type="button">
+              View All Milestones
+            </button>
+          </div>
+        </a>
       </div>
   {% endblock content %}
