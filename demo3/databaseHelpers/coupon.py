@@ -40,6 +40,8 @@ def insert_coupon(rid, name, points, description, level, begin, expiration, inde
         errmsg.append("Invalid level requirement, please give a non-negative value.")
     if not indefinite and ((expiration == None or begin == None) or (expiration == "" or begin == "")):
         errmsg.append("Missing start or expiration date.")
+    elif not indefinite and expiration < begin:
+        errmsg.append("Invalid date interval, begin date must be before expiration date.")
 
     if not errmsg:
         if indefinite:

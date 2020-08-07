@@ -124,6 +124,15 @@ class InsertCouponTest(unittest.TestCase):
         errmsg = couponhelper.insert_coupon(4, "name", 100, "30% off", 2, begin, None, False)
         self.assertEqual(errmsg, ["Missing start or expiration date."])
 
+    def test_insert_invalid_date_expired_early(self):
+        """
+        Tries to insert an invalid coupon with an invalid expiration date which earlier than begin date. Expect an error message.
+        """
+        begin = datetime.date(2020, 6, 30)
+        end = datetime.date(2020, 5, 31)
+        errmsg = couponhelper.insert_coupon(4, "name", 100, "30% off", 2, begin, end, False)
+        self.assertEqual(errmsg, ["Invalid date interval, begin date must be before expiration date."])
+
     def test_insert_invalid_level_negative(self):
         """
         Tries to insert an invalid coupon with an invalid amount of level (negative). Expects an error message.
