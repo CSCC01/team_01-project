@@ -47,6 +47,14 @@
       </button>
     </div>
   </a>
+  <a href="leaderBoard{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/leaderboard_pressed.png" alt="Achievement">
+        Leaderboard
+      </button>
+    </div>
+  </a>
 </div>
 {% endblock sidebar %}
 
@@ -114,6 +122,9 @@
             <div class = container>
               <div class = name>
                 {{ c["name"] }}
+              </div>
+              <div class = amount>
+                Requirement: Level {{ c["level"] }} or Above
               </div>
               <div class = amount>
                 Cost: {{ c["points"] }} Points

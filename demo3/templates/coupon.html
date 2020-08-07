@@ -12,7 +12,7 @@
 {% endif %}
 {% endblock style %}
 {% block title %}
-<title>My Coupons</title>
+<title>Coupons</title>
 {% endblock title %}
 
 {% block coupon %}_pressed{% endblock coupon %}
@@ -41,11 +41,11 @@
     </div>
   </a>
 
-  <a href="viewUserCoupons.html">
+  <a href="couponStats.html">
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemed Coupons
+        Coupon Statistics
       </button>
     </div>
   </a>
@@ -99,6 +99,9 @@
           </div>
           {% if session['type'] == 1 or session['type'] == 2 %}
             <div class = amount>
+              Only available at Level {{ c["level"] }} or Above
+            </div>
+            <div class = amount>
               {{ c["points"] }} Points
             </div>
           {% endif %}
@@ -117,10 +120,20 @@
             </div>
             {% if session['type'] == -1 %}
             <div class = use_button>
+              {% if c["status"] == 1 %}
+              <div class = expired>
+                <input type="submit" value = "Expired">
+              </div>
+              {% elif c["status"] == -1 %}
+              <div class = out_of_range>
+                <input type="submit" value = "Use">
+              </div>
+              {% else %}
               <form method = "post">
                 <input type="submit" value = "Use" name = {{c["name"]}}>
                 <input type="hidden" value = {{c["cid"]}} name = coupon>
               </form>
+              {% endif %}
             </div>
             {% endif %}
           </div>

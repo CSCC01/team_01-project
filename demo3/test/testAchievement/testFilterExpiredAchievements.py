@@ -75,7 +75,7 @@ class FilterExpiredAchievementTest(unittest.TestCase):
     def test_many_expired_achievements(self):
         """Many coupons in the achievement table are expired. The expired achievements should not be in list."""
         ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
-        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-04-1;2020-04-11')
+        ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=2, value='test;5;False;2020-04-1;2020-04-11')
         db.session.add(ac1)
         db.session.add(ac2)
         db.session.commit()

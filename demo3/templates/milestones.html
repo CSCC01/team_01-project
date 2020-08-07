@@ -50,9 +50,16 @@
       </button>
     </div>
   </a>
+  <a href="leaderBoard{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/leaderboard_pressed.png" alt="Achievement">
+        Leaderboard
+      </button>
+    </div>
+  </a>
 </div>
 {% endblock sidebar %}
-
 
 
 {% block page_name %}
@@ -101,7 +108,7 @@
           </div>
         </div>
       </div>
-      
+
       {% for t in thresholds %}
         {% if filter == "all" or (filter == "complete" and level >=  t["level"]) or (filter == "incomplete" and level < t["level"]) %}
           <div class = columns>

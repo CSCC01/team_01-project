@@ -12,6 +12,7 @@ from databaseHelpers.restaurant import *
 from databaseHelpers.qr_code import *
 from databaseHelpers.achievementProgress import *
 from databaseHelpers.employee import *
+from databaseHelpers.restaurant import verify_scan_list
 
 achievement_page = Blueprint('achievement_page', __name__, template_folder='templates')
 
@@ -78,15 +79,43 @@ def create_achievement():
 
     return render_template('createAchievement.html')
 
+
+@achievement_page.route('/achievementStats.html', methods=['GET', 'POST'])
+@achievement_page.route('/achievementStats', methods=['GET', 'POST'])
+def achievement_stats():
+    # If someone is not logged in redirects them to login page, same as coupon
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+    elif session["type"] == -1 or session["type"] == 0:
+        return redirect(url_for('home_page.home'))
+    else:
+        filter = "all"
+        if request.method == 'POST' and "active" in request.form:
+            filter = "active"
+        elif request.method == 'POST' and "expired" in request.form:
+            filter = "expired"
+
+        if session["type"] == 1:
+            rid = get_rid(session["account"])
+        elif session["type"] == 2:
+            rid = get_employee_rid(session["account"])
+        achievements = get_achievement_progress_stats(get_achievements_by_rid(rid))
+        return render_template('achievementStats.html', achievements = achievements, filter = filter)
+
+
 @achievement_page.route('/verifyAchievement/<aid>/<uid>', methods=['GET', 'POST'])
-def use_achievement(aid,uid):
+def use_achievement(aid, uid):
+    scanner = session['account']
+    rid = get_rid_by_aid(aid)
+    access = verify_scan_list(rid)
+    rname = get_restaurant_name_by_rid(rid)
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to employee/owner only, if user is a customer, redirect to home page
-    elif session['type'] == -1:
-        return redirect(url_for('qr_page.scan_failure'))
+    elif session['type'] == -1 or scanner not in access:
+        return redirect(url_for('qr_page.scan_failure', rname=rname))
 
     # get achievement
     achievementProgress = get_exact_achivement_progress(aid, uid)

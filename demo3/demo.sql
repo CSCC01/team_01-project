@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `name`         varchar(128)      NOT NULL DEFAULT '',
   `points`       int unsigned      NOT NULL,
   `description`  varchar(1028)     NOT NULL DEFAULT '',
+  `level`        int unsigned      NOT NULL,
   `begin`        date,
   `expiration`   date,
   `deleted`      int               NOT NULL,
@@ -59,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `customer_achievement_progress` (
   `uid`          int unsigned      NOT NULL,
   `progress`     int unsigned      NOT NULL,
   `total`        int unsigned      NOT NULL,
+  `update`       DATETIME          NOT NULL,
   PRIMARY KEY (`aid`, `uid`)
 );
 CREATE TABLE IF NOT EXISTS `experience` (
