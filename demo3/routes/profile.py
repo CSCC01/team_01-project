@@ -6,6 +6,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 profile_page = Blueprint('profile_page', __name__, template_folder='templates')
+from databaseHelpers.user import *
 
 from databaseHelpers.restaurant import *
 
@@ -16,16 +17,16 @@ def profile():
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
     else:
-
+        user = get_user(session['account'])
         # if user is a restaurant owner
         if session['account'] == 1:
             rid = get_rid(session['account'])
             rname = get_restaurant_name_by_rid(rid)
             raddress = get_restaurant_address(rid)
 
-            return render_template('profile.html', rname = rname, raddress = raddress)
+            return render_template('profile.html', rname = rname, raddress = raddress, user = user)
 
-        return render_template('profile.html')
+        return render_template('profile.html', user = user)
 
 @profile_page.route('/editRestaurantInfo.html', methods=['GET', 'POST'])
 @profile_page.route('/editRestaurantInfo', methods=['GET', 'POST'])
@@ -54,4 +55,3 @@ def edit_restaurant_info():
         return render_template('editRestaurantInfo.html', rname = rname, raddress = raddress)
     else:
         return redirect(url_for('home_page.home'))
-

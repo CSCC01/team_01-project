@@ -22,6 +22,21 @@
 {% endblock page_name %}
 
 {% block content %}
+  <div class = parent>
+    You are currently signed in as a
+    {% if session["type"] == -1 %}
+      customer
+    {% elif session["type"] == 0 %}
+      employee
+    {% else %}
+      owner
+    {% endif %}
+    <br>
+    Name: {{ user["name"] }}
+    <br>
+    Email: {{ user["email"] }}
+  </div>
+
   {% if session['account'] == 1 %}
   <div class = parent>
     <div class = subheading>
