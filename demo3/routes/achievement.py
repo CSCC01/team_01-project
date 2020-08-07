@@ -78,6 +78,30 @@ def create_achievement():
 
     return render_template('createAchievement.html')
 
+
+@achievement_page.route('/achievementStats.html', methods=['GET', 'POST'])
+@achievement_page.route('/achievementStats', methods=['GET', 'POST'])
+def achievement_stats():
+    # If someone is not logged in redirects them to login page, same as coupon
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+    elif session["type"] == -1 or session["type"] == 0:
+        return redirect(url_for('home_page.home'))
+    else:
+        filter = "all"
+        if request.method == 'POST' and "active" in request.form:
+            filter = "active"
+        elif request.method == 'POST' and "expired" in request.form:
+            filter = "expired"
+
+        if session["type"] == 1:
+            rid = get_rid(session["account"])
+        elif session["type"] == 2:
+            rid = get_employee_rid(session["account"])
+        achievements = get_achievement_progress_stats(get_achievements_by_rid(rid))
+        return render_template('achievementStats.html', achievements = achievements, filter = filter)
+
+
 @achievement_page.route('/verifyAchievement/<aid>/<uid>', methods=['GET', 'POST'])
 def use_achievement(aid,uid):
     # If someone is not logged in redirects them to login page
