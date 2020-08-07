@@ -314,10 +314,12 @@ button, input {
   position: absolute;
   background-color: var(--background);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
 }
 
 .options input {
   font-family: 'Poppins', sans-serif;
+  width: 100%;
   padding: 10px 14px;
   text-decoration: none;
   display: block;

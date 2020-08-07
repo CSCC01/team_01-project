@@ -75,6 +75,11 @@
           EXP to Level {{ level + 1 }}
         </div>
       </div>
+      <div class = fine_print>
+        {% if milestone %}
+          Reach level {{ milestone["level"] }} and gain {{ milestone["reward"] }} points.
+        {% endif %}
+      </div>
     </div>
 
       <div class = parent>
