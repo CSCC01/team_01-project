@@ -27,12 +27,11 @@ def coupon():
         if request.method == 'POST':
             cid = request.form['coupon']
             uid = session['account']
-            rcid = find_rcid_by_cid_and_uid(cid,uid)
             coupon = get_coupon_by_cid(cid)
             rname = find_res_name_of_coupon_by_cid(cid)
             raddr = find_res_addr_of_coupon_by_cid(cid)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
-            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
+            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(uid)+"/"+str(cid), uid, cid)
             return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
                                                     points=coupon.get("points"), begin=coupon.get("begin"), 
                                                     expiration=coupon.get("expiration"),
@@ -114,7 +113,7 @@ def viewUserCoupons():
     return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
 
 
-@coupon_page.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
+@coupon_page.route('/useCoupon/<uid>/<cid>', methods=['GET', 'POST'])
 def use_coupon(cid,uid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
