@@ -23,6 +23,33 @@
 
 {% block content %}
   <div class = parent>
+    <b>You are currently signed in as
+    {% if session["type"] == -1 %}
+      a customer.
+    {% elif session["type"] == 0 %}
+      an employee.
+    {% else %}
+      an owner.
+    {% endif %}
+    </b>
+    <br>
+    <b>Name:</b> {{ user["name"] }}
+    <br>
+    <b>Email:</b> {{ user["email"] }}
+  </div>
+  {% if session['account'] == 1 %}
+  <div class = parent>
+    <b>Restaurant Name:</b> {{ rname }}
+    <br>
+    <b>Restaurant Address:</b> {{ raddress }}
+    <br>
+    <div class = submit_button>
+      <a href="editRestaurantInfo.html"><input type="submit" value="Edit"></a>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class = parent>
     <div class = submit_button>
       <a href="logout.html"><input type="submit" value="Logout"></a>
     </div>

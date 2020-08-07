@@ -4,32 +4,142 @@
 <title>Home</title>
 {% endblock title %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{% endblock style %}
+
 {% block home %}_pressed{% endblock home %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
         <div class = text>
-          Home
+          Welcome, {{ user['name'] }}
         </div>
       </div>
     </div>
 {% endblock page_name %}
 
 {% block content %}
-  {% if session['type'] == 0 %}
+  <!-- Customer view-->
+  {% if session['type'] == -1 %}
     <div class = parent>
       <div class = title>
         <div class = text>
-          Employer:
+          Recently Purchased Coupon:
         </div>
       </div>
-      <div class = text>
-        {{ rname }}
-      </div>
-      <div class = subtext>
-        at {{ raddress }}
-      </div>
+      {% for c in coupons %}
+          <div class = container>
+            <div class = name>
+              {{ c["cname"] }}
+            </div>
+            <div class = amount>
+              {{ c["rname"] }}, at {{c["raddress"]}}
+            </div>
+            <div class = description>
+              {{ c["cdescription"] }}
+            </div>
+            <div class = expiration>
+              {% if c["begin"] == None or c["expiration"] == None %}
+                Valid indefinitely
+              {% else %}
+                Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+              {% endif %}
+            </div>
+          </div>
+      {% endfor %}
+      {% if coupons == [] %}
+          You currently have no coupons. <br>
+          Search for restaurants and see what coupons are available.
+      {% endif %}
+      <a href="coupon">
+        <div class = seeMore>
+          <button type="button">
+            View All My Coupons
+          </button>
+        </div>
+      </a>
     </div>
+
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Recently Favourited Restaurants:
+        </div>
+      </div>
+      {% for r in restaurants %}
+          <div class = container>
+            <div class = name>
+              {{ r["name"] }}
+            </div>
+            <div class = amount>
+              {{ r["address"] }}
+            </div>
+          </div>
+      {% endfor %}
+      {% if restaurants == [] %}
+          You currently have no favourited restaurants. <br>
+          Search for your favourite restaurants and heart them.
+      {% endif %}
+      <a href="visitedRestaurants">
+        <div class = seeMore>
+          <button type="button">
+            View All Favourited Restaurants
+          </button>
+        </div>
+      </a>
+    </div>
+
+      <div class = parent>
+      <div class = title>
+        <div class = text>
+          Recently Updated Achievements:
+        </div>
+      </div>
+     {% for a in achievements %}
+        <div class = title>
+          <div class = name>
+            {{ a["name"] }}
+          </div>
+        </div>
+        <div class= amount>
+          {{ a["rname"] }}, at {{a["raddress"]}}
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = achievement_progress_bar>
+          <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
+            ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
+          </progress>
+          {% if a["progress"] == a["progressMax"] %}
+            <div class = "check_complete">✔</div>
+          {% endif %}
+          {% if a["progress"] != a["progressMax"] %}
+            <div class = "check">✔</div>
+          {% endif %}
+        </div>
+        <div class = achievement_footer>
+          <div class = achievement_progress>
+            <div class = achievement_progress_text>
+              Progress:
+            </div>
+            <div class = progress_count>
+              {{ a["progress"] }}
+            </div>
+            <div class = progress_count_total>
+              /{{ a["progressMax"] }}
+          </div>
+          </div>
+          <div class = rewards>
+            <div class = number>{{ a["points"] }}</div>
+            <div class = rewards_text>PT</div>
+            <div class = number>{{ a["experience"] }}</div>
+            <div class = rewards_text>EXP</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
   {% endif %}
 {% endblock content %}

@@ -1,0 +1,112 @@
+<!--                                          ----
+----    achievementStats.html contains all    ----
+----     frontend html for the owners and     ----
+----     employee view  of the achievement    ----
+----                stats page.               ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/achievement.css">
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
+<link rel="stylesheet" type="text/css" href="static/sidebar.css">
+{% endblock style %}
+{% block title %}
+<title>Achievements</title>
+{% endblock title %}
+
+{% block achievement %}_pressed{% endblock achievement %}
+
+{% block sidebar %}
+{% if session['type'] == 1  or session['type'] == 2 %}
+<div class="sidenav">
+  <div class = side_title>
+    Achievements
+  </div>
+  <a href="achievement.html">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/achievement_pressed.png" alt="Coupon">
+        Achievements
+      </button>
+    </div>
+  </a>
+  <a href="createAchievement.html">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/plus.png" alt="Coupon">
+        Create An Achievement
+      </button>
+    </div>
+  </a>
+
+  <a href="achievementStats.html">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/eye.png" alt="Coupon">
+        Achievement Statistics
+      </button>
+    </div>
+  </a>
+</div>
+{% endif %}
+{% endblock sidebar %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Achievement Statistics
+        </div>
+      </div>
+    </div>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+              <div class = but>
+                <input type = "submit" value = "All" name = all>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Active" name = active>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Expired" name = expired>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
+{% endblock page_name %}
+
+{% block content %}
+  {% for a in achievements %}
+    {% if filter == "all" or (filter == "active" and not a['expired']) or (filter == "expired" and a['expired']) %}
+      <div class = parent>
+        <div class = title>
+            <div class = name>
+              {{ a['name'] }}
+            </div>
+            <div class = status>
+              {% if a['expired']%}
+                Status: Expired
+              {% else %}
+                <div class = placeholder> Status:&nbsp;</div>
+                <div class = active>Active</div>
+              {% endif %}
+            </div>
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+
+        <div class = holder>
+          Number of people in progress: {{ a['in progress'] }}
+        </div>
+        <div class = holder>
+          Number of people completed: {{ a['complete'] }}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock content %}

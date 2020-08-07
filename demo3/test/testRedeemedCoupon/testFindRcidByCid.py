@@ -104,7 +104,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         db.session.add(res)
         db.session.commit()
         coupon = Coupon(rid=res.rid, name="coupon_testing", points=10, description="description", 
-                                expiration=None, begin=None, deleted=0)
+                        level=250, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(coupon.cid)
@@ -116,7 +116,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         "Not Found".
         """
         coupon = Coupon(rid=100, name="coupon_testing", points=25, description="des", 
-                                expiration=None, begin=None, deleted=0)
+                        level=36, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(100)
@@ -131,7 +131,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         db.session.add(res)
         db.session.commit()
         coupon = Coupon(rid=100, name="coupon_testing", points=10, description="description", 
-                                expiration=None, begin=None, deleted=0)
+                        level=99, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         rname = chelper.find_res_name_of_coupon_by_cid(coupon.cid)
@@ -147,7 +147,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         db.session.add(res)
         db.session.commit()
         coupon = Coupon(rid=res.rid, name="coupon_testing", points=10, description="description", 
-                                expiration=None, begin=None, deleted=0)
+                        level=56, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         raddr = chelper.find_res_addr_of_coupon_by_cid(coupon.cid)
@@ -159,7 +159,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         "Not Found".
         """
         coupon = Coupon(rid=90, name="coupon_testing", points=10, description="description", 
-                                expiration=None, begin=None, deleted=0)
+                        level=2, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         raddr = chelper.find_res_addr_of_coupon_by_cid(120)
@@ -174,7 +174,7 @@ class FindRcidByCidAndUid(unittest.TestCase):
         db.session.add(res)
         db.session.commit()
         coupon = Coupon(rid=900, name="coupon_testing", points=10, description="description", 
-                                expiration=None, begin=None, deleted=0)
+                        level=88, expiration=None, begin=None, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         raddr = chelper.find_res_addr_of_coupon_by_cid(coupon.cid)
