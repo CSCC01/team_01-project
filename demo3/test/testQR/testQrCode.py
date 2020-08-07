@@ -11,8 +11,8 @@ class testQrCode(unittest.TestCase):
         """
         Test with url to check if it can be saved in correct destination
         """
-        path = to_qr("iamurl",10)
-        target = str(self.get_root()) + '/static/Resources/QR/'+str(10)+'.png'
+        path = to_qr("iamurl",2,5)
+        target = str(self.get_root()) + '/static/Resources/QR/'+str(2)+'_'+str(5)+'.png'
         target = target.replace("/", os.path.sep)
         self.assertEqual(path, target)
 

@@ -16,6 +16,8 @@ from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.points import *
 from databaseHelpers.experience import *
 from databaseHelpers.level import *
+from databaseHelpers.threshold import *
+from databaseHelpers.leaderboard import *
 from databaseHelpers.favourite import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
@@ -81,8 +83,12 @@ def restaurant(rid):
             insert_experience(uid, rid)
         experience = get_experience(uid, rid).experience
         level = convert_experience_to_level(experience)
+        milestone = get_milestone(uid, rid)
+        threshold_list = get_incomplete_milestones(rid, level)[:3]
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, liked = liked)
+                                overflow = get_experience_since_last_level(level, experience),
+                                rname = rname, coupons = coupons, rid = rid, achievements = achievements,
+                                milestone = milestone, liked = liked, thresholds = threshold_list)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -110,22 +116,22 @@ def couponOffers(rid):
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
             errmsg = []
-            
+
             # if meet all the requirement
             if c['points'] <= points and c['clevel'] <= level:
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
-            
+
             # not enough points
             if c['points'] > points:
-                errmsg.append("You do not have enough points for this coupon.")  
-            
+                errmsg.append("You do not have enough points for this coupon.")
+
             # not enough level
-            if c['clevel'] > level: 
+            if c['clevel'] > level:
                 errmsg.append("You do not have high enough level to purchase this coupon.")
-                
+
             return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
 
         else:
@@ -167,5 +173,51 @@ def restaurantAchievements(rid, filter):
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
         return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
+    else:
+        return redirect(url_for('home_page.home'))
+
+@search_page.route('/milestones<rid>.html', methods=['GET', 'POST'])
+@search_page.route('/milestones<rid>', methods=['GET', 'POST'])
+def milestones(rid):
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+
+    # Page is restricted to customers only, if user is not a customer, redirect to home page
+    elif session['type'] != -1:
+        return redirect(url_for('home_page.home'))
+
+    restaurant = get_resturant_by_rid(rid)
+    if restaurant:
+        rname = get_restaurant_name_by_rid(rid)
+        filter = "all"
+        if request.method == 'POST' and 'all' in request.form:
+            filter = "all"
+        elif request.method == 'POST' and 'complete' in request.form:
+            filter = "complete"
+        elif request.method == 'POST' and 'incomplete' in request.form:
+            filter = "incomplete"
+
+        uid = session["account"]
+        experience = get_experience(uid, rid).experience
+        level = convert_experience_to_level(experience)
+        threshold_list = get_thresholds(rid)
+        return render_template("milestones.html", rid = rid, thresholds = threshold_list, level = level, filter = filter, rname=rname)
+    else:
+        return redirect(url_for('home_page.home'))
+
+
+# View customer leader board
+@search_page.route('/leaderBoard<rid>', methods=['GET', 'POST'])
+def leaderBoard(rid):
+    rname = get_restaurant_name_by_rid(rid)
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+    if session["type"] == -1:
+        leaderBoard_list  = top_n_in_order(rid, 10)
+        lbs = get_data(leaderBoard_list)
+
+        return render_template("leaderBoard.html", rid=rid, lbs=lbs, rname=rname)
     else:
         return redirect(url_for('home_page.home'))

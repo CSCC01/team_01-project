@@ -93,8 +93,13 @@ class Achievements(db.Model):
     type = db.Column(db.Integer, nullable=False)
     value = db.Column(db.String(2048), nullable=False)
 
+class Thresholds(db.Model):
+    __tablename__ = "thresholds"
+    rid = db.Column(db.Integer, primary_key=True, nullable=False)
+    level = db.Column(db.Integer, primary_key=True, nullable=False)
+    reward = db.Column(db.Integer, nullable=False)
+
 class Favourite(db.Model):
     __tablename__ = "favourite"
     uid = db.Column(db.Integer, primary_key=True)
     rid = db.Column(db.Integer, primary_key=True)
-

@@ -1,0 +1,42 @@
+.table {
+  display: flex:
+  direction:column;
+}
+
+.columns {
+  display: flex;
+  display: row;
+  justify-content: space-between;
+}
+
+.columns .child:nth-child(1) {
+  width: 33%;
+  margin-right: 5px;
+}
+
+.columns .child:nth-child(2) {
+  width: 33%;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.columns .child:nth-child(3) {
+  width: 33%;
+  margin-left: 5px;
+}
+
+.columns {
+  margin-top: 15px;
+}
+
+.pink_text {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.header {
+  margin-top: -15px;
+}
