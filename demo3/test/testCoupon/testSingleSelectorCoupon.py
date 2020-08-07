@@ -29,7 +29,7 @@ class SingleSelectorCouponTest(unittest.TestCase):
         """
         Test getting no matching coupon, with a coupon in database.
         """
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", level=25, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
 
@@ -40,15 +40,17 @@ class SingleSelectorCouponTest(unittest.TestCase):
         """
         Test getting a coupon, with a coupon in the database.
         """
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", level=25, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
 
         result = couponhelper.get_coupon_by_cid(coupon.cid)
         self.assertEqual(result,
                             {"cid": coupon.cid,
+                             "rid": coupon.rid,
                              "cname": coupon.name,
                              "cdescription": coupon.description,
+                             "clevel": coupon.level,
                              "begin": coupon.begin,
                              "expiration": coupon.expiration,
                              "points": coupon.points

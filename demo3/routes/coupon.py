@@ -13,6 +13,8 @@ from databaseHelpers.coupon import *
 from databaseHelpers.employee import *
 from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.qr_code import *
+from databaseHelpers.experience import *
+from databaseHelpers.level import *
 
 # My coupon page
 @coupon_page.route('/coupon.html', methods=['GET', 'POST'])
@@ -31,11 +33,12 @@ def coupon():
             coupon = get_coupon_by_cid(cid)
             rname = find_res_name_of_coupon_by_cid(cid)
             raddr = find_res_addr_of_coupon_by_cid(cid)
+            ulevel = convert_experience_to_level(get_experience(uid, coupon.get("rid")).experience)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
             imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
-            return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"),
-                                                    points=coupon.get("points"), begin=coupon.get("begin"),
-                                                    expiration=coupon.get("expiration"),
+            return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
+                                                    points=coupon.get("points"), level=coupon.get("clevel"), ulevel=ulevel, 
+                                                    begin=coupon.get("begin"), expiration=coupon.get("expiration"),
                                                     rname=rname, raddr=raddr)
 
         coupons = get_redeemed_coupons_by_uid(session["account"])
@@ -72,6 +75,7 @@ def create_coupon():
         name = request.form['name']
         points = request.form['points']
         description = request.form['description']
+        level = request.form['level']
         expiration = request.form['end']
         begin = request.form['begin']
         # true -> no expiration date, false -> expiration date required
@@ -81,7 +85,7 @@ def create_coupon():
             rid = get_rid(session["account"])
         else:
             rid = get_employee_rid(session["account"])
-        errmsg = insert_coupon(rid, name, points, description, begin, expiration, indefinite)
+        errmsg = insert_coupon(rid, name, points, description, level, begin, expiration, indefinite)
 
         # Inserting was successful
         if not errmsg:
@@ -89,7 +93,7 @@ def create_coupon():
 
         # Inserting failed
         return render_template('createCoupon.html', errmsg = errmsg,
-                            info = {'name': name, 'points': points, 'description': description, 'expiration': expiration, 'begin': begin})
+                            info = {'name': name, 'points': points, 'description': description, 'level': level, 'expiration': expiration, 'begin': begin})
 
     return render_template('createCoupon.html')
 
