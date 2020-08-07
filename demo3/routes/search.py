@@ -17,6 +17,7 @@ from databaseHelpers.points import *
 from databaseHelpers.experience import *
 from databaseHelpers.level import *
 from databaseHelpers.threshold import *
+from databaseHelpers.favourite import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
 
@@ -56,6 +57,15 @@ def restaurant(rid):
 
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
+        ### TODO: get likes
+        if "loved" in request.form:
+            add_favourite(session['account'], rid)
+
+        elif "unloved" in request.form:
+            remove_faviourite(session['account'], rid)
+
+        liked = check_favourite(session['account'], rid)
+
         # Gets coupons
         rname = get_restaurant_name_by_rid(rid)
         coupons = filter_valid_coupons(get_coupons(rid))[-3:]
@@ -74,7 +84,7 @@ def restaurant(rid):
         level = convert_experience_to_level(experience)
         milestone = get_milestone(uid, rid)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, milestone = milestone)
+                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, milestone = milestone, liked = liked)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -138,7 +148,8 @@ def restaurantAchievements(rid, filter):
             aid = request.form['achievement']
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
-            return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
+            achievement = get_achievement_with_progress_data(aid, uid)
+            return render_template("achievementQR.html", imgurl=imgurl, rid=rid, a=achievement)
 
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements

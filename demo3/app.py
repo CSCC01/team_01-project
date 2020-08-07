@@ -18,6 +18,7 @@ from routes.profile import profile_page
 from routes.search import search_page
 from routes.login import login_page
 from routes.restaurantSettings import settings_page
+from routes.restaurant import restaurant_page
 
 app = Flask(__name__)
 app.register_blueprint(registration_page)
@@ -30,6 +31,7 @@ app.register_blueprint(search_page)
 app.register_blueprint(login_page)
 app.register_blueprint(qr_page)
 app.register_blueprint(settings_page)
+app.register_blueprint(restaurant_page)
 app.secret_key = 'shhhh'
 
 app.config.from_object(config)

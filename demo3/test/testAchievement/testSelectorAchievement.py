@@ -57,12 +57,12 @@ class SelectAchievementTest(unittest.TestCase):
         achievement1 = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
         achievement2 = Achievements(rid=13, name="test 2", points=15, experience=20, type=1, value=";6.99;;;")
         achievement3 = Achievements(rid=13, name="test 3", points=15, experience=20, type=2, value=";6;;;")
-        achievement4 = Achievements(rid=13, name="test 4", points=15, experience=20, type=2, value=";6;True;;")
-        achievement5 = Achievements(rid=13, name="test 5", points=15, experience=20, type=2, value=";6;False;2020-08-1;2020-08-31")
+        achievement4 = Achievements(rid=13, name="test 4", points=15, experience=20, type=3, value=";6;True;;")
+        achievement5 = Achievements(rid=13, name="test 5", points=15, experience=20, type=3, value=";6;False;2020-08-1;2020-08-31")
 
         self.assertEqual(get_achievement_progress_maximum(achievement1), 5)
         self.assertEqual(get_achievement_progress_maximum(achievement2), 1)
-        self.assertEqual(get_achievement_progress_maximum(achievement3), 6)
+        self.assertEqual(get_achievement_progress_maximum(achievement3), 1)
         self.assertEqual(get_achievement_progress_maximum(achievement4), 6)
         self.assertEqual(get_achievement_progress_maximum(achievement5), 6)
 
@@ -93,7 +93,8 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 10,
                      'experience': 15,
                      'description': "Buy Item 5 times.",
-                     'progressMax': 5}])
+                     'progressMax': 5,
+                     'expired': 0}])
 
         achievement_list = get_achievements_by_rid(13)
         self.assertEqual(achievement_list,[{'aid': 2,
@@ -101,7 +102,8 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 15,
                      'experience': 20,
                      'description': "Spend $6.99 in a single visit.",
-                     'progressMax': 1}])
+                     'progressMax': 1,
+                     'expired': 0}])
 
 
     def test_get_multiple_achievements(self):
@@ -117,13 +119,15 @@ class SelectAchievementTest(unittest.TestCase):
                      'points': 10,
                      'experience': 15,
                      'description': "Buy Item 5 times.",
-                     'progressMax': 5},
+                     'progressMax': 5,
+                     'expired': 0},
                     {'aid': 2,
                      'name': 'test 2',
                      'points': 15,
                      'experience': 20,
                      'description': "Spend $6.99 in a single visit.",
-                     'progressMax': 1}])
+                     'progressMax': 1,
+                     'expired': 0}])
 
 
 if __name__ == "__main__":

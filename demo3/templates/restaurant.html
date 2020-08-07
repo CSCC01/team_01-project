@@ -47,6 +47,19 @@
         <div class = text>
           {{ rname }}
         </div>
+        <div class = love>
+          {% if liked %}
+          <form method = "post">
+            <input type="image" src="static/Resources/heart_pink.png" alt="loved">
+            <input type="hidden" name = "unloved">
+          </form>
+          {% else %}
+          <form method = "post">
+            <input type="image" src="static/Resources/heart.png" alt="unloved">
+            <input type="hidden" name = "loved">
+          </form>
+          {% endif %}
+        </div>
       </div>
     </div>
 {% endblock page_name %}

@@ -1,5 +1,7 @@
 from models import Achievements, Customer_Achievement_Progress, Points, Experience
-from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid
+from databaseHelpers.achievement import get_achievement_progress_maximum, get_achievement_by_aid, get_achievement_description
+from databaseHelpers.experience import *
+from databaseHelpers.points import *
 
 import config
 if config.STATUS == "TEST":
@@ -36,6 +38,40 @@ def get_achievement_progress_by_uid(uid):
         }
         achievement_progress_list.append(dict)
     return achievement_progress_list
+
+def get_achievement_with_progress_data(aid, uid):
+    """
+    Appends progress data for a given user and a fiven achievement
+
+    Args:
+        aid: An achievement ID that corresponds to an achievement in the
+            Achievement table. An integer.
+        uid: A user ID that corresponds to a user in the User
+            table. An integer.
+
+    Returns:
+        An achievement with progress data.
+    """
+    achievement = get_achievement_by_aid(aid)
+    progress = get_exact_achivement_progress(aid, uid)
+
+    if (achievement == 'Not Found'):
+        return None
+    if (progress == 'Not Found'):
+        progressCount = 0
+    else:
+        progressCount = progress.progress
+
+    dict = {
+        "aid": achievement.aid,
+        "name": achievement.name,
+        "description": get_achievement_description(achievement),
+        "experience": achievement.experience,
+        "points": achievement.points,
+        "progressMax": get_achievement_progress_maximum(achievement),
+        "progress": progressCount
+    }
+    return dict
 
 def get_achievements_with_progress_data(achievements, uid):
     """
@@ -120,6 +156,22 @@ def get_exact_achivement_progress(aid, uid):
     else:
         return 'Not Found'
 
+def get_progress_completion_status(achievements_progress):
+    """
+    Checks whether a progress entry is complete.
+
+    Args:
+        achievements_progress: The progress entry to check
+
+    Returns:
+        The progress completion status.
+    """
+    if achievements_progress == 'Not Found':
+        return NOT_STARTED
+    elif achievements_progress.progress == achievements_progress.total:
+        return COMPLETE
+    return IN_PROGRESS
+
 
 def add_one_progress_bar(achievements_progress, aid, uid):
     ach = get_achievement_by_aid(aid)
@@ -140,18 +192,14 @@ def complete_progress(achievement_progress):
     points = get_rid_points_exp_by_aid(achievement_progress.aid)['points']
     exp = get_rid_points_exp_by_aid(achievement_progress.aid)['exp']
 
-    user_point = Points.query.filter(Points.uid==uid, Points.rid==rid).first()
+    user_point = get_points(uid, rid)
     if not user_point:
-        user_point = Points(uid=uid, rid=rid, points=points)
-        db.session.add(user_point)
-    else:
-        user_point.points += points
-    user_exp = Experience.query.filter(Experience.uid==uid, Experience.rid==rid).first()
+        insert_points(uid, rid)
+    update_points(uid, rid, points)
+    user_exp = get_experience(uid, rid)
     if not user_exp:
-        user_exp = Experience(uid=uid, rid=rid, experience=exp)
-        db.session.add(user_exp)
-    else:
-        user_exp.experience += exp
+        insert_experience(uid, rid)
+    update_experience(uid, rid, exp)
     db.session.commit()
     return None
 

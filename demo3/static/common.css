@@ -141,6 +141,10 @@ a:link, a:visited, a:hover, a:active {
   font-size: var(--title);
 }
 
+.subtext {
+  font-size: var(--subtitle);
+}
+
 /* Styling of the box that holds the footer */
 footer {
     display: flex;
@@ -331,4 +335,39 @@ button, input {
 
 .settings_dropdown:hover .options {
   display: block;
+}
+
+/* Styles the container for the achievement filter bar */
+.filter_nav_container .parent{
+  background-color: transparent
+}
+
+.filter_nav {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  margin-left: -20px;
+}
+
+.filter_nav img {
+  margin-right: -1px;
+}
+
+.filter_nav input[type = 'submit'] {
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--body);
+  font-weight: 300;
+  height: 40px;
+  background-color: var(--forground);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.filter_nav input[type = 'submit']:hover {
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color: var(--forground);
 }

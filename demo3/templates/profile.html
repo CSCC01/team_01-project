@@ -23,6 +23,20 @@
 
 {% block content %}
   <div class = parent>
+    You are currently signed in as a
+    {% if session["type"] == -1 %}
+      customer
+    {% elif session["type"] == 0 %}
+      employee
+    {% else %}
+      owner
+    {% endif %}
+    <br>
+    Name: {{ user["name"] }}
+    <br>
+    Email: {{ user["email"] }}
+  </div>
+  <div class = parent>
     <div class = submit_button>
       <a href="logout.html"><input type="submit" value="Logout"></a>
     </div>

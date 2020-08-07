@@ -86,19 +86,35 @@
 
 {% block content %}
     {% for a in achievements %}
-      {% if a["status"] == filterID %}
+      {% if (a["status"] == filterID) and ((a["expired"] < 1) or (filterID > 0)) %}
       <div class = parent>
         <div class = title>
           <div class = name>
             {{ a["name"] }}
           </div>
           {% if a["status"] < 2 %}
+              {% if a['expired'] == 1 %}
+              <div class = name>
+                <div class = use_button>
+                  <div class = toPoor>
+                    <input type="submit" value = "Expired">
+                  </div>
+                </div>
+              </div>
+              {% elif a['expired'] == -1 %}
+              <div class = use_button>
+                <div class = toPoor>
+                  <input type="submit" value = "Update Progress">
+                </div>
+              </div>
+              {% else %}
               <div class = use_button>
                 <form method = "post">
                   <input type="submit" value = "Update Progress" name = {{a["name"]}}>
                     <input type="hidden" value = {{a["aid"]}} name = achievement>
                 </form>
               </div>
+              {% endif %}
           {% endif %}
         </div>
         <div class = description>

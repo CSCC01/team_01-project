@@ -7,7 +7,7 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/coupon.css">
-{% if session["type"] == 1 %}
+{% if session["type"] == 1 or session["type"] == 2 %}
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
 {% endif %}
 {% endblock style %}
@@ -19,7 +19,7 @@
 {% block coupon2 %}_pressed{% endblock coupon2 %}
 
 {% block sidebar %}
-{% if session['type'] == 1 %}
+{% if session['type'] == 1  or session['type'] == 2 %}
 <div class="sidenav">
   <div class = side_title>
     Coupons
@@ -32,7 +32,6 @@
       </button>
     </div>
   </a>
-  {% if session['type'] == 1 %}
   <a href="createCoupon.html">
     <div class = but>
       <button type="button">
@@ -41,6 +40,7 @@
       </button>
     </div>
   </a>
+
   <a href="viewUserCoupons.html">
     <div class = but>
       <button type="button">
@@ -49,7 +49,6 @@
       </button>
     </div>
   </a>
-  {% endif %}
 </div>
 {% endif %}
 {% endblock sidebar %}
@@ -60,7 +59,7 @@
         <div class = text>
           Coupons
         </div>
-        {% if session['type'] == 1 %}
+        {% if session['type'] == 1 or session['type'] == 2 %}
         <div class = plus>
           <a href="createCoupon.html">+</a>
         </div>
@@ -80,7 +79,7 @@
           </div>
 
             <!-- The gear for deleting coupons, only visable to owners -->
-            {% if session['type'] == 1 %}
+            {% if session['type'] == 1 or session["type"] == 2%}
             <div class = settings_dropdown>
               <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
               <div class = options>
@@ -98,7 +97,7 @@
 
 
           </div>
-          {% if session['type'] == 1 %}
+          {% if session['type'] == 1 or session['type'] == 2 %}
             <div class = amount>
               {{ c["points"] }} Points
             </div>

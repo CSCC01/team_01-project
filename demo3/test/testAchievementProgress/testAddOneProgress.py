@@ -31,7 +31,7 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         db.session.add(points)
         db.session.add(achievement)
         db.session.commit()
-        achievementhelper.add_one_progress_bar(ap)
+        achievementhelper.add_one_progress_bar(ap, 1, 3)
         self.assertEqual(points.points, 20)
         self.assertEqual(ap.progress, 2)
 
@@ -45,7 +45,7 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         db.session.add(points)
         db.session.add(achievement)
         db.session.commit()
-        achievementhelper.add_one_progress_bar(ap)
+        achievementhelper.add_one_progress_bar(ap, 1, 3)
         self.assertEqual(points.points, 40)
         self.assertEqual(ap.progress, 2)
 
@@ -59,7 +59,7 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         db.session.add(points)
         db.session.add(achievement)
         db.session.commit()
-        achievementhelper.add_one_progress_bar(ap)
+        achievementhelper.add_one_progress_bar(ap, 1, 3)
         self.assertEqual(points.points, 40)
         self.assertEqual(ap.progress, 1)
 

@@ -9,6 +9,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from databaseHelpers.threshold import *
 from databaseHelpers.restaurant import *
+from databaseHelpers.employee import *
 
 settings_page = Blueprint('setting_page', __name__, template_folder='templates')
 
@@ -20,12 +21,15 @@ def settings():
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
-    elif session['type'] != 1:
+    elif session['type'] != 1 and session['type'] != 2:
         return redirect(url_for('home_page.home'))
 
     else:
         errmsg = []
-        rid = get_rid(session['account'])
+        if session['type'] == 1:
+            rid = get_rid(session['account'])
+        elif session['type'] == 2:
+            rid = get_employee_rid(session["account"])
         update = None
         if request.method == 'POST':
             if 'delete' in request.form:

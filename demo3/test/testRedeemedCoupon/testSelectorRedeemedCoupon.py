@@ -9,12 +9,12 @@ import unittest
 from models import Redeemed_Coupons, User, Coupon, Restaurant
 from models import db
 import time
-from datetime import datetime
+import datetime
 from app import app
 from databaseHelpers import redeemedCoupons as rchelper
 
-BEGIN = datetime.strptime("1 May, 2020", "%d %B, %Y")
-END = datetime.strptime("30 June, 2020", "%d %B, %Y")
+BEGIN = datetime.date(2020, 5, 1)
+END = datetime.date(2020, 6, 30)
 
 
 class SelectCustomerCoupons(unittest.TestCase):
