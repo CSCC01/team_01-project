@@ -36,6 +36,20 @@
     <br>
     Email: {{ user["email"] }}
   </div>
+  {% if session['account'] == 1 %}
+  <div class = parent>
+    <div class = subheading>
+      Restaurant Name: <div class = unbolded> {{ rname }} </div>
+    </div>
+    <div class = subheading>
+      Restaurant Address: <div class = unbolded> {{ raddress }} </div>
+    </div>
+    <div class = submit_button>
+      <a href="editRestaurantInfo.html"><input type="submit" value="Edit"></a>
+    </div>
+  </div>
+  {% endif %}
+
   <div class = parent>
     <div class = submit_button>
       <a href="logout.html"><input type="submit" value="Logout"></a>

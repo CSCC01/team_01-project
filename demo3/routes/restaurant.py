@@ -10,9 +10,9 @@ restaurant_page = Blueprint('restaurant_page', __name__, template_folder='templa
 
 # The home landing page
 # Currently nothing is here
-@restaurant_page.route('/visitedRestaurants', methods=['GET', 'POST'])
-@restaurant_page.route('/visitedRestaurants.html', methods=['GET', 'POST'])
-def visitedRestaurants():
+@restaurant_page.route('/favourites', methods=['GET', 'POST'])
+@restaurant_page.route('/favourites.html', methods=['GET', 'POST'])
+def favourites():
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
     if session['type'] != -1:
@@ -22,4 +22,4 @@ def visitedRestaurants():
             rid = request.form['rid']
             return redirect(url_for('search_page.restaurant', rid=rid))
         restaurants = get_favourites(session['account'])
-        return render_template('visitedRestaurants.html', restaurants = restaurants)
+        return render_template('favourites.html', restaurants = restaurants)

@@ -24,14 +24,14 @@ class SelectEmployeeTest(unittest.TestCase):
         db.session.add(u)
         db.session.commit()
         employee_list = employeehelper.get_employees(7)
-        self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 3}])
+        self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 3, 'type': 0}])
 
     def test_employee_many(self):
         e1 = Employee(uid=1, rid=7)
         e2 = Employee(uid=2, rid=7)
         e3 = Employee(uid=3, rid=7)
         u1 = User(name="joe", email="joe.com", password="omit", type=0)
-        u2 = User(name="joetwo", email="joetwo.com", password="omit", type=0)
+        u2 = User(name="joetwo", email="joetwo.com", password="omit", type=2)
         u3 = User(name="joethree", email="joethree.com", password="omit", type=0)
         db.session.add(u1)
         db.session.add(u2)
@@ -41,9 +41,10 @@ class SelectEmployeeTest(unittest.TestCase):
         db.session.add(e3)
         db.session.commit()
         employee_list = employeehelper.get_employees(7)
-        self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 1},
-                    {'email': 'joetwo.com', 'name': 'joetwo', 'uid': 2},
-                    {'email': 'joethree.com', 'name': 'joethree', 'uid': 3}])
+        self.assertEqual(employee_list, [
+                    {'email': 'joe.com', 'name': 'joe', 'uid': 1, 'type': 0},
+                    {'email': 'joetwo.com', 'name': 'joetwo', 'uid': 2, 'type': 2},
+                    {'email': 'joethree.com', 'name': 'joethree', 'uid': 3, 'type': 0}])
 
     def test_employee_none(self):
         e1 = Employee(uid=1, rid=7)

@@ -26,7 +26,7 @@
                 <a href="home.html"><img src="static/Resources/home{% block home %}{% endblock home %}.png" alt="Home"></a>
 
               {% if session["type"] == -1 %}
-                <a href="visitedRestaurants.html"><img src="static/Resources/fork{% block restaurant %}{% endblock restaurant %}.png" alt="Restaurants"></a>
+                <a href="favourites.html"><img src="static/Resources/fork{% block restaurant %}{% endblock restaurant %}.png" alt="Restaurants"></a>
               {% endif %}
 
 
@@ -45,16 +45,16 @@
                 </button>
                 <div id="dropdown" class="dropdown_container">
                   <a href="coupon.html">My Coupons</a>
-                  {% if session['type'] == 1 %}
+                  {% if session['type'] == 1 or session["type"] == 2 %}
                     <a href="createCoupon.html">Create a Coupon</a>
                     <a href="viewUserCoupons.html">View Customer Coupons</a>
                   {% endif %}
                 </div>
               </div>
-              {% if session['type'] == 1 or session['type'] == 0 %}
+              {% if session['type'] != -1 %}
                 <a href="achievement.html"><img src="static/Resources/achievement{% block achievement %}{% endblock achievement %}.png" alt="Achievement"></a>
               {% endif %}
-              {% if session['type'] == 1 %}
+              {% if session['type'] == 1 or session["type"] == 2 %}
                 <a href="employee.html"><img src="static/Resources/employee{% block employee %}{% endblock employee %}.png" alt="Employee"></a>
               {% endif %}
                 <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>
