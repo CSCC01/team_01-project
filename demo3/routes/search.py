@@ -16,6 +16,7 @@ from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.points import *
 from databaseHelpers.experience import *
 from databaseHelpers.level import *
+from databaseHelpers.leaderboard import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
 
@@ -144,3 +145,17 @@ def restaurantAchievements(rid, filter):
         return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
     else:
         return redirect(url_for('home_page.home'))
+
+# View customer leader board
+@search_page.route('/leaderBoard<rid>', methods=['GET', 'POST'])
+def leaderBoard(rid):
+    rname = get_restaurant_name_by_rid(rid)
+    # If someone is not logged in redirects them to login page
+    if 'account' not in session:
+        return redirect(url_for('login_page.login'))
+    leaderBoard_list  = top_n_in_order(rid, 3)
+    # [(5, 170), (32, 158), (1, 66), (10, 64), (18, 58)]
+    lbs = get_data(leaderBoard_list)
+
+    # return render_template("leaderBoard.html", lbs=lbs)
+    return render_template("leaderBoard.html", rid=rid, lbs=lbs, rname=rname)

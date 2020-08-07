@@ -1,4 +1,5 @@
 from models import Experience
+from databaseHelpers.user import *
 
 import config
 if config.STATUS == "TEST":
@@ -23,10 +24,14 @@ def top_n_in_order(rid,n):
     sort_list = sorted(dict.items(), key=lambda item:item[1], reverse=True)
     return sort_list[:n]
 
-def get_rank(uid, rid):
-    """
-    :param uid:
-    :param rid:
-    :return:
-    """
-    # TODO get customer rank at current restaurant
+def get_data(list):
+    data_list = []
+    rank = 1
+    for l in list:
+        data={"username": get_user_name_by_uid(l[0]),
+              "exp": l[1],
+              "rank": rank}
+        rank+=1
+        data_list.append(data)
+    return data_list
+
