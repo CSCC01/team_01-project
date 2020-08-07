@@ -91,4 +91,19 @@
       </a>
     </div>
   {% endif %}
+  {% if session['type'] == 0 %}
+    <div class = parent>
+      <div class = title>
+        <div class = text>
+          Employer:
+        </div>
+      </div>
+      <div class = text>
+        {{ rname }}
+      </div>
+      <div class = subtext>
+        at {{ raddress }}
+      </div>
+    </div>
+  {% endif %}
 {% endblock content %}
