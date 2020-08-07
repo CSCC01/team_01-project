@@ -76,6 +76,7 @@ def get_user_name_by_uid(uid):
         return u.name
     return "Not Found"
 
+
 def update_type(uid, type):
     """
     Updates a row in the User table
@@ -102,4 +103,4 @@ def get_user(uid):
             "email": user.email
         }
         return dict
-
+    return None
