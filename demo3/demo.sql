@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `name`         varchar(128)      NOT NULL DEFAULT '',
   `points`       int unsigned      NOT NULL,
   `description`  varchar(1028)     NOT NULL DEFAULT '',
+  `level`        int unsigned      NOT NULL,
   `begin`        date,
   `expiration`   date,
   `deleted`      int               NOT NULL,
@@ -67,4 +68,8 @@ CREATE TABLE IF NOT EXISTS `experience` (
   `experience`   int               NOT NULL,
   PRIMARY KEY (`uid`, `rid`)
 );
-
+CREATE TABLE IF NOT EXISTS `favourite` (
+  `uid`          int unsigned      NOT NULL,
+  `rid`          int unsigned      NOT NULL,
+  PRIMARY KEY (`uid`, `rid`)
+);

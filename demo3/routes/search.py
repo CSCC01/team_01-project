@@ -16,6 +16,7 @@ from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.points import *
 from databaseHelpers.experience import *
 from databaseHelpers.level import *
+from databaseHelpers.favourite import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
 
@@ -55,6 +56,15 @@ def restaurant(rid):
 
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
+        ### TODO: get likes
+        if "loved" in request.form:
+            add_favourite(session['account'], rid)
+
+        elif "unloved" in request.form:
+            remove_faviourite(session['account'], rid)
+
+        liked = check_favourite(session['account'], rid)
+
         # Gets coupons
         rname = get_restaurant_name_by_rid(rid)
         coupons = filter_valid_coupons(get_coupons(rid))[-3:]
@@ -72,7 +82,7 @@ def restaurant(rid):
         experience = get_experience(uid, rid).experience
         level = convert_experience_to_level(experience)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements)
+                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, liked = liked)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -93,19 +103,33 @@ def couponOffers(rid):
     if restaurant:
         rname = get_restaurant_name_by_rid(rid)
         coupons = filter_valid_coupons(get_coupons(rid))
+        coupons.sort(key=lambda x: x.get('level'))
         points = get_points(session['account'], rid).points
+        level = convert_experience_to_level(get_experience(session['account'], rid).experience)
         if 'cid' in request.form:
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
-            if c['points'] <= points:
+            errmsg = []
+            
+            # if meet all the requirement
+            if c['points'] <= points and c['clevel'] <= level:
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, bought = c['cname'])
-            else:
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, errmsg = ["You do not have enough points for this coupon"])
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
+            
+            # not enough points
+            if c['points'] > points:
+                errmsg.append("You do not have enough points for this coupon.")  
+            
+            # not enough level
+            if c['clevel'] > level: 
+                errmsg.append("You do not have high enough level to purchase this coupon.")
+                
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
 
-        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points)
+        else:
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -136,10 +160,10 @@ def restaurantAchievements(rid, filter):
             aid = request.form['achievement']
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
-            
+
             achievement = get_achievement_with_progress_data(aid, uid)
             return render_template("achievementQR.html", imgurl=imgurl, rid=rid, a=achievement)
-          
+
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])

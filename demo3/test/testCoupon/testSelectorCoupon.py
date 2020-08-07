@@ -34,7 +34,7 @@ class SelectCouponTest(unittest.TestCase):
         """
         Retives coupon list when there is only one.
         """
-        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid=12, name="test", points=10, description="1$ off", level=1, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon)
         db.session.commit()
         coupon_list = couponhelper.get_coupons(12)
@@ -44,15 +44,16 @@ class SelectCouponTest(unittest.TestCase):
                      'expiration': END,
                      'name': 'test',
                      'points': 10,
+                     'level': 1,
                      "deleted": 0}])
 
     def test_coupon_multi(self):
         """
         Retives coupon list when there are many.
         """
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=1)
-        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", level=1, begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", level=2, begin=BEGIN, expiration=END, deleted=1)
+        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", level=3, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.add(coupon3)
@@ -64,6 +65,7 @@ class SelectCouponTest(unittest.TestCase):
                      'expiration': END,
                      'name': 'test1',
                      'points': 10,
+                     'level': 1,
                      "deleted": 0},
                     {'begin': BEGIN,
                      'cid': 2,
@@ -71,6 +73,7 @@ class SelectCouponTest(unittest.TestCase):
                      'expiration': END,
                      'name': 'test2',
                      'points': 20,
+                     'level': 2,
                      "deleted": 1},
                     {'begin': BEGIN,
                      'cid': 3,
@@ -78,15 +81,16 @@ class SelectCouponTest(unittest.TestCase):
                      'expiration': END,
                      'name': 'test3',
                      'points': 30,
+                     'level': 3,
                      "deleted": 0}])
 
     def test_coupon_none(self):
         """
         Retives coupon list when there are none.
         """
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", begin=BEGIN, expiration=END, deleted=1)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", level=1, begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", level=10, begin=BEGIN, expiration=END, deleted=0)
+        coupon3 = Coupon(rid=12, name="test3", points=30, description="3$ off", level=100, begin=BEGIN, expiration=END, deleted=1)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.add(coupon3)
