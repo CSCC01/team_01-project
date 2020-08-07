@@ -1,0 +1,71 @@
+/*                                                  *
+*                                                   *
+*              Styling for leaderboard.HTML              *
+*                                                   *
+*                                                   */
+
+
+.rank img{
+  height: 30px;
+  padding-top: 5px;
+  margin-left: -6px;
+  margin-right: -7px;
+}
+
+.ranking {
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  background-color: lightgray;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.labels {
+  font-size: var(--subtitle);
+  padding-left: 3px;
+  padding-right: 17px;
+}
+
+.user {
+  display: flex;
+  font-size: var(--title);
+}
+
+.stats {
+  display: flex;
+  font-size: var(--title);
+}
+
+.experience {
+  font-weight: 600;
+  text-align: right;
+  width: 115px;
+}
+
+.experience_label {
+  text-align: right;
+  width: 125px;
+}
+
+.rank {
+  width: 30px;
+  font-weight: 600;
+  text-align: center;
+  margin-left: -10px;
+}
+
+.ranking div {
+  height: 50px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: -5px;
+}
