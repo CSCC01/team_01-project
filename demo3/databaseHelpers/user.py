@@ -22,7 +22,8 @@ def insert_new_user(name, email, password1, password2, type):
         type: The account access type. One of the following integer values:
           -1 == customer account.
            1 == owner account.
-           0 == employee account.
+           0 == employee general account.
+           2 == employee admin account.
 
     Returns:
         A touple containing any error messages raised and the user ID of the
@@ -69,6 +70,21 @@ def get_user_login(email, password):
     user = User.query.filter(User.email == email, User.password == password).first()
     return user
 
+def update_type(uid, type):
+    """
+    Updates a row in the User table
+    Args:
+        uid: A user ID that corresponds to a user in the User table. A integer.
+        type: The account access type. One of the following integer values:
+          -1 == customer account.
+           1 == owner account.
+           0 == employee general account.
+           2 == employee admin account.
+    """
+    user = User.query.filter(User.uid == uid).first()
+    if user != None:
+        user.type = type
+        db.session.commit()
 
 def get_user(uid):
     """"""
@@ -80,4 +96,5 @@ def get_user(uid):
             "email": user.email
         }
         return dict
+
     return None
