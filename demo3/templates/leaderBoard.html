@@ -89,6 +89,7 @@
           </div>        
       </div>
       {% for l in lbs %}
+         {%  if l["exp"] > 0 %}
           <div class = ranking>
             <div class = user>
               {% if l["rank"] < 4 %}
@@ -104,7 +105,6 @@
                 {{ l["username"] }}
               </div>
             </div>
-            
             <div class = stats>
               <div class = level>
                 {{ l["level"] }}
@@ -114,6 +114,7 @@
               </div>
             </div>
           </div>
+        {% endif %}
       {% endfor %}
     </div>
 {% endblock content %}
