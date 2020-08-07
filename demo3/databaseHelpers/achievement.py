@@ -174,10 +174,11 @@ def get_errmsg(name, experience, points, type, value):
         if expiration < today:
             errmsg.append("This achievemnt is already outdated.")
         
-        b = (data[3]).split('-')
-        begin = datetime.date(int(b[0]), int(b[1]), int(b[2]))
-        if expiration < begin:
-            errmsg.append("Invalid date interval, begin date must be before expiration date.")
+        if data[3] != "":
+            b = (data[3]).split('-')
+            begin = datetime.date(int(b[0]), int(b[1]), int(b[2]))
+            if expiration < begin:
+                errmsg.append("Invalid date interval, begin date must be before expiration date.")
 
     return errmsg
 
