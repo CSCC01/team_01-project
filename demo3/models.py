@@ -103,3 +103,9 @@ class Achievements(db.Model):
     points = db.Column(db.Integer, nullable=False)
     type = db.Column(db.Integer, nullable=False)
     value = db.Column(db.String(2048), nullable=False)
+
+class Thresholds(db.Model):
+    __tablename__ = "thresholds"
+    rid = db.Column(db.Integer, primary_key=True, nullable=False)
+    level = db.Column(db.Integer, primary_key=True, nullable=False)
+    reward = db.Column(db.Integer, nullable=False)
