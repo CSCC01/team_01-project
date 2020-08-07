@@ -1,5 +1,5 @@
 import unittest
-from models import Customer_Achievement_Progress
+from models import Customer_Achievement_Progress, Achievements
 from models import db
 import time
 from datetime import datetime
@@ -100,7 +100,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 15,
             "progressMax": 6,
             "progress": 0,
-            "status": 0
+            "status": 0,
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -109,7 +110,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 20,
             "progressMax": 5,
             "progress": 2,
-            "status": 1
+            "status": 1,
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
@@ -118,7 +120,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 15,
             "progressMax": 3,
             "progress": 3,
-            "status": 2
+            "status": 2,
+            "expired": 0
             }])
 
     def test_get_recent_achievements_no_achievements_to_filter(self):
@@ -181,7 +184,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 15,
             "progressMax": 3,
             "progress": 1,
-            "status": 1
+            "status": 1,
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -190,7 +194,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 20,
             "progressMax": 5,
             "progress": 2,
-            "status": 1
+            "status": 1,
+            "expired": 0
             }])
     
     def test_get_recent_achievements_three_matches(self):
@@ -213,7 +218,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 15,
             "progressMax": 6,
             "progress": 2,
-            "status": 1
+            "status": 1,
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
@@ -222,7 +228,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 15,
             "progressMax": 3,
             "progress": 1,
-            "status": 1
+            "status": 1,
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
@@ -231,7 +238,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "points": 20,
             "progressMax": 5,
             "progress": 2,
-            "status": 1
+            "status": 1,
+            "expired": 0
             }])
     
     def test_get_recent_achievements_more_than_three_matches(self):
@@ -253,7 +261,8 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
                                     "description": "description 4",
                                     "experience": 5,
                                     "points": 5,
-                                    "progressMax": 6})
+                                    "progressMax": 6,
+                                    "expired": 0})
 
         self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
         [{"aid": 20,
@@ -262,6 +271,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 5,
             "points": 5,
             "progressMax": 6,
+            "expired": 0,
             "progress": 5,
             "status": 1
             },
@@ -271,6 +281,7 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 10,
             "points": 15,
             "progressMax": 6,
+            "expired": 0,
             "progress": 2,
             "status": 1
             },
@@ -280,9 +291,78 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "experience": 15,
             "points": 15,
             "progressMax": 3,
+            "expired": 0,
             "progress": 1,
             "status": 1
             }])
+
+
+    def test_get_achievement_with_progress_data_by_nonexistent_aid(self):
+        '''Tests get_achievement_with_progress_data(aid, uid) for an aid that
+        does not match any achievement.'''
+        self.assertIsNone(achievementhelper.get_achievement_with_progress_data(5, 6), None)
+        
+
+    def test_get_achievement_with_progress_data_by_uid_with_no_progress(self):
+        '''Tests get_achievement_with_progress_data(aid, uid) for a uid that
+        does not match any achievement progress entry.'''
+        achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
+        db.session.add(achievement)
+        db.session.commit()
+
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
+            {
+                "aid": 1,
+                "name": "test",
+                "description": "Buy Item 5 times.",
+                "experience": 15,
+                "points": 10,
+                "progressMax": 5,
+                "progress": 0
+            })
+
+
+    
+    def test_get_achievement_with_progress_data_by_uid_with_no_relevant_progress(self):
+        '''Tests get_achievement_with_progress_data(aid, uid) for a uid that
+        does not match any achievement progress entry for the given aid.'''
+        achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
+        achievementProgress = Customer_Achievement_Progress(uid=6, aid=11, progress=2, total=5)
+        db.session.add(achievement)
+        db.session.add(achievementProgress)
+        db.session.commit()
+
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
+            {
+                "aid": 1,
+                "name": "test",
+                "description": "Buy Item 5 times.",
+                "experience": 15,
+                "points": 10,
+                "progressMax": 5,
+                "progress": 0
+            })
+    
+
+    def test_get_achievement_with_progress_data_with_valid_aid_and_progress(self):
+        '''Tests get_achievement_with_progress_data(aid, uid) for an existing
+        aid and an existing customer progress entry.'''
+        achievement = Achievements(rid=12, name="test", points=10, experience=15, type=0, value="Item;5;;;")
+        achievementProgress = Customer_Achievement_Progress(uid=6, aid=1, progress=2, total=5)
+        db.session.add(achievement)
+        db.session.add(achievementProgress)
+        db.session.commit()
+
+        self.assertEqual(achievementhelper.get_achievement_with_progress_data(1, 6), 
+            {
+                "aid": 1,
+                "name": "test",
+                "description": "Buy Item 5 times.",
+                "experience": 15,
+                "points": 10,
+                "progressMax": 5,
+                "progress": 2
+            })
 
     def achievement_list_helper(self):
         return [{"aid": 10,
@@ -290,21 +370,24 @@ class SelectCustomerAchievementProgressTest(unittest.TestCase):
             "description": "description",
             "experience": 10,
             "points": 15,
-            "progressMax": 6
+            "progressMax": 6,
+            "expired": 0
             },
             {"aid": 11,
             "name": "test 2",
             "description": "description 2",
             "experience": 15,
             "points": 20,
-            "progressMax": 5
+            "progressMax": 5,
+            "expired": 0
             },
             {"aid": 12,
             "name": "test 3",
             "description": "description 3",
             "experience": 15,
             "points": 15,
-            "progressMax": 3
+            "progressMax": 3,
+            "expired": 0
             }]
 
 if __name__ == "__main__":
