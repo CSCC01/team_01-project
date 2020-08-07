@@ -4,13 +4,13 @@ import os
 import config
 from pathlib import Path
 
-def to_qr(url, rcid):
+def to_qr(url, uid, cid):
     img = qrcode.make(url)
     if config.STATUS == 'TEST':
-        path = str(get_root()) + '/static/Resources/QR/'+str(rcid)+'.png'
+        path = str(get_root()) + '/static/Resources/QR/'+str(uid)+'_'+str(cid)+'.png'
         path = path.replace("/", os.path.sep)
     else:
-        path ='static/Resources/QR/'+str(rcid)+'.png'
+        path ='static/Resources/QR/'+str(uid)+'_'+str(cid)+'.png'
     # how to resolve this
     img.save(path)
     return path
