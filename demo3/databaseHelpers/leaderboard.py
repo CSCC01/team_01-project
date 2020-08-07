@@ -9,7 +9,7 @@ else:
     from exts import db
 
 
-def top_n_in_order(rid,n):
+def top_n_in_order(rid, n):
     """
     :param rid: restaurant id
     :param n:  top n, an integer, default 50
