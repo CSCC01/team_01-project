@@ -46,11 +46,11 @@
     </div>
   </a>
 
-  <a href="viewUserCoupons.html">
+  <a href="couponStats.html">
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemed Coupons
+        Coupon Statistics
       </button>
     </div>
   </a>
@@ -90,6 +90,19 @@
                     <input type="text" name="name">
                   {% endif %}
             </div>
+            
+          <div class = col id = "number">
+            <div class = feild>
+              <label>Level to Redeem</label>
+              <div class = points>
+                {% if 'level' in info %}
+                  <input type="number" name="level" value = {{info["level"]}}>
+                {% else %}
+                  <input type="number" name="level" value = 0>
+                {% endif %}
+              </div>
+            </div>
+          
             <div class = feild>
               <label>Cost to Redeem</label>
               <div class = points>
@@ -103,6 +116,8 @@
                 </div>
               </div>
             </div>
+          </div>
+
             <div class = feild>
               <label>Description</label>
               {% if 'description' in info %}

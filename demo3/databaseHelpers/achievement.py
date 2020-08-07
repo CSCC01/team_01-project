@@ -52,16 +52,19 @@ def get_achievement_description(achievement):
     """
     values = get_achievement_data(achievement)
     switcher = {
-        0: "Buy " + values[0] + " " + values[1] + " times.",
-        1: "Spend $" + values[1] + " in a single visit.",
-        2: "Visit with a group of at least " + values[1] + " people.",
+        0: "Buy " + values[0] + " " + values[1] + " times",
+        1: "Spend $" + values[1] + " in a single visit",
+        2: "Visit with a group of at least " + values[1] + " people",
+        3: "Visit " + values[1] + " times"
     }
-    if (values[2] == "False"):
-        switcher[3] = "Visit " + values[1] + " times between " + values[3] + " and " + values[4] + "."
-    else:
-        switcher[3] = "Visit " + values[1] + " times."
 
-    return switcher.get(achievement.type)
+    description = switcher.get(achievement.type)
+    if (values[2] == "False"):
+        description = description + " between " + values[3] + " and " + values[4] + "."
+    else:
+        description = description + "."
+
+    return description
 
 
 def get_achievement_progress_maximum(achievement):
@@ -104,7 +107,7 @@ def is_today_in_achievement_date_range(achievement):
     """
     today = date.today()
     values = get_achievement_data(achievement)
-    if achievement.type == 3 and values[2] == "False":
+    if values[2] == "False":
         e = (values[4]).split('-')
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
         if today > expiration:
@@ -162,9 +165,9 @@ def get_errmsg(name, experience, points, type, value):
         errmsg.append("Missing an item, please provide an item for the achievement.")
     if data[1] == "" or float(data[1]) < 0:
         errmsg.append("Invalid amount, please provide a positive value.")
-    if type == 3 and data[2] == "False" and (data[3] == "" or data[4] == ""):
+    if data[2] == "False" and (data[3] == "" or data[4] == ""):
         errmsg.append("Missing start or expiration date.")
-    if type == 3 and data[2] == "False" and data[4] != "":
+    if data[2] == "False" and data[4] != "":
         today = date.today()
         e = (data[4]).split('-')
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
@@ -197,36 +200,11 @@ def insert_achievement(rid, name, experience, points, type, value):
     db.session.commit()
 
 
-def delete_expired_achievements(rid):
-    """
-    Removed rows from the achievemnt table.
-
-    Deleted achievement that are of type 3 and past their expiration date.
-
-    Args:
-        rid: A restuarants ID that corresponds to a restaurant in the restaurant
-          table. Integer value.
-
-    Returns: None
-    """
-    today = date.today()
-    achievements = Achievements.query.filter(Achievements.rid == rid).all()
-
-    for a in achievements:
-        values = a.value.split(';')
-        if a.type == 3 and values[2] == "False":
-            e = (values[4]).split('-')
-            expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
-            if today > expiration:
-                delete_achievement(a.aid)
-    return None
-
-
 def filter_expired_achievements(rid):
     """
-    Removed rows from the achievemnt table.
+    Filters out rows from the achievemnt table.
 
-    Deleted achievement that are of type 3 and past their expiration date.
+    Filters out achievements that are past their expiration date.
 
     Args:
         rid: A restuarants ID that corresponds to a restaurant in the restaurant
@@ -248,7 +226,7 @@ def filter_expired_achievements(rid):
             "progressMax": get_achievement_progress_maximum(a)
         }
         values = a.value.split(';')
-        if a.type == 3 and values[2] == "False":
+        if values[2] == "False":
             e = (values[4]).split('-')
             expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
             if today <= expiration:

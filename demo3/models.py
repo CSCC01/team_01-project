@@ -38,6 +38,7 @@ class Coupon(db.Model):
     name = db.Column(db.String(64), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(1024), nullable=False)
+    level = db.Column(db.Integer, nullable=False)
     expiration = db.Column(db.Date, nullable=True)
     begin = db.Column(db.Date, nullable=True)
 
@@ -80,6 +81,7 @@ class Customer_Achievement_Progress(db.Model):
     uid = db.Column(db.Integer, nullable=False, primary_key=True)
     progress = db.Column(db.Integer, nullable=False)
     total = db.Column(db.Integer, nullable=False)
+    update = db.Column(db.DateTime, nullable=True)
 
 class Achievements(db.Model):
     __tablename__ = "achievements"
