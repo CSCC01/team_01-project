@@ -25,7 +25,6 @@ def achievement():
     # Page is restricted to owners and employees only, if user is a customer, redirect to home page
     elif session['type'] == -1:
         return redirect(url_for('home_page.home'))
-
     else:
         if request.method == 'POST':
             aid = request.form['achievement']
@@ -49,11 +48,14 @@ def create_achievement():
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to owners only, if user is not an owner, redirect to home page
-    elif session['type'] != 1:
+    elif session['type'] == -1 or session["type"] == 0:
         return redirect(url_for('home_page.home'))
 
     if request.method == 'POST':
-        rid = get_rid(session["account"])
+        if session["type"] == 1:
+            rid = get_rid(session["account"])
+        else:
+            rid = get_employee_rid(session["account"])
         name = request.form['name']
         experience = request.form['experience']
         points = request.form['points']
@@ -87,9 +89,21 @@ def use_achievement(aid,uid):
         return redirect(url_for('qr_page.scan_failure'))
 
     # get achievement
-    achievement = get_exact_achivement_progress(aid, uid)
-    if achievement:
-        add_one_progress_bar(achievement, aid, uid)
+    achievementProgress = get_exact_achivement_progress(aid, uid)
+    achievement = get_achievement_by_aid(aid)
+
+    if achievement != 'Not Found':
+        # check if achievement is already complete
+        if get_progress_completion_status(achievementProgress) == COMPLETE:
+            return redirect(url_for('qr_page.scan_forbidden', forbiddenType = 0, itemType = 'Achievement'))
+
+        # check if it is before achievement start date or after achievement end date
+        isInDateRange = is_today_in_achievement_date_range(achievement)
+        if isInDateRange != 0:
+            return redirect(url_for('qr_page.scan_forbidden', forbiddenType = isInDateRange, itemType = 'Achievement'))
+
+        # update progress
+        add_one_progress_bar(achievementProgress, aid, uid)
         return redirect(url_for('qr_page.scan_successful'))
 
-    return redirect(url_for('qr_page.scan_no_coupon'))
+    return redirect(url_for('qr_page.scan_nonexistent', scanType = 1))

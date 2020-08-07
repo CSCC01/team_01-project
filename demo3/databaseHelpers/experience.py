@@ -1,4 +1,5 @@
 from models import Experience
+from databaseHelpers.restaurant import *
 
 import config
 if config.STATUS == "TEST":
@@ -6,6 +7,20 @@ if config.STATUS == "TEST":
 else:
     from exts import db
 
+def get_restaurants_with_experience(uid):
+    """"""
+    restaurant_list = []
+    exp = Experience.query.filter(Experience.uid == uid).order_by(Experience.experience).all()
+    for e in exp:
+        dict = {
+            "rid": e.rid,
+            "experience": e.experience,
+            "name": get_restaurant_name_by_rid(e.rid),
+            "address": get_restaurant_address(e.rid)
+        }
+        restaurant_list.append(dict)
+    return restaurant_list
+    
 
 def insert_experience(uid, rid):
     """
@@ -43,9 +58,9 @@ def get_experience(uid, rid):
     in the database.
 
     Args:
-        uid: The user ID pertaining to the user whose experience information is being 
+        uid: The user ID pertaining to the user whose experience information is being
           retrieved. An integer.
-        rid: The restaurant ID pertaining to the restaurant whose experience information 
+        rid: The restaurant ID pertaining to the restaurant whose experience information
           is being retrieved. An integer.
     Returns:
         A experience entry with matching user ID and restaurant ID as the ones provided,
@@ -60,9 +75,9 @@ def update_experience(uid, rid, increment):
     Updates the experience value of a row from the experience table.
 
     Args:
-        uid: The user ID pertaining to the user whose experience information is being 
+        uid: The user ID pertaining to the user whose experience information is being
           updated. An integer.
-        rid: The restaurant ID pertaining to the restaurant whose experience information 
+        rid: The restaurant ID pertaining to the restaurant whose experience information
           is being updated. An integer.
         increment: The amount of experience by which the experience entry's current point value
           should be incremented. An integer.

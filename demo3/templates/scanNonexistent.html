@@ -26,8 +26,15 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
-          Invalid Coupon/Achievement! Please check your coupon/achievement and try again.
+        {% if scanType == '0' %}
+          <div class = text>
+            Invalid Coupon! Please check your coupon and try again.
+          </div>
+        {% elif scanType == '1' %}
+          <div class = text>
+            Invalid Achievement! Please check your achievement and try again.
+          </div>
+        {% endif %}
         </div>
       </div>
     </div>
