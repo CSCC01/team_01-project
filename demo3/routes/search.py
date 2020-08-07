@@ -153,7 +153,7 @@ def leaderBoard(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
-    leaderBoard_list  = top_n_in_order(rid, 3)
+    leaderBoard_list  = top_n_in_order(rid, 10)
     # [(5, 170), (32, 158), (1, 66), (10, 64), (18, 58)]
     lbs = get_data(leaderBoard_list)
 

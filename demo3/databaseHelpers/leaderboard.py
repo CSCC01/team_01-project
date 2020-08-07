@@ -1,5 +1,6 @@
 from models import Experience
 from databaseHelpers.user import *
+from databaseHelpers.level import *
 
 import config
 if config.STATUS == "TEST":
@@ -30,8 +31,9 @@ def get_data(list):
     for l in list:
         data={"username": get_user_name_by_uid(l[0]),
               "exp": l[1],
+              "level": convert_experience_to_level(l[1]),
               "rank": rank}
-        rank+=1
+        rank += 1
         data_list.append(data)
     return data_list
 
