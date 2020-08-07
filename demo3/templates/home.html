@@ -83,7 +83,7 @@
           You currently have no favourited restaurants. <br>
           Search for your favourite restaurants and heart them.
       {% endif %}
-      <a href="favourites">
+      <a href="visitedRestaurants">
         <div class = seeMore>
           <button type="button">
             View All Favourited Restaurants
@@ -92,12 +92,13 @@
       </a>
     </div>
   {% endif %}
+
   {% if session['type'] >= 0 %}
     <div class = parent>
       <div class = title>
         {% if session['type'] == 0 %}
         <div class = text>
-          Employer:
+          Recently Updated Achievements:
         </div>
         {% else %}
         <div class = text>
@@ -105,13 +106,50 @@
         </div>
         {% endif %}
       </div>
-      <div class = text>
-        {{ rname }}
+     {% for a in achievements %}
+        <div class = title>
+          <div class = name>
+            {{ a["name"] }}
+          </div>
+        </div>
+        <div class= amount>
+          {{ a["rname"] }}, at {{a["raddress"]}}
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = achievement_progress_bar>
+          <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
+            ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
+          </progress>
+          {% if a["progress"] == a["progressMax"] %}
+            <div class = "check_complete">✔</div>
+          {% endif %}
+          {% if a["progress"] != a["progressMax"] %}
+            <div class = "check">✔</div>
+          {% endif %}
+        </div>
+        <div class = achievement_footer>
+          <div class = achievement_progress>
+            <div class = achievement_progress_text>
+              Progress:
+            </div>
+            <div class = progress_count>
+              {{ a["progress"] }}
+            </div>
+            <div class = progress_count_total>
+              /{{ a["progressMax"] }}
+          </div>
+          </div>
+          <div class = rewards>
+            <div class = number>{{ a["points"] }}</div>
+            <div class = rewards_text>PT</div>
+            <div class = number>{{ a["experience"] }}</div>
+            <div class = rewards_text>EXP</div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
-      <div class = subtext>
-        at {{ raddress }}
-      </div>
-    </div>
   {% endif %}
 
   {% if session['type'] == 1 %}

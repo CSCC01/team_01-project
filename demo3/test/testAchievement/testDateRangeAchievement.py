@@ -22,44 +22,33 @@ class DateRangeAchievementTest(unittest.TestCase):
 
     def test_before_start(self):
         """Tests when today's date is before the start date."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2099-4-11;2099-4-12')
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;False;2099-4-11;2099-4-12')
         self.assertEqual(is_today_in_achievement_date_range(achievement), -1)
     
     def test_on_start(self):
         """Tests when today's date is equal to the start date."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;' + datetime.now().strftime("%Y-%m-%d") + ';2099-4-12')
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;False;' + datetime.now().strftime("%Y-%m-%d") + ';2099-4-12')
         self.assertEqual(is_today_in_achievement_date_range(achievement), 0)
 
     def test_during_range(self):
         """Tests when today's date is between the start date and the expiry date."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2099-4-11')
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;False;2020-4-11;2099-4-11')
         self.assertEqual(is_today_in_achievement_date_range(achievement), 0)
     
     def test_on_expiry(self):
         """Tests when today's date is equal to the expiry date."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;' + datetime.now().strftime("%Y-%m-%d"))
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;False;2020-4-11;' + datetime.now().strftime("%Y-%m-%d"))
         self.assertEqual(is_today_in_achievement_date_range(achievement), 0)
 
     def test_after_expiry(self):
         """Tests when today's date is after the expiry date."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-12')
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;False;2020-4-11;2020-4-12')
         self.assertEqual(is_today_in_achievement_date_range(achievement), 1)
 
     def test_indefinite_expiry(self):
         """Tests when the achievement's expiry date is indefinite."""
-        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;True;;')
+        achievement = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;True;;')
         self.assertEqual(is_today_in_achievement_date_range(achievement), 0)
-
-    def test_not_expirable(self):
-        """Tests when the achievement type has no date data."""
-        achievement1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=0, value='test;4;;;')
-        achievement2 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=1, value='test;4;;;')
-        achievement3 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=2, value='test;4;;;')
-        
-        self.assertEqual(is_today_in_achievement_date_range(achievement1), 0)
-        self.assertEqual(is_today_in_achievement_date_range(achievement2), 0)
-        self.assertEqual(is_today_in_achievement_date_range(achievement3), 0)
-
 
 
 if __name__ == "__main__":

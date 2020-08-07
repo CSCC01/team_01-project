@@ -1,15 +1,15 @@
 <!--                                          ----
-----    achievement.html contains all frontend     ----
-----     html for the owners view of the      ----
-----               achievement page                ----
+----    achievementStats.html contains all    ----
+----     frontend html for the owners and     ----
+----     employee view  of the achievement    ----
+----                stats page.               ----
 ----                                          --->
 
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/achievement.css">
-{% if session["type"] == 1 or session["type"] == 2 %}
+<link rel="stylesheet" type="text/css" href="static/coupon.css">
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
-{% endif %}
 {% endblock style %}
 {% block title %}
 <title>Achievements</title>
@@ -56,47 +56,57 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          Achievements
+          Achievement Statistics
         </div>
-        {% if session["type"] == 1 or session["type"] == 2%}
-          <div class = plus>
-            <a href="createAchievement.html">+</a>
-          </div>
-        {% endif %}
       </div>
     </div>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+              <div class = but>
+                <input type = "submit" value = "All" name = all>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Active" name = active>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Expired" name = expired>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
 {% endblock page_name %}
 
 {% block content %}
   {% for a in achievements %}
+    {% if filter == "all" or (filter == "active" and not a['expired']) or (filter == "expired" and a['expired']) %}
       <div class = parent>
         <div class = title>
-          <div class = name>
-            {{ a["name"] }}
-          </div>
-          {% if session["type"] == 1 or session["type"] == 2 %}
-          <!-- The gear for deleting coupons -->
-          <div class = settings_dropdown>
-            <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
-              <div class = options>
-                <form method = "post">
-                  <input type="submit" value = "Delete" name = {{a["name"]}}>
-                  <input type="hidden" value = {{a["aid"]}} name=achievement>
-                </form>
-              </div>
-          </div>
-          {% endif %}
-
+            <div class = name>
+              {{ a['name'] }}
+            </div>
+            <div class = status>
+              {% if a['expired']%}
+                Status: Expired
+              {% else %}
+                <div class = placeholder> Status:&nbsp;</div>
+                <div class = active>Active</div>
+              {% endif %}
+            </div>
         </div>
         <div class = description>
           {{ a["description"] }}
         </div>
-        <div class = rewards>
-          <div class = number>{{ a["points"] }}</div>
-          <div class = rewards_text>PT</div>
-          <div class = number>{{ a["experience"] }}</div>
-          <div class = rewards_text>EXP</div>
+
+        <div class = holder>
+          Number of people in progress: {{ a['in progress'] }}
+        </div>
+        <div class = holder>
+          Number of people completed: {{ a['complete'] }}
         </div>
       </div>
-    {% endfor %}
-  {% endblock content %}
+    {% endif %}
+  {% endfor %}
+{% endblock content %}

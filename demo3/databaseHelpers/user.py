@@ -70,6 +70,7 @@ def get_user_login(email, password):
     user = User.query.filter(User.email == email, User.password == password).first()
     return user
 
+
 def update_type(uid, type):
     """
     Updates a row in the User table
@@ -96,5 +97,4 @@ def get_user(uid):
             "email": user.email
         }
         return dict
-
     return None

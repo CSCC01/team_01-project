@@ -14,6 +14,9 @@ END = datetime.date(2020, 6, 30)
 
 
 class SingleSelectorCouponTest(unittest.TestCase):
+    """
+    Tests get_coupon_by_cid() in coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -53,7 +56,8 @@ class SingleSelectorCouponTest(unittest.TestCase):
                              "clevel": coupon.level,
                              "begin": coupon.begin,
                              "expiration": coupon.expiration,
-                             "points": coupon.points
+                             "points": coupon.points,
+                             "status": 1
                              })
 
     def test_coupon_none(self):
