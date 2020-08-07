@@ -114,7 +114,12 @@
           <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
             ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
           </progress>
-          <div class = "check{% if a["status"] == 2%}_complete{% endif %}">✔</div>
+          {% if a["progress"] == a["progressMax"] %}
+            <div class = "check_complete">✔</div>
+          {% endif %}
+          {% if a["progress"] != a["progressMax"] %}
+            <div class = "check">✔</div>
+          {% endif %}
         </div>
         <div class = achievement_footer>
           <div class = achievement_progress>
