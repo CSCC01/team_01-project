@@ -26,6 +26,10 @@ def top_n_in_order(rid,n):
     return sort_list[:n]
 
 def get_data(list):
+    """
+    :param list: the sorted list given by top_n_in_order
+    :return: a list of dictionary of data including username, experience, level and rank
+    """
     data_list = []
     rank = 1
     for l in list:
