@@ -43,7 +43,7 @@ class SelectCustomerCoupons(unittest.TestCase):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", level=36, begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
         db.session.commit()
@@ -61,6 +61,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test",
                 "description": "50% off",
                 "points": 10,
+                "level": 36,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,
@@ -77,7 +78,7 @@ class SelectCustomerCoupons(unittest.TestCase):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", level=22, begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
         db.session.commit()
@@ -95,6 +96,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test",
                 "description": "50% off",
                 "points": 10,
+                "level": 22,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,
@@ -111,7 +113,7 @@ class SelectCustomerCoupons(unittest.TestCase):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", level=55, begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
         db.session.commit()
@@ -126,6 +128,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test",
                 "description": "50% off",
                 "points": 10,
+                "level": 55,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,
@@ -141,7 +144,7 @@ class SelectCustomerCoupons(unittest.TestCase):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", level=33, begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         user2 = User(uid = 6, name = "John", email = "John@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
@@ -165,6 +168,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test",
                 "description": "50% off",
                 "points": 10,
+                "level": 33,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,
@@ -180,8 +184,8 @@ class SelectCustomerCoupons(unittest.TestCase):
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
         db.session.commit()
-        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", begin=BEGIN, expiration=END, deleted=0)
-        coupon2 = Coupon(rid = restaurant.rid, name="test2", points=10, description="25% off", begin=BEGIN, expiration=END, deleted=0)
+        coupon = Coupon(rid = restaurant.rid, name="test", points=10, description="50% off", level=1, begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid = restaurant.rid, name="test2", points=10, description="25% off", level=2, begin=BEGIN, expiration=END, deleted=0)
         user = User(uid = 5, name = "Joe", email = "joe@gmail.com", password = "password", type = -1)
         user2 = User(uid = 6, name = "John", email = "John@gmail.com", password = "password", type = -1)
         db.session.add(coupon)
@@ -206,6 +210,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test",
                 "description": "50% off",
                 "points": 10,
+                "level": 1,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,
@@ -217,6 +222,7 @@ class SelectCustomerCoupons(unittest.TestCase):
                 "name": "test2",
                 "description": "25% off",
                 "points": 10,
+                "level": 2,
                 "begin": BEGIN,
                 "expiration": END,
                 "deleted": 0,

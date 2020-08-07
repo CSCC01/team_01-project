@@ -77,7 +77,7 @@
 {% if errmsg %}
   <div class = parent>
     {% for msg in errmsg %}
-      {{msg}}
+      <li>{{msg}} </li>
     {% endfor %}
   </div>
 {% endif %}
@@ -88,6 +88,9 @@
         <div class = name>
           {{ c["name"] }}
         </div>
+      </div>
+      <div class = amount>
+        Requirement: Level {{ c["level"] }} or Above
       </div>
       <div class = amount>
         {{ c["points"] }} Points
@@ -103,7 +106,14 @@
         {% endif %}
       </div>
 
-      {% if c["points"] > points %}
+      {% if c["level"] > level %}
+        <div class = toPoor>
+          <input type="submit" value="Purchase">
+        </div>
+        <div class = fine_print>
+          You have not reach the level requirement
+        </div>
+      {% elif c["points"] > points %}
         <div class = toPoor>
           <input type="submit" value="Purchase">
         </div>

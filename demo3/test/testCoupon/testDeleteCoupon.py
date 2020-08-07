@@ -32,8 +32,8 @@ class DeleteCouponTest(unittest.TestCase):
         """
         Deletes one coupon, expects that other coupons remain the same.
         """
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", level=2, begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=12, name="test2", points=20, description="2$ off", level=5, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.commit()
@@ -43,6 +43,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(c1.name, "test1")
         self.assertEqual(c1.points, 10)
         self.assertEqual(c1.description, "1$ off")
+        self.assertEqual(c1.level, 2)
         self.assertEqual(c1.begin, BEGIN)
         self.assertEqual(c1.expiration, END)
         self.assertEqual(c1.deleted, 1)
@@ -51,6 +52,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(c2.name, "test2")
         self.assertEqual(c2.points, 20)
         self.assertEqual(c2.description, "2$ off")
+        self.assertEqual(c2.level, 5)
         self.assertEqual(c2.begin, BEGIN)
         self.assertEqual(c2.expiration, END)
         self.assertEqual(c2.deleted, 0)
@@ -59,10 +61,10 @@ class DeleteCouponTest(unittest.TestCase):
         """
         Deletes multiple coupons, expects that other coupons remain the same.
         """
-        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon2 = Coupon(rid=14, name="test2", points=20, description="2$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon3 = Coupon(rid=2, name="test3", points=100, description="10$ off", begin=BEGIN, expiration=END, deleted=0)
-        coupon4 = Coupon(rid=12, name="test4", points=250, description="25$ off", begin=BEGIN, expiration=END, deleted=0)
+        coupon1 = Coupon(rid=12, name="test1", points=10, description="1$ off", level=1, begin=BEGIN, expiration=END, deleted=0)
+        coupon2 = Coupon(rid=14, name="test2", points=20, description="2$ off", level=2, begin=BEGIN, expiration=END, deleted=0)
+        coupon3 = Coupon(rid=2, name="test3", points=100, description="10$ off", level=10, begin=BEGIN, expiration=END, deleted=0)
+        coupon4 = Coupon(rid=12, name="test4", points=250, description="25$ off", level=25, begin=BEGIN, expiration=END, deleted=0)
         db.session.add(coupon1)
         db.session.add(coupon2)
         db.session.add(coupon3)
@@ -78,6 +80,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(c1.name, "test1")
         self.assertEqual(c1.points, 10)
         self.assertEqual(c1.description, "1$ off")
+        self.assertEqual(c1.level, 1)
         self.assertEqual(c1.begin, BEGIN)
         self.assertEqual(c1.expiration, END)
         self.assertEqual(c1.deleted, 1)
@@ -85,6 +88,7 @@ class DeleteCouponTest(unittest.TestCase):
         self.assertEqual(c4.name, "test4")
         self.assertEqual(c4.points, 250)
         self.assertEqual(c4.description, "25$ off")
+        self.assertEqual(c4.level, 25)
         self.assertEqual(c4.begin, BEGIN)
         self.assertEqual(c4.expiration, END)
         self.assertEqual(c4.deleted, 1)
