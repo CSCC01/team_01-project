@@ -55,8 +55,12 @@ def home():
         return render_template('home.html', rname = rname, raddress = raddress, user = user)
 
     # Owner view of home page
-    elif session['type'] == 1:
-        rid = get_rid(session["account"])
+    elif session['type'] > 0:
+        if session['type'] == 1:
+            rid = get_rid(session["account"])
+        else:
+            rid = get_employee_rid(session["account"])
+            
         rname = get_restaurant_name_by_rid(rid)
         raddress = get_restaurant_address(rid)
         coupons = get_redeemed_coupons_by_rid(rid)

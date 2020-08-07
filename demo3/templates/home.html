@@ -91,20 +91,12 @@
         </div>
       </a>
     </div>
-  {% endif %}
 
-  {% if session['type'] >= 0 %}
     <div class = parent>
       <div class = title>
-        {% if session['type'] == 0 %}
         <div class = text>
           Recently Updated Achievements:
         </div>
-        {% else %}
-        <div class = text>
-          My Restaurant:
-        </div>
-        {% endif %}
       </div>
      {% for a in achievements %}
         <div class = title>
@@ -152,7 +144,30 @@
       </div>
   {% endif %}
 
-  {% if session['type'] == 1 %}
+  
+{% if session['type'] >= 0 %}
+<div class = parent>
+  <div class = title>
+    {% if session['type'] == 1 %}
+    <div class = text>
+      My Restaurant:
+    </div>
+    {% else %}
+    <div class = text>
+      Employer:
+    </div>
+    {% endif %}
+  </div>
+  <div class = text>
+    {{ rname }}
+  </div>
+  <div class = subtext>
+    at {{ raddress }}
+  </div>
+</div>
+{% endif %}
+
+  {% if session['type'] > 0 %}
   <div class = parent>
     <div class = title>
       <div class = text>
