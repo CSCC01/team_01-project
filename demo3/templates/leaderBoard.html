@@ -90,7 +90,7 @@
       </div>
       {% for l in lbs %}
           {%  if l["exp"] > 0 %}
-           <div class = ranking>
+           <div class = "ranking{%if session['account'] == l["uid"]%}_mine{% endif %}">
             <div class = user>
               {% if l["rank"] < 4 %}
               <div class = rank>
