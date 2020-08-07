@@ -16,6 +16,7 @@ from databaseHelpers.redeemedCoupons import *
 from databaseHelpers.points import *
 from databaseHelpers.experience import *
 from databaseHelpers.level import *
+from databaseHelpers.threshold import *
 search_page = Blueprint('search_page', __name__, template_folder='templates')
 
 
@@ -71,8 +72,9 @@ def restaurant(rid):
             insert_experience(uid, rid)
         experience = get_experience(uid, rid).experience
         level = convert_experience_to_level(experience)
+        milestone = get_milestone(uid, rid)
         return render_template("restaurant.html", restaurant = restaurant, level = level,
-                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements)
+                                overflow = get_experience_since_last_level(level, experience), rname = rname, coupons = coupons, rid = rid, achievements = achievements, milestone = milestone)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -137,7 +139,7 @@ def restaurantAchievements(rid, filter):
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
             return render_template("achievementQR.html", imgurl=imgurl, rid=rid)
-          
+
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
