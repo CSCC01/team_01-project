@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
 {% endblock style %}
 {% block title %}
-<title>My Coupons</title>
+<title>Coupon Stats</title>
 {% endblock title %}
 
 {% block coupon %}_pressed{% endblock coupon %}
@@ -39,11 +39,11 @@
     </div>
   </a>
 
-  <a href="viewUserCoupons.html">
+  <a href="couponStats.html">
     <div class = but>
       <button type="button">
         <img src="static/Resources/eye.png" alt="Coupon">
-        View Redeemed Coupons
+        Coupon Stats
       </button>
     </div>
   </a>
@@ -56,17 +56,38 @@
     <div class = parent>
       <div class = title>
         <div class = text>
-          Customers' Redeemed Coupons
+          Coupon Stats
         </div>
       </div>
       <div class = fine_print>
         Customers that hold deleted coupons can still use them
       </div>
     </div>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+              <div class = but>
+                <input type = "submit" value = "All" name = all>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Active" name = active>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Expired" name = expired>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Deleted" name = deleted>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
 {% endblock page_name %}
 
 {% block content %}
   {% for c in coupons %}
+    {% if (filter == "all") or (filter == "deleted" and c['deleted'] == 1) or (filter == "expired" and c['expiration'] and today > c['expiration']) or (filter == "active" and not (c['expiration'] and today > c['expiration']) and c['deleted'] == 0)%}
     <div class = parent>
       <div class = title>
           <div class = name>
@@ -75,7 +96,7 @@
           <div class = status>
             {% if c['expiration'] and today > c['expiration'] %}
               Status: Expired
-            {% elif c['deleted'] == 1%}
+            {% elif c['deleted'] == 1 %}
               Status: Deleted
             {% else %}
               <div class = placeholder> Status:&nbsp;</div>
@@ -94,6 +115,7 @@
         Number of uses: {{ c['used'] }}
       </div>
     </div>
+    {% endif %}
   {% endfor %}
 {% endblock content %}
 

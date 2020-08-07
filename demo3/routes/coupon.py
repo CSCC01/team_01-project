@@ -95,9 +95,9 @@ def create_coupon():
 
 
 # View customer coupons
-@coupon_page.route('/viewUserCoupons.html', methods=['GET', 'POST'])
-@coupon_page.route('/viewUserCoupons', methods=['GET', 'POST'])
-def viewUserCoupons():
+@coupon_page.route('/couponStats.html', methods=['GET', 'POST'])
+@coupon_page.route('/couponStats', methods=['GET', 'POST'])
+def couponStats():
     today = date.today()
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
@@ -112,8 +112,16 @@ def viewUserCoupons():
     else:
         rid = get_employee_rid(session["account"])
 
+    filter = "all"
+    if request.method == 'POST' and "deleted" in request.form:
+        filter = "deleted"
+    elif request.method == 'POST' and "expired" in request.form:
+        filter = "expired"
+    elif request.method == 'POST' and "active" in request.form:
+        filter = "active"
+
     coupon_list = get_redeemed_coupons_by_rid(rid)
-    return render_template("viewUserCoupons.html", coupons = coupon_list, today = today)
+    return render_template("couponStats.html", coupons = coupon_list, today = today, filter = filter)
 
 
 @coupon_page.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
