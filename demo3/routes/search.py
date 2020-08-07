@@ -93,7 +93,7 @@ def couponOffers(rid):
     if restaurant:
         rname = get_restaurant_name_by_rid(rid)
         coupons = filter_valid_coupons(get_coupons(rid))
-        coupons.sort(key=lambda x: x.get('clevel'))
+        coupons.sort(key=lambda x: x.get('level'))
         points = get_points(session['account'], rid).points
         level = convert_experience_to_level(get_experience(session['account'], rid).experience)
         if 'cid' in request.form:
