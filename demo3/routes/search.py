@@ -111,22 +111,22 @@ def couponOffers(rid):
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
             errmsg = []
-            
+
             # if meet all the requirement
             if c['points'] <= points and c['clevel'] <= level:
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
                 return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
-            
+
             # not enough points
             if c['points'] > points:
-                errmsg.append("You do not have enough points for this coupon.")  
-            
+                errmsg.append("You do not have enough points for this coupon.")
+
             # not enough level
-            if c['clevel'] > level: 
+            if c['clevel'] > level:
                 errmsg.append("You do not have high enough level to purchase this coupon.")
-                
+
             return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
 
         else:
@@ -179,9 +179,10 @@ def leaderBoard(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
-    leaderBoard_list  = top_n_in_order(rid, 10)
-    # [(5, 170), (32, 158), (1, 66), (10, 64), (18, 58)]
-    lbs = get_data(leaderBoard_list)
+    if session["type"] == -1:
+        leaderBoard_list  = top_n_in_order(rid, 10)
+        lbs = get_data(leaderBoard_list)
 
-    # return render_template("leaderBoard.html", lbs=lbs)
-    return render_template("leaderBoard.html", rid=rid, lbs=lbs, rname=rname)
+        return render_template("leaderBoard.html", rid=rid, lbs=lbs, rname=rname)
+    else:
+        return redirect(url_for('home_page.home'))
