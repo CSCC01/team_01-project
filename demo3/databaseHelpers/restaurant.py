@@ -107,6 +107,29 @@ def get_resturant_by_rid(rid):
     """
     return Restaurant.query.filter(Restaurant.rid == rid).first()
 
+def update_restaurant_information(restaurant, name, address):
+    """
+    Updates the name and adress of a restaurant in the Restaurant table.
+
+    Args:
+        testaurant: The restaurant whose name is to be updated.
+        name: The new name of the restaurant. A string.
+        address: The new address of the restaurant. A string.
+
+    Returns:
+        A list of error messages, an empty list if there are no errors.
+    """
+    errmsg = []
+    if len(name) < 1:
+        errmsg.append("The restaurant's name cannot be empty.")
+    if len(address) < 1:
+        errmsg.append("The restaurant's address cannot be empty.")
+    
+    if len(errmsg) == 0:
+        restaurant.name = name
+        restaurant.address = address
+        db.session.commit()
+    return errmsg
 
 def get_restaurant_address(rid):
     r = Restaurant.query.filter(Restaurant.rid == rid).first()
@@ -114,3 +137,4 @@ def get_restaurant_address(rid):
         return r.address
     else:
         return None
+
