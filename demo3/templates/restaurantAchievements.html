@@ -38,6 +38,14 @@
       </button>
     </div>
   </a>
+  <a href="leaderBoard{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/leaderboard_pressed.png" alt="Achievement">
+        Leaderboard
+      </button>
+    </div>
+  </a>
 </div>
 {% endblock sidebar %}
 
@@ -56,7 +64,7 @@
           <a href="availableAchievements{{ rid }}">
             <div class = but>
               <button type="button">
-                
+
                 <img src="static/Resources/new.png" alt="Available">
                 Available
               </button>
@@ -65,7 +73,7 @@
           <a href="inProgressAchievements{{ rid }}">
             <div class = but>
               <button type="button">
-                
+
                 <img src="static/Resources/in_progress.png" alt="In Progress">
                 In Progress
               </button>
@@ -147,5 +155,5 @@
         </div>
       </div>
       {% endif %}
-    {% endfor %}    
+    {% endfor %}
 {% endblock content %}

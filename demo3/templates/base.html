@@ -57,6 +57,9 @@
               {% if session['type'] == 1 or session["type"] == 2 %}
                 <a href="employee.html"><img src="static/Resources/employee{% block employee %}{% endblock employee %}.png" alt="Employee"></a>
               {% endif %}
+              {% if session["type"] == 1 or session["type"] == 2 %}
+                <a href="leaderBoard.html"><img src="static/Resources/leaderboard{% block leaderboard %}{% endblock leaderboard %}.png" alt="Employee"></a>
+              {% endif %}
                 <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>
             </div>
           {% endif %}

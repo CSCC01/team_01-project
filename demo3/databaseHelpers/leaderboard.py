@@ -1,4 +1,6 @@
 from models import Experience
+from databaseHelpers.user import *
+from databaseHelpers.level import *
 
 import config
 if config.STATUS == "TEST":
@@ -7,7 +9,7 @@ else:
     from exts import db
 
 
-def top_n_in_order(rid,n):
+def top_n_in_order(rid, n):
     """
     :param rid: restaurant id
     :param n:  top n, an integer, default 50
@@ -22,3 +24,21 @@ def top_n_in_order(rid,n):
         dict[e.uid] = e.experience
     sort_list = sorted(dict.items(), key=lambda item:item[1], reverse=True)
     return sort_list[:n]
+
+def get_data(list):
+    """
+    :param list: the sorted list given by top_n_in_order
+    :return: a list of dictionary of data including username, experience, level and rank
+    """
+    data_list = []
+    rank = 1
+    for l in list:
+        data={"uid": l[0],
+              "username": get_user_name_by_uid(l[0]),
+              "exp": l[1],
+              "level": convert_experience_to_level(l[1]),
+              "rank": rank}
+        rank += 1
+        data_list.append(data)
+    return data_list
+
