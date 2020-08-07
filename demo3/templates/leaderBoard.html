@@ -42,7 +42,15 @@
       </button>
     </div>
   </a>
-  <a href="leaderBoard {{ rid }}">
+  <a href="milestones{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/flag.png" alt="Milestones">
+        Milestones
+      </button>
+    </div>
+  </a>
+  <a href="leaderBoard{{ rid }}">
     <div class = but>
       <button type="button">
         <img src="static/Resources/leaderboard_pressed.png" alt="Achievement">
@@ -79,18 +87,18 @@
               Name
             </div>
           </div>
-          
+
           <div class = stats>
             <div class = labels>
               Level
             </div>
-            
+
             <div class = labels>
               <div class = experience_label>
                 EXP
               </div>
             </div>
-          </div>        
+          </div>
       </div>
       {% for l in lbs %}
           {%  if l["exp"] > 0 %}

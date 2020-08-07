@@ -54,7 +54,7 @@ textarea {
 }
 
 /* Styling for submit buttons */
-input[type = submit] {
+.submit_button input[type = submit] {
   font-family: 'Poppins', sans-serif;
   width: 200px;
   height: 40px;

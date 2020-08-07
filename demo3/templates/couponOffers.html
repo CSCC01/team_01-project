@@ -5,10 +5,10 @@
 {% endblock title %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="static/sidebar.css">
 <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
 <link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/coupon.css">
+<link rel="stylesheet" type="text/css" href="static/sidebar.css">
 {% endblock style %}
 
 {% block sidebar %}
@@ -37,6 +37,14 @@
       <button type="button">
         <img src="static/Resources/achievement_pressed.png" alt="Achievement">
         Achievement Offers
+      </button>
+    </div>
+  </a>
+  <a href="milestones{{ rid }}">
+    <div class = but>
+      <button type="button">
+        <img src="static/Resources/flag.png" alt="Milestones">
+        Milestones
       </button>
     </div>
   </a>
@@ -115,7 +123,9 @@
         </div>
       {% elif c["points"] > points %}
         <div class = toPoor>
-          <input type="submit" value="Purchase">
+          <div class = submit_button>
+            <input type="submit" value="Purchase">
+          </div>
         </div>
         <div class = fine_print>
           You do not have enough points for this coupon
