@@ -253,3 +253,7 @@ input[type = submit] {
   margin-top: 15px;
   margin-bottom: -15px;
 }
+
+.love input {
+  width: 30px;
+}
