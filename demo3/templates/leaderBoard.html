@@ -5,12 +5,15 @@
 {% endblock title %}
 
 {% block style %}
+    {% if session['type'] == -1 %}
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
+    {% endif %}
 <link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/leaderboard.css">
 {% endblock style %}
 
 {% block sidebar %}
+{% if session["type"] == -1 %}
 <div class="sidenav">
   <div class = side_title>
     {{ rname }}
@@ -42,12 +45,13 @@
   <a href="leaderBoard {{ rid }}">
     <div class = but>
       <button type="button">
-        <img src="static/Resources/leaderboard.png" alt="Achievement">
+        <img src="static/Resources/leaderboard_pressed.png" alt="Achievement">
         Leaderboard
       </button>
     </div>
   </a>
 </div>
+{% endif %}
 {% endblock sidebar %}
 
 {% block home %}_pressed{% endblock home %}
