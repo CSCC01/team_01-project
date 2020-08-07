@@ -137,7 +137,7 @@ def get_recently_started_achievements(achievements, uid):
                 break
         if len(recent_achievements) == 3:
             break
-    
+
     return recent_achievements
 
 def get_exact_achivement_progress(aid, uid):
@@ -218,3 +218,17 @@ def insert_new_achievement(aid,uid,total):
     db.session.commit()
     return ap
 
+def get_achievement_progress_stats(achievements):
+    """"""
+    for a in achievements:
+        a['in progress'] = 0
+        a['complete'] = 0
+        achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.aid==a['aid']).all()
+        for ap in achievement_progress:
+            progress = get_progress_completion_status(ap)
+            if progress == IN_PROGRESS:
+                a['in progress'] += 1
+            elif progress == COMPLETE:
+                a['complete'] += 1
+
+    return achievements
