@@ -189,6 +189,7 @@ def milestones(rid):
 
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
+        rname = get_restaurant_name_by_rid(rid)
         filter = "all"
         if request.method == 'POST' and 'all' in request.form:
             filter = "all"
@@ -201,7 +202,7 @@ def milestones(rid):
         experience = get_experience(uid, rid).experience
         level = convert_experience_to_level(experience)
         threshold_list = get_thresholds(rid)
-        return render_template("milestones.html", rid = rid, thresholds = threshold_list, level = level, filter = filter)
+        return render_template("milestones.html", rid = rid, thresholds = threshold_list, level = level, filter = filter, rname=rname)
     else:
         return redirect(url_for('home_page.home'))
 
