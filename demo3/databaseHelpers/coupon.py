@@ -84,6 +84,26 @@ def get_coupons(rid):
         coupon_list.append(dict)
     return coupon_list
 
+def is_today_in_coupon_date_range(coupon):
+    """
+    Checks whether today is in, before, or after the range of
+    valid dates for a coupon.
+
+    Args:
+        coupon: The coupon to be checked
+
+    Returns:
+        -1, if today is before the coupon date range;
+        0, if today is within the coupon date range;
+        1, if today is after the coupon date range.
+    """
+    today = date.today()
+    if coupon.expiration:
+        if today > coupon.expiration:
+            return 1
+        if today < coupon.begin:
+            return -1
+    return 0
 
 def delete_coupon(cid):
     """
@@ -139,7 +159,8 @@ def get_coupon_by_cid(cid):
             "cdescription": coupon.description,
             "clevel": coupon.level,
             "begin": coupon.begin,
-            "expiration": coupon.expiration
+            "expiration": coupon.expiration,
+            "status": is_today_in_coupon_date_range(coupon)
         }
 
         return c
