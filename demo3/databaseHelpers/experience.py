@@ -1,4 +1,6 @@
 from models import Experience
+from databaseHelpers.level import *
+from databaseHelpers.threshold import *
 
 import config
 if config.STATUS == "TEST":
@@ -43,9 +45,9 @@ def get_experience(uid, rid):
     in the database.
 
     Args:
-        uid: The user ID pertaining to the user whose experience information is being 
+        uid: The user ID pertaining to the user whose experience information is being
           retrieved. An integer.
-        rid: The restaurant ID pertaining to the restaurant whose experience information 
+        rid: The restaurant ID pertaining to the restaurant whose experience information
           is being retrieved. An integer.
     Returns:
         A experience entry with matching user ID and restaurant ID as the ones provided,
@@ -60,9 +62,9 @@ def update_experience(uid, rid, increment):
     Updates the experience value of a row from the experience table.
 
     Args:
-        uid: The user ID pertaining to the user whose experience information is being 
+        uid: The user ID pertaining to the user whose experience information is being
           updated. An integer.
-        rid: The restaurant ID pertaining to the restaurant whose experience information 
+        rid: The restaurant ID pertaining to the restaurant whose experience information
           is being updated. An integer.
         increment: The amount of experience by which the experience entry's current point value
           should be incremented. An integer.
@@ -79,8 +81,14 @@ def update_experience(uid, rid, increment):
         errmsg.append("Experience cannot be incremented by a negative number.")
 
     if not errmsg:
+        old_level = convert_experience_to_level(experience.experience)
+        milestone = get_milestone(uid, rid)
         Experience.query.filter(Experience.uid == uid).filter(Experience.rid == rid).update(dict(experience=experience.experience + increment))
         db.session.commit()
+        if milestone:
+            new_level = convert_experience_to_level(experience.experience)
+            if old_level < new_level and new_level == int(milestone["level"]):
+                update_points(uid, rid, milestone["reward"])
         return None
 
     return errmsg
