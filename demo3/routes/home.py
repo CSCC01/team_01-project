@@ -73,7 +73,7 @@ def home():
 
         return render_template('home.html', rname = rname, raddress = raddress, today = date.today(),
                                 top_owned_coupons = top_owned_coupons, top_used_coupons = top_used_coupons,
-                                achievements = achievements)
+                                achievements = achievements, user = user)
 
     # default view of home page
     else:
