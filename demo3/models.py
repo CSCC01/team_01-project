@@ -81,6 +81,7 @@ class Customer_Achievement_Progress(db.Model):
     uid = db.Column(db.Integer, nullable=False, primary_key=True)
     progress = db.Column(db.Integer, nullable=False)
     total = db.Column(db.Integer, nullable=False)
+    update = db.Column(db.DateTime, nullable=True)
 
 class Achievements(db.Model):
     __tablename__ = "achievements"

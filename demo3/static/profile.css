@@ -12,9 +12,8 @@
   display: flex;
 }
 
-.unbolded {
-  font-weight: 500;
-  margin-left: 10px;
+.submit_button {
+  margin-top: 10px;
 }
 
 .fine_print {

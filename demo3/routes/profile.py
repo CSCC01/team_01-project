@@ -10,6 +10,7 @@ from databaseHelpers.user import *
 
 from databaseHelpers.restaurant import *
 
+
 @profile_page.route('/profile.html')
 @profile_page.route('/profile')
 def profile():
