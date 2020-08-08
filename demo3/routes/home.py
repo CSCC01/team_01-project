@@ -35,7 +35,6 @@ def home():
 
         # Last 3 restaurants added to favourites
         restaurants = get_favourites(session['account'])[-3:]
-        return render_template('home.html', user = user, coupons = coupons, restaurants = restaurants)
      
         #Last 3 updated achievement progrss
         achievements_progress = get_recently_update_achievements(session['account'])
