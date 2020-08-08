@@ -69,6 +69,12 @@ CREATE TABLE IF NOT EXISTS `experience` (
   `experience`   int               NOT NULL,
   PRIMARY KEY (`uid`, `rid`)
 );
+CREATE TABLE IF NOT EXISTS `thresholds` (
+  `rid`          int unsigned      NOT NULL,
+  `level`        int unsigned      NOT NULL,
+  `reward`       int unsigned      NOT NULL,
+  PRIMARY KEY (`rid`, `level`)
+);
 CREATE TABLE IF NOT EXISTS `favourite` (
   `uid`          int unsigned      NOT NULL,
   `rid`          int unsigned      NOT NULL,

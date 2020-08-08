@@ -24,13 +24,13 @@
                 <a href="search.html"><img src="static/Resources/search{% block search %}{% endblock search %}.png" alt="Search"></a>
               {% endif %}
                 <a href="home.html"><img src="static/Resources/home{% block home %}{% endblock home %}.png" alt="Home"></a>
+              {% if session['type'] == 1 or session['type'] == 2 %}
+                <a href="restaurantSettings.html"><img src="static/Resources/fork{% block settings %}{% endblock settings %}.png" alt="settings"></a>
+              {% endif %}
 
               {% if session["type"] == -1 %}
                 <a href="favourites.html"><img src="static/Resources/fork{% block restaurant %}{% endblock restaurant %}.png" alt="Restaurants"></a>
               {% endif %}
-
-
-
               <!-- This is only displayed if they screen size is larger then 700px -->
               <div class = coupon_large>
                 <a href="coupon.html">
@@ -56,6 +56,9 @@
               {% endif %}
               {% if session['type'] == 1 or session["type"] == 2 %}
                 <a href="employee.html"><img src="static/Resources/employee{% block employee %}{% endblock employee %}.png" alt="Employee"></a>
+              {% endif %}
+              {% if session["type"] == 1 or session["type"] == 2 %}
+                <a href="leaderBoard.html"><img src="static/Resources/leaderboard{% block leaderboard %}{% endblock leaderboard %}.png" alt="Employee"></a>
               {% endif %}
                 <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>
             </div>

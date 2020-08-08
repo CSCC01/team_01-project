@@ -69,6 +69,12 @@ def get_user_login(email, password):
     """
     user = User.query.filter(User.email == email, User.password == password).first()
     return user
+  
+def get_user_name_by_uid(uid):
+    u = User.query.filter(User.uid==uid).first()
+    if u:
+        return u.name
+    return "Not Found"
 
 
 def update_type(uid, type):

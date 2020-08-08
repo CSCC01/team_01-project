@@ -29,13 +29,12 @@ def coupon():
         if request.method == 'POST':
             cid = request.form['coupon']
             uid = session['account']
-            rcid = find_rcid_by_cid_and_uid(cid,uid)
             coupon = get_coupon_by_cid(cid)
             rname = find_res_name_of_coupon_by_cid(cid)
             raddr = find_res_addr_of_coupon_by_cid(cid)
             ulevel = convert_experience_to_level(get_experience(uid, coupon.get("rid")).experience)
             # imgurl = to_qr("https://pickeasy-beta.herokuapp.com/useCoupon/"+str(cid))
-            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(cid)+"/"+str(uid), rcid)
+            imgurl = to_qr("http://127.0.0.1:5000/useCoupon/"+str(uid)+"/"+str(cid), uid, cid)
             return render_template("couponQR.html", imgurl=imgurl, name=coupon.get("cname"), description=coupon.get("cdescription"), 
                                                     points=coupon.get("points"), level=coupon.get("clevel"), ulevel=ulevel, 
                                                     begin=coupon.get("begin"), expiration=coupon.get("expiration"),
@@ -128,15 +127,19 @@ def couponStats():
     return render_template("couponStats.html", coupons = coupon_list, today = today, filter = filter)
 
 
-@coupon_page.route('/useCoupon/<cid>/<uid>', methods=['GET', 'POST'])
+@coupon_page.route('/useCoupon/<uid>/<cid>', methods=['GET', 'POST'])
 def use_coupon(cid,uid):
+    scanner = session['account']
+    rid = get_rid_by_cid(cid)
+    access = verify_scan_list(rid)
+    rname = get_restaurant_name_by_rid(rid)
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
     # Page is restricted to employee/owner only, if user is a customer, redirect to home page
-    elif session['type'] == -1:
-        return redirect(url_for('qr_page.scan_failure'))
+    elif session['type'] == -1 or scanner not in access:
+        return redirect(url_for('qr_page.scan_failure', rname=rname))
 
     # find rcid
     rcid = find_rcid_by_cid_and_uid(cid, uid)

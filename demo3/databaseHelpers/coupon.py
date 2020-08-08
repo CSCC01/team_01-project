@@ -192,3 +192,9 @@ def find_res_addr_of_coupon_by_cid(cid):
         return "Not Found"
     else:
         return "Not Found"
+
+def get_rid_by_cid(cid):
+    c = Coupon.query.filter(Coupon.cid == cid).first()
+    if c:
+        return c.rid
+    return "Not Found"

@@ -9,10 +9,10 @@ from databaseHelpers.qr_code import *
 
 qr_page = Blueprint('qr_page', __name__, template_folder='templates')
 
-@qr_page.route('/scanFailure.html')
-@qr_page.route('/scanFailure')
-def scan_failure():
-    return render_template('scanFailure.html')
+@qr_page.route('/scanFailure<rname>.html')
+@qr_page.route('/scanFailure<rname>')
+def scan_failure(rname):
+    return render_template('scanFailure.html', rname=rname)
 
 
 @qr_page.route('/scanSuccessful.html')

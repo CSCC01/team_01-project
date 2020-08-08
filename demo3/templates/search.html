@@ -33,10 +33,11 @@
           {% endif %}
         </div>
       </div>
-      <div class = search_button>
-        <input type="submit" value="Search">
+      <div class = submit_button>
+        <div class = search_button>
+            <input type="submit" value="Search">
+        </div>
       </div>
-
     </form>
   </div>
 
@@ -54,8 +55,10 @@
         <div class = right_container>
           <div class = goto>
             <form method = "post">
-              <input type="submit" value="Visit">
-              <input type="hidden" name = "rid" value = {{r['rid']}}>
+              <div class = submit_button>
+                <input type="submit" value="Visit">
+                <input type="hidden" name = "rid" value = {{r['rid']}}>
+              </div>
             </form>
           </div>
         </div>

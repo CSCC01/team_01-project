@@ -1,4 +1,6 @@
 from models import Experience
+from databaseHelpers.level import *
+from databaseHelpers.threshold import *
 from databaseHelpers.restaurant import *
 
 import config
@@ -20,7 +22,7 @@ def get_restaurants_with_experience(uid):
         }
         restaurant_list.append(dict)
     return restaurant_list
-    
+
 
 def insert_experience(uid, rid):
     """
@@ -94,8 +96,14 @@ def update_experience(uid, rid, increment):
         errmsg.append("Experience cannot be incremented by a negative number.")
 
     if not errmsg:
+        old_level = convert_experience_to_level(experience.experience)
+        milestone = get_milestone(uid, rid)
         Experience.query.filter(Experience.uid == uid).filter(Experience.rid == rid).update(dict(experience=experience.experience + increment))
         db.session.commit()
+        if milestone:
+            new_level = convert_experience_to_level(experience.experience)
+            if old_level < new_level and new_level == int(milestone["level"]):
+                update_points(uid, rid, milestone["reward"])
         return None
 
     return errmsg
