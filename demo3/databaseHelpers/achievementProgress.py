@@ -226,6 +226,26 @@ def insert_new_achievement(aid,uid,total):
     db.session.commit()
     return ap
 
+
+def get_achievements_with_progress_entry_count(achievements):
+    """
+    Appends number of progress entries by customers to each achievement at a given
+    restaurant.
+
+    Args:
+        achievements: The achievements from a given restaurant. A list of dict
+            items with aid, description, experience, points, and progressMax keys.
+
+    Returns:
+        A list of achievements with progress entry count data.
+    """
+    for a in achievements:
+        entries = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.aid == a['aid']).count()
+        a['progress_entries'] = entries
+
+    return achievements
+
+
 def get_achievement_progress_stats(achievements):
     """"""
     for a in achievements:

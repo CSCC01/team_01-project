@@ -28,8 +28,10 @@
       a customer.
     {% elif session["type"] == 0 %}
       an employee.
-    {% else %}
+    {% elif session["type"] == 1 %}
       an owner.
+    {% else %}
+      a manager.
     {% endif %}
     </b>
     <br>
