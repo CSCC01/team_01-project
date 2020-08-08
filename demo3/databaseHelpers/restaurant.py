@@ -1,4 +1,5 @@
 from models import Restaurant, Employee, Achievements
+from sqlalchemy import func
 
 import config
 if config.STATUS == "TEST":
@@ -62,7 +63,8 @@ def get_resturant_by_name(name):
         A list containing all restaurants from the Restaurant table whose name
         has the substring of the provided name within it.
     """
-    restaurants = Restaurant.query.filter(Restaurant.name.contains(name))
+    name = name.lower()
+    restaurants = Restaurant.query.filter(func.lower(Restaurant.name).contains(name))
     res_list = []
     for r in restaurants:
         dict = {
@@ -124,7 +126,7 @@ def update_restaurant_information(restaurant, name, address):
         errmsg.append("The restaurant's name cannot be empty.")
     if len(address) < 1:
         errmsg.append("The restaurant's address cannot be empty.")
-    
+
     if not errmsg:
         restaurant.name = name
         restaurant.address = address
@@ -152,4 +154,3 @@ def get_rid_by_aid(aid):
     if a:
         return a.rid
     return "Not Found"
-
