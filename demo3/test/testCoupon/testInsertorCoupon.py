@@ -124,7 +124,7 @@ class InsertCouponTest(unittest.TestCase):
         errmsg = couponhelper.insert_coupon(4, "name", 100, "30% off", 2, begin, None, False)
         self.assertEqual(errmsg, ["Missing start or expiration date."])
 
-    def test_insert_invalid_date_expired_early(self):
+    def test_insert_invalid_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid expiration date which earlier than begin date. Expect an error message.
         """
@@ -159,7 +159,7 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(errmsg,
                          ["Invalid coupon name, please give your coupon a name.", "Missing start or expiration date."])
 
-    def test_insert_invalid_name_date_expi_early(self):
+    def test_insert_invalid_name_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid name (none) and dates (none). Expects an error message.
         """
@@ -193,7 +193,7 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(errmsg,
                          ["Invalid amount for points.", "Missing start or expiration date."])
     
-    def test_insert_invalid_point_date_expi_early(self):
+    def test_insert_invalid_point_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid dates (expire early) and amount of points (negative). Expects an error message.
         """
@@ -219,7 +219,7 @@ class InsertCouponTest(unittest.TestCase):
         self.assertEqual(errmsg,
                          ["Invalid level requirement, please give a non-negative value.", "Missing start or expiration date."])
 
-    def test_insert_invalid_date_level_expi_early(self):
+    def test_insert_invalid_date_level_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid date (expire early) and invalid level (none). Expects an error message.
         """
@@ -238,7 +238,7 @@ class InsertCouponTest(unittest.TestCase):
                          ["Invalid amount for points.", "Invalid coupon name, please give your coupon a name.",
                           "Missing start or expiration date."])
     
-    def test_insert_invalid_name_point_date_expi_early(self):
+    def test_insert_invalid_name_point_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid dates (expire early), amount of points (negative) and name (none). Expects an error message.
         """
@@ -258,7 +258,7 @@ class InsertCouponTest(unittest.TestCase):
                          ["Invalid amount for points.", "Invalid level requirement, please give a non-negative value.",
                           "Missing start or expiration date."])
     
-    def test_insert_invalid_point_level_date_expi_early(self):
+    def test_insert_invalid_point_level_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid dates (expire early), amount of points (negative) and level (none). Expects an error message.
         """
@@ -278,7 +278,7 @@ class InsertCouponTest(unittest.TestCase):
                          ["Invalid coupon name, please give your coupon a name.", "Invalid level requirement, please give a non-negative value.",
                          "Missing start or expiration date."])
 
-    def test_insert_invalid_name_level_date_expi_early(self):
+    def test_insert_invalid_name_level_date_expiry_early(self):
         """
         Tries to insert an invalid coupon with an invalid dates (expire early), name (none) and level (negative). Expects an error message.
         """
@@ -307,7 +307,7 @@ class InsertCouponTest(unittest.TestCase):
                          ["Invalid amount for points.", "Invalid coupon name, please give your coupon a name.",
                          "Invalid level requirement, please give a non-negative value.", "Missing start or expiration date."])
 
-    def test_insert_invalid_name_points_level_date_expi_early(self):
+    def test_insert_invalid_name_points_level_date_expiry_early(self):
         """
         Tries to insert and invalid coupon with all invalid, including name (none), points (negative), level (negative) and the expiration date is earlier than begin date. Expects an errmsg.
         """

@@ -87,7 +87,7 @@ class SelectAchievementTest(unittest.TestCase):
         actual = ["This achievemnt is already outdated."]
         self.assertEqual(result, actual)
 
-    def test_definite_expi_early(self):
+    def test_definite_expiry_early(self):
         """
         A definite achievement with expiration date is earlier than begin date. Expect an errmsg.
         """
