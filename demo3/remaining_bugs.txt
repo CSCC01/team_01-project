@@ -31,7 +31,7 @@ Visual Bugs:
 Questionable Design Choices:
 - (Fixed) Coupon offers is the only page that does not have a filter option for the restaurant search (all, purchasable, non-purchasable)
 - (Fixed) Restaurant settings page should be changed to milestone page
-- The currently applied filter should be highlighted
+- (Fixed) The currently applied filter should be highlighted
 - (Fixed) Search is case sensitive
 - Customers cannot see their current points on the restaurant home page
 - (Fixed) Customers view of restaurant achievement page should have a ‘all’ filter so they can see all available/in progress/completed achievement

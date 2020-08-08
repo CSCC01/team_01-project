@@ -75,15 +75,21 @@
       <div class = filter_nav_container>
         <div class = parent>
           <div class = filter_nav>
-              <div class = but>
-                <input type = "submit" value = "All" name = all>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Purchable" name = purchasable>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Non-purchasable" name = notpurchasable>
-              </div>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "purchasable" %}
+              <div class = current><input type = "submit" value = "Purchable" name = purchasable></div>
+            {% else %}
+              <input type = "submit" value = "Purchable" name = purchasable>
+            {% endif %}
+            {% if filter == "notpurchasable" %}
+              <div class = current><input type = "submit" value = "Non-purchasable" name = notpurchasable></div>
+            {% else %}
+              <input type = "submit" value = "Non-purchasable" name = notpurchasable>
+            {% endif %}
           </div>
         </div>
       </div>

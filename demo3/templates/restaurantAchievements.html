@@ -69,18 +69,26 @@
       <div class = filter_nav_container>
         <div class = parent>
           <div class = filter_nav>
-              <div class = but>
-                <input type = "submit" value = "All" name = all>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Available" name = available>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "In Progress" name = in_progress>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Completed" name = completed>
-              </div>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "available" %}
+              <div class = current><input type = "submit" value = "Available" name = available></div>
+            {% else %}
+              <input type = "submit" value = "Available" name = available>
+            {% endif %}
+            {% if filter == "in_progress" %}
+              <div class = current><input type = "submit" value = "In Progress" name = in_progress></div>
+            {% else %}
+              <input type = "submit" value = "In Progress" name = in_progress>
+            {% endif %}
+            {% if filter == "completed" %}
+              <div class = current><input type = "submit" value = "Completed" name = completed></div>
+            {% else %}
+              <input type = "submit" value = "Completed" name = completed>
+            {% endif %}
           </div>
         </div>
       </div>
