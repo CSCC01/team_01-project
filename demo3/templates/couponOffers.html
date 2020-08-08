@@ -71,6 +71,23 @@
         </div>
       </div>
     </div>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+              <div class = but>
+                <input type = "submit" value = "All" name = all>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Purchable" name = purchasable>
+              </div>
+              <div class = but>
+                <input type = "submit" value = "Non-purchasable" name = notpurchasable>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
 {% endblock page_name %}
 
 {% block content %}
@@ -91,6 +108,7 @@
 {% endif %}
 
   {% for c in coupons %}
+    {% if (filter == "all") or (filter == "notpurchasable" and (c['points'] > points or c['level'] > level)) or (filter == "purchasable" and (c['points'] <= points and c['level'] <= level))%}
     <div class = parent>
       <div class = title>
         <div class = name>
@@ -141,5 +159,6 @@
       </form>
       {% endif %}
     </div>
+    {% endif %}
   {% endfor %}
 {% endblock content %}

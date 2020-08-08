@@ -112,6 +112,7 @@ def couponOffers(rid):
         coupons.sort(key=lambda x: x.get('level'))
         points = get_points(session['account'], rid).points
         level = convert_experience_to_level(get_experience(session['account'], rid).experience)
+        filter = "all"
         if 'cid' in request.form:
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
@@ -122,7 +123,7 @@ def couponOffers(rid):
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'], filter = filter)
 
             # not enough points
             if c['points'] > points:
@@ -132,10 +133,12 @@ def couponOffers(rid):
             if c['clevel'] > level:
                 errmsg.append("You do not have high enough level to purchase this coupon.")
 
-            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
-
-        else:
-            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level)
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg, filter = filter)
+        elif request.method == 'POST' and 'purchasable' in request.form:
+            filter = "purchasable"
+        elif request.method == 'POST' and 'notpurchasable' in request.form:
+            filter = "notpurchasable"
+        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, filter = filter)
     else:
         return redirect(url_for('home_page.home'))
 
