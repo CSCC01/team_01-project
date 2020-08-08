@@ -268,3 +268,10 @@ def get_achievement_by_aid(aid):
     if ach:
         return ach
     return "Not Found"
+
+def get_exist_aid():
+    aid_list = []
+    achievements = Achievements.query.all()
+    for a in achievements:
+        aid_list.append(a.aid)
+    return aid_list

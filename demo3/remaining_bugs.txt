@@ -16,7 +16,7 @@ Bugs:
 - Cannot edit restaurant information (host only)
 - Using back / forward buttons on search page are buggy
 - When scanning an achievement, if a user is not signed it an internal error is thrown
-- If a owner deletes an achievement that a customer has completed/made progress on, then home page of that customer throws an internal error (host)
+- (Fixed) If a owner deletes an achievement that a customer has completed/made progress on, then home page of that customer throws an internal error (host)
 - (Fixed) Milestones are displayed out-of-order (host only)
 - (Fixed) For updating the achievement progress, when you go back it takes you to the in-progress page, even if the achievement was completed or not scanned
 - When incorrect information is entered for a coupon, the auto re-fill for name gets cut off sometimes
