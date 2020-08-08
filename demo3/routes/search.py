@@ -139,9 +139,9 @@ def couponOffers(rid):
     else:
         return redirect(url_for('home_page.home'))
 
-@search_page.route('/<filter>Achievements<rid>.html', methods=['GET', 'POST'])
-@search_page.route('/<filter>Achievements<rid>', methods=['GET', 'POST'])
-def restaurantAchievements(rid, filter):
+@search_page.route('/availableAchievements<rid>.html', methods=['GET', 'POST'])
+@search_page.route('/availableAchievements<rid>', methods=['GET', 'POST'])
+def restaurantAchievements(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
@@ -150,31 +150,28 @@ def restaurantAchievements(rid, filter):
     elif session['type'] != -1:
         return redirect(url_for('home_page.home'))
 
-    switcher = {
-        "available": NOT_STARTED,
-        "inProgress" : IN_PROGRESS,
-        "complete" : COMPLETE
-    }
-
-    # Check that filter is valid
-    if switcher.get(filter, -1) == -1:
-        return redirect(url_for('home_page.home'))
-
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
-        if request.method == 'POST':
+        filter = "all"
+        if request.method == 'POST' and 'update' in request.form:
             aid = request.form['achievement']
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
             achievement = get_achievement_with_progress_data(aid, uid)
             return render_template("achievementQR.html", imgurl=imgurl, rid=rid, a=achievement)
-
+        elif request.method == 'POST' and 'available' in request.form:
+            filter = "available"
+        elif request.method == 'POST' and 'in_progress' in request.form:
+            filter = "in_progress"
+        elif request.method == 'POST' and 'completed' in request.form:
+            filter = "completed"
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
-        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
+        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filter = filter)
     else:
         return redirect(url_for('home_page.home'))
+
 
 @search_page.route('/milestones<rid>.html', methods=['GET', 'POST'])
 @search_page.route('/milestones<rid>', methods=['GET', 'POST'])
