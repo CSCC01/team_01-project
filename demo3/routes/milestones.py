@@ -11,11 +11,11 @@ from databaseHelpers.threshold import *
 from databaseHelpers.restaurant import *
 from databaseHelpers.employee import *
 
-settings_page = Blueprint('setting_page', __name__, template_folder='templates')
+milestones_page = Blueprint('milestones_page', __name__, template_folder='templates')
 
 # The registration options page
-@settings_page.route('/restaurantSettings.html', methods=['GET', 'POST'])
-@settings_page.route('/restaurantSettings', methods=['GET', 'POST'])
+@milestones_page.route('/milestones.html', methods=['GET', 'POST'])
+@milestones_page.route('/milestones', methods=['GET', 'POST'])
 def settings():
     # If someone is already logged in they get redirected to the home page
     if 'account' not in session:
@@ -50,4 +50,4 @@ def settings():
                 if check_threshold(rid, level):
                     errmsg = update_threshold(rid, level, reward)
         threshold_list = get_thresholds(rid)
-        return render_template('restaurantSettings.html', thresholds = threshold_list, errmsg = errmsg, update = update)
+        return render_template('manageMilestones.html', thresholds = threshold_list, errmsg = errmsg, update = update)

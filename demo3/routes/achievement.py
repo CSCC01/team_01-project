@@ -105,16 +105,18 @@ def achievement_stats():
 
 @achievement_page.route('/verifyAchievement/<aid>/<uid>', methods=['GET', 'POST'])
 def use_achievement(aid, uid):
-    scanner = session['account']
-    rid = get_rid_by_aid(aid)
-    access = verify_scan_list(rid)
-    rname = get_restaurant_name_by_rid(rid)
+
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
 
+    scanner = session['account']
+    rid = get_rid_by_aid(aid)
+    access = verify_scan_list(rid)
+    rname = get_restaurant_name_by_rid(rid)
+
     # Page is restricted to employee/owner only, if user is a customer, redirect to home page
-    elif session['type'] == -1 or scanner not in access:
+    if session['type'] == -1 or scanner not in access:
         return redirect(url_for('qr_page.scan_failure', rname=rname))
 
     # get achievement

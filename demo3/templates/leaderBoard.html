@@ -8,7 +8,6 @@
     {% if session['type'] == -1 %}
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
     {% endif %}
-<link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/leaderboard.css">
 {% endblock style %}
 
@@ -79,31 +78,22 @@
   <!-- Customer view-->
     <div class = parent>
       <div class = title>
-          <div class = user>
-            <div class = labels>
-              Rank
-            </div>
-            <div class = labels>
-              Name
-            </div>
+          <div class = rank>
+            Rank
           </div>
-
-          <div class = stats>
-            <div class = labels>
-              Level
-            </div>
-
-            <div class = labels>
-              <div class = experience_label>
-                EXP
-              </div>
-            </div>
+          <div class = username>
+            Name
+          </div>
+          <div class = level>
+            Level
+          </div>
+          <div class = experience>
+            EXP
           </div>
       </div>
       {% for l in lbs %}
           {%  if l["exp"] > 0 %}
            <div class = "ranking{%if session['account'] == l["uid"]%}_mine{% endif %}">
-            <div class = user>
               {% if l["rank"] < 4 %}
               <div class = rank>
                 <img src="static/Resources/rank{{ l["rank"] }}.png" alt="Rank {{ l["rank"] }}">
@@ -116,15 +106,12 @@
               <div class = username>
                 {{ l["username"] }}
               </div>
-            </div>
-            <div class = stats>
               <div class = level>
                 {{ l["level"] }}
               </div>
               <div class = experience>
                 {{ l["exp"] }}
               </div>
-            </div>
           </div>
         {% endif %}
       {% endfor %}

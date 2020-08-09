@@ -1,102 +1,108 @@
 /*                                                  *
 *                                                   *
-*              Styling for leaderboard.HTML              *
+*              Styling for leaderboard.HTML         *
 *                                                   *
 *                                                   */
 
 
-.rank img{
+.rank img {
   height: 30px;
-  padding-top: 5px;
   margin-left: -6px;
   margin-right: -7px;
 }
 
-.ranking {
-  height: 50px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  background-color: lightgray;
-  border-radius: 25px;
-  display: flex;
-  justify-content: space-between;
-}
-
+.ranking,
 .ranking_mine {
-  height: 50px;
+  font-size: var(--subtitle);
+  height: 40px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
   border-radius: 25px;
-
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  color: white;
-}
-
-.ranking_mine img{
-  -webkit-filter: invert(100%);
-}
-
-.ranking_mine .level{
-  color:white;
-}
-
-.ranking_mine div {
-  height: 50px;
-  padding: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: -5px;
 }
 
 .title {
   margin-left: 10px;
-  margin-right: 15px;
 }
 
-.labels {
+.title .rank,
+.title .username,
+.title .level,
+.title .experience {
   font-size: var(--subtitle);
-  padding-left: 3px;
-  padding-right: 17px;
 }
 
-.user {
-  display: flex;
-  font-size: var(--title);
+.ranking .username,
+.ranking_mine .username,
+.ranking .level,
+.ranking_mine .level,
+.ranking .experience,
+.ranking_mine .experience {
+  position: relative;
+  top: 1px;
 }
 
-.stats {
-  display: flex;
-  font-size: var(--title);
+.ranking div,
+.ranking_mine div {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.experience {
-  font-weight: 600;
-  text-align: right;
-  width: 115px;
+.ranking .rank,
+.ranking_mine .rank {
+  margin-left: 15px;
+  magrin-right: 15px;
 }
 
-.experience_label {
-  text-align: right;
-  width: 125px;
+.ranking_mine {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  color: white;
+}
+
+.ranking_mine img {
+  -webkit-filter: invert(100%);
+}
+
+
+.ranking {
+  background-color: lightgray;
 }
 
 .rank {
-  width: 30px;
-  font-weight: 600;
-  text-align: center;
-  margin-left: -10px;
+  width: 15%;
 }
 
-.ranking div {
-  height: 50px;
-  padding: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: -5px;
+.username {
+  width: 50%;
+}
+
+.level {
+  width: 15%;
+}
+
+.experience {
+  width: 20%;
+}
+
+.level,
+.experience {
+  font-weight: 600;
+}
+
+.ranking .username,
+.ranking_mine .username {
+  margin-left: -5px;
+}
+
+.ranking .level {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
