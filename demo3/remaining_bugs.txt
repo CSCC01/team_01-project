@@ -26,7 +26,7 @@ Visual Bugs:
 - (Fixed) Achievement creation is missing a closing div tag so the footer is in the parent block
 - Pink line in nav bar disappearing when scrolling
 - (Fixed) Icons for filtering restaurant achievements and the gear icons for owner settings faze through the nav bar when scrolling.
-- Alignment of leaderboard is off
+- (Fixed) Alignment of leaderboard is off
 
 Questionable Design Choices:
 - (Fixed) Coupon offers is the only page that does not have a filter option for the restaurant search (all, purchasable, non-purchasable)
