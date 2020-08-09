@@ -33,15 +33,17 @@ def get_achievement_progress_by_uid(uid):
     """
     achievement_progress_list = []
     achievement_progress = Customer_Achievement_Progress.query.filter(Customer_Achievement_Progress.uid == uid).all()
+    aid_list = get_exist_aid()
     for a in achievement_progress:
-        dict = {
-            "aid": a.aid,
-            "uid": a.uid,
-            "progress": a.progress,
-            "progressMax": a.total,
-            "update": a.update
-        }
-        achievement_progress_list.append(dict)
+        if a.aid in aid_list:
+            dict = {
+                "aid": a.aid,
+                "uid": a.uid,
+                "progress": a.progress,
+                "progressMax": a.total,
+                "update": a.update
+            }
+            achievement_progress_list.append(dict)
     return achievement_progress_list
 
 def get_achievement_with_progress_data(aid, uid):
