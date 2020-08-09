@@ -264,12 +264,29 @@ def delete_achievement(aid):
     return "No such achievement"
 
 def get_achievement_by_aid(aid):
+    """
+    Gets an achievement with given aid
+
+    Args:
+        aid: An achievement ID that corresponds to a achievement in the Achievement table.
+        An integer
+
+    Returns:
+        (if found) achievement
+        (if not) "Not Found"
+    """
     ach = Achievements.query.filter(Achievements.aid == aid).first()
     if ach:
         return ach
     return "Not Found"
 
 def get_exist_aid():
+    """
+    Gets all existing aid
+
+    Returns:
+        A list of all aids in the database.
+    """
     aid_list = []
     achievements = Achievements.query.all()
     for a in achievements:
