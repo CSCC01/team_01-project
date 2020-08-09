@@ -20,6 +20,7 @@ Bugs:
 - (Fixed) Milestones are displayed out-of-order (host only)
 - (Fixed) For updating the achievement progress, when you go back it takes you to the in-progress page, even if the achievement was completed or not scanned
 - (Fixed) When incorrect information is entered for a coupon, the auto re-fill for name gets cut off sometimes
+- (Fixed) After a customer purchases a coupon, if the page is refreshed, the coupon gets re-purchased
 
 Visual Bugs:
 - (Fixed) The restaurant name on owners home page looks very off compared to other styling
