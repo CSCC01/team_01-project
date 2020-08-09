@@ -14,7 +14,7 @@ Test:
 
 Bugs:
 - Cannot edit restaurant information (host only)
-- Using back / forward buttons on search page are buggy
+- (Fixed) Using back / forward buttons on search page are buggy
 - When scanning an achievement, if a user is not signed it an internal error is thrown
 - (Fixed) If a owner deletes an achievement that a customer has completed/made progress on, then home page of that customer throws an internal error (host)
 - (Fixed) Milestones are displayed out-of-order (host only)
