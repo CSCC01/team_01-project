@@ -31,8 +31,14 @@ class GetRecentlyUpdate(unittest.TestCase):
 
     def test_sort_on_short(self):
         """
-        Test on small data(<=3)
+        Test sorting on less than or equal to 3 achievement progress
         """
+        ac1 = Achievements(aid=12, rid=12, name='test 3', experience=15, points=20, type=1, value='test')
+        ac2 = Achievements(aid=7, rid=12, name='test 2', experience=15, points=15, type=1, value='test')
+        ac3 = Achievements(aid=22, rid=12, name='test', experience=10, points=15, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
+        db.session.add(ac3)
         ap1 = Customer_Achievement_Progress(aid=12, uid=7, progress=2, total=3, update=NOW)
         ap2 = Customer_Achievement_Progress(aid=7, uid=7, progress=1, total=5, update=MIN)
         ap3 = Customer_Achievement_Progress(aid=22, uid=7, progress=5, total=5, update=MAX)
@@ -48,8 +54,18 @@ class GetRecentlyUpdate(unittest.TestCase):
 
     def test_sort_on_long(self):
         """
-        Test on big data(>3)
+        Test sorting on more than 3 achievement progress
         """
+        ac1 = Achievements(aid=12, rid=12, name='test 3', experience=15, points=20, type=1, value='test')
+        ac2 = Achievements(aid=7, rid=12, name='test 2', experience=15, points=15, type=1, value='test')
+        ac3 = Achievements(aid=22, rid=12, name='test', experience=10, points=15, type=1, value='test')
+        ac4 = Achievements(aid=18, rid=12, name='test 4', experience=10, points=10, type=1, value='test')
+        ac5 = Achievements(aid=17, rid=12, name='test 5', experience=5, points=15, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
+        db.session.add(ac3)
+        db.session.add(ac4)
+        db.session.add(ac5)
         ap1 = Customer_Achievement_Progress(aid=12, uid=7, progress=2, total=3, update=NOW)
         ap2 = Customer_Achievement_Progress(aid=7, uid=7, progress=1, total=5, update=MIN)
         ap3 = Customer_Achievement_Progress(aid=22, uid=7, progress=5, total=5, update=MAX)
