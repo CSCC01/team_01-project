@@ -85,12 +85,12 @@
             <div class = feild>
                 <label>Coupon Name</label>
                   {% if 'name' in info %}
-                    <input type="text" name="name" value = {{info["name"]}}>
+                    <input type="text" name="name" value = "{{info["name"]}}">
                   {% else %}
                     <input type="text" name="name">
                   {% endif %}
             </div>
-            
+
           <div class = col id = "number">
             <div class = feild>
               <label>Level to Redeem</label>
@@ -102,7 +102,7 @@
                 {% endif %}
               </div>
             </div>
-          
+
             <div class = feild>
               <label>Cost to Redeem</label>
               <div class = points>
