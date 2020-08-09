@@ -33,15 +33,21 @@
       <div class = filter_nav_container>
         <div class = parent>
           <div class = filter_nav>
-              <div class = but>
-                <input type = "submit" value = "All" name = all>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "General" name = general>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Manager" name = manager>
-              </div>
+            {% if filter == 1 %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == 0 %}
+              <div class = current><input type = "submit" value = "General" name = general></div>
+            {% else %}
+              <input type = "submit" value = "General" name = general>
+            {% endif %}
+            {% if filter == 2 %}
+              <div class = current><input type = "submit" value = "Manager" name = manager></div>
+            {% else %}
+              <input type = "submit" value = "Manager" name = manager>
+            {% endif %}
           </div>
         </div>
       </div>

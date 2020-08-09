@@ -85,10 +85,11 @@ def restaurant(rid):
         level = convert_experience_to_level(experience)
         milestone = get_milestone(uid, rid)
         threshold_list = get_incomplete_milestones(rid, level)[:3]
+        points = get_points(session['account'], rid).points
         return render_template("restaurant.html", restaurant = restaurant, level = level,
                                 overflow = get_experience_since_last_level(level, experience),
                                 rname = rname, coupons = coupons, rid = rid, achievements = achievements,
-                                milestone = milestone, liked = liked, thresholds = threshold_list)
+                                milestone = milestone, liked = liked, thresholds = threshold_list, points = points)
     else:
         return redirect(url_for('home_page.home'))
 
