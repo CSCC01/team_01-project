@@ -33,5 +33,5 @@ Questionable Design Choices:
 - (Fixed) Restaurant settings page should be changed to milestone page
 - (Fixed) The currently applied filter should be highlighted
 - (Fixed) Search is case sensitive
-- Customers cannot see their current points on the restaurant home page
+- (Fixed) Customers cannot see their current points on the restaurant home page
 - (Fixed) Customers view of restaurant achievement page should have a ‘all’ filter so they can see all available/in progress/completed achievement
