@@ -94,6 +94,11 @@
       <progress value="{{ overflow }}" max="{{ (level + 1) * 100 }}">
         ({{ overflow }} / {{ (level + 1) * 100 }} * 100)%
       </progress>
+      <div class = col>
+        <div class = mypoint>
+          My Points:&nbsp;
+          <div class = pink>{{ points }}</div>
+        </div>
       <div class = level_progress>
         <div class = progress_count>
           {{ overflow }}
@@ -104,6 +109,7 @@
         <div class = progress_text>
           EXP to Level {{ level + 1 }}
         </div>
+      </div>
       </div>
       <div class = fine_print>
         {% if milestone %}

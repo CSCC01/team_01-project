@@ -65,44 +65,40 @@
         </div>
       </div>
     </div>
-
-    <div class = achievement_nav_container>
-      <div class = parent>
-        <div class = achievement_nav>
-          <a href="availableAchievements{{ rid }}">
-            <div class = but>
-              <button type="button">
-
-                <img src="static/Resources/new.png" alt="Available">
-                Available
-              </button>
-            </div>
-          </a>
-          <a href="inProgressAchievements{{ rid }}">
-            <div class = but>
-              <button type="button">
-
-                <img src="static/Resources/in_progress.png" alt="In Progress">
-                In Progress
-              </button>
-            </div>
-          </a>
-          <a href="completeAchievements{{ rid }}">
-            <div class = but>
-              <button type="button">
-                <img src="static/Resources/complete.png" alt="Complete">
-                Complete
-              </button>
-            </div>
-          </a>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "available" %}
+              <div class = current><input type = "submit" value = "Available" name = available></div>
+            {% else %}
+              <input type = "submit" value = "Available" name = available>
+            {% endif %}
+            {% if filter == "in_progress" %}
+              <div class = current><input type = "submit" value = "In Progress" name = in_progress></div>
+            {% else %}
+              <input type = "submit" value = "In Progress" name = in_progress>
+            {% endif %}
+            {% if filter == "completed" %}
+              <div class = current><input type = "submit" value = "Completed" name = completed></div>
+            {% else %}
+              <input type = "submit" value = "Completed" name = completed>
+            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
+    </form>
+
 {% endblock page_name %}
 
 {% block content %}
     {% for a in achievements %}
-      {% if (a["status"] == filterID) and ((a["expired"] < 1) or (filterID > 0)) %}
+      {% if (filter == "all") or (filter == "available" and a["status"] == 0) or (filter == "in_progress" and a["status"] == 1) or (filter == "completed" and a["status"] == 2) %}
       <div class = parent>
         <div class = title>
           <div class = name>
@@ -126,7 +122,7 @@
               {% else %}
               <div class = use_button>
                 <form method = "post">
-                  <input type="submit" value = "Update Progress" name = {{a["name"]}}>
+                  <input type="submit" value = "Update Progress" name = update>
                     <input type="hidden" value = {{a["aid"]}} name = achievement>
                 </form>
               </div>

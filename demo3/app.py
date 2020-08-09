@@ -17,7 +17,7 @@ from routes.employee import employee_page
 from routes.profile import profile_page
 from routes.search import search_page
 from routes.login import login_page
-from routes.restaurantSettings import settings_page
+from routes.milestones import milestones_page
 from routes.restaurant import restaurant_page
 from routes.leaderboard import leaderboard_page
 
@@ -31,7 +31,7 @@ app.register_blueprint(profile_page)
 app.register_blueprint(search_page)
 app.register_blueprint(login_page)
 app.register_blueprint(qr_page)
-app.register_blueprint(settings_page)
+app.register_blueprint(milestones_page)
 app.register_blueprint(restaurant_page)
 app.register_blueprint(leaderboard_page)
 app.secret_key = 'shhhh'

@@ -38,7 +38,7 @@ def delete_threshold(rid, level):
 
 def get_thresholds(rid):
     """"""
-    thresholds = Thresholds.query.filter(Thresholds.rid == rid).all()
+    thresholds = Thresholds.query.filter(Thresholds.rid == rid).order_by(Thresholds.level.asc()).all()
     threshold_list = []
     for t in thresholds:
         dict = {

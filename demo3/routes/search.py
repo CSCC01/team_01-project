@@ -85,10 +85,11 @@ def restaurant(rid):
         level = convert_experience_to_level(experience)
         milestone = get_milestone(uid, rid)
         threshold_list = get_incomplete_milestones(rid, level)[:3]
+        points = get_points(session['account'], rid).points
         return render_template("restaurant.html", restaurant = restaurant, level = level,
                                 overflow = get_experience_since_last_level(level, experience),
                                 rname = rname, coupons = coupons, rid = rid, achievements = achievements,
-                                milestone = milestone, liked = liked, thresholds = threshold_list)
+                                milestone = milestone, liked = liked, thresholds = threshold_list, points = points)
     else:
         return redirect(url_for('home_page.home'))
 
@@ -112,6 +113,7 @@ def couponOffers(rid):
         coupons.sort(key=lambda x: x.get('level'))
         points = get_points(session['account'], rid).points
         level = convert_experience_to_level(get_experience(session['account'], rid).experience)
+        filter = "all"
         if 'cid' in request.form:
             cid = request.form['cid']
             c = get_coupon_by_cid(cid)
@@ -122,7 +124,7 @@ def couponOffers(rid):
                 update_points(session['account'], rid, (-1 * c['points']))
                 insert_redeemed_coupon(cid, session['account'], rid)
                 points = get_points(session['account'], rid).points
-                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'])
+                return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, bought = c['cname'], filter = filter)
 
             # not enough points
             if c['points'] > points:
@@ -132,16 +134,18 @@ def couponOffers(rid):
             if c['clevel'] > level:
                 errmsg.append("You do not have high enough level to purchase this coupon.")
 
-            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg)
-
-        else:
-            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level)
+            return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, errmsg = errmsg, filter = filter)
+        elif request.method == 'POST' and 'purchasable' in request.form:
+            filter = "purchasable"
+        elif request.method == 'POST' and 'notpurchasable' in request.form:
+            filter = "notpurchasable"
+        return render_template("couponOffers.html", rid = rid, rname = rname, coupons = coupons, points = points, level = level, filter = filter)
     else:
         return redirect(url_for('home_page.home'))
 
-@search_page.route('/<filter>Achievements<rid>.html', methods=['GET', 'POST'])
-@search_page.route('/<filter>Achievements<rid>', methods=['GET', 'POST'])
-def restaurantAchievements(rid, filter):
+@search_page.route('/availableAchievements<rid>.html', methods=['GET', 'POST'])
+@search_page.route('/availableAchievements<rid>', methods=['GET', 'POST'])
+def restaurantAchievements(rid):
     # If someone is not logged in redirects them to login page
     if 'account' not in session:
         return redirect(url_for('login_page.login'))
@@ -150,31 +154,28 @@ def restaurantAchievements(rid, filter):
     elif session['type'] != -1:
         return redirect(url_for('home_page.home'))
 
-    switcher = {
-        "available": NOT_STARTED,
-        "inProgress" : IN_PROGRESS,
-        "complete" : COMPLETE
-    }
-
-    # Check that filter is valid
-    if switcher.get(filter, -1) == -1:
-        return redirect(url_for('home_page.home'))
-
     restaurant = get_resturant_by_rid(rid)
     if restaurant:
-        if request.method == 'POST':
+        filter = "all"
+        if request.method == 'POST' and 'update' in request.form:
             aid = request.form['achievement']
             uid = session['account']
             imgurl = update_achievement_qr("http://127.0.0.1:5000/verifyAchievement/"+str(aid)+"/"+str(uid), aid, uid)
             achievement = get_achievement_with_progress_data(aid, uid)
             return render_template("achievementQR.html", imgurl=imgurl, rid=rid, a=achievement)
-
+        elif request.method == 'POST' and 'available' in request.form:
+            filter = "available"
+        elif request.method == 'POST' and 'in_progress' in request.form:
+            filter = "in_progress"
+        elif request.method == 'POST' and 'completed' in request.form:
+            filter = "completed"
         rname = get_restaurant_name_by_rid(rid)
         # Gets achievements
         achievements = get_achievements_with_progress_data(get_achievements_by_rid(rid), session['account'])
-        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filterID = switcher.get(filter))
+        return render_template("restaurantAchievements.html", rid = rid, rname = rname, achievements = achievements, filter = filter)
     else:
         return redirect(url_for('home_page.home'))
+
 
 @search_page.route('/milestones<rid>.html', methods=['GET', 'POST'])
 @search_page.route('/milestones<rid>', methods=['GET', 'POST'])

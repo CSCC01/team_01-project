@@ -77,15 +77,21 @@
       <div class = filter_nav_container>
         <div class = parent>
           <div class = filter_nav>
-              <div class = but>
-                <input type = "submit" value = "All" name = all>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Completed" name = complete>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Incomplete" name = incomplete>
-              </div>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "complete" %}
+              <div class = current><input type = "submit" value = "Completed" name = complete></div>
+            {% else %}
+              <input type = "submit" value = "Completed" name = complete>
+            {% endif %}
+            {% if filter == "incomplete" %}
+              <div class = current><input type = "submit" value = "Incomplete" name = incomplete></div>
+            {% else %}
+              <input type = "submit" value = "Incomplete" name = incomplete>
+            {% endif %}
           </div>
         </div>
       </div>
