@@ -22,7 +22,7 @@ Bugs:
 - (Fixed) When incorrect information is entered for a coupon, the auto re-fill for name gets cut off sometimes
 
 Visual Bugs:
-- The restaurant name on owners home page looks very off compared to other styling
+- (Fixed) The restaurant name on owners home page looks very off compared to other styling
 - (Fixed) Achievement creation is missing a closing div tag so the footer is in the parent block
 - (Fixed) Pink line in nav bar disappearing when scrolling
 - (Fixed) Icons for filtering restaurant achievements and the gear icons for owner settings faze through the nav bar when scrolling.

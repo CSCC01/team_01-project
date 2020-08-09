@@ -391,3 +391,7 @@ button, input {
   color:transparent;
   color: var(--forground);
 }
+
+.subtitle {
+  font-size: var(--subtitle);
+}
