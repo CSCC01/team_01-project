@@ -41,6 +41,12 @@ class TestGetAchievementsWithProgressData(unittest.TestCase):
         Tests get_achievements_with_progress_data() when the given achievement list to
         filter is not empty
         """
+        ac1 = Achievements(aid=11, rid=12, name='test', experience=10, points=15, type=1, value='test')
+        ac2 = Achievements(aid=12, rid=12, name='test 2', experience=15, points=20, type=1, value='test')
+        ac3 = Achievements(aid=13, rid=12, name='test 3', experience=15, points=15, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
+        db.session.add(ac3)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=3, total=3)
         achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=13, progress=3, total=6)
