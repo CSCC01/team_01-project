@@ -41,6 +41,10 @@ class TestGetAchievementProgressbByUid(unittest.TestCase):
         Tests get_achievement_progress_by_uid() when one achievement has a uid
         matching the given uid.
         """
+        ac1 = Achievements(aid=10, rid=12, name='test1', experience=101, points=101, type=1, value='test')
+        ac2 = Achievements(aid=11, rid=12, name='test2', experience=100, points=100, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=6)
         achievementProgress2 = Customer_Achievement_Progress(uid=6, aid=11, progress=1, total=5)
         db.session.add(achievementProgress1)
@@ -63,6 +67,10 @@ class TestGetAchievementProgressbByUid(unittest.TestCase):
         Tests get_achievement_progress_by_uid() when multiple achievements have a uid
         matching the given uid.
         """
+        ac1 = Achievements(aid=10, rid=12, name='test1', experience=101, points=101, type=1, value='test')
+        ac2 = Achievements(aid=11, rid=12, name='test2', experience=100, points=100, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=6)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=11, progress=1, total=5)
         db.session.add(achievementProgress1)
