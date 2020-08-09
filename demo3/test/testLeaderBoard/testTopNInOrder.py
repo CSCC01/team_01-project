@@ -1,7 +1,3 @@
-"""
-Test suite for databaseHelpers.coupon.py's filter_valid_coupons function.
-"""
-
 import unittest
 
 from databaseHelpers.leaderboard import top_n_in_order
@@ -10,6 +6,9 @@ from models import db
 from app import app
 
 class TopNInordertest(unittest.TestCase):
+    """
+    Test top_n_in_order() in databaseHelpers.coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -22,6 +21,9 @@ class TopNInordertest(unittest.TestCase):
         db.drop_all()
 
     def test_sort_fewer_than_n(self):
+        """
+        Test get a list of top N user in order with actual number of user is less than N, which is valid. Expect output to match correct data without any issues.
+        """
         e1 = Experience(rid=1, uid=3, experience=100)
         e2 = Experience(rid=1, uid=1, experience=89)
         e3 = Experience(rid=1, uid=12, experience=1343)
@@ -33,6 +35,9 @@ class TopNInordertest(unittest.TestCase):
         self.assertEqual([(12, 1343), (3, 100), (1, 89)], list)
 
     def test_sort_more_than_n(self):
+        """
+        Test get a list of top N user in order with actual number of user is larger than N, which is valid. Expect output to match correct data without any issues.
+        """
         e1 = Experience(rid=1, uid=3, experience=100)
         e2 = Experience(rid=1, uid=1, experience=89)
         e3 = Experience(rid=1, uid=12, experience=1343)

@@ -19,7 +19,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_get_no_favourites(self):
         """
-        test user has no favourite restaurants.
+        Test user has no favourite restaurants. Expect output to match correct data(none).
         """
         f = Favourite(uid = 3, rid = 8)
         db.session.add(f)
@@ -31,7 +31,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_get_one_favourite(self):
         """
-        test user has one favourite restaurant.
+        Test user has one favourite restaurant. Expect output to match correct data.
         """
         f1 = Favourite(uid = 3, rid = 8)
         f2 = Favourite(uid = 4, rid = 9)
@@ -55,7 +55,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_get_many_favourites(self):
         """
-        test user has many favourite restaurants.
+        Test user has many favourite restaurants. Expect output to match correct data.
         """
         f1 = Favourite(uid = 3, rid = 5)
         f2 = Favourite(uid = 3, rid = 7)

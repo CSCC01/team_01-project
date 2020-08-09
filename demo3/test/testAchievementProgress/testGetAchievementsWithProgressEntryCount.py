@@ -22,8 +22,10 @@ class testGetAchievementsWithProgressEntryCount(unittest.TestCase):
         db.drop_all()
 
     def test_achievement_list_empty(self):
-        '''Tests appending progress entry count data to an empty achievement
-        list.'''
+        '''
+        Tests appending progress entry count data to an empty achievement
+        list.
+        '''
         progress = Customer_Achievement_Progress(aid=1, uid=3, progress=3, total=4)
         db.session.add(progress)
         db.session.commit()
@@ -32,8 +34,10 @@ class testGetAchievementsWithProgressEntryCount(unittest.TestCase):
         
 
     def test_no_progress_on_any_achievements(self):
-        '''Tests appending progress entry count data to an achievement list
-        where none of the achievements have progress entries'''
+        '''
+        Tests appending progress entry count data to an achievement list
+        where none of the achievements have progress entries
+        '''
         progress = Customer_Achievement_Progress(aid=1, uid=3, progress=3, total=4)
         db.session.add(progress)
         db.session.commit()
@@ -69,8 +73,10 @@ class testGetAchievementsWithProgressEntryCount(unittest.TestCase):
             }])
 
     def test_some_achievements_have_progress(self):
-        '''Tests appending progress entry count data to an achievement list
-        where some of the achievements have progress entries'''
+        '''
+        Tests appending progress entry count data to an achievement list
+        where some of the achievements have progress entries
+        '''
         progress1 = Customer_Achievement_Progress(aid=10, uid=3, progress=4, total=6)
         progress2 = Customer_Achievement_Progress(aid=10, uid=4, progress=6, total=6)
         progress3 = Customer_Achievement_Progress(aid=11, uid=4, progress=1, total=5)

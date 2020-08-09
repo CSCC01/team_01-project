@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers import restaurant as rhelper
 
 class SelectResNameTest(unittest.TestCase):
+    '''
+    Test verify_scan_list() in databaseHelpers/restaurant.py
+    '''
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,6 +21,9 @@ class SelectResNameTest(unittest.TestCase):
         db.drop_all()
 
     def testOneEmployee(self):
+        """
+        Test verifying one normal person that can scan. Expect matching output.
+        """
         r = Restaurant(rid=2, uid=17, name="", address="")
         e = Employee(uid=77, rid=2)
         db.session.add(r)
@@ -27,6 +33,9 @@ class SelectResNameTest(unittest.TestCase):
         self.assertEqual([17, 77], access)
 
     def testManyEmployee(self):
+        """
+        Test verifying a list of person that can scan. Expect matching output.
+        """
         r = Restaurant(rid=2, uid=17, name="", address="")
         e1 = Employee(uid=77, rid=2)
         e2 = Employee(uid=189, rid=2)

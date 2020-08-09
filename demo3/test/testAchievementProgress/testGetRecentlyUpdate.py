@@ -15,8 +15,7 @@ SMALL = datetime(2000, 2, 2)
 
 class GetRecentlyUpdate(unittest.TestCase):
     """
-    Tests all methods in achievementProgress.py related to sorting by update datetime
-    using the achievement progress table.
+    Tests get_recently_update_achievements() in databaseHelpers/achievementProgress.py.
     """
 
     def setUp(self):
@@ -32,7 +31,7 @@ class GetRecentlyUpdate(unittest.TestCase):
 
     def test_sort_on_short(self):
         """
-        test on small data(<=3)
+        Test on small data(<=3)
         """
         ap1 = Customer_Achievement_Progress(aid=12, uid=7, progress=2, total=3, update=NOW)
         ap2 = Customer_Achievement_Progress(aid=7, uid=7, progress=1, total=5, update=MIN)
@@ -49,7 +48,7 @@ class GetRecentlyUpdate(unittest.TestCase):
 
     def test_sort_on_long(self):
         """
-        test on big data(>3)
+        Test on big data(>3)
         """
         ap1 = Customer_Achievement_Progress(aid=12, uid=7, progress=2, total=3, update=NOW)
         ap2 = Customer_Achievement_Progress(aid=7, uid=7, progress=1, total=5, update=MIN)
@@ -70,12 +69,12 @@ class GetRecentlyUpdate(unittest.TestCase):
 
     def test_get_info(self):
         """
-        test on get info function
+        Test on get info function
         """
         ap1 = Customer_Achievement_Progress(aid=12, uid=7, progress=2, total=3, update=NOW)
         ap2 = Customer_Achievement_Progress(aid=7, uid=7, progress=1, total=5, update=BIG)
-        a12 = Achievements(aid=12, rid=3, name='10off', experience=10, points=10, type=0, value="coffee;3;False;;")
-        a7 = Achievements(aid=7, rid=1, name='20off', experience=1, points=10, type=2, value=";5;False;;")
+        a12 = Achievements(aid=12, rid=3, name='10off', experience=10, points=10, type=0, value="coffee;3;False;2020-08-11;2020-08-12")
+        a7 = Achievements(aid=7, rid=1, name='20off', experience=1, points=10, type=2, value=";5;False;2020-08-11;2020-08-12")
         r1 = Restaurant(rid=1, name="kfc", address="kfc road", uid=888)
         r3 = Restaurant(rid=3, name="Starbucks", address="Starbucks Road", uid=666)
         db.session.add(ap1)
@@ -91,7 +90,7 @@ class GetRecentlyUpdate(unittest.TestCase):
                        'uid': 7,
                        'progress': 1,
                        'progressMax': 5,
-                       'description': 'Visit with a group of at least 5 people.',
+                       'description': 'Visit with a group of at least 5 people between 2020-08-11 and 2020-08-12.',
                        'name': '20off',
                        'points': 10,
                        'experience': 1,
@@ -102,7 +101,7 @@ class GetRecentlyUpdate(unittest.TestCase):
                        'uid': 7,
                        'progress': 2,
                        'progressMax': 3,
-                       'description': 'Buy coffee 3 times.',
+                       'description': 'Buy coffee 3 times between 2020-08-11 and 2020-08-12.',
                        'name': '10off',
                        'points': 10,
                        'experience': 10,

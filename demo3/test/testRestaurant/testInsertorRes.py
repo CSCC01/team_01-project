@@ -7,6 +7,9 @@ from databaseHelpers import restaurant as rhelper
 
 
 class InsertRestaurantTest(unittest.TestCase):
+    '''
+    Test insert_new_restaurant() in databaseHelpers/restaurant.py
+    '''
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -19,6 +22,9 @@ class InsertRestaurantTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_one_restaurant(self):
+        """
+        Test insert a normal restaurant without any issue. Expect output to match correct data in database.
+        """
         rid = rhelper.insert_new_restaurant("KFC", "1265 Military Trail", 2)
         restaurant = Restaurant.query.filter_by(name="KFC").first()
         self.assertIsNotNone(restaurant)
@@ -29,6 +35,9 @@ class InsertRestaurantTest(unittest.TestCase):
         self.assertEqual(r1.uid, 2)
 
     def test_insert_many_restaurant(self):
+        """
+        Test insert multi normal restaurant without any issue. Expect output to match correct data in database.
+        """
         rid1 = rhelper.insert_new_restaurant("KFC", "1265 Military Trail", 2)
         rid2 = rhelper.insert_new_restaurant("MacDonald's", "1278 Military Trail", 2)
         rid3 = rhelper.insert_new_restaurant("CFK", "5621 Gh Drive", 4)

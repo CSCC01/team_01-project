@@ -1,10 +1,3 @@
-"""
-
-Test suite for helper.coupon.py's insert_coupon function.
-
-"""
-
-
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db
@@ -14,6 +7,9 @@ from databaseHelpers import coupon as couponhelper
 import datetime
 
 class InsertCouponTest(unittest.TestCase):
+    """
+    Test insert_coupon() in databaseHelpers/coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
