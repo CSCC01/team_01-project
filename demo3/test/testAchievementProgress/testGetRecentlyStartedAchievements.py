@@ -57,7 +57,7 @@ class TestGetRecentlyStartedAchievements(unittest.TestCase):
         db.session.commit()
 
         achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),[])
+        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5), [])
 
     def test_get_recent_achievements_only_complete_achievements(self):
         """Tests get_recently_started_achievements() when the user only has complete progress (progress
@@ -69,13 +69,17 @@ class TestGetRecentlyStartedAchievements(unittest.TestCase):
         db.session.commit()
 
         achievement_list = self.achievement_list_helper()
-        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),[])
+        self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5), [])
 
     def test_get_recent_achievements_less_than_three_matches(self):
         """
         Tests get_recently_started_achievements() when the user has less than three incomplete
         progress entries relevant to the given achievement list.
         """
+        ac1 = Achievements(aid=11, rid=12, name='test 3', experience=15, points=20, type=1, value='test')
+        ac2 = Achievements(aid=12, rid=12, name='test 2', experience=15, points=15, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
         db.session.add(achievementProgress1)
@@ -84,32 +88,38 @@ class TestGetRecentlyStartedAchievements(unittest.TestCase):
 
         achievement_list = self.achievement_list_helper()
         self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 1,
-            "status": 1,
-            "expired": 0
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "progress": 2,
-            "status": 1,
-            "expired": 0
-            }])
-    
+                         [{"aid": 12,
+                           "name": "test 3",
+                           "description": "description 3",
+                           "experience": 15,
+                           "points": 15,
+                           "progressMax": 3,
+                           "progress": 1,
+                           "status": 1,
+                           "expired": 0
+                           },
+                          {"aid": 11,
+                           "name": "test 2",
+                           "description": "description 2",
+                           "experience": 15,
+                           "points": 20,
+                           "progressMax": 5,
+                           "progress": 2,
+                           "status": 1,
+                           "expired": 0
+                           }])
+
     def test_get_recent_achievements_three_matches(self):
         """
         Tests get_recently_started_achievements() when the user has exactly three incomplete
         progress entries relevant to the given achievement list.
         """
+        ac1 = Achievements(aid=11, rid=12, name='test 3', experience=15, points=20, type=1, value='test')
+        ac2 = Achievements(aid=12, rid=12, name='test 2', experience=15, points=15, type=1, value='test')
+        ac3 = Achievements(aid=10, rid=12, name='test', experience=10, points=15, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
+        db.session.add(ac3)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
         achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=10, progress=2, total=6)
@@ -120,42 +130,50 @@ class TestGetRecentlyStartedAchievements(unittest.TestCase):
 
         achievement_list = self.achievement_list_helper()
         self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "progress": 2,
-            "status": 1,
-            "expired": 0
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "progress": 1,
-            "status": 1,
-            "expired": 0
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "progress": 2,
-            "status": 1,
-            "expired": 0
-            }])
-    
+                         [{"aid": 10,
+                           "name": "test",
+                           "description": "description",
+                           "experience": 10,
+                           "points": 15,
+                           "progressMax": 6,
+                           "progress": 2,
+                           "status": 1,
+                           "expired": 0
+                           },
+                          {"aid": 12,
+                           "name": "test 3",
+                           "description": "description 3",
+                           "experience": 15,
+                           "points": 15,
+                           "progressMax": 3,
+                           "progress": 1,
+                           "status": 1,
+                           "expired": 0
+                           },
+                          {"aid": 11,
+                           "name": "test 2",
+                           "description": "description 2",
+                           "experience": 15,
+                           "points": 20,
+                           "progressMax": 5,
+                           "progress": 2,
+                           "status": 1,
+                           "expired": 0
+                           }])
+
     def test_get_recent_achievements_more_than_three_matches(self):
         """
         Tests get_recently_started_achievements() when the user has more than three incomplete
         progress entries relevant to the given achievement list.
         """
+        ac1 = Achievements(aid=11, rid=12, name='test 3', experience=15, points=20, type=1, value='test')
+        ac2 = Achievements(aid=12, rid=12, name='test 2', experience=15, points=15, type=1, value='test')
+        ac3 = Achievements(aid=10, rid=12, name='test', experience=10, points=15, type=1, value='test')
+        ac4 = Achievements(aid=20, rid=12, name='test 4', experience=5, points=5, type=1, value='test')
+        db.session.add(ac1)
+        db.session.add(ac2)
+        db.session.add(ac3)
+        db.session.add(ac4)
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=11, progress=2, total=5)
         achievementProgress2 = Customer_Achievement_Progress(uid=5, aid=12, progress=1, total=3)
         achievementProgress3 = Customer_Achievement_Progress(uid=5, aid=10, progress=2, total=6)
@@ -167,71 +185,72 @@ class TestGetRecentlyStartedAchievements(unittest.TestCase):
         db.session.commit()
 
         achievement_list = self.achievement_list_helper()
-        achievement_list.append({ "aid": 20,
-                                    "name": "test 4",
-                                    "description": "description 4",
-                                    "experience": 5,
-                                    "points": 5,
-                                    "progressMax": 6,
-                                    "expired": 0})
+        achievement_list.append({"aid": 20,
+                                 "name": "test 4",
+                                 "description": "description 4",
+                                 "experience": 5,
+                                 "points": 5,
+                                 "progressMax": 6,
+                                 "expired": 0})
 
         self.assertEqual(achievementhelper.get_recently_started_achievements(achievement_list, 5),
-        [{"aid": 20,
-            "name": "test 4",
-            "description": "description 4",
-            "experience": 5,
-            "points": 5,
-            "progressMax": 6,
-            "expired": 0,
-            "progress": 5,
-            "status": 1
-            },
-            {"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "expired": 0,
-            "progress": 2,
-            "status": 1
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "expired": 0,
-            "progress": 1,
-            "status": 1
-            }])
+                         [{"aid": 20,
+                           "name": "test 4",
+                           "description": "description 4",
+                           "experience": 5,
+                           "points": 5,
+                           "progressMax": 6,
+                           "expired": 0,
+                           "progress": 5,
+                           "status": 1
+                           },
+                          {"aid": 10,
+                           "name": "test",
+                           "description": "description",
+                           "experience": 10,
+                           "points": 15,
+                           "progressMax": 6,
+                           "expired": 0,
+                           "progress": 2,
+                           "status": 1
+                           },
+                          {"aid": 12,
+                           "name": "test 3",
+                           "description": "description 3",
+                           "experience": 15,
+                           "points": 15,
+                           "progressMax": 3,
+                           "expired": 0,
+                           "progress": 1,
+                           "status": 1
+                           }])
 
     def achievement_list_helper(self):
         return [{"aid": 10,
-            "name": "test",
-            "description": "description",
-            "experience": 10,
-            "points": 15,
-            "progressMax": 6,
-            "expired": 0
-            },
-            {"aid": 11,
-            "name": "test 2",
-            "description": "description 2",
-            "experience": 15,
-            "points": 20,
-            "progressMax": 5,
-            "expired": 0
-            },
-            {"aid": 12,
-            "name": "test 3",
-            "description": "description 3",
-            "experience": 15,
-            "points": 15,
-            "progressMax": 3,
-            "expired": 0
-            }]
+                 "name": "test",
+                 "description": "description",
+                 "experience": 10,
+                 "points": 15,
+                 "progressMax": 6,
+                 "expired": 0
+                 },
+                {"aid": 11,
+                 "name": "test 2",
+                 "description": "description 2",
+                 "experience": 15,
+                 "points": 20,
+                 "progressMax": 5,
+                 "expired": 0
+                 },
+                {"aid": 12,
+                 "name": "test 3",
+                 "description": "description 3",
+                 "experience": 15,
+                 "points": 15,
+                 "progressMax": 3,
+                 "expired": 0
+                 }]
+
 
 if __name__ == "__main__":
     unittest.main()
