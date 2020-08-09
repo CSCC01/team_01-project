@@ -47,6 +47,7 @@ header {
     flex-direction: row;
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 /* floats the icons to the left */
@@ -306,6 +307,7 @@ button, input {
   margin-bottom: -3px;
   width: 20px;
   height: 20px;
+  z-index: 1;
 }
 
 .settings_dropdown {
