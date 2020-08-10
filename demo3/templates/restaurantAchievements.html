@@ -111,6 +111,7 @@
 {% block content %}
     {% for a in achievements %}
       {% if (filter == "all") or (filter == "available" and a["status"] == 0) or (filter == "in_progress" and a["status"] == 1) or (filter == "completed" and a["status"] == 2) %}
+       {% if (a["expired"] != 2) or a["status"] == 2 %}
       <div class = parent>
         <div class = title>
           <div class = subsubtitle>
@@ -171,5 +172,6 @@
         </div>
       </div>
       {% endif %}
+     {% endif %}
     {% endfor %}
 {% endblock content %}
