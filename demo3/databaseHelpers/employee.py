@@ -76,6 +76,16 @@ def delete_employee(uid):
 
 
 def get_employee_rid(uid):
+    """
+    Get the rid of the given uid if the uid is of an employee
+
+    Args:
+        uid: A user ID that corresponds to a user in the Employee table.
+
+    Returns:
+        (if found): the restaurant id
+        (if not): None
+    """
     employee = Employee.query.filter(Employee.uid == uid).first()
     if employee:
         return employee.rid

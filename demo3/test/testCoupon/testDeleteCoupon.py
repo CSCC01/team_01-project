@@ -1,9 +1,3 @@
-"""
-
-Test suite for databaseHelpers.coupon.py's delete_coupon function.
-
-"""
-
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db
@@ -17,6 +11,9 @@ END = datetime.date(2020, 6, 30)
 
 
 class DeleteCouponTest(unittest.TestCase):
+    """
+    Test delete_coupon() in databaseHelpers/coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False

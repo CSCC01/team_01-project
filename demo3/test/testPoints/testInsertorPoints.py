@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers import points as pointshelper
 
 class InsertPointsTest(unittest.TestCase):
+    """
+    Test insert_points() in databaseHelpers/points.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,6 +21,9 @@ class InsertPointsTest(unittest.TestCase):
         db.drop_all()
 
     def test_insert_standard_points_entry(self):
+        """
+        Test insert a normal points. Expect output to match correct data.
+        """
         errmsg = pointshelper.insert_points(1, 12)
         self.assertEqual(errmsg, None)
 
@@ -29,6 +35,9 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.points, 0)
 
     def test_insert_duplicate_uid_points_entry(self):
+        """
+        Test insert multi normal points with same uid. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         errmsg = pointshelper.insert_points(1, 13)
@@ -50,6 +59,9 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.points, 0)
 
     def test_insert_duplicate_rid_points_entry(self):
+        """
+        Test insert multi normal points with same rid. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         errmsg = pointshelper.insert_points(2, 12)
@@ -71,6 +83,9 @@ class InsertPointsTest(unittest.TestCase):
         self.assertEqual(points.points, 0)
 
     def test_insert_duplicate_uid_and_rid_points_entry(self):
+        """
+        Test insert a normal points with same uid and rid. Expect an error message as well as data in database remains unchanged.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         errmsg = pointshelper.insert_points(1, 12)

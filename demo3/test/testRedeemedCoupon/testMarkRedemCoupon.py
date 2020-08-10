@@ -22,7 +22,7 @@ class MarkRedeemedCoupon(unittest.TestCase):
 
     def test_valid_coupon(self):
         """
-        Test mark on one valid coupon
+        Test mark on one valid coupon. Expect output to match correct data.
         """
         rc = Redeemed_Coupons(cid=32, uid=12, rid=12, valid=1)
         db.session.add(rc)
@@ -33,8 +33,7 @@ class MarkRedeemedCoupon(unittest.TestCase):
 
     def test_invalid_coupon(self):
         """
-        Test function also works on invalid coupon.
-        Keep them as used.
+        Test function also works on invalid coupon. Expect data in database remain the same
         """
         rc1 = Redeemed_Coupons(cid=32, uid=12, rid=12, valid=0)
         db.session.add(rc1)

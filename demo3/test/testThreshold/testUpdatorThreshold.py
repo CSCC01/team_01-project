@@ -20,7 +20,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         db.drop_all()
         
     def test_update_negative_reward_threshold(self):
-        """Test updating a threshold with a negative reward."""
+        """
+        Test updating a threshold with a negative reward. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -29,7 +31,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         self.assertEqual(errmsg, expected)
 
     def test_update_negative_level_threshold(self):
-        """Test updating a threshold with a negative level."""
+        """
+        Test updating a threshold with a negative level. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -38,7 +42,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         self.assertEqual(errmsg, expected)
 
     def test_update_invalid_reward_threshold(self):
-        """Test updating that reward with an empty string."""
+        """
+        Test updating that reward with an empty string. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -47,7 +53,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         self.assertEqual(errmsg, expected)
 
     def test_update_invalid_level_threshold(self):
-        """Test updating the level with an empty sting """
+        """
+        Test updating the level with an empty string. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -56,7 +64,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         self.assertEqual(errmsg, expected)
 
     def test_update_valid_threshold(self):
-        """Test updating a valid threshold"""
+        """
+        Test updating a valid threshold. Expect successful update.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()

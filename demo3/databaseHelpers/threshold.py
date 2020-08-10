@@ -10,7 +10,18 @@ else:
     from exts import db
 
 def insert_threshold(rid, level, reward):
-    """"""
+    """
+    Insert the threshold to the database for the restaurant given.
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+        level: The required level to reach the milestone and get rewards
+        reward: The amount of experience added if level reached
+
+    Returns:
+        None if threshold was successfully added to the Thresholds table,
+        a list of error messages otherwise.
+    """
     errmsg = []
     if level == "":
         errmsg.append("Invalid level requirment.")
@@ -29,7 +40,16 @@ def insert_threshold(rid, level, reward):
 
 
 def delete_threshold(rid, level):
-    """"""
+    """
+    Delete the threshold from the database
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+        level: The required level to reach the milestone and get rewards
+
+    Returns:
+        None
+    """
     threshold = Thresholds.query.filter(Thresholds.rid == rid, Thresholds.level == level).first()
     if threshold:
         db.session.delete(threshold)
@@ -37,7 +57,15 @@ def delete_threshold(rid, level):
 
 
 def get_thresholds(rid):
-    """"""
+    """
+    Get a list of dictionary containing rid, level and reward form the restaurant of given rid
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+
+    Returns:
+        a list of dictionary of key "rid", "level" and "reward"
+    """
     thresholds = Thresholds.query.filter(Thresholds.rid == rid).order_by(Thresholds.level.asc()).all()
     threshold_list = []
     for t in thresholds:
@@ -51,7 +79,18 @@ def get_thresholds(rid):
 
 
 def update_threshold(rid, level, reward):
-    """"""
+    """
+    Update the threshold in the database for the restaurant given.
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+        level: The required level to reach the milestone and get rewards
+        reward: The amount of experience added if level reached
+
+    Returns:
+        None if threshold was successfully updated in the Thresholds table,
+        a list of error messages otherwise.
+    """
     errmsg = []
     threshold = Thresholds.query.filter(Thresholds.rid == rid, Thresholds.level == level).first()
 
@@ -71,13 +110,33 @@ def update_threshold(rid, level, reward):
 
 
 def check_threshold(rid, level):
-    """"""
+    """
+    Check if threshold exist.
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+        level: The required level to reach the milestone and get rewards
+
+    Returns:
+        True if threshold exists
+        False if threshold doesn't exist
+    """
     threshold = Thresholds.query.filter(Thresholds.rid == rid, Thresholds.level == level).first()
     return threshold != None
 
 
 def get_milestone(uid, rid):
-    """"""
+    """
+    Get a list of dictionary of the milestone.
+
+    Args:
+        uid: he unique ID of the user. An integer.
+        rid: The unique ID of the restaurant. An integer.
+
+    Returns:
+        A list of dictionary containing level and reward of thr certain restaurant
+        None if experience doesn't exist
+    """
     experience = Experience.query.filter(Experience.uid == uid).filter(Experience.rid == rid).first()
     if experience:
         experience = experience.experience
@@ -91,7 +150,16 @@ def get_milestone(uid, rid):
     return None
 
 def get_incomplete_milestones(rid, level):
-    """"""
+    """
+    Get all the milestone that is not completed in certain restaurant.
+
+    Args:
+        rid: The unique ID of the restaurant. An integer.
+        level: The required level to reach the milestone and get rewards
+
+    Returns:
+        A list of all incomplete milestone.
+    """
     threshold_list = get_thresholds(rid)
     incomplete_list = []
     for t in threshold_list:

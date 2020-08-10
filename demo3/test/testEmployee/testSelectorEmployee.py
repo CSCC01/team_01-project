@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers import employee as employeehelper
 
 class SelectEmployeeTest(unittest.TestCase):
+    """
+    Test get_employees() in databaseHelpers/employee.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,6 +21,9 @@ class SelectEmployeeTest(unittest.TestCase):
         db.drop_all()
 
     def test_employee_single(self):
+        """
+        Test valid retriving a list of employee which has only one employee.
+        """
         e = Employee(uid=3, rid=7)
         u = User(uid=3, name="joe", email="joe.com", password="omit", type=0)
         db.session.add(e)
@@ -27,6 +33,9 @@ class SelectEmployeeTest(unittest.TestCase):
         self.assertEqual(employee_list, [{'email': 'joe.com', 'name': 'joe', 'uid': 3, 'type': 0}])
 
     def test_employee_many(self):
+        """
+        Test valid retriving a list of employees.
+        """
         e1 = Employee(uid=1, rid=7)
         e2 = Employee(uid=2, rid=7)
         e3 = Employee(uid=3, rid=7)
@@ -47,6 +56,9 @@ class SelectEmployeeTest(unittest.TestCase):
                     {'email': 'joethree.com', 'name': 'joethree', 'uid': 3, 'type': 0}])
 
     def test_employee_none(self):
+        """
+        Test retriving a list of employee but there is no employee in such restaurant with the rid. Expect return none.
+        """
         e1 = Employee(uid=1, rid=7)
         e2 = Employee(uid=2, rid=7)
         e3 = Employee(uid=3, rid=7)

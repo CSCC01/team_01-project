@@ -18,7 +18,9 @@ class CheckThresholdTest(unittest.TestCase):
         db.drop_all()
 
     def test_check_no_threshold(self):
-        """test retreieving an invalid threshold from Threshold table."""
+        """
+        Test retreieving an invalid threshold from Threshold table. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -27,7 +29,9 @@ class CheckThresholdTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_check_threshold(self):
-        """test retreieving a valid threshold from Threshold table."""
+        """
+        Test retreieving a valid threshold from Threshold table. Expect an error message.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()

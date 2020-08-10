@@ -22,14 +22,18 @@ class GetProgressCompletionStatusTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_achievements(self):
-        """Test an empty list of achievements"""
+        """
+        Test an empty list of achievements
+        """
         achievement_list = []
         actual = get_achievement_progress_stats(achievement_list)
         expected = []
         self.assertEqual(actual, expected)
 
     def test_one_achievement(self):
-        """Test a list of one achievement"""
+        """
+        Test a list of one achievement
+        """
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=3)
         achievementProgress2 = Customer_Achievement_Progress(uid=6, aid=10, progress=2, total=3)
         db.session.add(achievementProgress1)
@@ -59,7 +63,9 @@ class GetProgressCompletionStatusTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_many_achievements(self):
-        """Test a list of many coupons"""
+        """
+        Test a list of many coupons
+        """
         achievementProgress1 = Customer_Achievement_Progress(uid=5, aid=10, progress=3, total=3)
         achievementProgress2 = Customer_Achievement_Progress(uid=6, aid=10, progress=2, total=3)
         achievementProgress3 = Customer_Achievement_Progress(uid=6, aid=11, progress=2, total=6)

@@ -7,7 +7,7 @@ from databaseHelpers import achievementProgress as achievementhelper
 
 class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
     """
-    Tests the get method in achievementProgress.py
+    Tests add_one_progress_bar() in achievementProgress.py
     """
 
     def setUp(self):
@@ -22,6 +22,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         db.drop_all()
 
     def test_add_non_complete(self):
+        """
+        Test make progress on an achievement but not complete yet, this is valid.
+        """
         ap = Customer_Achievement_Progress(aid=1, uid=3, progress=1, total=10)
         user = User(uid=3, name='cus', password='passwd', email='test', type=-1)
         points = Points(pid=1, uid=3, rid=1, points=20)
@@ -36,6 +39,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         self.assertEqual(ap.progress, 2)
 
     def test_add_complete(self):
+        """
+        Test make progress on an achievement and complete the achievement, this is valid.
+        """
         ap = Customer_Achievement_Progress(aid=1, uid=3, progress=1, total=2)
         user = User(uid=3, name='cus', password='passwd', email='test', type=-1)
         points = Points(pid=1, uid=3, rid=1, points=20)
@@ -50,6 +56,10 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         self.assertEqual(ap.progress, 2)
 
     def test_add_type_one(self):
+        """
+        Test make progress on an achievement and immediately complete, this is valid as some type of achievement 
+        only has two situation: not started/completed.
+        """
         ap = Customer_Achievement_Progress(aid=1, uid=3, progress=0, total=1)
         user = User(uid=3, name='cus', password='passwd', email='test', type=-1)
         points = Points(pid=1, uid=3, rid=1, points=20)

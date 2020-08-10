@@ -4,7 +4,7 @@ from databaseHelpers.threshold import *
 
 class SelectorThresholdTest(unittest.TestCase):
     '''
-    Tests check_threshold(rid, level) in databaseHelpers/threshold.py.
+    Tests get_thresholds() in databaseHelpers/threshold.py.
     '''
     def setUp(self):
         app.config['TESTING'] = True
@@ -18,7 +18,9 @@ class SelectorThresholdTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_thresholds(self):
-        """Test when no threshold is defined for a restaurant"""
+        """
+        Test when no threshold is defined for a restaurant. Expect return none.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -27,7 +29,9 @@ class SelectorThresholdTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_one_threshold(self):
-        """Test when one threshold is defined for a restaurant"""
+        """
+        Test when one threshold is defined for a restaurant. Expect return matching output.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -40,7 +44,9 @@ class SelectorThresholdTest(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_many_thresholds(self):
-        """Test when many thresholds are defined for a restaurant"""
+        """
+        Test when many thresholds are defined for a restaurant. Expect return matching output.
+        """
         t1 = Thresholds(rid = 3, level = 5, reward = 100)
         t2 = Thresholds(rid = 3, level = 10, reward = 300)
         db.session.add(t1)

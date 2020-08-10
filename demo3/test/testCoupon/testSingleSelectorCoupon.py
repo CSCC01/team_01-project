@@ -1,7 +1,3 @@
-"""
-Test suite for databaseHelpers.coupon.py's get_coupon_by_cid function.
-"""
-
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db

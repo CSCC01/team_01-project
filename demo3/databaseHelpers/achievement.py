@@ -173,7 +173,7 @@ def get_errmsg(name, experience, points, type, value):
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
         if expiration < today:
             errmsg.append("This achievemnt is already outdated.")
-        
+
         if data[3] != "":
             b = (data[3]).split('-')
             begin = datetime.date(int(b[0]), int(b[1]), int(b[2]))
@@ -264,12 +264,29 @@ def delete_achievement(aid):
     return "No such achievement"
 
 def get_achievement_by_aid(aid):
+    """
+    Gets an achievement with given aid
+
+    Args:
+        aid: An achievement ID that corresponds to a achievement in the Achievement table.
+        An integer
+
+    Returns:
+        (if found) achievement
+        (if not) "Not Found"
+    """
     ach = Achievements.query.filter(Achievements.aid == aid).first()
     if ach:
         return ach
     return "Not Found"
 
 def get_exist_aid():
+    """
+    Gets all existing aid
+
+    Returns:
+        A list of all aids in the database.
+    """
     aid_list = []
     achievements = Achievements.query.all()
     for a in achievements:

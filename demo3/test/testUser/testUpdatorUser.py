@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers.user import *
 
 class SelectUserTest(unittest.TestCase):
+    '''
+    Tests update_type() in databaseHelpers/user.py.
+    '''
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,12 +21,16 @@ class SelectUserTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_user(self):
-        """Testing with a uid that does not exist in the database."""
+        """
+        Testing with a uid that does not exist in the database. Expect return none
+        """
         actual = update_type(5, 2)
         self.assertIsNone(actual)
 
     def test_valid_user(self):
-        """Testing with a uid that does exist in the database."""
+        """
+        Testing with a uid that does exist in the database. Expect successfully updated.
+        """
         user = User(uid=5, name="joe", email="joe.com", password="omit", type=0)
         db.session.add(user)
         db.session.commit()

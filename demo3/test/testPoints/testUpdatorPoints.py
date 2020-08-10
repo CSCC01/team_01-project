@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers import points as pointshelper
 
 class UpdatePointsTest(unittest.TestCase):
+    """
+    Test update_points() in databaseHelpers/points.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,6 +21,9 @@ class UpdatePointsTest(unittest.TestCase):
         db.drop_all()
 
     def test_update_nonexistent_points_entry(self):
+        """
+        Test update a non exist point entry. Expect an error message.
+        """
         points = Points(uid=1, rid=13, points=10)
         db.session.add(points)
         db.session.commit()
@@ -25,6 +31,9 @@ class UpdatePointsTest(unittest.TestCase):
         self.assertEqual(errmsg, ["Points entry does not exist for the given user ID and restaurant ID."])
 
     def test_update_points_entry_positive_increment(self):
+        """
+        Test update a normal point entry with positive increment. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
@@ -39,6 +48,9 @@ class UpdatePointsTest(unittest.TestCase):
         self.assertEqual(points.points, 20)
 
     def test_update_points_entry_zero_increment(self):
+        """
+        Test update a normal point entry with zero increment. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
@@ -53,6 +65,9 @@ class UpdatePointsTest(unittest.TestCase):
         self.assertEqual(points.points, 10)
 
     def test_update_points_entry_negative_increment_less_than_existing_points(self):
+        """
+        Test update a normal point entry with negative but still valid(abs(value)<points) increment. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
@@ -67,6 +82,9 @@ class UpdatePointsTest(unittest.TestCase):
         self.assertEqual(points.points, 5)
 
     def test_update_points_entry_negative_increment_equal_to_existing_points(self):
+        """
+        Test update a normal point entry with negative but still valid(abs(value)==points) increment. Expect output to match correct data.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
@@ -81,6 +99,9 @@ class UpdatePointsTest(unittest.TestCase):
         self.assertEqual(points.points, 0)
 
     def test_update_points_entry_negative_increment_greater_than_existing_points(self):
+        """
+        Test update a normal point entry with negative invalid increment. Expect an error message.
+        """
         points = Points(uid=1, rid=12, points=10)
         db.session.add(points)
         db.session.commit()
