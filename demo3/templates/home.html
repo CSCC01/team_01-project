@@ -49,8 +49,10 @@
           </div>
       {% endfor %}
       {% if coupons == [] %}
+        <div class = body>
           You currently have no coupons. <br>
           Search for restaurants and see what coupons are available.
+        </div>
       {% endif %}
       <a href="coupon">
         <div class = seeMore>
@@ -78,8 +80,10 @@
           </div>
       {% endfor %}
       {% if restaurants == [] %}
+        <div class = body>
           You currently have no favourited restaurants. <br>
           Search for your favourite restaurants and heart them.
+        </div>
       {% endif %}
       <a href="favourites">
         <div class = seeMore>
@@ -139,6 +143,11 @@
         </div>
         </div>
         {% endfor %}
+        {% if achievements == [] %}
+          <div class = body>
+            You currently have no achievement progress.
+          </div>
+        {% endif %}
       </div>
   {% endif %}
 
