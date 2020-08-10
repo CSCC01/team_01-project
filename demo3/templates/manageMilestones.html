@@ -1,0 +1,126 @@
+<!--                                          ----
+---- employee.html contains all frontend      ----
+----     html for the owners view of the      ----
+----               employee page              ----
+----                                          --->
+
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../static/submissionFields.css">
+<link rel="stylesheet" type="text/css" href="static/restaurantSettings.css">
+{% endblock style %}
+{% block title %}
+<title>Settings</title>
+{% endblock title %}
+
+{% block settings %}_pressed{% endblock settings %}
+
+{% block page_name %}
+  <div class = parent>
+    <div class = title>
+      <div class = headline>
+        Manage Level Milestones
+      </div>
+    </div>
+    <div class = fine_print>
+      When a customer reaches a specific level they will be rewarded with points.
+    </div>
+  </div>
+{% endblock page_name %}
+
+{% block content %}
+{% if errmsg %}
+  <div class = parent>
+    Could not create a milestone because of the following: <br>
+    {% for msg in errmsg %}
+      <li>{{msg}} </li>
+    {% endfor %}
+  </div>
+{% endif %}
+
+  <div class = parent>
+    <div class = table>
+      <div class = columns>
+        <div class = subsubtitle>
+          Level
+        </div>
+        <div class = subsubtitle>
+          Reward Points
+        </div>
+        <div class = subsubtitle>
+
+        </div>
+      </div>
+
+      {% for t in thresholds %}
+        {% if update != t["level"] %}
+          <div class = columns>
+            <div class = child>
+              {{ t["level"] }}
+            </div>
+            <div class = child>
+              {{ t["reward"] }} PTS
+            </div>
+            <div class = child>
+              <div class = settings_dropdown>
+                <button class = settings><img src="static/Resources/gear.png" alt="Settings"></button>
+                <div class = options>
+                  <form method = "post">
+                    <input type="submit" value = "Edit" name = update>
+                    <input type="submit" value = "Delete" name = delete>
+                    <input type="hidden" value = {{ t['level'] }} name = level>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% else %}
+        <div class = update>
+            <form method = "post">
+              <div class = columns>
+                 <div class = child>
+                    {{ t["level"] }}
+                    <input type="hidden" value = {{ t['level'] }} name = level_update>
+                  </div>
+                  <div class = textfeilds>
+                    <div class = feild>
+                      <label>Points</label>
+                      <input type="number" name="points_update" value = {{ t["reward"] }}>
+                    </div>
+                  </div>
+                  <div class = textfeilds>
+                    <div class = submit_button>
+                      <input type="submit" value="Edit" name = update_reward>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <form method = "post">
+        <div class = columns>
+           <div class = textfeilds>
+              <div class = feild>
+                <label>Level</label>
+                <input type="number" name="level">
+              </div>
+            </div>
+            <div class = textfeilds>
+              <div class = feild>
+                <label>Points</label>
+                <input type="number" name="points">
+              </div>
+            </div>
+            <div class = textfeilds>
+              <div class = submit_button>
+                <input type="submit" value="Add" name = add>
+              </div>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock content %}

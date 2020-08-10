@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/coupon.css">
+{% endblock style %}
+
+{% block title %}
+<title>Coupon Redemption</title>
+{% endblock title %}
+
+{% block coupon %}_pressed{% endblock coupon %}
+{% block coupon2 %}_pressed{% endblock coupon2 %}
+{% block coupon3 %}_pressed{% endblock coupon3 %}
+
+{% block page_name %}
+    <div class = parent>
+      <div class = title>
+        <div class = headline>
+          Redeeming Coupon
+        </div>
+      </div>
+    </div>
+
+{% endblock page_name %}
+
+{% block content %}
+    <div class = parent>
+      <div class = title>
+        <div class = subtitle>
+          {{ name }}
+        </div>
+      </div>
+      <div class = body>
+        {{ rname }}, at {{ raddr }}
+      </div>
+
+      <div class = description>
+        {{ description }}
+      </div>
+
+
+      <div class = body>
+        <br>
+        Requirement: Level {{ level }} or Above
+      </div>
+      <div class = body>
+        My Level: Level {{ ulevel }}
+      </div>
+
+      <div class = body>
+        Cost: {{ points }} Points
+      </div>
+
+      <div class = mini>
+        {% if begin == None or expiration == None %}
+          Valid indefinitely
+        {% else %}
+          Valid from: {{ begin }} to {{ expiration }}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class = parent>
+      <div class = image>
+        <img src="{{ imgurl }}">
+      </div>
+    </div>
+    <div class = parent>
+      <div class = submit_button>
+        <a href="coupon.html"><input type="submit" value="Go Back"></a>
+      </div>
+    </div>
+{% endblock content %}
+</html>

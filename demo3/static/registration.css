@@ -1,0 +1,10 @@
+/*                                                  *
+*                                                   *
+*         Styling used by registration.html          *
+*                                                   *
+*                                                   */
+
+/* Adds white space between body and buttons*/
+.body {
+  margin-bottom: 10px;
+}

@@ -3,10 +3,13 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from helpers import employee as employeehelper
+from databaseHelpers import employee as employeehelper
 
 
 class DeleteEmployeeTest(unittest.TestCase):
+    """
+    Test delete_employee() in databaseHelpers/employee.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -19,6 +22,9 @@ class DeleteEmployeeTest(unittest.TestCase):
         db.drop_all()
 
     def test_delete_one_employee(self):
+        """
+        Test delete an employee, check both user and employee database. Expect return none.
+        """
         user = User(uid=9187, name="joe", email="joe.com", password="passwd", type=0)
         employee = Employee(uid=9187, rid=18)
         db.session.add(user)

@@ -11,7 +11,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Customer - Create an Account
         </div>
       </div>
@@ -21,10 +21,12 @@
 {% block content %}
 {% if errmsg %}
   <div class = parent>
-    Could not register an account because of the following: <br>
-    {% for msg in errmsg %}
-      <li>{{msg}} </li>
-    {% endfor %}
+    <div class = body>
+      Could not register an account because of the following: <br>
+      {% for msg in errmsg %}
+        <li>{{msg}} </li>
+      {% endfor %}
+    </div>
   </div>
 {% endif %}
 

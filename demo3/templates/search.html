@@ -9,27 +9,12 @@
 <title>Search</title>
 {% endblock title %}
 
-{% block icons %}
-<div class = icons>
-  <div class = other_icon>
-    <a href="search.html"><img src="static/Resources/search_pressed.png" alt="Search"></a>
-  </div>
-  <div class = other_icon>
-    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
-  </div>
-  <div class = "current">
-      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
-  </div>
-  <div class = other_icon>
-    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
-  </div>
-</div>
-{% endblock icons %}
+{% block search %}_pressed{% endblock search %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Search Restaurants
         </div>
       </div>
@@ -48,10 +33,11 @@
           {% endif %}
         </div>
       </div>
-      <div class = search_button>
-        <input type="submit" value="Search">
+      <div class = submit_button>
+        <div class = search_button>
+            <input type="submit" value="Search">
+        </div>
       </div>
-
     </form>
   </div>
 
@@ -59,18 +45,20 @@
     <div class = parent>
       <div class = container>
         <div class = left_container>
-            <div class = name>
+            <div class = subtitle>
               {{ r['name'] }}
             </div>
-            <div class = address>
+            <div class = body>
                 {{ r['address'] }}
             </div>
         </div>
         <div class = right_container>
           <div class = goto>
             <form method = "post">
-              <input type="submit" value="Visit">
-              <input type="hidden" name = "rid" value = {{r['rid']}}>
+              <div class = submit_button>
+                <input type="submit" value="Visit">
+                <input type="hidden" name = "rid" value = {{r['rid']}}>
+              </div>
             </form>
           </div>
         </div>
@@ -78,3 +66,7 @@
     </div>
   {% endfor %}
 {% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src = "static/refresh.js"></script>
+{% endblock script %}

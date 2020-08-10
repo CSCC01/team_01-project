@@ -1,0 +1,38 @@
+This is where you should report bugs which you have not fixed.
+You can delete when you fixed the bug of course. No need to change number.
+Enjoy!
+
+Test:
+2. Miss documentation in testInsertorAchievement
+3. Missing Directory in testEmployee directory. (All 3 tests)
+4. Missing documentation in testLevel
+5. Missing documentation in testPage
+6. Missing documentation in testPoints
+7. Missing documentation in testRestaurant
+8. Missing documentation in testUser
+
+
+Bugs:
+- Cannot edit restaurant information (host only)
+- (Fixed) Using back / forward buttons on search page are buggy
+- When scanning an achievement, if a user is not signed it an internal error is thrown
+- (Fixed) If a owner deletes an achievement that a customer has completed/made progress on, then home page of that customer throws an internal error (host)
+- (Fixed) Milestones are displayed out-of-order (host only)
+- (Fixed) For updating the achievement progress, when you go back it takes you to the in-progress page, even if the achievement was completed or not scanned
+- (Fixed) When incorrect information is entered for a coupon, the auto re-fill for name gets cut off sometimes
+- (Fixed) After a customer purchases a coupon, if the page is refreshed, the coupon gets re-purchased
+
+Visual Bugs:
+- (Fixed) The restaurant name on owners home page looks very off compared to other styling
+- (Fixed) Achievement creation is missing a closing div tag so the footer is in the parent block
+- (Fixed) Pink line in nav bar disappearing when scrolling
+- (Fixed) Icons for filtering restaurant achievements and the gear icons for owner settings faze through the nav bar when scrolling.
+- (Fixed) Alignment of leaderboard is off
+
+Questionable Design Choices:
+- (Fixed) Coupon offers is the only page that does not have a filter option for the restaurant search (all, purchasable, non-purchasable)
+- (Fixed) Restaurant settings page should be changed to milestone page
+- (Fixed) The currently applied filter should be highlighted
+- (Fixed) Search is case sensitive
+- (Fixed) Customers cannot see their current points on the restaurant home page
+- (Fixed) Customers view of restaurant achievement page should have a ‘all’ filter so they can see all available/in progress/completed achievement

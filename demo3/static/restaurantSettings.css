@@ -1,0 +1,65 @@
+.table {
+  display: flex:
+  direction:column;
+}
+
+.columns {
+  display: flex;
+  display: row;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.columns .textfeilds:nth-child(1),
+.columns .subsubtitle:nth-child(1),
+.columns .child:nth-child(1) {
+  width: 40%;
+  margin-right: 5px;
+}
+
+.columns .textfeilds:nth-child(2),
+.columns .subsubtitle:nth-child(2),
+.columns .child:nth-child(2) {
+  width: 40%;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-align: left;
+}
+
+.columns .textfeilds:nth-child(3),
+.columns .subsubtitle:nth-child(3),
+.columns .child:nth-child(3) {
+  width: 20%;
+  max-width: 100px;
+  margin-left: 5px;
+}
+
+.columns .child:nth-child(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columns .textfeilds:nth-child(3) {
+  position: relative;
+  top: 3px;
+}
+
+.columns {
+  margin-top: 15px;
+}
+
+/* Styling for submit buttons */
+.textfeilds input[type = submit] {
+  max-width: 80px;
+  width: 100%;
+}
+
+.update {
+  margin-bottom: -30px;
+}
+
+.update .child:nth-child(1) {
+  position:relative;
+  top: 11px;
+}

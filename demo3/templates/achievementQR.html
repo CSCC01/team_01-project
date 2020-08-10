@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
+  <link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{% endblock style %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block page_name %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Update achievement</title>
+    </head>
+{% endblock page_name %}
+
+{% block content %}
+    <div class = parent>
+        <div class = title>
+            <div class = headline>
+                Update Achievement
+            </div>
+        </div>
+    </div>
+    <div class = parent>
+        <div class = title>
+          <div class = subtitle>
+            {{ a["name"] }}
+          </div>
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = achievement_progress_bar>
+          <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
+            ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
+          </progress>
+          <div class = "check">✔</div>
+        </div>
+        <div class = achievement_footer>
+          <div class = achievement_progress>
+            <div class = achievement_progress_text>
+              Progress:
+            </div>
+            <div class = progress_count>
+              {{ a["progress"] }}
+            </div>
+            <div class = progress_count_total>
+              /{{ a["progressMax"] }}
+          </div>
+          </div>
+          <div class = rewards>
+            <div class = number>{{ a["points"] }}</div>
+            <div class = rewards_text>PT</div>
+            <div class = number>{{ a["experience"] }}</div>
+            <div class = rewards_text>EXP</div>
+          </div>
+        </div>
+    </div>
+    <div class = parent>
+        <div class = image>
+            <img src="{{ imgurl }}">
+        </div>
+    </div>
+    <div class = parent>
+        <div class = submit_button>
+            <a href="availableAchievements{{ rid }}"><input type="submit" value="Go Back"></a>
+        </div>
+    </div>
+{% endblock content %}
+</html>

@@ -1,213 +1,54 @@
 /*                                                  *
 *                                                   *
-*              Styling for coupon.HTML              *
+*         Styling for any coupon HTML pages         *
 *                                                   *
 *                                                   */
-
-
-.plus {
-  font-size: 40px;
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  -webkit-background-clip: text;
+/* Readjusting headline to compensate for difference in font size */
+.headline {
+  margin-top: 10px;
 }
 
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
-}
-
-.expiration {
-  font-size: var(--mini);
-  color: var(--darkGrey);
-}
-
-.description {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
+/* Styles the points submission feild so it can have the word points right alightned*/
 .points {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.container {
-  display: block;
-	margin-top: -15px;
-  margin-bottom: 19px;
-}
 
-button, input {
-  border: none;
-  background: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
-.settings_dropdown img {
-  /* Change this value to move the settings icon down / up */
-  margin-bottom: -3px;
-  width: 20px;
-  height: 20px;
-}
-
-
-.settings_dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.options {
-  display: none;
-  position: absolute;
-  background-color: var(--background);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.options input {
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 14px;
-  text-decoration: none;
-  display: block;
-}
-
-.options input:hover {
-  background-color: var(--purpleGrey);
-}
-
-.settings_dropdown:hover .options {
-  display: block;
-}
-
-/* TODO if any other pages want the sidebar, move the functions below to common.css */
-
-/* Styles the container for the sidebare */
-.sidenav {
-  font-family: 'Poppins', sans-serif;
-  width: 250px;
-  position: fixed;
-  top: 75px;
-  left: 8px;
-  background: var(--forground);
-  overflow-x: hidden;
-}
-
-/* Adds the coupon title to the sidebar */
-.side_title {
-  font-weight:600;
-  font-size: var(--sidetitle);
-  padding-left: 10px;
-}
-
-/* Styles the little images next to the sidebar options */
-.but img {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  margin-left: 5px;
-  position: relative;
-  top: 3px;
-}
-
-/* Styling for sidebar buttons */
-.but button {
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-  height: 40px;
-  border: none;
-  outline: none;
-  box-shadow: none;
+/* Styles the use button on customer coupons page */
+.use_button input[type = submit] {
   border-radius: 5px;
-  font-weight: 300;
-  font-size: var(--body);
-  text-align: left;
-  cursor: pointer;
-}
 
-/* Styles the sidebar buttons when hovering over them */
-.but button:hover {
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red)); /* For Chrome and Safari */
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red)); /* Standard syntax; must be last */
   color:transparent;
   color: var(--forground);
   font-size: var(--body);
+
+  width: 70px;
+  height: 30px;
 }
 
-/* Turns the black icon images white when hovering over button */
-.but button:hover img{
-  -webkit-filter: invert(100%);
+/* Styles the use button when the coupon becomes expired */
+.out_of_range input[type = submit],
+.expired input[type = submit] {
+  cursor: default;
+  background-image: none;
+  background-color: var(--purpleGrey)
 }
 
-/* Rotates the coupon image */
-.coupon{
-  transform: rotate(-20deg);
+/* Sets max width of QR code to the size of parent div */
+.image img {
+  max-width: 100%;
 }
 
-/* This is used when the tab size is bigger then 1000px */
-@media only screen and (max-width: 700px) {
-    .parent {
-      max-width: 70%;
-    }
-    .sidenav {
-      display: none;
-    }
-
-    .current {
-      display:none;
-    }
+/* Centers the QR code*/
+.image {
+  text-align: center;
 }
 
-/* This is used when the tab size is smaller then 1000px */
-@media only screen and (min-width: 700px) {
-  /* Changes the size of the boxes so side bar does not overlap */
-  .parent {
-    max-width: none;
-    margin-left: 270px;
-    margin-right: 13px;
-  }
-
-  .small_window {
-    display: none;
-  }
-}
-
-/* Removed styling from the coupon icon in the header */
-.current button {
-  border: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
-
-/* Styling for the drop down menu when the screen size is too small */
-.dropdown_container {
-  display: none;
-  position: absolute;
-  background-color: var(--forground);
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 100;
-  margin-top: 15px;
-}
-
-.dropdown_container a {
-  color: black;
-  padding: 10px 14px;
-  text-decoration: none;
-  display: block;
-  font-size: var(--body);
-}
-
-#dropdown a:hover {
-  background-color: var(--purpleGrey);
-}
-
-.show {
-  display: block;
+/* restyles the submit button to be vertically centered */
+.submit_button {
+ margin-top: 15px;
 }

@@ -1,0 +1,109 @@
+/*                                                  *
+*                                                   *
+*              Styling for leaderboard.HTML         *
+*                                                   *
+*                                                   */
+
+
+.rank img {
+  height: 30px;
+  margin-left: -6px;
+  margin-right: -7px;
+}
+
+.ranking,
+.ranking_mine {
+  font-size: var(--subsubtitle);
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title {
+  margin-left: 10px;
+}
+
+.title .rank,
+.title .username,
+.title .level,
+.title .experience {
+  font-size: var(--subsubtitle);
+  font-weight: var(--semi-bold);
+}
+
+.ranking .username,
+.ranking_mine .username,
+.ranking .level,
+.ranking_mine .level,
+.ranking .experience,
+.ranking_mine .experience {
+  position: relative;
+  top: 1px;
+}
+
+.ranking div,
+.ranking_mine div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ranking .rank,
+.ranking_mine .rank {
+  margin-left: 15px;
+  magrin-right: 15px;
+}
+
+.ranking_mine {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  color: white;
+}
+
+.ranking_mine img {
+  -webkit-filter: invert(100%);
+}
+
+
+.ranking {
+  background-color: lightgray;
+}
+
+.rank {
+  width: 18%;
+}
+
+.username {
+  width: 45%;
+}
+
+.level {
+  width: 18%;
+}
+
+.experience {
+  width: 20%;
+}
+
+.level,
+.experience {
+  font-weight: var(--semi-bold);
+}
+
+.ranking .username,
+.ranking_mine .username {
+  margin-left: -5px;
+}
+
+.ranking .level {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}

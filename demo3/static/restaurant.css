@@ -3,21 +3,14 @@
 *           Styling for restaurant.HTML             *
 *                                                   *
 *                                                   */
-
-
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
+/* Readjusting headline to compensate for difference in font size */
+.headline {
+  margin-top: 3px;
 }
 
 .expiration {
   font-size: var(--mini);
   color: var(--darkGrey);
-}
-
-.description {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .points {
@@ -26,24 +19,30 @@
   justify-content: space-evenly;
 }
 
-.level {
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  font-size: var(--title);
-  font-weight: 600;
-}
 
 .level_title {
   font-size: var(--title);
   font-weight: 525;
 }
 
+.col {
+  display: flex;
+  direction: row;
+  font-size: var(--body);
+  justify-content: space-between;
+}
+
+.mypoint {
+  display: flex;
+  direction: row;
+}
+.col:first-of-type > div:last-child { order: -1; }
+
 .level_progress {
   display: flex;
   justify-content: flex-end;
+  font-size: var(--body);
+  float: right;
 }
 
 .progress_text {
@@ -84,6 +83,155 @@ progress::-webkit-progress-value {
   border-radius: 45px;
 }
 
-.container {
- padding-top: 15px;
+.achievement_progress_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.achievement_progress {
+  display: flex;
+  justify-content: left;
+  font-weight: 500;
+}
+
+.achievement_progress_text {
+  padding-right: 5px;
+}
+
+.achievement_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.number {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.rewards_text {
+  padding-right: 5px;
+  font-weight: 525;
+}
+
+.rewards {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.check_complete {
+  font-size: 32px;
+  font-weight: 1000;
+  padding-left: 5px;
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+}
+
+.check {
+  font-size: 32px;
+  font-weight: 1000;
+  padding-left: 5px;
+  color: lightgrey;
+}
+
+
+/* Styling the update progress button */
+.use_button input[type = submit] {
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red)); /* For Chrome and Safari */
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red)); /* Standard syntax; must be last */
+  color:transparent;
+  color: var(--forground);
+  font-size: var(--body);
+
+  margin-top: -5px;
+  width: 150px;
+  height: 30px;
+}
+
+.fine_print, .toPoor {
+  text-align: center;
+  margin-top: 5px;
+  cursor: default;
+}
+
+.fine_print .milestone {
+  text-align: center;
+}
+
+.toPoor input[type = submit] {
+  background-image: none;
+  background-color: var(--purpleGrey)
+}
+
+/* Styles the purchases messages link */
+.message a {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Restyles bold */
+b {
+  font-weight: var(--semi-bold);
+}
+
+.total_points {
+  font-size: var(--subsubtitle);
+  display: flex;
+  direction: row;
+}
+
+
+/* Styling for the heart button in the headline */
+.love input {
+  width: 30px;
+}
+
+.love {
+  margin-top: 10px;
+}
+
+/* Sets max width of QR code to the size of parent div */
+.image img {
+  max-width: 100%;
+}
+
+/* Centers the QR code*/
+.image {
+  text-align: center;
+}
+
+/* restyles the submit button to be vertically centered */
+.submit_button {
+ margin-top: 15px;
+}
+
+/* Styling the icons in the restaurant nav bar */
+.small_option_bar img {
+  height: 30px;
+}
+
+/* Styling the box that holds the icons in the restaurant nav bar */
+.small_option_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+}
+
+/* Styling the container that holds the restaurant nav bar */
+.small_option_bar_container {
+  display: none;
 }

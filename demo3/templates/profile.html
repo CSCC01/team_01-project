@@ -9,35 +9,12 @@
 <title>My Profile</title>
 {% endblock title %}
 
-
-{% block icons %}
-<div class = icons>
-  {% if session['type'] == -1 %}
-  <div class = other_icon>
-    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="home.html"><img src="static/Resources/home.png" alt="Home"></a>
-  </div>
-  <div class = "current">
-      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
-  </div>
-  {% if session['type'] == 1 %}
-  <div class = other_icon>
-    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="profile.html"><img src="static/Resources/user_pressed.png" alt="User"></a>
-  </div>
-</div>
-{% endblock icons %}
+{% block profile %}_pressed{% endblock profile %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           My Profile
         </div>
       </div>
@@ -45,6 +22,57 @@
 {% endblock page_name %}
 
 {% block content %}
+  <div class = parent>
+    <div class = subtitle>
+      Account Details
+    </div>
+    <div class = bold>
+      You are currently signed in as
+      {% if session["type"] == -1 %}
+        a customer.
+      {% elif session["type"] == 0 %}
+        an employee.
+      {% elif session["type"] == 1 %}
+        an owner.
+      {% else %}
+        a manager.
+      {% endif %}
+    </div>
+
+
+    <div class = row>
+      <div class = bold>Name:&nbsp;</div>
+      <div> {{ user["name"] }} </div>
+    </div>
+
+    <div class = row>
+      <div class = bold> Email:&nbsp;</div>
+      <div> {{ user["email"] }} </div>
+    </div>
+  </div>
+
+  {% if session['type'] == 1 %}
+  <div class = parent>
+    <div class = subtitle>
+      Restaurant Details
+    </div>
+
+    <div class = row>
+      <div class = bold>Restaurant Name:&nbsp;</div>
+      <div> {{ rname }} </div>
+    </div>
+
+    <div class = row>
+      <div class = bold>Restaurant Address:&nbsp;</div>
+      <div> {{ raddress }} </div>
+    </div>
+
+    <div class = submit_button>
+      <a href="editRestaurantInfo.html"><input type="submit" value="Edit"></a>
+    </div>
+  </div>
+  {% endif %}
+
   <div class = parent>
     <div class = submit_button>
       <a href="logout.html"><input type="submit" value="Logout"></a>

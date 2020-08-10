@@ -17,9 +17,9 @@
 .textfeilds .feild > label{
 	display: block;
 	float: left;
-	margin-top: -19px;
+	margin-top: -20px;
 	background: var(--forground);
-	height: 14px;
+	height: 16px;
 	padding: 2px 5px 2px 5px;
 	color: var(--black);
 	font-size: 14px;
@@ -42,7 +42,6 @@ select {
 	display: block;
 	outline: none;
 	border: none;
-  width: 100%
 	height: 25px;
 	line-height: 25px;
 	font-size: var(--body);
@@ -54,7 +53,7 @@ textarea {
 }
 
 /* Styling for submit buttons */
-input[type = submit] {
+.submit_button input[type = submit] {
   font-family: 'Poppins', sans-serif;
   width: 200px;
   height: 40px;
@@ -92,4 +91,51 @@ input[type = submit] {
 
 .col .feild:nth-child(2) {
   margin-left: 10px;
+}
+
+.col input {
+	width: 70%;
+}
+
+select {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 300;
+	font-size: var(--body);
+}
+
+/* Removed all default styling on apple devices */
+input[type = submit],
+input[type = date],
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius:0;
+  border-radius:0;
+}
+
+/* Styles the container that holds the indefinite checkbox */
+.container {
+	margin-bottom: 25px;
+	margin-top: -20px;
+	margin-left: 20px;
+}
+
+/*                                                  *
+*   Styling for mobile submission feilds            *
+*                                                   */
+/* This is used when the tab size is smaller then 1000px */
+@media screen and (max-width:550px)  {
+  /* turns text fields that where columns into rows if the screen to small */
+  .col {
+		flex-direction: column;
+	}
+
+	/* Removes margin adjustments on .col childern */
+	.col .feild:nth-child(1) {
+	  margin-right: 0px;
+	}
+
+	.col .feild:nth-child(2) {
+	  margin-left: 0px;
+	}
 }

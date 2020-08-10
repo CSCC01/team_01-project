@@ -3,37 +3,296 @@
 {% block title %}
 <title>Home</title>
 {% endblock title %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
+{% endblock style %}
 
-{% block icons %}
-<div class = icons>
-  {% if session['type'] == -1 %}
-  <div class = other_icon>
-    <a href="search.html"><img src="static/Resources/search.png" alt="Search"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="home.html"><img src="static/Resources/home_pressed.png" alt="Home"></a>
-  </div>
-  <div class = "current">
-      <a href="coupon.html"><img src="static/Resources/coupon.png" alt="Coupon"></a>
-  </div>
-  {% if session['type'] == 1 %}
-  <div class = other_icon>
-    <a href="employee.html"><img src="static/Resources/employee.png" alt="Employee"></a>
-  </div>
-  {% endif %}
-  <div class = other_icon>
-    <a href="profile.html"><img src="static/Resources/user.png" alt="User"></a>
-  </div>
-</div>
-{% endblock icons %}
+{% block home %}_pressed{% endblock home %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
-          Home
+        <div class = headline>
+          Welcome, {{ user['name'] }}
         </div>
       </div>
     </div>
 {% endblock page_name %}
+
+{% block content %}
+  <!-- Customer view-->
+  {% if session['type'] == -1 %}
+    <div class = parent>
+      <div class = title>
+        <div class = subtitle>
+          Recently Purchased Coupon
+        </div>
+      </div>
+      {% for c in coupons %}
+          <div class = container>
+            <div class = subsubtitle>
+              {{ c["cname"] }}
+            </div>
+            <div class = body>
+              {{ c["rname"] }}, at {{c["raddress"]}}
+            </div>
+            <div class = description>
+              {{ c["cdescription"] }}
+            </div>
+            <div class = mini>
+              {% if c["begin"] == None or c["expiration"] == None %}
+                Valid indefinitely
+              {% else %}
+                Valid from: {{ c["begin"] }} to {{ c["expiration"] }}
+              {% endif %}
+            </div>
+          </div>
+      {% endfor %}
+      {% if coupons == [] %}
+        <div class = body>
+          You currently have no coupons. <br>
+          Search for restaurants and see what coupons are available.
+        </div>
+      {% endif %}
+      <a href="coupon">
+        <div class = seeMore>
+          <button type="button">
+            <div class = textGradient> View All My Coupons </div>
+          </button>
+        </div>
+      </a>
+    </div>
+
+    <div class = parent>
+      <div class = title>
+        <div class = subtitle>
+          Recently Favourited Restaurants
+        </div>
+      </div>
+      {% for r in restaurants %}
+          <div class = container>
+            <div class = subsubtitle>
+              {{ r["name"] }}
+            </div>
+            <div class = body>
+              {{ r["address"] }}
+            </div>
+          </div>
+      {% endfor %}
+      {% if restaurants == [] %}
+        <div class = body>
+          You currently have no favourited restaurants. <br>
+          Search for your favourite restaurants and heart them.
+        </div>
+      {% endif %}
+      <a href="favourites">
+        <div class = seeMore>
+          <button type="button">
+            <div class = textGradient> View All Favourited Restaurants </div>
+          </button>
+        </div>
+      </a>
+    </div>
+
+    <div class = parent>
+      <div class = title>
+        <div class = subtitle>
+          Recently Updated Achievements
+        </div>
+      </div>
+     {% for a in achievements %}
+      <div class = container>
+          <div class = subsubtitle>
+            {{ a["name"] }}
+          </div>
+        <div class= body>
+          {{ a["rname"] }}, at {{a["raddress"]}}
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = achievement_progress_bar>
+          <progress value="{{ a["progress"] }}" max="{{ a["progressMax"] }}">
+            ({{ a["progress"] }} / {{ a["progressMax"] }} * 100)%
+          </progress>
+          {% if a["progress"] == a["progressMax"] %}
+            <div class = "check_complete">✔</div>
+          {% endif %}
+          {% if a["progress"] != a["progressMax"] %}
+            <div class = "check">✔</div>
+          {% endif %}
+        </div>
+        <div class = achievement_footer>
+          <div class = achievement_progress>
+            <div class = achievement_progress_text>
+              Progress:
+            </div>
+            <div class = progress_count>
+              {{ a["progress"] }}
+            </div>
+            <div class = progress_count_total>
+              /{{ a["progressMax"] }}
+          </div>
+          </div>
+          <div class = rewards>
+            <div class = number>{{ a["points"] }}</div>
+            <div class = rewards_text>PT</div>
+            <div class = number>{{ a["experience"] }}</div>
+            <div class = rewards_text>EXP</div>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+        {% if achievements == [] %}
+          <div class = body>
+            You currently have no achievement progress.
+          </div>
+        {% endif %}
+      </div>
+  {% endif %}
+
+
+{% if session['type'] >= 0 %}
+    <div class = parent>
+      <div class = title>
+        <div class = subtitle>
+          {% if session['type'] == 1 %}
+            My Restaurant
+          {% else %}
+            Employer
+          {% endif %}
+        </div>
+      </div>
+      <div class = body>
+        {{ rname }}, located at at {{ raddress }}
+      </div>
+    </div>
+{% endif %}
+
+  {% if session['type'] > 0 %}
+  <div class = parent>
+    <div class = title>
+      <div class = subtitle>
+        Most Owned Coupons
+      </div>
+    </div>
+    {% for c in top_owned_coupons %}
+        <div class = container>
+          <div class = title>
+            <div class = subsubtitle>
+              {{ c['name'] }}
+            </div>
+            <div class = subsubtitle>
+                {% if c['expiration'] and today > c['expiration'] %}
+                  Status: Expired
+                {% elif c['deleted'] == 1%}
+                  Status: Deleted
+                {% else %}
+                  <div class = row>
+                    <div> Status:&nbsp;</div>
+                    <div class = textGradient>Active</div>
+                  </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class = body>
+            {{ c["description"] }}
+          </div>
+          <div class = body>
+            Number of copies held by customers: {{ c['holders'] }}
+          </div>
+          </div>
+    {% endfor %}
+    <a href="couponStats">
+      <div class = seeMore>
+        <button type="button">
+          <div class = textGradient> View All Coupon Statistics </div>
+        </button>
+      </div>
+    </a>
+  </div>
+
+  <div class = parent>
+    <div class = title>
+      <div class = subtitle>
+        Most Used Coupons
+      </div>
+    </div>
+    {% for c in top_used_coupons %}
+        <div class = container>
+          <div class = title>
+            <div class = subsubtitle>
+              {{ c['name'] }}
+            </div>
+            <div class = subsubtitle>
+              {% if c['expiration'] and today > c['expiration'] %}
+                Status: Expired
+              {% elif c['deleted'] == 1%}
+                Status: Deleted
+              {% else %}
+                <div class = row>
+                  <div> Status:&nbsp;</div>
+                  <div class = textGradient>Active</div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class = body>
+            {{ c["description"] }}
+          </div>
+          <div class = body>
+            Number of copies used by customers: {{ c['used'] }}
+          </div>
+          </div>
+    {% endfor %}
+    <a href="couponStats">
+      <div class = seeMore>
+        <button type="button">
+          <div class = textGradient> View All Coupon Statistics </div>
+        </button>
+      </div>
+    </a>
+  </div>
+
+  <div class = parent>
+    <div class = title>
+      <div class = subtitle>
+        Most Popular Achievements
+      </div>
+    </div>
+    {% for a in achievements %}
+      <div class = container>
+        <div class = title>
+          <div class = subsubtitle>
+            {{ a["name"] }}
+          </div>
+          <div class = subsubtitle>
+            {% if a['expired'] == 1 %}
+              Status: Expired
+            {% else %}
+              <div class = row>
+                <div> Status:&nbsp;</div>
+                <div class = textGradient>Active</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class = description>
+          {{ a["description"] }}
+        </div>
+        <div class = holder>
+          Number of customers who have worked on this achievement: {{ a['progress_entries'] }}
+        </div>
+      </div>
+    {% endfor %}
+    <a href="achievementStats">
+      <div class = seeMore>
+        <button type="button">
+          <div class = textGradient> View All Achievement Statistics </div>
+        </button>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+
+{% endblock content %}
