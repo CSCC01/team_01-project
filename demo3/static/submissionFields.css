@@ -166,6 +166,16 @@ select {
 	font-size: var(--body);
 }
 
+/* Removed all default styling on apple devices */
+input[type = submit],
+input[type="date"],
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius:0;
+  border-radius:0;
+}
+
 
 
 /*                                                  *
