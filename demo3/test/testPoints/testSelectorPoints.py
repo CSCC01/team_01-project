@@ -6,6 +6,9 @@ from app import app
 from databaseHelpers import points as pointshelper
 
 class SelectPointsTest(unittest.TestCase):
+    """
+    Test get_points() in databaseHelpers/points.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -18,6 +21,9 @@ class SelectPointsTest(unittest.TestCase):
         db.drop_all()
 
     def test_get_existing_points_entry(self):
+        """
+        Test get a point entry by given valid input. Expect output to match correct data.
+        """
         newEntry = Points(uid=1, rid=12, points=10)
         db.session.add(newEntry)
         db.session.commit()
@@ -29,6 +35,9 @@ class SelectPointsTest(unittest.TestCase):
         self.assertEqual(points.points, 10)
 
     def test_get_nonexistent_points_entry(self):
+        """
+        Test get a point entry with invalid input. Expect return none.
+        """
         newEntry = Points(uid=1, rid=13, points=10)
         db.session.add(newEntry)
         db.session.commit()
@@ -36,6 +45,9 @@ class SelectPointsTest(unittest.TestCase):
         self.assertEqual(points, None)
 
     def test_get_nonexistent_points_entry_duplicate_uid(self):
+        """
+        Test get a point entry with invalid rid. Expect return none.
+        """
         newEntry = Points(uid=1, rid=13, points=10)
         db.session.add(newEntry)
         db.session.commit()
@@ -43,6 +55,9 @@ class SelectPointsTest(unittest.TestCase):
         self.assertEqual(points, None)
 
     def test_get_nonexistent_points_entry_duplicate_rid(self):
+        """
+        Test get a point entry with invalid uid. Expect return none.
+        """
         newEntry = Points(uid=1, rid=13, points=10)
         db.session.add(newEntry)
         db.session.commit()

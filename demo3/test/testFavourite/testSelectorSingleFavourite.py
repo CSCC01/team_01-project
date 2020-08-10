@@ -19,7 +19,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_get_no_favourite(self):
         """
-        test retrieveing an invalid favourite from the table.
+        Test retrieveing an invalid favourite from the table. Expect output to match correct data.
         """
         f = Favourite(uid = 3, rid = 5)
         db.session.add(f)
@@ -31,7 +31,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_get_favourite(self):
         """
-        test retrieveing a valid favourite from the table.
+        Test retrieveing a valid favourite from the table. Expect output to match correct data.
         """
         f = Favourite(uid = 3, rid = 5)
         db.session.add(f)

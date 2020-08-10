@@ -22,7 +22,7 @@ class SelectExperienceTest(unittest.TestCase):
 
     def test_get_existing_experience_entry(self):
         '''
-        Tests selecting a normal entry with no issues from the the experience table.
+        Tests selecting a normal entry with no issues from the the experience table. Expect output to match correct data.
         '''
         newEntry = Experience(uid=1, rid=12, experience=10)
         db.session.add(newEntry)
@@ -35,7 +35,7 @@ class SelectExperienceTest(unittest.TestCase):
 
     def test_get_nonexistent_experience_entry(self):
         '''
-        Tests trying to select an entry that does not exist from the experience table.
+        Tests trying to select an entry that does not exist from the experience table. Expect return none.
         '''
         newEntry = Experience(uid=1, rid=13, experience=10)
         db.session.add(newEntry)
@@ -46,7 +46,7 @@ class SelectExperienceTest(unittest.TestCase):
     def test_get_nonexistent_experience_entry_duplicate_uid(self):
         '''
         Tests trying to select an entry that does not exist from the experience table,
-        while an entry with the same uid and different rid does exist in the table.
+        while an entry with the same uid and different rid does exist in the table. Expect return none.
         '''
         newEntry = Experience(uid=1, rid=13, experience=10)
         db.session.add(newEntry)
@@ -57,7 +57,7 @@ class SelectExperienceTest(unittest.TestCase):
     def test_get_nonexistent_experience_entry_duplicate_rid(self):
         '''
         Tests trying to select an entry that does not exist from the experience table,
-        while an entry with the same rid and different uid does exist in the table.
+        while an entry with the same rid and different uid does exist in the table. Expect return none.
         '''
         newEntry = Experience(uid=1, rid=13, experience=10)
         db.session.add(newEntry)

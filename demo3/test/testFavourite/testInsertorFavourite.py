@@ -19,7 +19,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_insert(self):
         """
-        test insert a row into Favourite.
+        Test insert a row into Favourite. Expect output to match correct data.
         """
         add_favourite(uid = 3, rid = 5)
         fav = Favourite.query.filter_by(uid = 3, rid = 5).first()

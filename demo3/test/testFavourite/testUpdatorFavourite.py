@@ -19,7 +19,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_remove_invalid_favourite(self):
         """
-        test removing a row that do not exist in the Favourite's table.
+        Test removing a row that do not exist in the Favourite's table. Expect output to match correct data.
         """
         f = Favourite(uid = 3, rid = 5)
         db.session.add(f)
@@ -31,7 +31,7 @@ class InsertFavouriteTest(unittest.TestCase):
 
     def test_remove_valid_favourite(self):
         """
-        test removing a valid row from the Favourite's table.
+        Test removing a valid row from the Favourite's table. Expect return none as removed.
         """
         f = Favourite(uid = 3, rid = 5)
         db.session.add(f)

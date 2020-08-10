@@ -12,7 +12,7 @@ END_EXPIRED = datetime.strptime("30 June, 2019", "%d %B, %Y")
 
 class FilterExpiredAchievementTest(unittest.TestCase):
     """
-    Test suite for the function filter_expired_achievements in achievement.py.
+    Test filter_expired_achievements() in achievement.py.
     """
     def setUp(self):
         app.config['TESTING'] = True
@@ -26,7 +26,9 @@ class FilterExpiredAchievementTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_expired_achievements(self):
-        """No achievements in the achievement table are expired. All achievements should show up."""
+        """
+        No achievements in the achievement table are expired. All achievements should show up.
+        """
         ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2099-4-11')
         ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-4-1;2099-4-11')
         db.session.add(ac1)
@@ -54,7 +56,9 @@ class FilterExpiredAchievementTest(unittest.TestCase):
 
 
     def test_one_expired_achievement(self):
-        """One achievement in the achievement table are expired. Expired achievement should not be in list."""
+        """
+        One achievement in the achievement table are expired. Expired achievement should not be in list.
+        """
         ac1 = Achievements(aid = 32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
         ac2 = Achievements(aid = 22, rid=12, name='test', experience=10, points=10, type=3, value='test;5;False;2020-4-1;2099-4-11')
         db.session.add(ac1)
@@ -73,7 +77,9 @@ class FilterExpiredAchievementTest(unittest.TestCase):
 
 
     def test_many_expired_achievements(self):
-        """Many coupons in the achievement table are expired. The expired achievements should not be in list."""
+        """
+        Many coupons in the achievement table are expired. The expired achievements should not be in list.
+        """
         ac1 = Achievements(aid=32, rid=12, name='test', experience=10, points=10, type=3, value='test;4;False;2020-4-11;2020-4-11')
         ac2 = Achievements(aid=22, rid=12, name='test', experience=10, points=10, type=2, value='test;5;False;2020-04-1;2020-04-11')
         db.session.add(ac1)

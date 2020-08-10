@@ -22,7 +22,7 @@ class InsertExperienceTest(unittest.TestCase):
 
     def test_insert_standard_experience_entry(self):
         '''
-        Tests inserting a normal entry with no issues into the experience table.
+        Tests inserting a normal entry with no issues into the experience table. Expect output to match correct data.
         '''
         errmsg = experiencehelper.insert_experience(1, 12)
         self.assertEqual(errmsg, None)
@@ -36,7 +36,7 @@ class InsertExperienceTest(unittest.TestCase):
     def test_insert_duplicate_uid_experience_entry(self):
         '''
         Tests inserting an entry into the experience table while an entry with
-        the same uid and a different rid already exists in the table.
+        the same uid and a different rid already exists in the table. Expect output to match correct data.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)
@@ -61,7 +61,7 @@ class InsertExperienceTest(unittest.TestCase):
     def test_insert_duplicate_rid_experience_entry(self):
         '''
         Tests inserting an entry into the experience table while an entry with
-        the same rid and a different uid already exists in the table.
+        the same rid and a different uid already exists in the table. Expect output to match correct data.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)
@@ -86,7 +86,7 @@ class InsertExperienceTest(unittest.TestCase):
     def test_insert_duplicate_uid_and_rid_experience_entry(self):
         '''
         Tests inserting an entry into the experience table while an entry with
-        the same uid and same rid already exists in the table.
+        the same uid and same rid already exists in the table. Expect an error message and data in database remains the same.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)

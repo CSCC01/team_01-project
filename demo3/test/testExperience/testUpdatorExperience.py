@@ -22,7 +22,7 @@ class UpdateExperienceTest(unittest.TestCase):
 
     def test_update_nonexistent_experience_entry(self):
         '''
-        Tests trying to update an entry that does not exist in the experience table.
+        Tests trying to update an entry that does not exist in the experience table. Expect an error message.
         '''
         experience = Experience(uid=1, rid=13, experience=10)
         db.session.add(experience)
@@ -33,7 +33,7 @@ class UpdateExperienceTest(unittest.TestCase):
     def test_update_experience_entry_positive_increment(self):
         '''
         Tests trying to update an entry in the experience table by incrementing
-        experience by a positive amount.
+        experience by a positive amount. Expect output to match correct data.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)
@@ -50,7 +50,7 @@ class UpdateExperienceTest(unittest.TestCase):
     def test_update_experience_entry_zero_increment(self):
         '''
         Tests trying to update an entry in the experience table by incrementing
-        experience by zero.
+        experience by zero. Expect output to match correct data.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)
@@ -67,7 +67,7 @@ class UpdateExperienceTest(unittest.TestCase):
     def test_update_experience_entry_negative_increment(self):
         '''
         Tests trying to update an entry in the experience table by incrementing
-        experience by a negative amount.
+        experience by a negative amount. Expect an error message and data in database remains the same.
         '''
         experience = Experience(uid=1, rid=12, experience=10)
         db.session.add(experience)

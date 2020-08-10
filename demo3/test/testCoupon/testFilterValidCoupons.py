@@ -1,7 +1,3 @@
-"""
-Test suite for databaseHelpers.coupon.py's filter_valid_coupons function.
-"""
-
 import unittest
 
 from databaseHelpers.coupon import filter_valid_coupons
@@ -16,6 +12,9 @@ INVALID = datetime.date(2020, 6, 30)
 
 
 class FilterValidCouponTest(unittest.TestCase):
+    """
+    Test filter_valid_coupons in databaseHelpers/coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
