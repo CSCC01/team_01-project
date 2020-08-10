@@ -28,7 +28,10 @@
 }
 
 /* Styles the description in achievement creation */
-.body {
+.type0 .body,
+.type1 .body,
+.type2 .body,
+.type3 .body {
   display: flex;
   flex-direction: row;
   margin-bottom: 15px;
