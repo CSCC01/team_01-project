@@ -102,6 +102,7 @@
 
 {% block content %}
     {% for a in achievements %}
+     {% if (a["expired"] != 2) or a["status"] == 2 %}
       {% if (a["status"] == filterID) and ((a["expired"] < 1) or (filterID > 0)) %}
       <div class = parent>
         <div class = title>
@@ -163,5 +164,6 @@
         </div>
       </div>
       {% endif %}
+     {% endif %}
     {% endfor %}
 {% endblock content %}

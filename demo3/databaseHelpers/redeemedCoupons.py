@@ -1,6 +1,8 @@
 from models import Coupon, Redeemed_Coupons, User
 from databaseHelpers.coupon import *
 from databaseHelpers.restaurant import *
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 import config
 if config.STATUS == "TEST":
@@ -42,10 +44,10 @@ def get_redeemed_coupons_by_uid(uid):
 
     for c in coupons:
         dict = get_coupon_by_cid(c.cid)
-
-        dict["rname"] = get_restaurant_name_by_rid(c.rid)
-        dict["raddress"] = get_restaurant_address(c.rid)
-        coupon_list.append(dict)
+        if dict["expiration"] + relativedelta(months=+6) > date.today():
+            dict["rname"] = get_restaurant_name_by_rid(c.rid)
+            dict["raddress"] = get_restaurant_address(c.rid)
+            coupon_list.append(dict)
 
     return coupon_list
 
