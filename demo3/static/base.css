@@ -230,8 +230,7 @@ footer div {
   z-index: 100;
   margin-top: 15px;
   padding-top: 10px;
-  max-height: 60vh;
-  overflow: scroll;
+  height: 60vh;
   overflow-y: auto;
 }
 
