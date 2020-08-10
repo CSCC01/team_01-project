@@ -1,3 +1,9 @@
+/*                                                  *
+*                                                   *
+*            JS used in creatCoupon.html            *
+*                                                   *
+*                                                   */
+
 function checkbox(dates) {
     var cb = document.getElementsByName("indefinite");
     var visability = "flex";

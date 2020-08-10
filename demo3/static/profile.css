@@ -1,22 +1,10 @@
 /*                                                  *
 *                                                   *
-*              Styling for prfile.HTML              *
+*             Styling for profile.HTML              *
 *                                                   *
 *                                                   */
 
-
-.subheading {
-  font-weight:700;
-  font-size: var(--subtitle);
-  padding-bottom: 10px;
-  display: flex;
-}
-
+/* Centers the submit button */
 .submit_button {
   margin-top: 10px;
-}
-
-.fine_print {
-  font-size: var(--mini);
-  color: var(--darkGrey);
 }

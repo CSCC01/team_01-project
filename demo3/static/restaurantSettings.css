@@ -1,15 +1,24 @@
+/*                                                  *
+*                                                   *
+*       Styling used by manageMilestones.html       *
+*                                                   *
+*                                                   */
+
+/* Sets up the table for milestones */
 .table {
-  display: flex:
-  direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Sets up the columns for the milestone table */
 .columns {
   display: flex;
-  display: row;
+  flex-direction: row;
   justify-content: space-between;
   text-align: left;
 }
 
+/* Styles the first column in the table */
 .columns .textfeilds:nth-child(1),
 .columns .subsubtitle:nth-child(1),
 .columns .child:nth-child(1) {
@@ -17,6 +26,7 @@
   margin-right: 5px;
 }
 
+/* Styles the second column in the table */
 .columns .textfeilds:nth-child(2),
 .columns .subsubtitle:nth-child(2),
 .columns .child:nth-child(2) {
@@ -26,6 +36,7 @@
   text-align: left;
 }
 
+/* Styles the third column in the table */
 .columns .textfeilds:nth-child(3),
 .columns .subsubtitle:nth-child(3),
 .columns .child:nth-child(3) {
@@ -40,11 +51,13 @@
   align-items: center;
 }
 
+/* Repositions the third column elements */
 .columns .textfeilds:nth-child(3) {
   position: relative;
   top: 3px;
 }
 
+/* Styles the vertical spacing between elements in tabl */
 .columns {
   margin-top: 15px;
 }
@@ -55,10 +68,12 @@
   width: 100%;
 }
 
+/* Styling for update button */
 .update {
   margin-bottom: -30px;
 }
 
+/* Styling for update button */
 .update .child:nth-child(1) {
   position:relative;
   top: 11px;

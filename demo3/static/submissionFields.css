@@ -74,7 +74,7 @@ textarea {
   text-align: center;
 }
 
-/* Styling to  make the password boxes side by side */
+/* Styling to  make boxes side by side */
 .col {
   display: flex;
   flex-direction: row;
@@ -85,10 +85,12 @@ textarea {
   flex: 1 1 0px;
 }
 
+/* Styling to add space between boxes */
 .col .feild:nth-child(1) {
   margin-right: 10px;
 }
 
+/* Styling to add space between boxes */
 .col .feild:nth-child(2) {
   margin-left: 10px;
 }

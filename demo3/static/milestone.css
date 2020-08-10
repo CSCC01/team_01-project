@@ -1,20 +1,30 @@
+/*                                                  *
+*                                                   *
+*          Styling used by milestone.html           *
+*                                                   *
+*                                                   */
+/* Setting up a flex-box table*/
 .table {
-  display: flex:
-  direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Setting up the columns of the table*/
 .columns {
   display: flex;
-  display: row;
+  flex-direction: row;
   justify-content: space-between;
+  margin-top: 15px;
 }
 
+/* Styling the first column of the table */
 .columns .child:nth-child(1),
 .columns .subsubtitle:nth-child(1) {
   width: 33%;
   margin-right: 5px;
 }
 
+/* Styling the second column of the table */
 .columns .child:nth-child(2),
 .columns .subsubtitle:nth-child(2) {
   width: 33%;
@@ -22,26 +32,19 @@
   margin-left: 5px;
 }
 
+/* Styling the third column of the table */
 .columns .child:nth-child(3),
 .columns .subsubtitle:nth-child(3) {
   width: 33%;
   margin-left: 5px;
 }
 
-.columns {
-  margin-top: 15px;
-}
-
+/* Styling the colour of completed milestones */
 .pink_text {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
   color:transparent;
   -webkit-background-clip: text;
-  background-clip: text;
-}
-
-.header {
-  margin-top: -15px;
 }
 
 /* Removing fine_print styling */
