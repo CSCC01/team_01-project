@@ -224,11 +224,13 @@ button, input {
   font-size: var(--body);
   font-weight: 300;
   height: 40px;
-  border-radius: 0px;
-  -webkit-appearance: none;
   background-color: var(--forground);
   padding-left: 20px;
   padding-right: 20px;
+  background-image: -webkit-linear-gradient(left, var(--forground), var(--forground));
+  background-image:         linear-gradient(to right, var(--forground), var(--forground));
+  color:transparent;
+  color: var(--black);
 }
 
 .filter_nav .current input[type = 'submit'] {
