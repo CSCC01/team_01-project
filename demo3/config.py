@@ -4,9 +4,8 @@ DEBUG = True
 
 SECRET_KEY = "fortestpurpose"
 
-
-# STATUS = "TEST"
-STATUS = "PROG"
+STATUS = "TEST"
+#STATUS = "PROG"
 
 
 # Prod
