@@ -32,7 +32,7 @@ footer {
       margin-left: 0px;
       margin-right: 0px;
     }
-    
+
     .small_option_bar_container {
       display: block;
     }
@@ -47,6 +47,7 @@ footer {
 /* Styles the container for the sidebare */
 .sidenav {
   font-family: 'Poppins', sans-serif;
+  position: sticky;
   width: 250px;
   position: fixed;
   top: 75px;
