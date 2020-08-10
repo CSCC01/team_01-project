@@ -210,6 +210,7 @@ button, input {
   font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
   margin-top: -20px;
   margin-bottom: -20px;
   margin-left: -20px;
@@ -225,8 +226,8 @@ button, input {
   font-weight: 300;
   height: 40px;
   background-color: var(--forground);
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
   background-image: -webkit-linear-gradient(left, var(--forground), var(--forground));
   background-image:         linear-gradient(to right, var(--forground), var(--forground));
   color:transparent;
