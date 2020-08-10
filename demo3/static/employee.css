@@ -6,3 +6,10 @@
 .headline {
   margin-top: 10px;
 }
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius:0;
+  border-radius:0;
+}
