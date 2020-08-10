@@ -230,8 +230,9 @@ footer div {
   z-index: 100;
   margin-top: 15px;
   padding-top: 10px;
-  height:100vh;
+  max-height: 60vh;
   overflow: scroll;
+  overflow-y: auto;
 }
 
 .dropdown_menu_container a {
