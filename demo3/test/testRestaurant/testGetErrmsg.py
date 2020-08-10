@@ -36,7 +36,7 @@ class InsertRestaurantTest(unittest.TestCase):
     def test_invalid_address(self):
         """Tests that invalid address results in address error"""
         actual = get_errmsg("name", "", [])
-        expected = ["A restaurant name is required."]
+        expected = ["A restaurant address is required."]
         self.assertEqual(actual, expected)
 
     def test_invalid_name_and_address(self):
