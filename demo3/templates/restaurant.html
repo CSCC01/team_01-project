@@ -113,7 +113,13 @@
       <div class = col>
         <div class = mypoint>
           My Points:&nbsp;
-          <div class = textGradient><div class = bold>{{ points }}</div></div>
+          <div class = textGradient><div class = bold>
+            {% if points %}
+              {{ points }}
+            {% else %}
+              0
+            {% endif %}
+          </div></div>
         </div>
 
       <div class = level_progress>
