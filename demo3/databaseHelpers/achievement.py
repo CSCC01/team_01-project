@@ -1,6 +1,7 @@
 from models import Achievements
 import datetime
 from datetime import date
+from dateutil.relativedelta import relativedelta
 
 import config
 if config.STATUS == "TEST":
@@ -104,12 +105,16 @@ def is_today_in_achievement_date_range(achievement):
         -1, if today is before the achievement date range;
         0, if today is within the achievement date range;
         1, if today is after the achievement date range.
+        2, if today is 6 months+ after date range
     """
     today = date.today()
     values = get_achievement_data(achievement)
     if values[2] == "False":
         e = (values[4]).split('-')
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
+        if today > expiration + relativedelta(months=+6):
+            return 2
+
         if today > expiration:
             return 1
 
@@ -117,6 +122,7 @@ def is_today_in_achievement_date_range(achievement):
         start = datetime.date(int(e[0]), int(e[1]), int(e[2]))
         if today < start:
             return -1
+
     return 0
 
 def get_achievement_data(achievement):

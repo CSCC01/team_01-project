@@ -8,7 +8,7 @@ from databaseHelpers import restaurant as rhelper
 
 class SelectResNameByID(unittest.TestCase):
     '''
-    Test get_resturant_by_name() in databaseHelpers/restaurant.py
+    Test get_restaurant_name_by_rid() in databaseHelpers/restaurant.py
     '''
     def setUp(self):
         app.config['TESTING'] = True

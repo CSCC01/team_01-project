@@ -13,7 +13,7 @@ INVALID = datetime.date(2020, 6, 30)
 
 class FilterValidCouponTest(unittest.TestCase):
     """
-    Test filter_valid_coupons in databaseHelpers/coupon.py.
+    Test filter_valid_coupons() in databaseHelpers/coupon.py.
     """
     def setUp(self):
         app.config['TESTING'] = True
