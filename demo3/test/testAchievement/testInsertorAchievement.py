@@ -8,7 +8,7 @@ from databaseHelpers.achievement import *
 
 class InsertAchievementTest(unittest.TestCase):
     """
-    Test function on insert achievement
+    Test insert_achievement() in databaseHelpers/achievement.py
     """
     def setUp(self):
         app.config['TESTING'] = True
@@ -23,44 +23,44 @@ class InsertAchievementTest(unittest.TestCase):
 
     def test_insert_normal_zero_type(self):
         """
-        test insert a normal achievement of type 0.
+        Test insert a normal achievement of type 0.
         """
-        insert_achievement(rid=8, name='Starbucks', experience=10, points=5, type=0, value = "coffee;3;;;")
+        insert_achievement(rid=8, name='Starbucks', experience=10, points=5, type=0, value = "coffee;3;False;2020-4-11;2020-12-31")
         a = Achievements.query.filter_by(rid=8).first()
         self.assertEqual(a.name, 'Starbucks')
         self.assertEqual(a.experience, 10)
         self.assertEqual(a.points, 5)
         self.assertEqual(a.type, 0)
-        self.assertEqual(a.value, 'coffee;3;;;')
+        self.assertEqual(a.value, 'coffee;3;False;2020-4-11;2020-12-31')
 
 
     def test_insert_normal_one_type(self):
         """
-        test insert a normal achievement of type 1.
+        Test insert a normal achievement of type 1.
         """
-        insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=1, value = ";4;;;")
+        insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=1, value = ";4;False;2020-4-11;2020-12-31")
         a = Achievements.query.filter_by(rid=9).first()
         self.assertEqual(a.name, 'Starbucks')
         self.assertEqual(a.experience, 10)
         self.assertEqual(a.points, 5)
         self.assertEqual(a.type, 1)
-        self.assertEqual(a.value, ';4;;;')
+        self.assertEqual(a.value, ';4;False;2020-4-11;2020-12-31')
 
     def test_insert_normal_one_type(self):
         """
-        test insert a normal achievement of type 2.
+        Test insert a normal achievement of type 2.
         """
-        insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=2, value = ";3;;;")
+        insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=2, value = ";3;False;2020-4-11;2020-12-31")
         a = Achievements.query.filter_by(rid=9).first()
         self.assertEqual(a.name, 'Starbucks')
         self.assertEqual(a.experience, 10)
         self.assertEqual(a.points, 5)
         self.assertEqual(a.type, 2)
-        self.assertEqual(a.value, ';3;;;')
+        self.assertEqual(a.value, ';3;False;2020-4-11;2020-12-31')
 
     def test_insert_normal_one_type(self):
         """
-        test insert a normal achievement of type 3, definite date.
+        Test insert a normal achievement of type 3, definite date.
         """
         insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=3, value = ";5;False;2020-4-11;2020-12-31")
         a = Achievements.query.filter_by(rid=9).first()
@@ -72,7 +72,7 @@ class InsertAchievementTest(unittest.TestCase):
 
     def test_insert_normal_one_type(self):
         """
-        test insert a normal achievement of type 3, indefinite date.
+        Test insert a normal achievement of type 3, indefinite date.
         """
         insert_achievement(rid=9, name='Starbucks', experience=10, points=5, type=3, value = ";4;True;;")
         a = Achievements.query.filter_by(rid=9).first()

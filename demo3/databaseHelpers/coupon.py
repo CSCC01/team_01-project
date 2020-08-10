@@ -149,6 +149,16 @@ def filter_valid_coupons(coupons):
 
 
 def get_coupon_by_cid(cid):
+    """
+    Get a list of dictionary which contains all coupon info by the given cid
+
+    Args:
+        cid: A coupon ID that corresponds to a coupon in the Coupon table.
+
+    Returns"
+        (if found) a list of dictionary
+        (if not) None
+    """
 
     coupon = Coupon.query.filter(Coupon.cid == cid).first()
 
@@ -171,7 +181,16 @@ def get_coupon_by_cid(cid):
 
 
 def find_res_name_of_coupon_by_cid(cid):
+    """
+    Get the restaurant name by the given cid
 
+    Args:
+        cid: A coupon ID that corresponds to a coupon in the Coupon table.
+
+    Returns:
+        (if found) restaurant name
+        (if not) 'Not Found'
+    """
     coupon = Coupon.query.filter(Coupon.cid == cid).first()
     if coupon:
         restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
@@ -183,7 +202,16 @@ def find_res_name_of_coupon_by_cid(cid):
 
 
 def find_res_addr_of_coupon_by_cid(cid):
+    """
+    Get the restaurant address by the given cid
 
+    Args:
+        cid: A coupon ID that corresponds to a coupon in the Coupon table.
+
+    Returns:
+        (if found) restaurant address
+        (if not) 'Not Found'
+    """
     coupon = Coupon.query.filter(Coupon.cid == cid).first()
     if coupon:
         restaurant = Restaurant.query.filter(Restaurant.rid == coupon.rid).first()
@@ -194,6 +222,16 @@ def find_res_addr_of_coupon_by_cid(cid):
         return "Not Found"
 
 def get_rid_by_cid(cid):
+    """
+    Get rid by the given cid
+
+    Args:
+        cid: A coupon ID that corresponds to a coupon in the Coupon table.
+
+    Returns:
+        (if found) restaurant id
+        (if not) 'Not Found'
+    """
     c = Coupon.query.filter(Coupon.cid == cid).first()
     if c:
         return c.rid

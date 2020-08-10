@@ -144,25 +144,20 @@
       </div>
   {% endif %}
 
-  
+
 {% if session['type'] >= 0 %}
 <div class = parent>
   <div class = title>
-    {% if session['type'] == 1 %}
     <div class = text>
-      My Restaurant:
+      {% if session['type'] == 1 %}
+        My Restaurant:
+      {% else %}
+        Employer:
+      {% endif %}
     </div>
-    {% else %}
-    <div class = text>
-      Employer:
-    </div>
-    {% endif %}
   </div>
-  <div class = text>
-    {{ rname }}
-  </div>
-  <div class = subtext>
-    at {{ raddress }}
+  <div class = subtitle>
+    {{ rname }}, located at at {{ raddress }}
   </div>
 </div>
 {% endif %}

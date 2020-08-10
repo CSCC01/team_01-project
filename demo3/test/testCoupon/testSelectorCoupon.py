@@ -1,11 +1,3 @@
-"""
-
-Test suite for helper.coupon.py's get_coupons function.
-
-"""
-
-
-
 import unittest
 from models import User, Coupon, Restaurant, Employee
 from models import db
@@ -19,6 +11,9 @@ END = datetime.date(2020, 6, 30)
 
 
 class SelectCouponTest(unittest.TestCase):
+    """
+    Test get_coupons() in databaseHelpers/coupon.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False

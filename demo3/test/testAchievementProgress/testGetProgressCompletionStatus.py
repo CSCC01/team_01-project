@@ -22,16 +22,22 @@ class GetProgressCompletionStatusTest(unittest.TestCase):
         db.drop_all()
 
     def test_progress_not_found(self):
-        '''Check status of a nonexistent achievement progress entry'''
+        '''
+        Check status of a nonexistent achievement progress entry
+        '''
         self.assertEqual(achievementhelper.get_progress_completion_status('Not Found'), 0)
 
     def test_progress_incomplete(self):
-        '''Check status of an incomplete achievement progress entry'''
+        '''
+        Check status of an incomplete achievement progress entry
+        '''
         progress = Customer_Achievement_Progress(aid=1, uid=3, progress=3, total=4)
         self.assertEqual(achievementhelper.get_progress_completion_status(progress), 1)
 
     def test_progress_complete(self):
-        '''Check status of a complete achievement progress entry'''
+        '''
+        Check status of a complete achievement progress entry
+        '''
         progress = Customer_Achievement_Progress(aid=1, uid=3, progress=4, total=4)
         self.assertEqual(achievementhelper.get_progress_completion_status(progress), 2)
 

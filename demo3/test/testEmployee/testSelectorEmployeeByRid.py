@@ -6,8 +6,9 @@ from app import app
 from databaseHelpers.employee import *
 
 class SelectEmployeeByRidTest(unittest.TestCase):
-    """Test suite for the function get_employee_rid in employee.py"""
-    
+    """
+    Test get_employee_rid() in employee.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -20,7 +21,9 @@ class SelectEmployeeByRidTest(unittest.TestCase):
         db.drop_all()
 
     def test_no_employee(self):
-        """No employee with matching uid"""
+        """
+        Test get a rid by given invalid uid. Expect return none.
+        """
         e1 = Employee(uid=3, rid=7)
         e2 = Employee(uid=6, rid=9)
         db.session.add(e1)
@@ -30,7 +33,9 @@ class SelectEmployeeByRidTest(unittest.TestCase):
         self.assertEqual(result, None)
 
     def test_employee(self):
-        """Employee has matching uid"""
+        """
+        Test get a rid by given valid employee uid. Expect output to match correct data.
+        """
         e1 = Employee(uid=3, rid=7)
         e2 = Employee(uid=6, rid=9)
         db.session.add(e1)

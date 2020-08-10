@@ -64,15 +64,21 @@
       <div class = filter_nav_container>
         <div class = parent>
           <div class = filter_nav>
-              <div class = but>
-                <input type = "submit" value = "All" name = all>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Active" name = active>
-              </div>
-              <div class = but>
-                <input type = "submit" value = "Expired" name = expired>
-              </div>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "active" %}
+              <div class = current><input type = "submit" value = "Active" name = active></div>
+            {% else %}
+              <input type = "submit" value = "Active" name = active>
+            {% endif %}
+            {% if filter == "expired" %}
+              <div class = current><input type = "submit" value = "Expired" name = expired></div>
+            {% else %}
+              <input type = "submit" value = "Expired" name = expired>
+            {% endif %}
           </div>
         </div>
       </div>

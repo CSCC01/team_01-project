@@ -7,6 +7,9 @@ from databaseHelpers import employee as employeehelper
 
 
 class InsertEmployeeTest(unittest.TestCase):
+    """
+    Test insert_new_employee() in databaseHelpers/employee.py
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -19,11 +22,17 @@ class InsertEmployeeTest(unittest.TestCase):
         db.drop_all()
 
     def test_add_default_employee(self):
+        """
+        Test insert a normal employee, check user database. Expect return not none.
+        """
         employeehelper.insert_new_employee(12, 14)
         employee = Employee.query.filter_by(uid=12).first()
         self.assertIsNotNone(employee)
 
     def test_add_employees_one_res(self):
+        """
+        Test insert several normal employees in one restaurant check user database. Expect output to match correct data.
+        """
         employeehelper.insert_new_employee(12, 14)
         employeehelper.insert_new_employee(2, 14)
         employeehelper.insert_new_employee(18, 14)
@@ -38,6 +47,9 @@ class InsertEmployeeTest(unittest.TestCase):
         self.assertEqual(e3.rid, 14)
 
     def test_add_employees_multi_res(self):
+        """
+        Test insert several normal employees in different restaurant. Expect output to match correct data.
+        """
         employeehelper.insert_new_employee(12, 12)
         employeehelper.insert_new_employee(2, 16)
         employeehelper.insert_new_employee(18, 4)

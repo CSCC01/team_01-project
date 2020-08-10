@@ -71,6 +71,16 @@ def get_user_login(email, password):
     return user
   
 def get_user_name_by_uid(uid):
+    """
+    Get the user's name by the given uid
+
+    Args:
+         uid: The unique ID of the user. An integer.
+
+    Returns:
+        (if found) the user's name
+        (if not) 'Not Found'
+    """
     u = User.query.filter(User.uid==uid).first()
     if u:
         return u.name
@@ -94,7 +104,16 @@ def update_type(uid, type):
         db.session.commit()
 
 def get_user(uid):
-    """"""
+    """
+    Get a dictionary contains uid, name and email by the given uid
+
+    Args:
+        uid: The unique ID of the user. An integer.
+
+    Returns:
+        (if found) a dictionary including the user's name, email and uid
+        (if not) None
+    """
     user = User.query.filter(User.uid == uid).first()
     if user:
         dict = {

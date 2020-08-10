@@ -1,10 +1,3 @@
-"""
-
-Tests for databaseHelpers.redeemedCoupons.py's get_redeemed_coupons_by_rid function.
-
-"""
-
-
 import unittest
 from models import Redeemed_Coupons, User, Coupon, Restaurant
 from models import db
@@ -18,6 +11,9 @@ END = datetime.date(2020, 6, 30)
 
 
 class SelectCustomerCoupons(unittest.TestCase):
+    """
+    Tests get_redeemed_coupons_by_rid() in databaseHelpers.redeemedCoupons.py.
+    """
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -38,7 +34,7 @@ class SelectCustomerCoupons(unittest.TestCase):
 
     def test_one_coupon_one_user_valid(self):
         """
-        Checks retrieving a list of one valid coupon belonging to one user.
+        Checks retrieving a list of one valid coupon belonging to one user. Expect output to match correct data.
         """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
@@ -73,7 +69,7 @@ class SelectCustomerCoupons(unittest.TestCase):
 
     def test_one_coupon_one_user_invalid(self):
         """
-        Checks retrieving a list of one invalid coupon belonging to one user.
+        Checks retrieving a list of one invalid coupon belonging to one user. Expect output to match correct data.
         """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
@@ -108,7 +104,7 @@ class SelectCustomerCoupons(unittest.TestCase):
 
     def test_one_coupon_no_user(self):
         """
-        Checks retrieving a list of one valid coupon belonging to no users.
+        Checks retrieving a list of one valid coupon belonging to no users. Expect output to match correct data.
         """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
@@ -139,7 +135,7 @@ class SelectCustomerCoupons(unittest.TestCase):
 
     def test_one_coupon_many_customers(self):
         """
-        Checks retrieving a list of one coupon belonging to many users.
+        Checks retrieving a list of one coupon belonging to many users. Expect output to match correct data.
         """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)
@@ -179,7 +175,7 @@ class SelectCustomerCoupons(unittest.TestCase):
 
     def test_many_coupons(self):
         """
-        Checks retrieving a list of many coupons belonging to many users.
+        Checks retrieving a list of many coupons belonging to many users. Expect output to match correct data.
         """
         restaurant = Restaurant(name = "David's Restaurant", address = "1234 Main Street", uid = 17)
         db.session.add(restaurant)

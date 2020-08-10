@@ -71,6 +71,29 @@
         </div>
       </div>
     </div>
+    <form method = "post">
+      <div class = filter_nav_container>
+        <div class = parent>
+          <div class = filter_nav>
+            {% if filter == "all" %}
+              <div class = current><input type = "submit" value = "All" name = all></div>
+            {% else %}
+              <input type = "submit" value = "All" name = all>
+            {% endif %}
+            {% if filter == "purchasable" %}
+              <div class = current><input type = "submit" value = "Purchable" name = purchasable></div>
+            {% else %}
+              <input type = "submit" value = "Purchable" name = purchasable>
+            {% endif %}
+            {% if filter == "notpurchasable" %}
+              <div class = current><input type = "submit" value = "Non-purchasable" name = notpurchasable></div>
+            {% else %}
+              <input type = "submit" value = "Non-purchasable" name = notpurchasable>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </form>
 {% endblock page_name %}
 
 {% block content %}
@@ -91,6 +114,7 @@
 {% endif %}
 
   {% for c in coupons %}
+    {% if (filter == "all") or (filter == "notpurchasable" and (c['points'] > points or c['level'] > level)) or (filter == "purchasable" and (c['points'] <= points and c['level'] <= level))%}
     <div class = parent>
       <div class = title>
         <div class = name>
@@ -141,5 +165,13 @@
       </form>
       {% endif %}
     </div>
+    {% endif %}
   {% endfor %}
 {% endblock content %}
+{% block script %}
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+{% endblock script %}

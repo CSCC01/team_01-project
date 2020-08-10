@@ -7,6 +7,9 @@ from databaseHelpers import restaurant as rhelper
 
 
 class SelectResNameByID(unittest.TestCase):
+    '''
+    Test get_resturant_by_name() in databaseHelpers/restaurant.py
+    '''
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -19,6 +22,9 @@ class SelectResNameByID(unittest.TestCase):
         db.drop_all()
 
     def test_res_name_not_found(self):
+        """
+        Test getting a res name with given invalid rid. Expect return none.
+        """
         restaurant = Restaurant(rid = 96, name = "bla", address = "1234 Main street", uid = 758)
         db.session.add(restaurant)
         db.session.commit()
@@ -26,6 +32,9 @@ class SelectResNameByID(unittest.TestCase):
         self.assertEqual(name, None)
 
     def test_res_name_found(self):
+        """
+        Test getting a res name with given normal rid. Expect output to match correct data.
+        """
         restaurant = Restaurant(rid = 96, name = "bla", address = "1234 Main street", uid = 758)
         db.session.add(restaurant)
         db.session.commit()

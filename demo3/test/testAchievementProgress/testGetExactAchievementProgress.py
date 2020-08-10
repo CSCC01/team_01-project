@@ -7,7 +7,7 @@ from databaseHelpers import achievementProgress as achievementhelper
 
 class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
     """
-    Tests the get method in achievementProgress.py
+    Tests get_exact_achivement_progress() in achievementProgress.py
     """
 
     def setUp(self):
@@ -22,6 +22,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         db.drop_all()
 
     def test_normal_found(self):
+        """
+        Test get the normal achievement progress by providing valid aid and uid.
+        """
         achievement_progress = Customer_Achievement_Progress(aid=17, uid=4, progress=3, total=5)
         db.session.add(achievement_progress)
         db.session.commit()
@@ -32,6 +35,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         self.assertEqual(a.total, achievement_progress.total)
 
     def test_found_with_same_uid(self):
+        """
+        Test get the normal achievement progress by providing valid aid and the same uid(same person).
+        """
         ap1 = Customer_Achievement_Progress(aid=17, uid=4, progress=3, total=5)
         ap2 = Customer_Achievement_Progress(aid=18, uid=4, progress=3, total=5)
         db.session.add(ap1)
@@ -44,6 +50,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         self.assertEqual(a.total, ap1.total)
 
     def test_found_with_same_aid(self):
+        """
+        Test get the normal achievement progress by providing valid the same aid(same achievement) and uid.
+        """
         ap1 = Customer_Achievement_Progress(aid=18, uid=4, progress=3, total=5)
         ap2 = Customer_Achievement_Progress(aid=18, uid=8, progress=3, total=5)
         db.session.add(ap1)
@@ -57,6 +66,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
 
 
     def test_aid_not_found(self):
+        """
+        Test get the achievement progress by providing invalid aid but valid uid. Expect an error message.
+        """
         achievement_progress = Customer_Achievement_Progress(aid=17, uid=4, progress=3, total=5)
         db.session.add(achievement_progress)
         db.session.commit()
@@ -64,6 +76,9 @@ class Get_Exact_Customer_Achievement_ProgressTest(unittest.TestCase):
         self.assertEqual(a, 'Not Found')
 
     def test_uid_not_found(self):
+        """
+        Test get the achievement progress by providing valid aid but invalid uid. Expect an error message.
+        """
         achievement_progress = Customer_Achievement_Progress(aid=17, uid=4, progress=3, total=5)
         db.session.add(achievement_progress)
         db.session.commit()

@@ -47,6 +47,30 @@ header {
     flex-direction: row;
     position: sticky;
     top: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-top: -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    z-index: 10;
+
+    background:linear-gradient(to left, var(--pink), var(--orange), var(--red))bottom no-repeat;
+    background-size:100% 2px;
+    background-color: var(--forground);
+}
+
+.line hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to left, var(--pink), var(--orange), var(--red));
+  position: sticky;
+  margin-left: -8px;
+  margin-right: -8px;
+  margin-top: -8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
 }
 
 /* floats the icons to the left */
@@ -161,12 +185,6 @@ footer div {
     color: var(--black);
     align-self: center;
     font-size: var(--mini);
-}
-
-.line hr {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to left, var(--pink), var(--orange), var(--red));
 }
 
 .line {
@@ -306,6 +324,7 @@ button, input {
   margin-bottom: -3px;
   width: 20px;
   height: 20px;
+  z-index: 1;
 }
 
 .settings_dropdown {
@@ -365,9 +384,14 @@ button, input {
   padding-right: 20px;
 }
 
-.filter_nav input[type = 'submit']:hover {
+.filter_nav .current input[type = 'submit'] {
   border-radius: 5px;
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
   color: var(--forground);
+}
+
+.subtitle {
+  font-size: var(--subtitle);
 }

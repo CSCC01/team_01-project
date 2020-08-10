@@ -8,7 +8,7 @@ from databaseHelpers import restaurant as rhelper
 
 class UpdateRestaurantInformationTest(unittest.TestCase):
     """
-    Tests update_restaurant_information() in restaurant.py
+    Tests update_restaurant_information() in databaseHelpers/restaurant.py
     """
     def setUp(self):
         app.config['TESTING'] = True

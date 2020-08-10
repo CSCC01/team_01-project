@@ -1,10 +1,4 @@
-"""
-Test suite for databaseHelpers.redeemedCoupons.py's insert_redeemed_coupon function.
-"""
-
-
 import unittest
-
 from databaseHelpers.redeemedCoupons import insert_redeemed_coupon
 from models import User, Coupon, Restaurant, Employee, Redeemed_Coupons
 from models import db
@@ -14,6 +8,9 @@ from databaseHelpers import redeemedCoupons
 from datetime import datetime
 
 class InsertRedeemedCouponTest(unittest.TestCase):
+    """
+    Test insert_redeemed_coupon() in databaseHelpers.redeemedCoupons.py.
+    """ 
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
@@ -27,7 +24,7 @@ class InsertRedeemedCouponTest(unittest.TestCase):
 
     def test_insert_coupon(self):
         """
-        Testing inserting an arbitrary coupon.
+        Testing inserting an arbitrary coupon. Expect output to match correct data.
         """
         cid = 3
         rid = 5

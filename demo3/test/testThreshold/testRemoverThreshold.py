@@ -6,7 +6,7 @@ from databaseHelpers.threshold import *
 
 class UpdatorThresholdTest(unittest.TestCase):
     '''
-    Tests update_threshold(rid, level, reward) in databaseHelpers/threshold.py.
+    Tests delete_threshold(rid, level) in databaseHelpers/threshold.py.
     '''
     def setUp(self):
         app.config['TESTING'] = True
@@ -20,7 +20,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         db.drop_all()
 
     def test_remove_invalid_threshold(self):
-        """Test removing a row that does not exist in the Threshold table"""
+        """
+        Test removing a row that does not exist in the Threshold table. Expect the object is still in database.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()
@@ -29,7 +31,9 @@ class UpdatorThresholdTest(unittest.TestCase):
         self.assertIsNotNone(expected)
 
     def test_remove_valid_threshold(self):
-        """Test removing a valid row from the Threshold table"""
+        """
+        Test removing a valid row from the Threshold table. Expect successfully removed.
+        """
         t = Thresholds(rid = 3, level = 5, reward = 100)
         db.session.add(t)
         db.session.commit()

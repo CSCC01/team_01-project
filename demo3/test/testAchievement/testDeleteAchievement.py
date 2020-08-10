@@ -7,7 +7,7 @@ from models import Achievements
 
 class DeleteAchievementTest(unittest.TestCase):
     """
-    Test function on delete achievement
+    Test function on deleting achievement
     """
     def setUp(self):
         app.config['TESTING'] = True
