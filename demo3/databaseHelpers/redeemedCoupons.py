@@ -84,7 +84,7 @@ def get_redeemed_coupons_by_uid(uid):
 
     for c in coupons:
         dict = get_coupon_by_cid(c.cid)
-        if dict["expiration"] + relativedelta(months=+6) > date.today():
+        if not dict["expiration"] or dict["expiration"] + relativedelta(months=+6) > date.today():
             dict["rname"] = get_restaurant_name_by_rid(c.rid)
             dict["raddress"] = get_restaurant_address(c.rid)
             coupon_list.append(dict)
