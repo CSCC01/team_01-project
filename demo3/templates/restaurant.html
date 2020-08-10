@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}
-<title>{{ rname }}</title>
-{% endblock title %}
-
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
 <link rel="stylesheet" type="text/css" href="static/milestone.css">
 {% endblock style %}
+
+{% block title %}
+<title>{{ rname }}</title>
+{% endblock title %}
+
 
 {% block sidebar %}
 <div class="sidenav">
@@ -59,9 +60,23 @@
 {% endblock sidebar %}
 
 {% block page_name %}
+  <div class = small_option_bar_container>
+    <div class = parent>
+      <div class = small_option_bar>
+        <a href="restaurant{{ rid }}"><img src="static/Resources/home_pressed.png" alt="Coupon"></a>
+        <a href="couponOffers{{ rid }}"><img src="static/Resources/coupon.png" alt="Coupon" class = coupon></a>
+        <a href="availableAchievements{{ rid }}"><img src="static/Resources/achievement.png" alt="Achievement"></a>
+        <a href="milestones{{ rid }}"><img src="static/Resources/flag.png" alt="Milestones"></a>
+        <a href="leaderBoard{{ rid }}"><img src="static/Resources/leaderboard.png" alt="Achievement"></a>
+      </div>
+    </div>
+  </div>
+
+
+
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           {{ rname }}
         </div>
         <div class = love>
@@ -82,23 +97,31 @@
 {% endblock page_name %}
 
 {% block content %}
-      <div class = parent>
+  <div class = parent>
       <div class = title>
-        <div class = level_title>
-          Your Customer Level:
+        <div class = subtitle>
+          Your Level:
         </div>
-        <div class = level>
-          Level {{ level }}
+        <div class = subtitle>
+          <div class = textGradient>Level {{ level }}</div>
         </div>
       </div>
       <progress value="{{ overflow }}" max="{{ (level + 1) * 100 }}">
         ({{ overflow }} / {{ (level + 1) * 100 }} * 100)%
       </progress>
+
       <div class = col>
         <div class = mypoint>
           My Points:&nbsp;
-          <div class = pink>{{ points }}</div>
+          <div class = textGradient><div class = bold>
+            {% if points %}
+              {{ points }}
+            {% else %}
+              0
+            {% endif %}
+          </div></div>
         </div>
+
       <div class = level_progress>
         <div class = progress_count>
           {{ overflow }}
@@ -111,6 +134,7 @@
         </div>
       </div>
       </div>
+
       <div class = fine_print>
         {% if milestone %}
           Reach level {{ milestone["level"] }} and gain {{ milestone["reward"] }} points.
@@ -120,25 +144,25 @@
 
       <div class = parent>
         <div class = title>
-          <div class = text>
-            Recent Coupon Offers:
+          <div class = subtitle>
+            Recent Coupon Offers
           </div>
         </div>
         {% for c in coupons %}
             <div class = container>
-              <div class = name>
+              <div class = subsubtitle>
                 {{ c["name"] }}
               </div>
-              <div class = amount>
+              <div class = body>
                 Requirement: Level {{ c["level"] }} or Above
               </div>
-              <div class = amount>
+              <div class = body>
                 Cost: {{ c["points"] }} Points
               </div>
               <div class = description>
                 {{ c["description"] }}
               </div>
-              <div class = expiration>
+              <div class = mini>
                 {% if c["begin"] == None or c["expiration"] == None %}
                   Valid indefinitely
                 {% else %}
@@ -150,7 +174,7 @@
         <a href="couponOffers{{ rid }}">
           <div class = seeMore>
             <button type="button">
-              View All Coupon Offers
+              <div class = textGradient> View All Coupon Offers </div>
             </button>
           </div>
         </a>
@@ -158,8 +182,8 @@
 
       <div class = parent>
         <div class = title>
-          <div class = text>
-            Achievement Progress:
+          <div class = subtitle>
+            Achievement Progress
           </div>
         </div>
         {% for a in achievements %}
@@ -198,43 +222,35 @@
           </div>
         {% endfor %}
         {% if achievements|length == 0 %}
-        <div class = none>
+        <div class = body>
           No achievements in progress.
         </div>
+        {% endif %}
         <a href="availableAchievements{{ rid }}">
           <div class = seeMore>
             <button type="button">
-              View All Available Achievements
+              <div class = textGradient> View All Available Achievements </div>
             </button>
           </div>
         </a>
-        {% else %}
-        <a href="inProgressAchievements{{ rid }}">
-          <div class = seeMore>
-            <button type="button">
-              View All In-Progress Achievements
-            </button>
-          </div>
-        </a>
-        {% endif %}
       </div>
 
       <div class = parent>
         <div class = title>
-          <div class = text>
-            Next Milestones:
+          <div class = subtitle>
+            Next Milestones
           </div>
         </div>
         <div class = table>
             <div class = header>
               <div class = columns>
-                <div class = child>
+                <div class = subsubtitle>
                   Level
                 </div>
-                <div class = child>
+                <div class = subsubtitle>
                   Reward Points
                 </div>
-                <div class = child>
+                <div class = subsubtitle>
                   Status
                 </div>
               </div>
@@ -263,9 +279,13 @@
         <a href="milestones{{ rid }}">
           <div class = seeMore>
             <button type="button">
-              View All Milestones
+              <div class = textGradient> View All Milestones </div>
             </button>
           </div>
         </a>
       </div>
   {% endblock content %}
+
+  {% block script %}
+  <script type="text/javascript" src = "static/refresh.js"></script>
+  {% endblock script %}

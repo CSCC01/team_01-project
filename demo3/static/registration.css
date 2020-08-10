@@ -1,8 +1,10 @@
 /*                                                  *
 *                                                   *
-*             Styling for employee.HTML             *
+*         Styling used by registration.html          *
 *                                                   *
 *                                                   */
-.headline {
-  margin-top: 10px;
+
+/* Adds white space between body and buttons*/
+.body {
+  margin-bottom: 10px;
 }

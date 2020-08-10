@@ -2,7 +2,6 @@
 
 {% block style %}
   <link rel="stylesheet" type="text/css" href="static/submissionFields.css">
-  <link rel="stylesheet" type="text/css" href="static/coupon.css">
   <link rel="stylesheet" type="text/css" href="static/restaurant.css">
 {% endblock style %}
 
@@ -17,16 +16,16 @@
 {% endblock page_name %}
 
 {% block content %}
-    <div class = parent_qr>
+    <div class = parent>
         <div class = title>
-            <div class = text>
-                Updating Achievement Progress
+            <div class = headline>
+                Update Achievement
             </div>
         </div>
     </div>
-    <div class = parent_qr>
+    <div class = parent>
         <div class = title>
-          <div class = name>
+          <div class = subtitle>
             {{ a["name"] }}
           </div>
         </div>
@@ -59,17 +58,12 @@
           </div>
         </div>
     </div>
-    <div class = parent_qr>
-        <div class = title>
-            <div class = text>
-              QR code:
-            </div>
-          </div>
-
+    <div class = parent>
         <div class = image>
-            <img src="{{ imgurl }}" align="center">
+            <img src="{{ imgurl }}">
         </div>
-
+    </div>
+    <div class = parent>
         <div class = submit_button>
             <a href="availableAchievements{{ rid }}"><input type="submit" value="Go Back"></a>
         </div>

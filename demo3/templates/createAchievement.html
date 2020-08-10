@@ -56,7 +56,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Create an Achievement
         </div>
       </div>
@@ -117,90 +117,58 @@
               </select>
             </div>
 
-            <!-- Type = 0 - Purchase item x times -->
             <div class = type0 id = type0>
-              <div class = col_mod>
-                <div class = feild_tag_left>
-                  Purchase
-                </div>
+              <div class = body>
+                Description: Purchase <div class = textGradient>&nbsp;item</div>, <div class = textGradient>&nbsp;amount&nbsp;</div> times.
+              </div>
 
-                <div class = item>
+              <div class = col>
                   <div class = feild>
                       <label>Item</label>
                           <input type="text" name="item" value = "">
                   </div>
-                </div>
-                <div class = amount>
                   <div class = feild>
                       <label>Amount</label>
                           <input type="number" name="amount0" value = 3>
                   </div>
                 </div>
+            </div>
 
-                <div class = feild_tag_right>
-                  times
-                </div>
-            </div>
-            </div>
 
             <!-- Type = 1 - Spend xx.xx amount -->
             <div class = type1 id = type1>
-              <div class = col_mod>
-                <div class = feild_tag_left>
-                  Spend
-                </div>
+              <div class = body>
+                Description: Spend <div class = textGradient>&nbsp;amount&nbsp;</div> in a single visit.
+              </div>
 
-                <div class = amount>
-                  <div class = feild>
-                      <label>Amount</label>
-                      <input type="number" min="0.01" step="0.01" name="amount1" value = 10.00>
-                  </div>
-                </div>
-
-                <div class = feild_tag_right>
-                  in a single visit
-                </div>
+              <div class = feild>
+                <label>Amount</label>
+                <input type="number" name="amount1" value = 3>
               </div>
             </div>
 
             <!-- Type = 2 - Visit in a group of x -->
             <div class = type2 id = type2>
-              <div class = col_mod>
-                <div class = feild_tag_left>
-                  Visit with a group of at least
-                </div>
+              <div class = body>
+                Description: Visit with a group of <div class = textGradient>&nbsp;amount&nbsp;</div> people.
+              </div>
 
-                <div class = amount>
-                  <div class = feild>
-                      <label>Amount</label>
-                          <input type="number" name="amount2" value = 3>
-                  </div>
-                </div>
-
-                <div class = feild_tag_right>
-                  people
-                </div>
+              <div class = feild>
+                <label>Amount</label>
+                <input type="number" name="amount2" value = 3>
               </div>
             </div>
 
 
             <!-- Type = 3 - Visit x times within date1 and date2 -->
             <div class = type3 id = type3>
-              <div class = col_mod>
-                <div class = feild_tag_left>
-                  Visit
-                </div>
+              <div class = body>
+                Description: Visit <div class = textGradient>&nbsp;amount&nbsp;</div> times.
+              </div>
 
-                <div class = amount>
-                  <div class = feild>
-                      <label>Amount</label>
-                          <input type="number" name="amount3" value = 3>
-                  </div>
-                </div>
-
-                <div class = feild_tag_right>
-                  times
-                </div>
+              <div class = feild>
+                <label>Amount</label>
+                <input type="number" name="amount3" value = 3>
               </div>
             </div>
 

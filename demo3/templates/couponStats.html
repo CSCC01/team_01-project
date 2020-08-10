@@ -55,7 +55,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Coupon Statistics
         </div>
       </div>
@@ -98,17 +98,19 @@
     {% if (filter == "all") or (filter == "deleted" and c['deleted'] == 1) or (filter == "expired" and c['expiration'] and today > c['expiration']) or (filter == "active" and not (c['expiration'] and today > c['expiration']) and c['deleted'] == 0)%}
     <div class = parent>
       <div class = title>
-          <div class = name>
+          <div class = subsubtitle>
             {{ c['name'] }}
           </div>
-          <div class = status>
+          <div class = subsubtitle>
             {% if c['expiration'] and today > c['expiration'] %}
               Status: Expired
             {% elif c['deleted'] == 1 %}
               Status: Deleted
             {% else %}
-              <div class = placeholder> Status:&nbsp;</div>
-              <div class = active>Active</div>
+              <div class = row>
+                <div> Status:&nbsp;</div>
+                <div class = textGradient>Active</div>
+              </div>
             {% endif %}
           </div>
       </div>

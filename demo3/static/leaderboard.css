@@ -13,7 +13,7 @@
 
 .ranking,
 .ranking_mine {
-  font-size: var(--subtitle);
+  font-size: var(--subsubtitle);
   height: 40px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -32,7 +32,8 @@
 .title .username,
 .title .level,
 .title .experience {
-  font-size: var(--subtitle);
+  font-size: var(--subsubtitle);
+  font-weight: var(--semi-bold);
 }
 
 .ranking .username,
@@ -74,15 +75,15 @@
 }
 
 .rank {
-  width: 15%;
+  width: 18%;
 }
 
 .username {
-  width: 50%;
+  width: 45%;
 }
 
 .level {
-  width: 15%;
+  width: 18%;
 }
 
 .experience {
@@ -91,7 +92,7 @@
 
 .level,
 .experience {
-  font-weight: 600;
+  font-weight: var(--semi-bold);
 }
 
 .ranking .username,

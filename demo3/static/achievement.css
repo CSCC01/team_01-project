@@ -3,80 +3,42 @@
 *           Styling for Achievement.HTML            *
 *                                                   *
 *                                                   */
+/* Readjusting headline to compensate for difference in font size */
+.headline {
+  margin-top: 10px;
+}
 
-
+/* Styles the text that is right aligned within the achievement creation text feilds*/
 .points {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
+/* Hides other achievement types */
 .type1, .type2, .type3 {
+  flex-direction: column;
   display: none;
 }
 
+/* Shows only the first achievement type */
 .type0 {
   display: flex;
+  flex-direction: column;
 }
 
-.feild_tag_right,
-.feild_tag_left {
-  position:relative;
-  top: 11px;
-}
-
-.feild_tag_right {
-  margin-left: 5px;
-}
-
-.feild_tag_left {
-  margin-right: 5px;
-}
-
-/* Styling to  make the password boxes side by side */
-.col_mod {
+/* Styles the description in achievement creation */
+.type0 .body,
+.type1 .body,
+.type2 .body,
+.type3 .body {
   display: flex;
   flex-direction: row;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
-.col_mod .feild {
-  flex: 1 1 0px;
-}
-
-.item {
-  min-width: 100px;
-  margin-right: 20px;
-  width: 50%;
-}
-
-.amount {
-  min-width: 80px;
-  width: 20%;
-}
-
-.plus {
-  font-size: 40px;
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  -webkit-background-clip: text;
-}
-
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
-}
-
-.description {
-  font-weight:400;
-}
-
-.points {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
+/* Styles the reward amount on achievement page */
 .number {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
@@ -86,6 +48,7 @@
   font-weight: 600;
 }
 
+/* Styles the reward text on achievement page */
 .rewards_text {
   padding-right: 5px;
   font-weight: 525;
@@ -94,8 +57,4 @@
 .rewards {
   display: flex;
   justify-content: flex-end;
-}
-
-.container {
-  top: -12px;
 }

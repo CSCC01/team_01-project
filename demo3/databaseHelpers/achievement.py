@@ -173,7 +173,7 @@ def get_errmsg(name, experience, points, type, value):
         expiration = datetime.date(int(e[0]), int(e[1]), int(e[2]))
         if expiration < today:
             errmsg.append("This achievemnt is already outdated.")
-        
+
         if data[3] != "":
             b = (data[3]).split('-')
             begin = datetime.date(int(b[0]), int(b[1]), int(b[2]))

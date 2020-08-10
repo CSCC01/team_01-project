@@ -14,7 +14,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           My Profile
         </div>
       </div>
@@ -23,28 +23,50 @@
 
 {% block content %}
   <div class = parent>
-    <b>You are currently signed in as
-    {% if session["type"] == -1 %}
-      a customer.
-    {% elif session["type"] == 0 %}
-      an employee.
-    {% elif session["type"] == 1 %}
-      an owner.
-    {% else %}
-      a manager.
-    {% endif %}
-    </b>
-    <br>
-    <b>Name:</b> {{ user["name"] }}
-    <br>
-    <b>Email:</b> {{ user["email"] }}
+    <div class = subtitle>
+      Account Details
+    </div>
+    <div class = bold>
+      You are currently signed in as
+      {% if session["type"] == -1 %}
+        a customer.
+      {% elif session["type"] == 0 %}
+        an employee.
+      {% elif session["type"] == 1 %}
+        an owner.
+      {% else %}
+        a manager.
+      {% endif %}
+    </div>
+
+
+    <div class = row>
+      <div class = bold>Name:&nbsp;</div>
+      <div> {{ user["name"] }} </div>
+    </div>
+
+    <div class = row>
+      <div class = bold> Email:&nbsp;</div>
+      <div> {{ user["email"] }} </div>
+    </div>
   </div>
+
   {% if session['account'] == 1 %}
   <div class = parent>
-    <b>Restaurant Name:</b> {{ rname }}
-    <br>
-    <b>Restaurant Address:</b> {{ raddress }}
-    <br>
+    <div class = subtitle>
+      Restaurant Details
+    </div>
+
+    <div class = row>
+      <div class = bold>Restaurant Name:&nbsp;</div>
+      <div> {{ rname }} </div>
+    </div>
+
+    <div class = row>
+      <div class = bold>Restaurant Address:&nbsp;</div>
+      <div> {{ raddress }} </div>
+    </div>
+
     <div class = submit_button>
       <a href="editRestaurantInfo.html"><input type="submit" value="Edit"></a>
     </div>

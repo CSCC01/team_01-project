@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>Home</title>
+<title>Scanning</title>
 {% endblock title %}
 
 {% block icons %}
@@ -10,21 +10,21 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Scan Forbidden!
         </div>
       </div>
       <div class = title>
         {% if forbiddenType == '0' %}
-        <div class = text>
+        <div class = subsubtitle>
           This {{ itemType }} has already been completed.
         </div>
         {% elif forbiddenType == '-1' %}
-        <div class = text>
+        <div class = subsubtitle>
           This {{ itemType }}'s start date has not been reached.
         </div>
         {% elif forbiddenType == '1' %}
-        <div class = text>
+        <div class = subsubtitle>
           This {{ itemType }} has already expired.
         </div>
         {% endif %}
