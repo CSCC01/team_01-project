@@ -164,6 +164,10 @@ progress::-webkit-progress-value {
   cursor: default;
 }
 
+.fine_print .milestone {
+  text-align: center;
+}
+
 .toPoor input[type = submit] {
   background-image: none;
   background-color: var(--purpleGrey)
