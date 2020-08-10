@@ -224,6 +224,8 @@ button, input {
   font-size: var(--body);
   font-weight: 300;
   height: 40px;
+  border-radius: 0px;
+  -webkit-appearance: none;
   background-color: var(--forground);
   padding-left: 20px;
   padding-right: 20px;
