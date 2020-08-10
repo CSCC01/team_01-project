@@ -19,7 +19,7 @@
 	float: left;
 	margin-top: -19px;
 	background: var(--forground);
-	height: 14px;
+	height: 18px;
 	padding: 2px 5px 2px 5px;
 	color: var(--black);
 	font-size: 14px;
@@ -168,7 +168,6 @@ select {
 
 /* Removed all default styling on apple devices */
 input[type = submit],
-input[type="date"],
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
