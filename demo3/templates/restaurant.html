@@ -225,6 +225,7 @@
         <div class = body>
           No achievements in progress.
         </div>
+        {% endif %}
         <a href="availableAchievements{{ rid }}">
           <div class = seeMore>
             <button type="button">
@@ -232,15 +233,6 @@
             </button>
           </div>
         </a>
-        {% else %}
-        <a href="inProgressAchievements{{ rid }}">
-          <div class = seeMore>
-            <button type="button">
-              View All In-Progress Achievements
-            </button>
-          </div>
-        </a>
-        {% endif %}
       </div>
 
       <div class = parent>
