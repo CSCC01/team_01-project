@@ -6,7 +6,7 @@ from databaseHelpers.threshold import *
 
 class UpdatorThresholdTest(unittest.TestCase):
     '''
-    Tests update_threshold(rid, level, reward) in databaseHelpers/threshold.py.
+    Tests insert_threshold() in databaseHelpers/threshold.py.
     '''
     def setUp(self):
         app.config['TESTING'] = True
