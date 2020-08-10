@@ -43,3 +43,8 @@
 .header {
   margin-top: -15px;
 }
+
+/* Removing fine_print styling */
+.fine_print {
+  text-align: left;
+}
