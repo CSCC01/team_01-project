@@ -8,36 +8,41 @@
   margin-top: 3px;
 }
 
+/* Styles expiration dates */
 .expiration {
   font-size: var(--mini);
   color: var(--darkGrey);
 }
 
+/* Styles points */
 .points {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-
+/* Styles the text for displaying level */
 .level_title {
   font-size: var(--title);
-  font-weight: 525;
+  font-weight: var(--semi-bold);
 }
 
+/* Styles a flex-box container to hold elements in a row */
 .col {
   display: flex;
-  direction: row;
+  flex-direction: row;
   font-size: var(--body);
   justify-content: space-between;
 }
 
+/* Styles the container that holds users total points*/
 .mypoint {
   display: flex;
-  direction: row;
+  flex-direction: row;
 }
 .col:first-of-type > div:last-child { order: -1; }
 
+/* Styles the container that holds the progression bar */
 .level_progress {
   display: flex;
   justify-content: flex-end;
@@ -45,10 +50,12 @@
   float: right;
 }
 
+/* Styles the text under the progression bar */
 .progress_text {
   padding-left: 5px;
 }
 
+/* Styles the pink text in progression_text */
 .progress_count {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
@@ -58,10 +65,12 @@
   font-weight: 600;
 }
 
+/* Styles the bold text in progression_text */
 .progress_count_total {
   font-weight: 600;
 }
 
+/* Styles the progression bar */
 progress {
   width: 100%;
   height: 30px;
@@ -72,39 +81,45 @@ progress {
   appearance: none;
 }
 
+/* Styles the progression bar */
 progress::-webkit-progress-bar{
   border-radius: 45px;
   background: lightgrey;
 }
-
+/* Styles the progression bar */
 progress::-webkit-progress-value {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
   border-radius: 45px;
 }
 
+/* Styles the progression bar container for achievements */
 .achievement_progress_bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Styles the progression text container for achievements */
 .achievement_progress {
   display: flex;
   justify-content: left;
   font-weight: 500;
 }
 
+/* Styles the progression text for achievements */
 .achievement_progress_text {
   padding-right: 5px;
 }
 
+/* Styles the progression footer for achievements */
 .achievement_footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+/* Styles the progression number for achievements */
 .number {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
@@ -114,16 +129,19 @@ progress::-webkit-progress-value {
   font-weight: 600;
 }
 
+/* Styles the reward text for achievements */
 .rewards_text {
   padding-right: 5px;
-  font-weight: 525;
+  font-weight: var(--semi-bold);
 }
 
+/* Styles the reward container for achievements */
 .rewards {
   display: flex;
   justify-content: flex-end;
 }
 
+/* Styles the check mark for achievements that are completed */
 .check_complete {
   font-size: 32px;
   font-weight: 1000;
@@ -134,6 +152,7 @@ progress::-webkit-progress-value {
   -webkit-background-clip: text;
 }
 
+/* Styles the check mark for achievements that are incomplete */
 .check {
   font-size: 32px;
   font-weight: 1000;
@@ -158,12 +177,15 @@ progress::-webkit-progress-value {
   height: 30px;
 }
 
+/* Styles fine print under button for purchasing coupons */
 .fine_print, .toPoor {
   text-align: center;
   margin-top: 5px;
   cursor: default;
 }
 
+
+/* Styles button for purchasing coupons */
 .toPoor input[type = submit] {
   background-image: none;
   background-color: var(--purpleGrey)
@@ -183,10 +205,11 @@ b {
   font-weight: var(--semi-bold);
 }
 
+/* Styles the points displayed on coupon offer page*/
 .total_points {
   font-size: var(--subsubtitle);
   display: flex;
-  direction: row;
+  flex-direction: row;
 }
 
 
@@ -195,6 +218,7 @@ b {
   width: 30px;
 }
 
+/* Styling for the heart position in the headline */
 .love {
   margin-top: 10px;
 }
