@@ -170,7 +170,7 @@ def verify_scan_list(rid):
 
 def get_rid_by_aid(aid):
     """
-    Return thr rid by the given aid
+    Return the rid by the given aid
 
     Args:
         aid: The unique ID of the achievement. An integer.
@@ -183,3 +183,21 @@ def get_rid_by_aid(aid):
     if a:
         return a.rid
     return "Not Found"
+
+def get_errmsg(rname, address, errmsg):
+    """
+    Returns a list of errmsg that occur when insering an owner account
+
+    Args:
+        rname: The name of the restaurant. A string.
+        address: The address of the restaurant. A string.
+        errmsg: Any preexisting error messages. A list of strings.
+    Returns:
+        A list of error messages. A list of strings.
+    """
+    if rname == "":
+        errmsg.append("A restaurant name is required.")
+    if address == "":
+        errmsg.append("A restaurant address is required.")
+
+    return errmsg
