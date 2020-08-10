@@ -8,7 +8,6 @@
 {% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="static/achievement.css">
-<link rel="stylesheet" type="text/css" href="static/coupon.css">
 <link rel="stylesheet" type="text/css" href="static/sidebar.css">
 {% endblock style %}
 {% block title %}
@@ -55,7 +54,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Achievement Statistics
         </div>
       </div>
@@ -90,15 +89,17 @@
     {% if filter == "all" or (filter == "active" and not a['expired']) or (filter == "expired" and a['expired']) %}
       <div class = parent>
         <div class = title>
-            <div class = name>
+            <div class = subsubtitle>
               {{ a['name'] }}
             </div>
-            <div class = status>
+            <div class = subsubtitle>
               {% if a['expired']%}
                 Status: Expired
               {% else %}
-                <div class = placeholder> Status:&nbsp;</div>
-                <div class = active>Active</div>
+                <div class = row>
+                  <div> Status:&nbsp;</div>
+                  <div class = textGradient>Active</div>
+                </div>
               {% endif %}
             </div>
         </div>
@@ -106,10 +107,10 @@
           {{ a["description"] }}
         </div>
 
-        <div class = holder>
+        <div class = body>
           Number of people in progress: {{ a['in progress'] }}
         </div>
-        <div class = holder>
+        <div class = body>
           Number of people completed: {{ a['complete'] }}
         </div>
       </div>

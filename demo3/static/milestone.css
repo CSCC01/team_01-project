@@ -9,18 +9,21 @@
   justify-content: space-between;
 }
 
-.columns .child:nth-child(1) {
+.columns .child:nth-child(1),
+.columns .subsubtitle:nth-child(1) {
   width: 33%;
   margin-right: 5px;
 }
 
-.columns .child:nth-child(2) {
+.columns .child:nth-child(2),
+.columns .subsubtitle:nth-child(2) {
   width: 33%;
   margin-right: 5px;
   margin-left: 5px;
 }
 
-.columns .child:nth-child(3) {
+.columns .child:nth-child(3),
+.columns .subsubtitle:nth-child(3) {
   width: 33%;
   margin-left: 5px;
 }

@@ -14,7 +14,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Search Restaurants
         </div>
       </div>
@@ -45,10 +45,10 @@
     <div class = parent>
       <div class = container>
         <div class = left_container>
-            <div class = name>
+            <div class = subtitle>
               {{ r['name'] }}
             </div>
-            <div class = address>
+            <div class = body>
                 {{ r['address'] }}
             </div>
         </div>
@@ -68,9 +68,5 @@
 {% endblock content %}
 
 {% block script %}
-<script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-</script>
+<script type="text/javascript" src = "static/refresh.js"></script>
 {% endblock script %}

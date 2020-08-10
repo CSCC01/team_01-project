@@ -8,7 +8,8 @@
 <html>
   <head>
       <meta charset="UTF-8">
-      <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="/static/base.css">
       <link rel="stylesheet" type="text/css" href="/static/common.css">
       {% block style %} {% endblock style %}
       {% block title %} {% endblock title %}
@@ -18,7 +19,66 @@
           <div class = logo>
             <a href="login">PickEasy</a>
           </div>
+
           {% if 'account' in session %}
+          <div class = menu>
+            <div class = mobile_window>
+              <button onclick="dropdown_mobile_menu('mobile')">
+                <img src="static/Resources/menu.png" alt="menu">
+              </button>
+              <div id="mobile" class="dropdown_menu_container">
+                {% if session["type"] == -1 %}
+                  <div class = label> Explore</div>
+                  <div class = sub><a href="search.html">Search</a>
+                {% endif %}
+
+                {% if session["type"] == -1 %}
+                  <a href="favourites.html">Favourties</a>
+                  <hr>
+                {% endif %}
+                <div class = label>Coupons</div>
+
+                <a href="coupon.html">Coupon</a>
+                {% if session["type"] == 1 or session["type"] == 2 %}
+                  <a href="createCoupon.html">Create A Coupon</a>
+                  <a href="couponStats.html">Coupon Statistics</a>
+                {% endif %}
+                <hr>
+
+                {% if session["type"] != -1 %}
+                  <div class = label>Achievements</div>
+                  <a href="achievement.html">Achievements</a>
+                  {% if session["type"] == 1 or session["type"] == 2 %}
+                    <a href="createAchievement.html">Create An Achievement</a>
+                    <a href="achievementStats.html">Achievement Statistics</a>
+                  {% endif %}
+                  <hr>
+                {% endif %}
+                {% if session["type"] == 1 or session["type"] == 2 %}
+                  <div class = label>Milestones</div>
+                  <a href="milestones.html">Milestones</a>
+                  <hr>
+                {% endif %}
+
+                {% if session["type"] == 1 or session["type"] == 2 %}
+                  <div class = label>Employees</div>
+                  <a href="employee.html">Employees</a>
+                  {% if session["type"] == 1 %}
+                    <a href="registration2.html">Create an Employee</a>
+                  {% endif %}
+                  <hr>
+                {% endif %}
+                {% if session["type"] == 1 or session["type"] == 2 %}
+                  <div class = label>Leaderboards</div>
+                  <a href="leaderBoard.html">Leaderboard</a>
+                  <hr>
+                {% endif %}
+                <div class = label>Profile</div>
+                <a href="profile.html">Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
             <div class = icons>
               {% if session['type'] == -1 %}
                 <a href="search.html"><img src="static/Resources/search{% block search %}{% endblock search %}.png" alt="Search"></a>
@@ -28,29 +88,46 @@
               {% if session["type"] == -1 %}
                 <a href="favourites.html"><img src="static/Resources/fork{% block restaurant %}{% endblock restaurant %}.png" alt="Restaurants"></a>
               {% endif %}
+
               <!-- This is only displayed if they screen size is larger then 700px -->
-              <div class = coupon_large>
-                <a href="coupon.html">
-                    <img src="static/Resources/coupon{% block coupon %}{% endblock coupon %}.png" alt="Coupon">
-                </a>
-              </div>
+                <a href="coupon.html" class = coupon_large><img src="static/Resources/coupon{% block coupon %}{% endblock coupon %}.png" alt="Coupon"></a>
+              <!-- This is only displayed if they screen size is smaller then 700px -->
+              {% if session['type'] == 1 or session["type"] == 2 %}
+                <div class = small_window>
+                  <button onclick="dropdown_menu('coupon','achievement')">
+                    <img src="static/Resources/coupon{% block coupon2 %}{% endblock coupon2 %}.png" alt="Coupon" class = coupon>
+                  </button>
+                  <div id="coupon" class="dropdown_container">
+                    <a href="coupon.html">Coupons</a>
+                      <a href="createCoupon.html">Create a Coupon</a>
+                      <a href="couponStats.html">Coupon Statistics</a>
+                  </div>
+                </div>
+              {% else %}
+                <a href="coupon.html" class = small_icon><img src="static/Resources/coupon{% block coupon3 %}{% endblock coupon3 %}.png" alt="Coupon" class = coupon></a>
+              {% endif %}
+
+              {% if session['type'] != -1 %}
+                  <a href="achievement.html" class = achievement_large><img src="static/Resources/achievement{% block achievement %}{% endblock achievement %}.png" alt="Achievement"></a>
+              {% endif %}
 
               <!-- This is only displayed if they screen size is smaller then 700px -->
-              <div class = small_window>
-                <button onclick="dropdown_menu()" class="coupon_drop_down">
-                  <img src="static/Resources/coupon{% block coupon2 %}{% endblock coupon2 %}.png" alt="Coupon" class = coupon>
-                </button>
-                <div id="dropdown" class="dropdown_container">
-                  <a href="coupon.html">My Coupons</a>
-                  {% if session['type'] == 1 or session["type"] == 2 %}
-                    <a href="createCoupon.html">Create a Coupon</a>
-                    <a href="viewUserCoupons.html">View Customer Coupons</a>
-                  {% endif %}
+              {% if session['type'] == 1 or session["type"] == 2 %}
+                <div class = small_window>
+                  <button onclick="dropdown_menu('achievement','coupon')">
+                    <img src="static/Resources/achievement{% block achievement1 %}{% endblock achievement1 %}.png" alt="Achievement">
+                  </button>
+                  <div id="achievement" class="dropdown_container">
+                    <a href="achievement.html">Achievements</a>
+                    <a href="createAchievement.html">Create an Achievement</a>
+                    <a href="achievementStats.html">Achievement Statistics</a>
+                  </div>
                 </div>
-              </div>
-              {% if session['type'] != -1 %}
-                <a href="achievement.html"><img src="static/Resources/achievement{% block achievement %}{% endblock achievement %}.png" alt="Achievement"></a>
+              {% elif session['type'] == 0 %}
+                <a href="achievement.html" class = small_icon><img src="static/Resources/achievement{% block achievement2 %}{% endblock achievement2 %}.png" alt="Achievement"></a>
               {% endif %}
+
+
               {% if session['type'] == 1 or session['type'] == 2 %}
                 <a href="milestones.html"><img src="static/Resources/flag{% block settings %}{% endblock settings %}.png" alt="settings"></a>
               {% endif %}
@@ -63,31 +140,24 @@
                 <a href="profile.html"><img src="static/Resources/user{% block profile %}{% endblock profile %}.png" alt="User"></a>
             </div>
           {% endif %}
-
       </header>
-      {% block sidebar %}
-      {% endblock sidebar %}
-      {% block page_name %}
-          <div class = parent>
-            <div class = title>
-              <div class = text>
-              </div>
-            </div>
-          </div>
-      {% endblock page_name %}
+      {% block sidebar %}{% endblock sidebar %}
 
-          {% block content %} {% endblock content %}
+      {% block page_name %}{% endblock page_name %}
 
-      </body>
-       <script type="text/javascript" src = "static/common.js"></script>
-      {% block script %} {% endblock script %}
+      {% block content %} {% endblock content %}
 
-      <!-- Footer -->
-      <footer>
-          <div class = "creators">
-              <p>© 2020 Designed by Enterprise </p>
-          </div>
-      </footer>
+  </body>
+
+  <script type="text/javascript" src = "static/base.js"></script>
+  {% block script %} {% endblock script %}
+
+  <!-- Footer -->
+  <footer>
+      <div class = "creators">
+          <p>© 2020 Designed by Enterprise </p>
+      </div>
+  </footer>
 
 
 </html>

@@ -5,9 +5,10 @@
 {% endblock title %}
 
 {% block style %}
-    {% if session['type'] == -1 %}
-<link rel="stylesheet" type="text/css" href="static/sidebar.css">
-    {% endif %}
+  {% if session['type'] == -1 %}
+    <link rel="stylesheet" type="text/css" href="static/restaurant.css">
+    <link rel="stylesheet" type="text/css" href="static/sidebar.css">
+  {% endif %}
 <link rel="stylesheet" type="text/css" href="static/leaderboard.css">
 {% endblock style %}
 
@@ -64,9 +65,21 @@
 {% block leaderboard %}_pressed{% endblock leaderboard %}
 
 {% block page_name %}
+  <div class = small_option_bar_container>
+    <div class = parent>
+      <div class = small_option_bar>
+        <a href="restaurant{{ rid }}"><img src="static/Resources/home.png" alt="Coupon"></a>
+        <a href="couponOffers{{ rid }}"><img src="static/Resources/coupon.png" alt="Coupon" class = coupon></a>
+        <a href="availableAchievements{{ rid }}"><img src="static/Resources/achievement.png" alt="Achievement"></a>
+        <a href="milestones{{ rid }}"><img src="static/Resources/flag.png" alt="Milestones"></a>
+        <a href="leaderBoard{{ rid }}"><img src="static/Resources/leaderboard_pressed.png" alt="Achievement"></a>
+      </div>
+    </div>
+  </div>
+
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Leaderboard at {{ rname }}
         </div>
       </div>

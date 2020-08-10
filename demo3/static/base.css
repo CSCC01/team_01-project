@@ -1,0 +1,264 @@
+/*                                                  *
+*                                                   *
+*             Styling used by base.html             *
+*                                                   *
+*                                                   */
+
+/*                                                  *
+*   Styling the nav bar, at the top of every page.  *
+*                                                   */
+/* The header box that holds the logo and icons for signed in users */
+header {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--forground);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-top: -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    z-index: 10;
+
+    /* Adds the gradient line just below the header box */
+    background:linear-gradient(to left, var(--pink), var(--orange), var(--red))bottom no-repeat;
+    background-size:100% 2px;
+    background-color: var(--forground);
+}
+
+/* Style for the gradient logo in the top left corner */
+.logo {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight:700;
+  font-size: var(--logo);
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* floats the icons to the right */
+.parent:first-of-type > div:last-child { order: -1; }
+
+/* Styles the box that holds the icons in the nav bar */
+.icons {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Styling the icon images in the nav bar */
+.icons img,
+.menu img {
+    width: 30px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Rotates the coupon image in the nav bar */
+.coupon_large, .coupon {
+  transform: rotate(-20deg);
+}
+
+.achievement_large {
+  margin: 0px;
+}
+
+/* Turns the menu invisable - gets overrun if screen turns to mobile */
+.menu {
+  display: none;
+}
+
+
+/*                                                  *
+*   Styling the blocks that all content is in.      *
+*                                                   */
+/* Sets the background to light grey and the default font for elements */
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: var(--light);
+    background-color: var(--background);
+}
+
+/* Styles for the white boxes that contain all content */
+.parent {
+  background-color: var(--forground);
+  margin: 20px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Sets the max size for the white boxes to 700px */
+.parent {
+  max-width: 700px;
+}
+
+/* The styling in is used when the tab size is smaller then 1000px */
+@media screen and (max-width:1000px)  {
+  /* When the window is smaller then 1000px, change the max-width of the white boxes */
+  .parent {
+    max-width: 70%;
+  }
+}
+
+
+/*                                                  *
+*   Styling the footer at the bottom of all pages.  *
+*                                                   */
+/* Styling of the box that holds the footer */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+/* Styling of individual elements in footer */
+footer div {
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: var(--extra-light);
+    color: var(--black);
+    align-self: center;
+    font-size: var(--mini);
+}
+
+
+/*                                                  *
+*   Styling for dropdown menus                      *
+*                                                   */
+/* Disables the extra icons from showing up in the nav bar */
+.small_window,
+.small_icon {
+  display: none;
+}
+
+/* Styling for the drop down menu that appears when the screen is smaller then 700px */
+.dropdown_container {
+  display: none;
+  position: absolute;
+  background-color: var(--forground);
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 100;
+  margin-top: 15px;
+}
+
+/* Styling the links in the dropdown menu */
+.dropdown_container a {
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  font-size: var(--body);
+}
+
+/* Styling for when a dropdown options is hovered over */
+#coupon a:hover,
+#achievement a:hover {
+  background-color: var(--purpleGrey);
+}
+
+
+/* This is used when the tab size is smaller then 700px */
+@media only screen and (max-width: 700px) {
+    /* Disables the sidebar when the screen become to small for it */
+    .sidenav {
+      display: none;
+    }
+
+    /* Disables the icons that directly link to pages for owners*/
+    .coupon_large,
+    .achievement_large {
+      display: none;
+    }
+
+    /* Shows the new dropdown icons */
+    .small_window {
+      display: block;
+      margin-left: -6px;
+      margin-right: -6px;
+    }
+
+    .small_icon {
+      display: block;
+    }
+}
+
+
+/*                                                  *
+*   Styling for mobile Base.                        *
+*                                                   */
+@media screen and (max-width:550px)  {
+  /* Sets the max size for the white boxes to 70% of the windows width */
+  .parent {
+    max-width: 85%;
+  }
+
+  /* Makes all the icons in the nav bar invisable */
+  .icons {
+    display: none;
+  }
+
+  /* Makes the menu icon visable */
+  .menu {
+    display: block;
+  }
+}
+
+/*                                                  *
+*   Styling for mobile dropdown menus               *
+*                                                   */
+.dropdown_menu_container {
+  display: none;
+  position: absolute;
+  left: 0px;
+  background-color: var(--forground);
+  min-width: 100%;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 100;
+  margin-top: 15px;
+  padding-top: 10px;
+}
+
+.dropdown_menu_container a {
+  color: black;
+  padding-left: 30px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  text-decoration: none;
+  display: block;
+  font-size: var(--body);
+}
+
+/* Styles the labels in the dropdown menu*/
+.menu .label {
+  font-weight: var(--semi-bold);
+  padding-left: 5px;
+}
+
+/* Styles the lines in the dropdown menu */
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to left, var(--pink), var(--orange), var(--red));
+}
+
+
+
+/* This class gets applied to dropdown menus when they are pressed */
+.show {
+  display: block;
+}

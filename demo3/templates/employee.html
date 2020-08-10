@@ -15,7 +15,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Employees
         </div>
         {% if session["type"] == 1 %}
@@ -59,7 +59,7 @@
       {% if filter == 1 or (filter == 2 and e["type"] == 2) or (filter == 0 and e["type"] == 0) %}
         <div class = parent>
           <div class = title>
-            <div class = name>
+            <div class = subsubtitle>
               {{ e["name"] }}
             </div>
             {% if session["type"] == 1 %}
@@ -79,14 +79,16 @@
             </div>
             {% endif %}
           </div>
-          <div class = email>
+          <div class = body>
             Email: {{ e["email"] }}
           </div>
+          <div class = body>
             {% if e["type"] == 2 %}
               Employee Type: Manager
             {% else %}
               Employee Type: Regular
             {% endif %}
+          </div>
         </div>
       {% endif %}
     {% endfor %}

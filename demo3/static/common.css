@@ -4,12 +4,10 @@
 *                                                   *
 *                                                   */
 
-/* Defining constants used in all .CSS files */
-
 /* imports the google font used within the pickeasy app */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
-/* All constants used thoughout HTML files */
+/* Defining constants used in all .CSS files */
 :root {
     /* Colours */
     --background: #f8f8f9;
@@ -21,293 +19,40 @@
     --darkGrey: #6b6b6b;
     --purpleGrey: #C9C9CF;
 
-
-    /* font sizes */
-    --logo: 30px;
-    --body: 15px;
+    /* Font sizes */
+    --logo: 32px;
     --title: 25px;
-    --mini: 12px;
-    --subtitle: 18px;
+    --headline: 28px;
     --sidetitle:20px;
+    --subtitle: 22px;
+    --subsubtitle: 18px;
+    --body: 15px;
+    --mini: 12px;
+
+    /* Font weights */
+    --thin: 100;
+    --extra-light: 200;
+    --light: 300;
+    --regular: 400;
+    --medium: 500;
+    --semi-bold: 600;
+    --bold: 700;
+    --extra-bold: 800;
 
     /* line height */
     --lh: 1.5;
 
-    /* page sizes */
-    --maxWidth: 700px;
+    /* Page sizes */
+    --normal: 700px;
+    --mobile: 550px;
 }
-
-/* The header box that holds the logo and icons */
-header {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--forground);
-    display: flex;
-    justify-content: space-between;
-    align-items:center;
-    flex-direction: row;
-    position: sticky;
-    top: 0;
-    margin-left: -8px;
-    margin-right: -8px;
-    margin-top: -8px;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 8px;
-    z-index: 10;
-
-    background:linear-gradient(to left, var(--pink), var(--orange), var(--red))bottom no-repeat;
-    background-size:100% 2px;
-    background-color: var(--forground);
-}
-
-.line hr {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to left, var(--pink), var(--orange), var(--red));
-  position: sticky;
-  margin-left: -8px;
-  margin-right: -8px;
-  margin-top: -8px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 8px;
-}
-
-/* floats the icons to the left */
-.parent:first-of-type > div:last-child { order: -1; }
-
-/* The box that holds the icons */
-.icons {
-  display: flex;
-  flex-direction: row;
-}
-
-/* Style for the gradient logo */
-.logo {
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-weight:700;
-  font-size: var(--logo);
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-/* Styling for the header icons to the left */
-.icons img {
-    width: 30px;
-    height: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-
-/* Sets the background */
-body {
-    font-family: 'Poppins', sans-serif;
-    font-weight:300;
-    background-color: var(--background);
-}
-
+/*                                                  *
+*   Removing default styling on elements            *
+*                                                   */
 /* Removed styles on pressed links */
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: var(--white);
-}
-
-/* This is used when the tab size is bigger then 1000px */
-@media (max-width: 1000px) {
-    .parent {
-      max-width: 70%;
-    }
-}
-
-/* This is used when the tab size is smaller then 1000px */
-@media (min-width: 1000px) {
-    .parent {
-      max-width: 700px;
-    }
-}
-
-/* Styles for the white boxes */
-.parent {
-  background-color: var(--forground);
-  margin: 20px;
-  margin: 0 auto;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-/* Styles for the white boxes in QR scanning page */
-.parent_qr {
-  background-color: var(--forground);
-  margin: 20px;
-  margin: 0 auto;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items:center;
-  flex-direction: row;
-  font-weight:600;
-}
-
-/* Styles the page title */
-.text {
-  font-size: var(--title);
-}
-
-.subtext {
-  font-size: var(--subtitle);
-}
-
-/* Styling of the box that holds the footer */
-footer {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-evenly;
-}
-
-/* Styling of individual elements in footer */
-footer div {
-    margin-top: 20px;
-    font-family: 'Poppins', sans-serif;
-    font-weight:200;
-    color: var(--black);
-    align-self: center;
-    font-size: var(--mini);
-}
-
-.line {
-  margin-top: -8px;
-}
-
-.fine_print {
-  font-size: var(--mini);
-  color: var(--darkGrey);
-}
-
-/* Rotates the coupon image */
-.coupon_large, .coupon {
-  transform: rotate(-20deg);
-}
-
-.but button {
-  display: flex;
-  flex-direction: row;
-  align-items:center;
-}
-
-/* Styles the little images next to the sidebar options */
-.but img {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  margin-left: 5px;
-  padding-right: 5px;
-  position: relative;
-}
-
-/* Styling for sidebar buttons */
-.but button {
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-  height: auto;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  border-radius: 5px;
-  font-weight: 300;
-  font-size: var(--body);
-  text-align: left;
-  cursor: pointer;
-}
-
-/* Styles the sidebar buttons when hovering over them */
-.but button:hover {
-  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
-  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
-  color:transparent;
-  color: var(--forground);
-  font-size: var(--body);
-}
-
-/* Turns the black icon images white when hovering over button */
-.but button:hover img{
-  -webkit-filter: invert(100%);
-}
-
-
-/* Removed styling from the coupon icon in the header */
-.coupon button {
-  border: none;
-  background: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
-
-
-/* Styling for the drop down menu when the screen size is too small */
-.dropdown_container {
-  display: none;
-  position: absolute;
-  background-color: var(--forground);
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 100;
-  margin-top: 15px;
-}
-
-.dropdown_container a {
-  color: black;
-  padding: 10px 14px;
-  text-decoration: none;
-  display: block;
-  font-size: var(--body);
-}
-
-#dropdown a:hover {
-  background-color: var(--purpleGrey);
-}
-
-.show {
-  display: block;
-}
-
-
-/* This is used when the tab size is bigger then 1000px */
-@media only screen and (max-width: 700px) {
-    .parent {
-      max-width: 70%;
-    }
-    .sidenav {
-      display: none;
-    }
-    .coupon_large {
-      display:none;
-    }
-}
-
-/* This is used when the tab size is smaller then 1000px */
-@media only screen and (min-width: 700px) {
-  /* Changes the size of the boxes so side bar does not overlap */
-  .small_window {
-    display: none;
-  }
 }
 
 /* Removed initial styling from buttons */
@@ -319,48 +64,148 @@ button, input {
   cursor: pointer;
 }
 
-.settings_dropdown img {
-  /* Change this value to move the settings icon down / up */
-  margin-bottom: -3px;
-  width: 20px;
-  height: 20px;
-  z-index: 1;
+
+/*                                                  *
+*   Styling the first parent block on each page     *
+*                                                   */
+/* Styling of the box that holds the heading and icons */
+.title {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-.settings_dropdown {
-  position: relative;
-  display: inline-block;
+/* The page name at the top of each page ie. login */
+.headline {
+  font-size: var(--headline);
+  font-weight: var(--semi-bold);
 }
 
-.options {
-  display: none;
-  position: absolute;
-  background-color: var(--background);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 10;
+
+
+/*                                                  *
+*   Styling for types of text                       *
+*                                                   */
+/* Styling for subtitles in parent blocks */
+.subtitle {
+  font-size: var(--subtitle);
+  font-weight: var(--semi-bold);
+  margin-bottom: 8px;
 }
 
-.options input {
+/* Styles bodies of text */
+.body {
+  font-size: var(--body);
+}
+
+/* Text for block titles */
+.subsubtitle {
+  font-size: var(--subsubtitle);
+  font-weight: var(--semi-bold);
+}
+
+.description {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: var(--body);
+}
+
+.mini {
+  font-size: var(--mini);
+  color: var(--darkGrey);
+}
+
+/* Styling little text */
+.fine_print {
+  font-size: var(--mini);
+  color: var(--darkGrey);
+}
+
+/* Turns test to a pink-orange gradient colour */
+.textGradient {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Styles the plus button beside the headline */
+.plus {
+  font-size: 40px;
+  font-weight: var(--medium);
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: text;
+}
+
+.bold {
+  font-weight: var(--semi-bold);
+}
+
+/* Puts children in a row formate */
+.row {
+  display: flex;
+  direction: row;
+}
+
+.container {
+ padding-top: 15px;
+}
+
+
+/*                                                  *
+*   Styling for the long see more buttons           *
+*                                                   */
+/* Styles for the long see more button */
+.seeMore button {
   font-family: 'Poppins', sans-serif;
+  color: var(--pink);
+  margin-top: 15px;
   width: 100%;
-  padding: 10px 14px;
-  text-decoration: none;
-  display: block;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: var(--body);
+  text-align: center;
+  cursor: pointer;
 }
 
-.options input:hover {
-  background-color: var(--purpleGrey);
+/* Styles for the long see more button when hovering */
+.seeMore button:hover {
+  background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
+  background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
+  color:transparent;
+  -webkit-background-clip: background;
+  background-clip: background;
+  color: var(--forground);
 }
 
-.settings_dropdown:hover .options {
-  display: block;
+/* Styles the text on the see more button */
+.seeMore .textGradient {
+  height: 40px;
+  margin-top: 8px;
 }
 
-/* Styles the container for the achievement filter bar */
-.filter_nav_container .parent{
+/* Styles the text on the see more button when hovering over it */
+.seeMore .textGradient:hover {
+  color: var(--forground);
+}
+
+
+/*                                                  *
+*   Styling for filtering                           *
+*                                                   */
+/* Styles the container for filter bars */
+.filter_nav_container .parent {
   background-color: transparent
 }
 
+/* */
 .filter_nav {
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -392,6 +237,55 @@ button, input {
   color: var(--forground);
 }
 
-.subtitle {
-  font-size: var(--subtitle);
+
+
+
+
+
+
+
+/*                                                  *
+*   Styling setting gears                           *
+*                                                   */
+/* Setting styles for the gear icon*/
+.settings_dropdown img {
+  margin-bottom: -3px;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+}
+
+/* Styling the dropdown container*/
+.settings_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Styling each element inside the dropdown*/
+.options {
+  display: none;
+  position: absolute;
+  background-color: var(--background);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+/* Styling the submit inputs within the dropdown */
+.options input {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  margin: 0px;
+}
+
+/* Styling when submit inputs are hovered over */
+.options input:hover {
+  background-color: var(--purpleGrey);
+}
+
+/* Triggered when the gear icon is hovered over */
+.settings_dropdown:hover .options {
+  display: block;
 }

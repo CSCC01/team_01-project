@@ -6,8 +6,9 @@
 
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" type="text/css" href="static/sidebar.css">
+<link rel="stylesheet" type="text/css" href="static/restaurant.css">
 <link rel="stylesheet" type="text/css" href="static/milestone.css">
+<link rel="stylesheet" type="text/css" href="static/sidebar.css">
 {% endblock style %}
 {% block title %}
 <title>Milestones</title>
@@ -63,9 +64,21 @@
 
 
 {% block page_name %}
+  <div class = small_option_bar_container>
+    <div class = parent>
+      <div class = small_option_bar>
+        <a href="restaurant{{ rid }}"><img src="static/Resources/home.png" alt="Coupon"></a>
+        <a href="couponOffers{{ rid }}"><img src="static/Resources/coupon.png" alt="Coupon" class = coupon></a>
+        <a href="availableAchievements{{ rid }}"><img src="static/Resources/achievement.png" alt="Achievement"></a>
+        <a href="milestones{{ rid }}"><img src="static/Resources/flag_pressed.png" alt="Milestones"></a>
+        <a href="leaderBoard{{ rid }}"><img src="static/Resources/leaderboard.png" alt="Achievement"></a>
+      </div>
+    </div>
+  </div>
+
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Milestones
         </div>
       </div>
@@ -103,13 +116,13 @@
     <div class = table>
       <div class = header>
         <div class = columns>
-          <div class = child>
+          <div class = subsubtitle>
             Level
           </div>
-          <div class = child>
+          <div class = subsubtitle>
             Reward Points
           </div>
-          <div class = child>
+          <div class = subsubtitle>
             Status
           </div>
         </div>

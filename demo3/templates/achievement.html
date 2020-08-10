@@ -16,6 +16,8 @@
 {% endblock title %}
 
 {% block achievement %}_pressed{% endblock achievement %}
+{% block achievement1 %}_pressed{% endblock achievement1 %}
+{% block achievement2 %}_pressed{% endblock achievement2 %}
 
 {% block sidebar %}
 {% if session['type'] == 1  or session['type'] == 2 %}
@@ -55,7 +57,7 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Achievements
         </div>
         {% if session["type"] == 1 or session["type"] == 2%}
@@ -71,7 +73,7 @@
   {% for a in achievements %}
       <div class = parent>
         <div class = title>
-          <div class = name>
+          <div class = subsubtitle>
             {{ a["name"] }}
           </div>
           {% if session["type"] == 1 or session["type"] == 2 %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>Home</title>
+<title>Scanning</title>
 {% endblock title %}
 
 {% block icons %}
@@ -26,9 +26,12 @@
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
-          Scan Failed! Please make sure you have access at {{ rname }}.
+        <div class = headline>
+          Scan Failed!
         </div>
+      </div>
+      <div class = subsubtitle>
+        Please make sure you have access at {{ rname }}.
       </div>
     </div>
 {% endblock page_name %}

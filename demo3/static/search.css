@@ -11,9 +11,8 @@
   text-align: right;
 }
 
-.name {
-  font-weight:700;
-  font-size: var(--subtitle);
+.subtitle {
+  margin-bottom: 0px;
 }
 
 
@@ -31,6 +30,5 @@
 
 
 .goto input[type = submit] {
-  margin-bottom: -1px;
   width: 100px;
 }

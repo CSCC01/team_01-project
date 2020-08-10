@@ -8,11 +8,12 @@
 <title>Restaurant Info</title>
 {% endblock title %}
 
+{% block profile %}_pressed{% endblock profile %}
 
 {% block page_name %}
     <div class = parent>
       <div class = title>
-        <div class = text>
+        <div class = headline>
           Edit Restaurant Information
         </div>
       </div>
@@ -23,10 +24,12 @@
 
 {% if errmsg %}
   <div class = parent>
-    Could not edit restaurant information because of the following: <br>
-    {% for msg in errmsg %}
-      <li>{{msg}} </li>
-    {% endfor %}
+    <div class = body>
+      Could not edit restaurant information because of the following: <br>
+      {% for msg in errmsg %}
+        <li>{{msg}} </li>
+      {% endfor %}
+    </div>
   </div>
 {% endif %}
       <div class = "parent">

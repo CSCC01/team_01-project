@@ -161,3 +161,25 @@ select {
 	font-weight: 300;
 	font-size: var(--body);
 }
+
+
+
+/*                                                  *
+*   Styling for mobile submission feilds            *
+*                                                   */
+/* This is used when the tab size is smaller then 1000px */
+@media screen and (max-width:550px)  {
+  /* turns text fields that where columns into rows if the screen to small */
+  .col {
+		flex-direction: column;
+	}
+
+	/* Removes margin adjustments on .col childern */
+	.col .feild:nth-child(1) {
+	  margin-right: 0px;
+	}
+
+	.col .feild:nth-child(2) {
+	  margin-left: 0px;
+	}
+}
