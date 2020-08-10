@@ -184,6 +184,10 @@ progress::-webkit-progress-value {
   cursor: default;
 }
 
+/* Styles fine print for next milestone goal */
+.fine_print .milestone {
+  text-align: center;
+}
 
 /* Styles button for purchasing coupons */
 .toPoor input[type = submit] {
