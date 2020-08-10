@@ -24,11 +24,19 @@
 
 .right_container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  top: 18px;
+  margin-right: 15px;
 }
 
 
 .goto input[type = submit] {
   width: 100px;
+}
+
+.left_container {
+  margin-left: -14px;
+  position: relative;
+  top: 12px;
 }
