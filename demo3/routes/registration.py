@@ -67,7 +67,7 @@ def owner_register():
         rname = request.form['rname']
 
         errmsg, uid = insert_new_user(name, email, password, password2, 1)
-        errmsg = get_errmsg(rname, address, errmsg)
+        errmsg = get_errmsg_registration(rname, address, errmsg)
 
         if uid:
             insert_new_restaurant(rname, address, uid)

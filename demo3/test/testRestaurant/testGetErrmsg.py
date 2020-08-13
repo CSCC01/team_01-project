@@ -3,7 +3,7 @@ from models import User, Coupon, Restaurant, Employee
 from models import db
 import time
 from app import app
-from databaseHelpers.restaurant import *
+from databaseHelpers.restaurant import get_errmsg_registration as get_errmsg
 
 
 class InsertRestaurantTest(unittest.TestCase):

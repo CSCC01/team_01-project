@@ -184,7 +184,7 @@ def get_rid_by_aid(aid):
         return a.rid
     return "Not Found"
 
-def get_errmsg(rname, address, errmsg):
+def get_errmsg_registration(rname, address, errmsg):
     """
     Returns a list of errmsg that occur when insering an owner account
 
