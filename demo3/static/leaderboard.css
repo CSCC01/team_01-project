@@ -4,13 +4,14 @@
 *                                                   *
 *                                                   */
 
-
+/* Styles the icons for the top 3 customers */
 .rank img {
   height: 30px;
   margin-left: -6px;
   margin-right: -7px;
 }
 
+/* Styles the bubble container each customer ranking is in */
 .ranking,
 .ranking_mine {
   font-size: var(--subsubtitle);
@@ -24,10 +25,12 @@
   justify-content: space-between;
 }
 
+/* Moved the leaderboard titles over*/
 .title {
   margin-left: 10px;
 }
 
+/* Styles the text within the header of the leaderboard table */
 .title .rank,
 .title .username,
 .title .level,
@@ -36,6 +39,7 @@
   font-weight: var(--semi-bold);
 }
 
+/* Styles the elements within the leaderboard table */
 .ranking .username,
 .ranking_mine .username,
 .ranking .level,
@@ -46,18 +50,21 @@
   top: 1px;
 }
 
+/* Styles the elements of the leaderboard table */
 .ranking div,
 .ranking_mine div {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
+/* Styles the elements of the leaderboard table */
 .ranking .rank,
 .ranking_mine .rank {
   margin-left: 15px;
   magrin-right: 15px;
 }
 
+/* Styles the current of the leaderboard table */
 .ranking_mine {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));
@@ -65,41 +72,49 @@
   color: white;
 }
 
+/* Styles icon in the top 3 for current user */
 .ranking_mine img {
   -webkit-filter: invert(100%);
 }
 
-
+/* Styles background of the container bubbles*/
 .ranking {
   background-color: lightgray;
 }
 
+/* Styles width of the first column */
 .rank {
   width: 18%;
 }
 
+/* Styles width of the second column */
 .username {
   width: 45%;
 }
 
+/* Styles width of the third column */
 .level {
   width: 18%;
 }
 
+/* Styles width of the forth column */
 .experience {
   width: 20%;
 }
 
+/* Bolds number elements within the table */
 .level,
 .experience {
   font-weight: var(--semi-bold);
 }
 
+/* Fixes alignment of names */
 .ranking .username,
 .ranking_mine .username {
   margin-left: -5px;
 }
 
+/* Styles the level elements in the table to be pink */
 .ranking .level {
   background-image: -webkit-linear-gradient(left, var(--pink), var(--orange), var(--red));
   background-image:         linear-gradient(to right, var(--pink), var(--orange), var(--red));

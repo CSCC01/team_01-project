@@ -1,3 +1,10 @@
+/*                                                  *
+*                                                   *
+*        JS used in createAchievement.html          *
+*                                                   *
+*                                                   */
+
+/* Displays and hides achievement types */
 document.getElementById("type").addEventListener('change', function (e) {
   if (e.target.value === "0") {
     document.getElementById("type0").style.display = "flex";
@@ -23,6 +30,7 @@ document.getElementById("type").addEventListener('change', function (e) {
   }
 });
 
+/* Displays and hides begin and end dates depending on if the checkbox is marked */
 function checkbox(dates) {
     var cb = document.getElementsByName("indefinite");
     var visability = "flex";
