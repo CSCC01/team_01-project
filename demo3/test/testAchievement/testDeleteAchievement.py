@@ -4,6 +4,8 @@ from databaseHelpers.achievement import *
 from models import db
 from models import Achievements
 
+# The idea of how to do unittest set up in flask comes from
+# https://www.patricksoftwareblog.com/unit-testing-a-flask-application/
 
 class DeleteAchievementTest(unittest.TestCase):
     """

@@ -4,6 +4,8 @@ import os
 import config
 from pathlib import Path
 
+# the method of generating qr code comes from
+# https://note.nkmk.me/en/python-pillow-qrcode/
 def to_qr(url, uid, cid):
     img = qrcode.make(url)
     if config.STATUS == 'TEST':
