@@ -1,5 +1,10 @@
 # encoding: utf-8
 
+# Sources:
+# - CSCB20
+# - https://www.youtube.com/watch?v=MwZwr5Tvyxo
+# - https://www.youtube.com/watch?v=QnDWIZuWYW0
+
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from models import db
 from datetime import date
