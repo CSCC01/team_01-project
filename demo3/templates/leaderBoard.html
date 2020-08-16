@@ -111,6 +111,7 @@
            <div class = "ranking{%if session['account'] == l["uid"]%}_mine{% endif %}">
               {% if l["rank"] < 4 %}
               <div class = rank>
+                <!--Icons edited from https://www.iconsdb.com/red-icons/new-icon.html-->
                 <img src="static/Resources/rank{{ l["rank"] }}.png" alt="Rank {{ l["rank"] }}">
               </div>
               {% else %}
