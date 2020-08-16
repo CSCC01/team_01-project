@@ -70,6 +70,8 @@
   font-weight: 600;
 }
 
+/* All progress bar styling referenced from https://css-tricks.com/html5-progress-element/ */
+
 /* Styles the progression bar */
 progress {
   width: 100%;

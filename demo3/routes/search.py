@@ -44,7 +44,8 @@ def search():
     else:
         return render_template('search.html')
 
-
+# Referenced from
+# https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 @search_page.route('/restaurant<rid>.html', methods=['GET', 'POST'])
 @search_page.route('/restaurant<rid>', methods=['GET', 'POST'])
 def restaurant(rid):
